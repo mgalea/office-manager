@@ -40,7 +40,7 @@
                                     <td class="table-action">
 
                                         <a href="<?php echo URL . DIR_ROUTE . 'contact/edit&id=' . $value['id']; ?>" class="btn btn-success btn-circle  " data-toggle="tooltip" title="<?php echo $lang['common']['text_edit']; ?>"><i class="icon-pencil"></i></a>
-                                        <p class="btn btn-danger btn-circle  table-delete" data-toggle="tooltip" title="<?php echo $lang['common']['text_delete']; ?>"><i class="icon-trash"></i><input type="hidden" value="<?php echo $value['id']; ?>"></p>
+                                        <span class="btn btn-danger btn-circle  table-delete" data-toggle="tooltip" title="<?php echo $lang['common']['text_delete']; ?>"><i class="icon-trash"></i><input type="hidden" value="<?php echo $value['id']; ?>"></span>
                                     </td>
                                 </tr>
                             

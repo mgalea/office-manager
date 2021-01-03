@@ -1,10 +1,70 @@
 
-.fc-header-toolbar {
+.fc {
+	background-color: rgba(255, 130, 41, 0.8);
+	padding:10px;
+
+	th, .fc-axis, .fc-list-heading {
+		background: #716aca !important;
+		border-color: rgb(220, 20, 60) !important;
+		color:$colorE !important;
+	}
+
+	td {
+		background: rgba(255, 255, 200, .5) !important;
+		border-color: rgb(220, 20, 60) !important;
+
+		.fc-sun, .fc-sat{
+			background: #f0d0a0 !important;
+			color: $color3 !important;
+		}
+	}
+
+	.fc-day-number{
+		color: $color-danger;
+		font-size: $mediumFont;
+	}
+
+	.fc-list-table td {
+		color: $color3 !important;
+	}
+
+	.fc-state-highlight {
+		background-color: rgba(255, 130, 41, 0.8) !important;
+	}
+
 	
-	button {
-		font-size: 14px;
+	.fc {
+		background-color: rgba(255, 130, 41, 0.8) !important;
+	}
+}
+@media only screen and (max-width: 480px) {
+
+	.fc {
+		.fc-day-number{
+			color: $color-danger;
+			font-size: $smallFont;
+		}
+
+		.fc-axis {
+			font-size: $xsmallFont;
+		}
+	}
+}
+
+.fc-header-toolbar {
+
+	h2 {
+		font-size: $largeFont !important;
+		color: $colorF !important;
+	}
+	
+	.fc-button {
+		font-size: $smallFont;
 		padding: 10px;
 		font-weight: 300;
+		color: $colorF;
+		background-color: rgb(220, 20, 60) !important;
+
 		&:active {
 			color: $color3;
 			background: $colorF;
@@ -16,7 +76,7 @@
 	}
 	td {
 		padding: 1px 7px;
-		background: #fff;
+		background: rgba(255, 255, 255, 1) ;
 		border-color: $colorE;
 	}
 	
@@ -40,15 +100,39 @@
 		border-top-right-radius: 4px;
 		border-bottom-right-radius: 4px;
 	}
+	.fc-today-button .fc-state-disabled {
+		font-size: $mediumFont;
+		padding: 10px;
+		font-weight: 300;
+		color: $colorF;
+		border-color: rgba(220, 20, 60, .5) !important;
+		border-width: 2px;
+
+		&:active {
+			color: $color3;
+			background: $colorF;
+		}
+
+		&:focus {
+			outline: none; 
+		}
+	}
 }
 
-.fc-event {
-	background-color: $colorF;
-	color: $color3;
-	border: 1px solid $colorE;
-	box-shadow: 2px 1px 11px 0px rgba(97, 97, 97, 0.21);
-	border-radius: 2px;
+@media only screen and (max-width: 480px) {
+	.fc-header-toolbar{
+		font-size: $xsmallFont;
+	}
+
+	.fc td th, 
+	.fc .fc-title{
+		font-size: $xsmallFont;
+	}
+	.fc-today-button {
+		display:none;
+	}
 }
+
 
 .fc-event-gradient {
 	background: linear-gradient(to left, rgba(255, 255, 255, 0) 25%, rgba(255, 255, 255, 0.45));
@@ -243,6 +327,7 @@
 		background: $color-white;
 		border-color: $color3;
 	}
+
 }
 
 .fc-event.fc-start.fc-event-solid-black {
@@ -285,6 +370,7 @@
 
 	.fc-event-container {
 		padding: 16px 16px 10px 16px;
+		background-color: transparent !important;
 	}
 
 	.fc-event {

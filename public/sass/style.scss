@@ -112,6 +112,13 @@ body {
 *************************************************/
 @import "_typography.scss";
 
+
+/************************************************
+[ CALENDAR CSS START ] ************************
+*************************************************/
+@import "_calendar.scss";
+
+
 /************************************************
 [ COMMON CSS START ] *****************************
 *************************************************/
@@ -525,7 +532,7 @@ div.dataTables_wrapper {
 
 #logo {
     line-height: 76px;
-    background: rgba(255, 255, 255, .05);
+    //background: rgba(255, 255, 255, .00);
     overflow: hidden;
     transition: all 0.3s ease-in-out;
 
@@ -1012,7 +1019,7 @@ div.dataTables_wrapper {
     vertical-align: middle;
     line-height: 76px;
     overflow: hidden;
-    background: rgba(40, 42, 60, 0.95);
+    //background: rgba(40, 42, 60, 0.95);
     transition: all 0.3s ease-in-out;
 
     a {
@@ -1305,7 +1312,7 @@ div.dataTables_wrapper {
 }
 
 .menu-quick-links {
-    >a {
+    a {
         //color: $colorF!important;
         //background-color: $color-warning;
         //border-color: $color-warning;
@@ -1430,6 +1437,8 @@ div.dataTables_wrapper {
     margin: 0 auto;
 }
 
+
+
 /**************************************************
 [ TABLE CSS START] *********************************
 //*************************************************/
@@ -1438,7 +1447,8 @@ div.dataTables_wrapper {
 .table-container {
     background: rgba(0, 0, 0, 0.2);
     box-shadow: 0 0 10px 0 rgba(218, 218, 218, 0.1);
-
+    box-sizing: border-box;
+    overflow: hidden;
     th {
         font-size: 14px;
         font-weight: 500;
@@ -2073,16 +2083,15 @@ select.form-transparent {
 
     input {
         height: auto;
-        padding: 10px 12px 10px 12px;
-        padding: 1px 20px;
+        padding: 0px 15px 0px 15px;
         border: 0;
         color: $colorE;
-        border-radius: 40px !important;
+        border-radius: 10px !important;
         background: $color3;
 
         &:focus {
-            color: $colorE;
-            background: #3d3e5a;
+            color: $color3;
+            background: $color-warning;
         }
     }
 
@@ -2125,8 +2134,9 @@ select.form-transparent {
 .lgn-footer {
     text-align: center;
     padding: 10px 0;
-    margin: 0 10px 10px 10px;
+    margin: 0 15px 10px 15px;
     background: rgba(238, 238, 238, 0.32);
+    border-radius: 10px;
 
     p {
         color: $color-primary-4;

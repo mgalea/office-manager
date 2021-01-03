@@ -425,10 +425,12 @@
 
 
 div.dataTables_wrapper {
+	box-sizing: border-box;
 	font-size: $sMediumFont;
 	padding: 10px 25px 25px 25px;
 	background-color: rgba(0, 0, 0, 0);
 	box-shadow: 0 0 10px 0 rgba(218, 218, 218, 0.1);
+	overflow: hidden;
 
 
 	div.dataTables_info {

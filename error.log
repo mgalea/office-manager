@@ -964,3 +964,122 @@
 [02-Jan-2021 18:10:43 UTC] PHP Notice:  Undefined index: email in C:\www\RNGportal\app\views\company\company_view.tpl.php on line 125
 [02-Jan-2021 18:10:43 UTC] PHP Notice:  Undefined index: company in C:\www\RNGportal\app\views\company\company_view.tpl.php on line 126
 [02-Jan-2021 18:10:43 UTC] PHP Notice:  Undefined index: contact in C:\www\RNGportal\app\views\company\company_view.tpl.php on line 130
+[03-Jan-2021 12:51:10 UTC] PHP Notice:  session_start(): ps_files_cleanup_dir: opendir(C:\Windows\TEMP) failed: No error (0) in C:\www\RNGportal\builder\libs\Session.php on line 21
+[03-Jan-2021 14:29:55 UTC] PHP Notice:  Undefined index: text_calendar in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 14
+[03-Jan-2021 14:32:16 UTC] PHP Notice:  Undefined variable: result in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 113
+[03-Jan-2021 14:32:19 UTC] PHP Notice:  Undefined variable: result in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 113
+[03-Jan-2021 14:32:58 UTC] PHP Notice:  Undefined variable: result in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 113
+[03-Jan-2021 14:33:18 UTC] PHP Notice:  Undefined variable: result in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 113
+[03-Jan-2021 14:35:13 UTC] PHP Notice:  Undefined variable: result in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 112
+[03-Jan-2021 14:36:25 UTC] PHP Notice:  Undefined variable: result in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 104
+[03-Jan-2021 14:38:06 UTC] PHP Notice:  Undefined index: calendar in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 103
+[03-Jan-2021 14:38:06 UTC] PHP Notice:  Undefined variable: action in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 106
+[03-Jan-2021 14:38:06 UTC] PHP Notice:  Undefined index: calendar in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 109
+[03-Jan-2021 14:38:06 UTC] PHP Notice:  Undefined index: calendar in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 114
+[03-Jan-2021 14:38:06 UTC] PHP Notice:  Undefined index: calendar in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 120
+[03-Jan-2021 14:38:06 UTC] PHP Notice:  Undefined index: calendar in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 125
+[03-Jan-2021 14:38:06 UTC] PHP Notice:  Undefined index: calendar in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 129
+[03-Jan-2021 14:38:06 UTC] PHP Notice:  Undefined index: calendar in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 134
+[03-Jan-2021 14:38:06 UTC] PHP Notice:  Undefined index: calendar in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 140
+[03-Jan-2021 14:38:06 UTC] PHP Notice:  Undefined index: calendar in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 144
+[03-Jan-2021 14:38:06 UTC] PHP Notice:  Undefined variable: result in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 195
+[03-Jan-2021 14:40:12 UTC] PHP Notice:  Undefined index: calendar in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 103
+[03-Jan-2021 14:40:12 UTC] PHP Notice:  Undefined variable: action in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 106
+[03-Jan-2021 14:40:12 UTC] PHP Notice:  Undefined index: calendar in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 109
+[03-Jan-2021 14:40:12 UTC] PHP Notice:  Undefined index: calendar in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 114
+[03-Jan-2021 14:40:12 UTC] PHP Notice:  Undefined index: calendar in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 120
+[03-Jan-2021 14:40:12 UTC] PHP Notice:  Undefined index: calendar in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 125
+[03-Jan-2021 14:40:12 UTC] PHP Notice:  Undefined index: calendar in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 129
+[03-Jan-2021 14:40:12 UTC] PHP Notice:  Undefined index: calendar in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 134
+[03-Jan-2021 14:40:12 UTC] PHP Notice:  Undefined index: calendar in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 140
+[03-Jan-2021 14:40:12 UTC] PHP Notice:  Undefined index: calendar in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 144
+[03-Jan-2021 14:40:12 UTC] PHP Notice:  Undefined variable: result in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 195
+[03-Jan-2021 14:45:59 UTC] PHP Notice:  Undefined index: calendar in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 103
+[03-Jan-2021 14:45:59 UTC] PHP Notice:  Undefined variable: action in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 106
+[03-Jan-2021 14:45:59 UTC] PHP Notice:  Undefined index: calendar in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 109
+[03-Jan-2021 14:45:59 UTC] PHP Notice:  Undefined index: calendar in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 114
+[03-Jan-2021 14:45:59 UTC] PHP Notice:  Undefined index: calendar in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 120
+[03-Jan-2021 14:45:59 UTC] PHP Notice:  Undefined index: calendar in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 125
+[03-Jan-2021 14:45:59 UTC] PHP Notice:  Undefined index: calendar in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 129
+[03-Jan-2021 14:45:59 UTC] PHP Notice:  Undefined index: calendar in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 134
+[03-Jan-2021 14:45:59 UTC] PHP Notice:  Undefined index: calendar in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 140
+[03-Jan-2021 14:45:59 UTC] PHP Notice:  Undefined index: calendar in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 144
+[03-Jan-2021 14:45:59 UTC] PHP Notice:  Undefined variable: result in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 195
+[03-Jan-2021 14:47:23 UTC] PHP Notice:  Undefined index: calendar in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 103
+[03-Jan-2021 14:47:23 UTC] PHP Notice:  Undefined variable: action in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 106
+[03-Jan-2021 14:47:23 UTC] PHP Notice:  Undefined index: calendar in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 109
+[03-Jan-2021 14:47:23 UTC] PHP Notice:  Undefined index: calendar in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 114
+[03-Jan-2021 14:47:23 UTC] PHP Notice:  Undefined index: calendar in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 120
+[03-Jan-2021 14:47:23 UTC] PHP Notice:  Undefined index: calendar in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 125
+[03-Jan-2021 14:47:23 UTC] PHP Notice:  Undefined index: calendar in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 129
+[03-Jan-2021 14:47:23 UTC] PHP Notice:  Undefined index: calendar in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 134
+[03-Jan-2021 14:47:23 UTC] PHP Notice:  Undefined index: calendar in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 140
+[03-Jan-2021 14:47:23 UTC] PHP Notice:  Undefined index: calendar in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 144
+[03-Jan-2021 15:16:24 UTC] PHP Notice:  Undefined index: calendar in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 104
+[03-Jan-2021 15:16:24 UTC] PHP Notice:  Undefined variable: action in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 107
+[03-Jan-2021 15:16:24 UTC] PHP Notice:  Undefined index: calendar in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 110
+[03-Jan-2021 15:16:24 UTC] PHP Notice:  Undefined index: calendar in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 115
+[03-Jan-2021 15:16:24 UTC] PHP Notice:  Undefined index: calendar in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 121
+[03-Jan-2021 15:16:24 UTC] PHP Notice:  Undefined index: calendar in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 126
+[03-Jan-2021 15:16:24 UTC] PHP Notice:  Undefined index: calendar in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 130
+[03-Jan-2021 15:16:24 UTC] PHP Notice:  Undefined index: calendar in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 135
+[03-Jan-2021 15:16:24 UTC] PHP Notice:  Undefined index: calendar in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 141
+[03-Jan-2021 15:16:24 UTC] PHP Notice:  Undefined index: calendar in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 145
+[03-Jan-2021 15:17:56 UTC] PHP Notice:  Undefined variable: calendar in C:\www\RNGportal\app\http\controllers\DashboardController.php on line 37
+[03-Jan-2021 15:17:56 UTC] PHP Notice:  Undefined variable: action in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 107
+[03-Jan-2021 15:19:14 UTC] PHP Notice:  Undefined index: text_calendar_event in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 104
+[03-Jan-2021 15:19:14 UTC] PHP Notice:  Undefined variable: action in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 107
+[03-Jan-2021 15:19:14 UTC] PHP Notice:  Undefined index: text_event_title in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 110
+[03-Jan-2021 15:19:14 UTC] PHP Notice:  Undefined index: text_event_title in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 115
+[03-Jan-2021 15:19:14 UTC] PHP Notice:  Undefined index: text_start_date in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 121
+[03-Jan-2021 15:19:14 UTC] PHP Notice:  Undefined index: text_start_date in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 126
+[03-Jan-2021 15:19:14 UTC] PHP Notice:  Undefined index: text_end_date in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 130
+[03-Jan-2021 15:19:14 UTC] PHP Notice:  Undefined index: text_end_date in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 135
+[03-Jan-2021 15:19:14 UTC] PHP Notice:  Undefined index: text_all_day_event_(Select_if_all_day_event) in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 141
+[03-Jan-2021 15:19:14 UTC] PHP Notice:  Undefined index: text_all_day_event in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 145
+[03-Jan-2021 15:20:02 UTC] PHP Notice:  Undefined variable: action in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 107
+[03-Jan-2021 15:20:46 UTC] PHP Notice:  Undefined variable: action in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 107
+[03-Jan-2021 15:24:17 UTC] PHP Notice:  Undefined variable: action in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 60
+[03-Jan-2021 15:25:45 UTC] PHP Notice:  Undefined variable: action in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 60
+[03-Jan-2021 15:26:31 UTC] PHP Notice:  Undefined variable: action in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 63
+[03-Jan-2021 15:26:55 UTC] PHP Notice:  Undefined variable: action in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 63
+[03-Jan-2021 15:31:38 UTC] PHP Notice:  Undefined variable: action in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 102
+[03-Jan-2021 15:31:50 UTC] PHP Notice:  Undefined variable: action in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 102
+[03-Jan-2021 15:45:31 UTC] PHP Notice:  Undefined property: DashboardController::$noteModel in C:\www\RNGportal\app\http\controllers\DashboardController.php on line 46
+[03-Jan-2021 15:45:31 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getNotes() on null in C:\www\RNGportal\app\http\controllers\DashboardController.php:46
+Stack trace:
+#0 C:\www\RNGportal\builder\engine\Router.php(52): DashboardController->index()
+#1 C:\www\RNGportal\builder\engine\Router.php(41): Router->dispatch(Array)
+#2 C:\www\RNGportal\builder\bootstrap.php(82): Router->route('dashboard', 'GET')
+#3 C:\www\RNGportal\index.php(34): require_once('C:\\www\\RNGporta...')
+#4 {main}
+  thrown in C:\www\RNGportal\app\http\controllers\DashboardController.php on line 46
+[03-Jan-2021 15:46:34 UTC] PHP Notice:  Undefined property: DashboardController::$dasboardModel in C:\www\RNGportal\app\http\controllers\DashboardController.php on line 46
+[03-Jan-2021 15:46:34 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getNotes() on null in C:\www\RNGportal\app\http\controllers\DashboardController.php:46
+Stack trace:
+#0 C:\www\RNGportal\builder\engine\Router.php(52): DashboardController->index()
+#1 C:\www\RNGportal\builder\engine\Router.php(41): Router->dispatch(Array)
+#2 C:\www\RNGportal\builder\bootstrap.php(82): Router->route('dashboard', 'GET')
+#3 C:\www\RNGportal\index.php(34): require_once('C:\\www\\RNGporta...')
+#4 {main}
+  thrown in C:\www\RNGportal\app\http\controllers\DashboardController.php on line 46
+[03-Jan-2021 15:46:38 UTC] PHP Notice:  Undefined property: DashboardController::$dasboardModel in C:\www\RNGportal\app\http\controllers\DashboardController.php on line 46
+[03-Jan-2021 15:46:38 UTC] PHP Fatal error:  Uncaught Error: Call to a member function getNotes() on null in C:\www\RNGportal\app\http\controllers\DashboardController.php:46
+Stack trace:
+#0 C:\www\RNGportal\builder\engine\Router.php(52): DashboardController->index()
+#1 C:\www\RNGportal\builder\engine\Router.php(41): Router->dispatch(Array)
+#2 C:\www\RNGportal\builder\bootstrap.php(82): Router->route('dashboard', 'GET')
+#3 C:\www\RNGportal\index.php(34): require_once('C:\\www\\RNGporta...')
+#4 {main}
+  thrown in C:\www\RNGportal\app\http\controllers\DashboardController.php on line 46
+[03-Jan-2021 15:46:52 UTC] PHP Notice:  Undefined variable: action in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 101
+[03-Jan-2021 15:47:56 UTC] PHP Notice:  Undefined variable: action in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 101
+[03-Jan-2021 15:47:59 UTC] PHP Notice:  Undefined variable: action in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 101
+[03-Jan-2021 15:48:43 UTC] PHP Notice:  Undefined variable: action in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 101
+[03-Jan-2021 15:49:29 UTC] PHP Notice:  Undefined variable: action in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 101
+[03-Jan-2021 15:49:35 UTC] PHP Notice:  Undefined variable: action in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 101
+[03-Jan-2021 15:50:00 UTC] PHP Notice:  Undefined variable: action in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 101
+[03-Jan-2021 15:50:26 UTC] PHP Notice:  Undefined variable: action in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 101
+[03-Jan-2021 15:51:07 UTC] PHP Notice:  Undefined variable: action in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 101
+[03-Jan-2021 15:51:33 UTC] PHP Notice:  Undefined variable: action in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 101
+[03-Jan-2021 15:51:52 UTC] PHP Notice:  Undefined variable: action in C:\www\RNGportal\app\views\dashboard\dashboard.tpl.php on line 101

@@ -6797,6 +6797,276 @@ blockquote {
   font-size: 44px !important; }
 
 /************************************************
+[ CALENDAR CSS START ] ************************
+*************************************************/
+.fc {
+  background-color: rgba(255, 130, 41, 0.8);
+  padding: 10px; }
+  .fc th, .fc .fc-axis, .fc .fc-list-heading {
+    background: #716aca !important;
+    border-color: crimson !important;
+    color: #EEE !important; }
+  .fc td {
+    background: rgba(255, 255, 200, 0.5) !important;
+    border-color: crimson !important; }
+    .fc td .fc-sun, .fc td .fc-sat {
+      background: #f0d0a0 !important;
+      color: #333 !important; }
+  .fc .fc-day-number {
+    color: #ff2424;
+    font-size: 16px; }
+  .fc .fc-list-table td {
+    color: #333 !important; }
+  .fc .fc-state-highlight {
+    background-color: rgba(255, 130, 41, 0.8) !important; }
+  .fc .fc {
+    background-color: rgba(255, 130, 41, 0.8) !important; }
+
+@media only screen and (max-width: 480px) {
+  .fc .fc-day-number {
+    color: #ff2424;
+    font-size: 12px; }
+  .fc .fc-axis {
+    font-size: 10px; } }
+.fc-header-toolbar h2 {
+  font-size: 20px !important;
+  color: #FFF !important; }
+.fc-header-toolbar .fc-button {
+  font-size: 12px;
+  padding: 10px;
+  font-weight: 300;
+  color: #FFF;
+  background-color: crimson !important; }
+  .fc-header-toolbar .fc-button:active {
+    color: #333;
+    background: #FFF; }
+  .fc-header-toolbar .fc-button:focus {
+    outline: none; }
+.fc-header-toolbar td {
+  padding: 1px 7px;
+  background: white;
+  border-color: #EEE; }
+.fc-header-toolbar .fc-state-active {
+  box-shadow: none;
+  color: #FFF;
+  background: #716aca !important; }
+  .fc-header-toolbar .fc-state-active:hover {
+    box-shadow: none;
+    color: #FFF;
+    background: #716aca !important; }
+.fc-header-toolbar .fc-state-default.fc-corner-left {
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px; }
+.fc-header-toolbar .fc-state-default.fc-corner-right {
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px; }
+.fc-header-toolbar .fc-today-button .fc-state-disabled {
+  font-size: 16px;
+  padding: 10px;
+  font-weight: 300;
+  color: #FFF;
+  border-color: rgba(220, 20, 60, 0.5) !important;
+  border-width: 2px; }
+  .fc-header-toolbar .fc-today-button .fc-state-disabled:active {
+    color: #333;
+    background: #FFF; }
+  .fc-header-toolbar .fc-today-button .fc-state-disabled:focus {
+    outline: none; }
+
+@media only screen and (max-width: 480px) {
+  .fc-header-toolbar {
+    font-size: 10px; }
+
+  .fc td th,
+  .fc .fc-title {
+    font-size: 10px; }
+
+  .fc-today-button {
+    display: none; } }
+.fc-event-gradient {
+  background: linear-gradient(to left, rgba(255, 255, 255, 0) 25%, rgba(255, 255, 255, 0.45)); }
+
+.fc-event-primary .fc-content,
+.fc-event-secondary .fc-content,
+.fc-event-success .fc-content,
+.fc-event-warning .fc-content,
+.fc-event-danger .fc-content,
+.fc-event-info .fc-content,
+.fc-event-dark .fc-content,
+.fc-event-white .fc-content,
+.fc-event-black .fc-content {
+  padding: 5px 5px 5px 25px; }
+  .fc-event-primary .fc-content::before,
+  .fc-event-secondary .fc-content::before,
+  .fc-event-success .fc-content::before,
+  .fc-event-warning .fc-content::before,
+  .fc-event-danger .fc-content::before,
+  .fc-event-info .fc-content::before,
+  .fc-event-dark .fc-content::before,
+  .fc-event-white .fc-content::before,
+  .fc-event-black .fc-content::before {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    height: 10px;
+    width: 10px;
+    border-radius: 50%; }
+
+.fc-event-primary .fc-content::before {
+  background-color: #3F51B5; }
+
+.fc-event-secondary .fc-content::before {
+  background-color: #282a3c; }
+
+.fc-event-success .fc-content::before {
+  background-color: #0bc36e; }
+
+.fc-event-info .fc-content::before {
+  background-color: #03a9f3; }
+
+.fc-event-warning .fc-content::before {
+  background-color: #fec107; }
+
+.fc-event-danger .fc-content::before {
+  background-color: #ff2424; }
+
+.fc-event-dark .fc-content::before {
+  background-color: #555; }
+
+.fc-event-white .fc-content::before {
+  background-color: #fff; }
+
+.fc-event-black .fc-content::before {
+  background-color: #222; }
+
+.fc-event.fc-start.fc-event-solid-primary {
+  background-color: #3F51B5; }
+  .fc-event.fc-start.fc-event-solid-primary .fc-title {
+    color: #FFF; }
+  .fc-event.fc-start.fc-event-solid-primary .fc-event-dot {
+    background: #3F51B5;
+    border-color: #3F51B5; }
+
+.fc-event.fc-start.fc-event-solid-secondary {
+  background-color: #282a3c; }
+  .fc-event.fc-start.fc-event-solid-secondary .fc-title {
+    color: #FFF; }
+  .fc-event.fc-start.fc-event-solid-secondary .fc-event-dot {
+    background: #282a3c;
+    border-color: #282a3c; }
+
+.fc-event.fc-start.fc-event-solid-warning {
+  background-color: #fec107; }
+  .fc-event.fc-start.fc-event-solid-warning .fc-title {
+    color: #333; }
+  .fc-event.fc-start.fc-event-solid-warning .fc-event-dot {
+    background: #fec107;
+    border-color: #fec107; }
+
+.fc-event.fc-start.fc-event-solid-success {
+  background-color: #0bc36e; }
+  .fc-event.fc-start.fc-event-solid-success .fc-title {
+    color: #FFF; }
+  .fc-event.fc-start.fc-event-solid-success .fc-event-dot {
+    background: #0bc36e;
+    border-color: #0bc36e; }
+
+.fc-event.fc-start.fc-event-solid-danger {
+  background-color: #ff2424; }
+  .fc-event.fc-start.fc-event-solid-danger .fc-title {
+    color: #FFF; }
+  .fc-event.fc-start.fc-event-solid-danger .fc-event-dot {
+    background: #ff2424;
+    border-color: #ff2424; }
+
+.fc-event.fc-start.fc-event-solid-dark {
+  background-color: #555; }
+  .fc-event.fc-start.fc-event-solid-dark .fc-title {
+    color: #FFF; }
+  .fc-event.fc-start.fc-event-solid-dark .fc-event-dot {
+    background: #555;
+    border-color: #555; }
+
+.fc-event.fc-start.fc-event-solid-white {
+  background-color: #fff; }
+  .fc-event.fc-start.fc-event-solid-white .fc-title {
+    color: #333; }
+  .fc-event.fc-start.fc-event-solid-white .fc-event-dot {
+    background: #fff;
+    border-color: #333; }
+
+.fc-event.fc-start.fc-event-solid-black {
+  background-color: #222; }
+  .fc-event.fc-start.fc-event-solid-black .fc-title {
+    color: #FFF; }
+  .fc-event.fc-start.fc-event-solid-black .fc-event-dot {
+    background: #222;
+    border-color: #222; }
+
+.fc-event.fc-start.fc-event-solid-info {
+  background-color: #03a9f3; }
+  .fc-event.fc-start.fc-event-solid-info .fc-title {
+    color: #FFF; }
+  .fc-event.fc-start.fc-event-solid-info .fc-event-dot {
+    background: #03a9f3;
+    border-color: #03a9f3; }
+
+.fc-unthemed .fc-popover {
+  box-shadow: 0px 0px 15px 1px rgba(69, 65, 78, 0.2); }
+  .fc-unthemed .fc-popover .fc-day-grid-event {
+    margin: 0; }
+  .fc-unthemed .fc-popover .fc-header {
+    background-color: #FFF;
+    border-bottom: 1px solid #EEE; }
+  .fc-unthemed .fc-popover .fc-event-container {
+    padding: 16px 16px 10px 16px;
+    background-color: transparent !important; }
+  .fc-unthemed .fc-popover .fc-event {
+    margin-bottom: 8px; }
+
+.fc-list-item.fc-event-info .fc-event-dot {
+  background: #3F51B5;
+  border-color: #3F51B5; }
+
+.fc-list-item.fc-event-primary .fc-event-dot {
+  background: #3F51B5;
+  border-color: #3F51B5; }
+
+.fc-list-item.fc-start.fc-event-secondary .fc-event-dot {
+  background: #282a3c;
+  border-color: #282a3c; }
+
+.fc-list-item.fc-event-warning .fc-event-dot {
+  background: #fec107;
+  border-color: #fec107; }
+
+.fc-list-item.fc-event-success .fc-event-dot {
+  background: #0bc36e;
+  border-color: #0bc36e; }
+
+.fc-list-item.fc-event-danger .fc-event-dot {
+  background: #ff2424;
+  border-color: #ff2424; }
+
+.fc-list-item.fc-event-dark .fc-event-dot {
+  background: #555;
+  border-color: #555; }
+
+.fc-list-item.fc-event-white .fc-event-dot {
+  background: #3F51B5;
+  border-color: #3F51B5; }
+
+.fc-list-item.fc-event-black .fc-event-dot {
+  background: #222;
+  border-color: #222; }
+
+.fc-list-item.fc-event-info .fc-event-dot {
+  background: #03a9f3;
+  border-color: #03a9f3; }
+
+/************************************************
 [ COMMON CSS START ] *****************************
 *************************************************/
 .container-fluid {
@@ -8455,10 +8725,12 @@ button.toast-close-button {
   border-color: #555; }
 
 div.dataTables_wrapper {
+  box-sizing: border-box;
   font-size: 14px;
   padding: 10px 25px 25px 25px;
   background-color: rgba(0, 0, 0, 0);
-  box-shadow: 0 0 10px 0 rgba(218, 218, 218, 0.1); }
+  box-shadow: 0 0 10px 0 rgba(218, 218, 218, 0.1);
+  overflow: hidden; }
   div.dataTables_wrapper div.dataTables_info {
     color: #aaa;
     padding-top: 1.85em; }
@@ -9913,7 +10185,6 @@ select.form-control:not([size]):not([multiple]) {
 
 #logo {
   line-height: 76px;
-  background: rgba(255, 255, 255, 0.05);
   overflow: hidden;
   transition: all 0.3s ease-in-out; }
   #logo a {
@@ -10252,7 +10523,6 @@ select.form-control:not([size]):not([multiple]) {
   vertical-align: middle;
   line-height: 76px;
   overflow: hidden;
-  background: rgba(40, 42, 60, 0.95);
   transition: all 0.3s ease-in-out; }
   #logo a {
     display: inline-block; }
@@ -10516,7 +10786,9 @@ select.form-control:not([size]):not([multiple]) {
 //*************************************************/
 .table-container {
   background: rgba(0, 0, 0, 0.2);
-  box-shadow: 0 0 10px 0 rgba(218, 218, 218, 0.1); }
+  box-shadow: 0 0 10px 0 rgba(218, 218, 218, 0.1);
+  box-sizing: border-box;
+  overflow: hidden; }
   .table-container th {
     font-size: 14px;
     font-weight: 500; }
@@ -10945,15 +11217,14 @@ select.form-transparent {
     color: #DDD; }
   .lgn-input input {
     height: auto;
-    padding: 10px 12px 10px 12px;
-    padding: 1px 20px;
+    padding: 0px 15px 0px 15px;
     border: 0;
     color: #EEE;
-    border-radius: 40px !important;
+    border-radius: 10px !important;
     background: #333; }
     .lgn-input input:focus {
-      color: #EEE;
-      background: #3d3e5a; }
+      color: #333;
+      background: #fec107; }
   .lgn-input.is-invalid label {
     color: #cc5151; }
   .lgn-input.is-invalid input {
@@ -10979,8 +11250,9 @@ select.form-transparent {
 .lgn-footer {
   text-align: center;
   padding: 10px 0;
-  margin: 0 10px 10px 10px;
-  background: rgba(238, 238, 238, 0.32); }
+  margin: 0 15px 10px 15px;
+  background: rgba(238, 238, 238, 0.32);
+  border-radius: 10px; }
   .lgn-footer p {
     color: #132584;
     margin: 0 0 5px 0; }
@@ -12035,7 +12307,8 @@ Card CLASS **************************************
   #logo {
     line-height: 70px; }
     #logo .logo img {
-      max-height: 30px; }
+      max-height: 30px;
+      max-width: 60px; }
 
   .menu-dropdown-wrapper {
     position: static; }
@@ -12088,9 +12361,9 @@ Card CLASS **************************************
     padding: 10px; }
 
   div.dataTables_wrapper div.dataTables_filter label {
-    text-align: center; }
+    text-align: left; }
   div.dataTables_wrapper div.dataTables_filter input {
-    display: block; } }
+    display: inline-block; } }
 @media only screen and (max-width: 991px) {
   .sidenav {
     width: 60%; }

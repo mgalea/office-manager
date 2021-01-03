@@ -209,6 +209,7 @@
         .logo {
             img {
                 max-height: 30px;
+                max-width:60px;
             }
         }
     }
@@ -289,11 +290,11 @@
         div.dataTables_filter {
 
             label {
-                text-align: center;
+                text-align: left;
             }
 
             input {
-                display: block;
+                display: inline-block;
             }
         }
     }
