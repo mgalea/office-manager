@@ -1436,7 +1436,7 @@ div.dataTables_wrapper {
 .content {}
 
 .table-container {
-    background: $colorF;
+    background: rgba(0, 0, 0, 0.2);
     box-shadow: 0 0 10px 0 rgba(218, 218, 218, 0.1);
 
     th {
@@ -1451,23 +1451,24 @@ div.dataTables_wrapper {
 }
 
 .table-icon {
-    min-width: 100px;
-    width: 100px;
+    min-width: 40px;
+    width: 50px;
 
     .fa {
-        width: 56px;
-        height: 56px;
-        line-height: 56px;
-        font-size: 28px;
+        max-width: 40px !important;
+        height: 40px;
+        line-height: 40px;
+        font-size: 20px;
         text-align: center;
         color: $colorF;
-        background: #1d9f75;
+        background: #0ccfbf;
         border-radius: 4px;
+        margin: 4px;
     }
 }
 
 .table-srno {
-    width: 30px;
+    min-width: 20px;
 }
 
 .table-img {
@@ -2978,21 +2979,27 @@ select.form-transparent {
     }
 
     i {
-        width: 80px;
-        height: 80px;
-        line-height: 80px;
+        width: 50px;
+        height: 50px;
+        line-height: 45px;
         font-size: 40px;
         color: $color-danger;
         text-align: center;
         border: 2px solid $colorE;
         border-radius: 4px;
-        background-color: $colorF-60;
+        background-color: $colorE;
+        margin:5px;
     }
 
     img {
         height: 80px;
         border: 1px solid $color9;
         border-radius: 4px;
+    }
+    .filename{
+        font-size: 12px;
+        display:inline-block;
+        margin-left: 5px;
     }
 }
 
@@ -3505,6 +3512,7 @@ Card CLASS **************************************
     }
 
     div.dataTables_wrapper div.dataTables_filter input {
+        background-color: none !important;
         width: 150px;
     }
 }

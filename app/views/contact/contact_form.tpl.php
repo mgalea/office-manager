@@ -291,8 +291,8 @@
                                                         <td>
                                                             <input type="text" class="form-transparent" name="contact[person][<?php echo $key; ?>][designation]" value="<?php echo $value['designation'] ?>">
                                                         </td>
-                                                        <td class="text-center">
-                                                            <a href="#" class="delete" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-close text-danger text-danger p-1 m-1"></i></a>
+                                                        <td class="table-icon text-center">
+                                                            <a href="#" class="delete" data-toggle="tooltip" data-placement="top" title="Delete"><i class="table-icon fa fa-times"></i></a>
                                                         </td>
                                                     </tr>
                                                 <?php }
@@ -638,7 +638,7 @@
             init: function() {
                 this.on("sending", function(file, xhr, formData) {
                         var id = $('input[name=id]').val(),
-                            type = 'document';
+                            type = 'contact';
                         formData.append("id", id);
                         formData.append("type", type);
                     }),
@@ -646,13 +646,13 @@
                         var ext = file.xhr.response.substr(file.xhr.response.lastIndexOf('.') + 1);
                         if (ext === "pdf") {
                             $('.attached-files').append('<div class="attached-files-block attached-' + file.xhr.response.slice(0, -4) + '">' +
-                                '<a href="public/uploads/' + file.xhr.response + '" class="open-pdf"><i class="fa fa-file-pdf-o"></i></a>' +
+                                '<a href="public/uploads/' + file.xhr.response + '" class="open-pdf"><i class="fa fa-file-pdf"></i><span> class="filename">' + file.xhr.response +'</span></a>' +
                                 '<input type="hidden" name="document[attached][]" value="' + file.xhr.response + '">' +
                                 '<div class="delete-file"><a class="fa fa-trash"></a></div>' +
                                 '</div>');
                         } else {
                             $('.attached-files').append('<div class="attached-files-block attached-' + file.xhr.response.slice(0, -4) + '">' +
-                                '<a href="public/uploads/' + file.xhr.response + '" data-fancybox="gallery"><img src="public/uploads/' + file.xhr.response + '" alt=""></a>' +
+                                '<a href="public/uploads/' + file.xhr.response + '" data-fancybox="gallery"><img src="public/uploads/' + file.xhr.response + '" alt=""><span> class="filename">' + file.xhr.response +'</span></a>' +
                                 '<input type="hidden" name="document[attached][]" value="' + file.xhr.response + '">' +
                                 '<div class="delete-file"><a class="fa fa-trash"></a></div>' +
                                 '</div>');
@@ -661,7 +661,7 @@
                     })
             },
             renameFile: function(file) {
-                return file.name.split('.')[0] + new Date().valueOf() + "." + file.name.split('.').pop();
+                return file.name.split('.')[0] + '_' + new Date().valueOf() + "." + file.name.split('.').pop();
             },
             removedfile: function(file) {
                 var name = file.upload.filename;
@@ -670,7 +670,7 @@
                     url: 'index.php?route=attachFile/delete',
                     data: {
                         name: name,
-                        type: 'document'
+                        type: 'contact'
                     },
                     error: function() {
                         toastr.error('File could not be deleted', 'Server Error');
@@ -693,7 +693,7 @@
                 url: 'index.php?route=attachFile/delete',
                 data: {
                     name: name,
-                    type: 'document'
+                    type: 'contact'
                 },
                 error: function() {
                     toastr.error('File could not be deleted', 'Server Error');

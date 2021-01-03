@@ -1,6 +1,6 @@
 /*
 Error: Undefined variable: "$color-danger".
-        on line 268 of C:\RNG Portal\clients\public\sass\daterangepicker.scss
+        on line 268 of C:\www\RNGportal\clients\public\sass\daterangepicker.scss
 
 263:     width: 100%;
 264:     margin: 0;
@@ -15,7 +15,7 @@ Error: Undefined variable: "$color-danger".
 273:   }
 
 Backtrace:
-C:\RNG Portal\clients\public\sass\daterangepicker.scss:268
+C:\www\RNGportal\clients\public\sass\daterangepicker.scss:268
 C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/script/tree/variable.rb:49:in `_perform'
 C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/script/tree/node.rb:50:in `perform'
 C:/Program Files (x86)/Koala/rubygems/gems/sass-3.5.2/lib/sass/tree/visitors/perform.rb:402:in `visit_prop'
@@ -73,4 +73,4 @@ C:/Program Files (x86)/Koala/bin/sass:22:in `<main>'
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: Undefined variable: \"$color-danger\".\A         on line 268 of C:\RNG Portal\clients\public\sass\daterangepicker.scss\A \A 263:     width: 100%;\A 264:     margin: 0;\A 265:   }\A 266: \A 267:   th {\A 268:     color: $color-danger;\A 269:   }\A 270: \A 271:   th.month, th.prev, th.next {\A 272:     color: $color3;\A 273:   }"; }
+  content: "Error: Undefined variable: \"$color-danger\".\A         on line 268 of C:\www\RNGportal\clients\public\sass\daterangepicker.scss\A \A 263:     width: 100%;\A 264:     margin: 0;\A 265:   }\A 266: \A 267:   th {\A 268:     color: $color-danger;\A 269:   }\A 270: \A 271:   th.month, th.prev, th.next {\A 272:     color: $color3;\A 273:   }"; }

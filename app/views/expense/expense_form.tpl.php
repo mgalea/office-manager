@@ -111,14 +111,14 @@
                         <div class="attached-files">
                             <?php if (!empty($receipt)) { foreach ($receipt as $key => $value) { $file_ext = pathinfo($value['file_name'], PATHINFO_EXTENSION); if ($file_ext == "pdf") { ?>
                             <div class="attached-files-block">
-                                <a href="public/uploads/<?php echo $value['file_name']; ?>" class="open-pdf"><i class="fa fa-file-pdf-o"></i></a>
-                                <input type="hidden" name="expense[attached][]" value="<?php echo $value['file_name']; ?>">
+                                <a href="public/uploads/<?php echo $value['file_name']; ?>" class="open-pdf"><i class="fa fa-file-pdf"></i></a>
+                                <input type="hidden" name="document[attached][]" value="<?php echo $value['file_name']; ?>">
                                 <div class="delete-file"><a class="fa fa-trash"></a></div>
                             </div>
                             <?php } else { ?>
                             <div class="attached-files-block">
                                 <a href="public/uploads/<?php echo $value['file_name']; ?>" data-fancybox="gallery"><img src="public/uploads/<?php echo $value['file_name']; ?>" alt=""></a>
-                                <input type="hidden" name="expense[attached][]" value="<?php echo $value['file_name']; ?>">
+                                <input type="hidden" name="document[attached][]" value="<?php echo $value['file_name']; ?>">
                                 <div class="delete-file"><a class="fa fa-trash"></a></div>
                             </div>
                             <?php } } } ?>
@@ -184,7 +184,7 @@
                     var ext = file.xhr.response.substr(file.xhr.response.lastIndexOf('.') + 1);
                     if (ext === "pdf") {
                         $('.attached-files').append('<div class="attached-files-block attached-'+ file.xhr.response.slice(0, -4)+'">'+
-                           '<a href="public/uploads/'+ file.xhr.response +'" class="open-pdf"><i class="fa fa-file-pdf-o"></i></a>'+
+                           '<a href="public/uploads/'+ file.xhr.response +'" class="open-pdf"><i class="fa fa-file-pdf"></i></a>'+
                            '<input type="hidden" name="expense[attached][]" value="'+ file.xhr.response +'">'+
                            '<div class="delete-file"><a class="fa fa-trash"></a></div>'+
                            '</div>');

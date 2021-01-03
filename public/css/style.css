@@ -8287,11 +8287,14 @@ button.toast-close-button {
 .table-align-middle tr td {
   vertical-align: middle; }
 
+.table-dark thead {
+  background-color: rgba(0, 0, 0, 0.3);
+  color: #CCC; }
 .table-dark tbody {
   color: #CCC; }
 
 .table-striped tbody tr:nth-of-type(odd) {
-  background-color: rgba(0, 180, 180, 0.2); }
+  background-color: rgba(0, 250, 250, 0.2); }
 
 .table-hover tbody tr:hover {
   background-color: #f3f5f7; }
@@ -8454,7 +8457,7 @@ button.toast-close-button {
 div.dataTables_wrapper {
   font-size: 14px;
   padding: 10px 25px 25px 25px;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0);
   box-shadow: 0 0 10px 0 rgba(218, 218, 218, 0.1); }
   div.dataTables_wrapper div.dataTables_info {
     color: #aaa;
@@ -10512,7 +10515,7 @@ select.form-control:not([size]):not([multiple]) {
 [ TABLE CSS START] *********************************
 //*************************************************/
 .table-container {
-  background: #FFF;
+  background: rgba(0, 0, 0, 0.2);
   box-shadow: 0 0 10px 0 rgba(218, 218, 218, 0.1); }
   .table-container th {
     font-size: 14px;
@@ -10522,20 +10525,21 @@ select.form-control:not([size]):not([multiple]) {
     font-size: 14px; }
 
 .table-icon {
-  min-width: 100px;
-  width: 100px; }
+  min-width: 40px;
+  width: 50px; }
   .table-icon .fa {
-    width: 56px;
-    height: 56px;
-    line-height: 56px;
-    font-size: 28px;
+    max-width: 40px !important;
+    height: 40px;
+    line-height: 40px;
+    font-size: 20px;
     text-align: center;
     color: #FFF;
-    background: #1d9f75;
-    border-radius: 4px; }
+    background: #0ccfbf;
+    border-radius: 4px;
+    margin: 4px; }
 
 .table-srno {
-  width: 30px; }
+  min-width: 20px; }
 
 .table-img {
   width: 100px;
@@ -11568,19 +11572,24 @@ select.form-transparent {
     display: inline-block;
     vertical-align: top; }
   .attached-files-block i {
-    width: 80px;
-    height: 80px;
-    line-height: 80px;
+    width: 50px;
+    height: 50px;
+    line-height: 45px;
     font-size: 40px;
     color: #ff2424;
     text-align: center;
     border: 2px solid #EEE;
     border-radius: 4px;
-    background-color: rgba(255, 255, 255, 0.6); }
+    background-color: #EEE;
+    margin: 5px; }
   .attached-files-block img {
     height: 80px;
     border: 1px solid #999;
     border-radius: 4px; }
+  .attached-files-block .filename {
+    font-size: 12px;
+    display: inline-block;
+    margin-left: 5px; }
 
 .delete-file {
   display: inline-block;
@@ -12131,6 +12140,7 @@ Card CLASS **************************************
       right: 70px; }
 
   div.dataTables_wrapper div.dataTables_filter input {
+    background-color: none !important;
     width: 150px; } }
 
 /*# sourceMappingURL=style.css.map */

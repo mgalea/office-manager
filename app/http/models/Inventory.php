@@ -27,6 +27,12 @@ class Inventory extends Model
         return $query->rows;
     }
 
+    public function getItemInvNumber($id)
+    {
+        $query = $this->model->query("SELECT `id`, `item` FROM `" . DB_PREFIX . "inventory` WHERE `inv_number` = ? LIMIT 1", array((int)$id));
+        return $query->num_rows;
+    }
+
     public function getLocationTypes()
     {
         $query = $this->model->query("SELECT `id`, `name` FROM `" . DB_PREFIX . "location_type`");
@@ -61,6 +67,9 @@ class Inventory extends Model
         if (!isset($data['stock'])) {
             $data['stock'] = 0;
         } 
+        if (!isset($data['stored'])) {
+            $data['stored'] = 'Unknown Location';
+        } 
 
             $query = $this->model->query(
                 "INSERT INTO `" . DB_PREFIX . "inventory` (`item`, `location`, `inv_number`, `type`, `storage`,  
@@ -75,7 +84,7 @@ class Inventory extends Model
         if ($query->num_rows > 0) {
             return $this->model->last_id();
         } else {
-            return false;
+            return 0;
         }
     }
 

@@ -1,7 +1,7 @@
 <?php include(DIR . 'app/views/common/header.tpl.php'); ?>
 <script>
-    $('#contact').show();
-    $('#contact-li').addClass('active');
+    $('#company').show();
+    $('#company-li').addClass('active');
 </script>
 <!-- User list page start -->
 <div class="content">
@@ -12,7 +12,7 @@
                 <span class="panel-title-text"><?php echo $page_title; ?></span>
             </div>
             <div class="panel-action">
-                <a href="<?php echo URL . DIR_ROUTE . 'contact/add'; ?>" class="btn btn-success btn-sm"><i class="icon-plus mr-1"></i> <?php echo $lang['contact']['text_new_contact']; ?></a>
+                <a href="<?php echo URL . DIR_ROUTE . 'company/add'; ?>" class="btn btn-success btn-sm"><i class="icon-plus mr-1"></i> <?php echo $lang['company']['text_new_company']; ?></a>
             </div>
         </div>
         <div class="panel-wrapper">
@@ -20,10 +20,9 @@
                 <table class="table table-dark table-striped datatable-table" width="100%">
                     <thead>
                         <tr class="table-heading">
-                            <th><?php echo $lang['common']['text_contact']; ?></th>
-                            <th><?php echo $lang['contact']['text_company']; ?></th>
-                            <th><?php echo $lang['common']['text_email_address']; ?></th>
-                            <th><?php echo $lang['common']['text_phone_number']; ?></th>
+                            <th><?php echo $lang['company']['text_company']; ?></th>
+                            <th><?php echo $lang['company']['text_company_id']; ?></th>
+                            <th><?php echo $lang['company']['text_vat_no']; ?></th>
 
                             <th></th>
                         </tr>
@@ -33,13 +32,12 @@
                             foreach ($result as $key => $value) { ?>
                             
                                 <tr>
-                                    <td><a href="<?php echo URL . DIR_ROUTE . 'contact/view&id=' . $value['id']; ?>"><?php echo $value['firstname'] . " " . $value['lastname'] ?></td>
-                                    <td><a href="<?php echo URL . DIR_ROUTE . 'contact/view&id=' . $value['id']; ?>"><?php echo $value['company']; ?></a></td>
-                                    <td><?php echo $value['email']; ?></td>
-                                    <td><?php echo $value['phone']; ?></td>
+                                    <td><a href="<?php echo URL . DIR_ROUTE . 'company/view&id=' . $value['id']; ?>"><?php echo $value['name']; ?></td>
+                                    <td><a href="<?php echo URL . DIR_ROUTE . 'company/view&id=' . $value['id']; ?>"><?php echo $value['reg_no']; ?></a></td>
+                                    <td><a href="<?php echo URL . DIR_ROUTE . 'company/view&id=' . $value['id']; ?>"><?php echo $value['vat_no']; ?></a></td>
                                     <td class="table-action">
 
-                                        <a href="<?php echo URL . DIR_ROUTE . 'contact/edit&id=' . $value['id']; ?>" class="btn btn-success btn-circle  " data-toggle="tooltip" title="<?php echo $lang['common']['text_edit']; ?>"><i class="icon-pencil"></i></a>
+                                        <a href="<?php echo URL . DIR_ROUTE . 'company/edit&id=' . $value['id']; ?>" class="btn btn-success btn-circle  " data-toggle="tooltip" title="<?php echo $lang['common']['text_edit']; ?>"><i class="icon-pencil"></i></a>
                                         <p class="btn btn-danger btn-circle  table-delete" data-toggle="tooltip" title="<?php echo $lang['common']['text_delete']; ?>"><i class="icon-trash"></i><input type="hidden" value="<?php echo $value['id']; ?>"></p>
                                     </td>
                                 </tr>
@@ -52,6 +50,7 @@
         </div>
     </div>
 </div>
+
 <!-- Delete Modal -->
 <div id="delete-card" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -64,7 +63,7 @@
                 <p class="delete-card-ttl"><?php echo $lang['common']['text_are_you_sure_you_want_to_delete?']; ?></p>
             </div>
             <div class="modal-footer">
-                <form action="<?php echo URL . DIR_ROUTE . 'contact/delete'; ?>" class="delete-card-button" method="post">
+                <form action="<?php echo URL . DIR_ROUTE . 'company/delete'; ?>" class="delete-card-button" method="post">
                     <input type="hidden" value="" name="id">
                     <button type="submit" class="btn btn-danger" name="delete"><?php echo $lang['common']['text_delete']; ?></button>
                 </form>

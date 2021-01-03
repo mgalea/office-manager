@@ -105,6 +105,17 @@
                                 </li>
                             </ul>
                         </li>
+                        <li id="company-li" class="has-sub">
+                            <a><i class="far fa-building"></i><span><?php echo $lang['common']['text_companies']; ?></span><i class="arrow rotate"></i></a>
+                            <ul id="company" class="sub-menu">
+                                <li>
+                                    <a href="<?php echo URL . DIR_ROUTE; ?>companies"><span><?php echo $lang['common']['text_corporate_info']; ?></span></a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo URL . DIR_ROUTE; ?>employees"><span><?php echo $lang['common']['text_employees'] ?></span></a>
+                                </li>
+                            </ul>
+                        </li>
                         <li class="menu-title"><?php echo $lang['common']['text_others']; ?></li>
                         <li id="expense-li">
                             <a href="<?php echo URL . DIR_ROUTE; ?>expenses"><i class="icon-rocket"></i><span><?php echo $lang['common']['text_expenses']; ?></span></a>

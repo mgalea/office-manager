@@ -6,8 +6,8 @@
         <div class="panel panel-default">
             <div class="panel-body">
                 <div class="user-details text-center">
-                    <h2><?php echo $result['company']; ?></h2>
-                    <p class="font-16 mb-1 font-500"><?php echo $result['salutation'].' '.$result['firstname'].' '.$result['lastname']; ?></p>
+                    <h2 class="text-warning"><?php echo $result['salutation'].' '.$result['firstname'].' '.$result['lastname']; ?></h2>
+                    <p class="font-16 mb-1 font-500"><?php echo $result['company']; ?></p>
                     <p class="mb-1"><i class="icon-envelope"></i> <?php echo $result['email']; ?></p>
                     <p class="mb-1"><i class="icon-screen-smartphone"></i> <?php echo $result['phone']; ?></p>
                     <p><i class="icon-globe"></i> <?php echo $result['website']; ?></p>
@@ -261,10 +261,11 @@
 <script type="text/javascript" src="public/js/custom.summernote.js"></script>
 <script>
       $('#summernote').summernote({
-        placeholder: 'Hello Bootstrap 4',
+        placeholder: 'Hello',
         tabsize: 2,
-        height: 100
+        height: 300
       });
     </script>
+
 <!-- Footer -->
 <?php include (DIR.'app/views/common/footer.tpl.php'); ?>

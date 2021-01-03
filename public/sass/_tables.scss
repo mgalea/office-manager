@@ -29,14 +29,21 @@
 
 .table-dark {
 
+	thead {
+		background-color: rgba(0, 0, 0, 0.30); 
+		color: $colorC;
+	}
+
 	tbody {
 		color: $colorC;
 	}
 }
 
+
+
 .table-striped {
 	tbody tr:nth-of-type(odd) {
-		background-color: rgba(0, 180, 180, 0.20); 
+		background-color: rgba(0, 250, 250, 0.20); 
 	}
 }
 
@@ -420,7 +427,7 @@
 div.dataTables_wrapper {
 	font-size: $sMediumFont;
 	padding: 10px 25px 25px 25px;
-	background-color: rgba(0, 0, 0, 0.8);;
+	background-color: rgba(0, 0, 0, 0);
 	box-shadow: 0 0 10px 0 rgba(218, 218, 218, 0.1);
 
 

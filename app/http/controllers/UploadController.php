@@ -69,7 +69,7 @@ class UploadController extends Controller
 		$rand = rand(100, 999);
 		$postfix = date('Ymd');
 		$file_name = pathinfo($_FILES['file']['name'], PATHINFO_FILENAME);
-		$name = $file_name.$postfix.$newname.$rand.'.'.$ext; 
+		$name = $file_name.'_'.$postfix.'.'.$ext; 
 
 		if (!empty($_FILES)) {
 

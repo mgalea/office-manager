@@ -72,7 +72,8 @@ class ContactController extends Controller
 		$data['invoices'] = $this->contactModel->getInvoices($id);
 		$data['quotes'] = $this->contactModel->getQuotes($id);
 		$data['types'] = $this->contactModel->getContactType();
-
+		$data['documents'] = $this->contactModel->getDocuments($id);
+		
 		$data['result']['address'] = json_decode($data['result']['address'], true);
 		$data['result']['persons'] = json_decode($data['result']['persons'], true);
 

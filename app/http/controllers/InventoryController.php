@@ -170,8 +170,8 @@ class InventoryController extends Controller
          * Return to info view 
          **/
         if ($validate_field = $this->validateField()) {
-            $this->session->data['message'] = array('alert' => 'error', 'value' => 'Please enter valid ' . implode(", ", $validate_field) . '!');
-            $this->url->redirect('inventory');
+            $this->session->data['message'] = array('alert' => 'error', 'value' => 'Please enter a valid ' . implode(" and ", $validate_field) . '!');
+            $this->url->redirect('inventory/add');
         }
 
         if ($this->commons->validateToken($this->url->post('_token'))) {
@@ -184,13 +184,12 @@ class InventoryController extends Controller
             $this->url->redirect('inventory/edit&id=' . $this->url->post('id'));
         } else {
             $result = $this->inventoryModel->createInventoryItem($this->url->post);
-            if (!$result) {
+            if ($result > 0) {
                 $this->session->data['message'] = array('alert' => 'success', 'value' => 'Inventory item created successfully.');
-                echo '<pre>' + var_dump($this->url->post) + "<pre>";
-                //$this->url->redirect('inventory/edit&id=' . $result);
+                $this->url->redirect('inventory/edit&id=' . $result);
             } else {
                 $this->session->data['message'] = array('alert' => 'error', 'value' => 'Inventory item failed to create.');
-                $this->url->redirect('inventory/edit&id=' . $result);
+                $this->url->redirect('inventory/edit&id='. $result);
             }
         }
     }
@@ -217,17 +216,27 @@ class InventoryController extends Controller
 
         if ($this->commons->validateText($this->url->post('item'))) {
             $error_flag = true;
-            $error['title'] = 'Item Name!';
+            $error['title1'] = 'Item Name!';
         }
 
-        if ($this->commons->validateText($this->url->post('item'))) {
+        if (($this->url->post('type')) == '0') {
             $error_flag = true;
-            $error['title'] = 'Item Name!';
+            $error['title2'] = 'Category';
+        }
+
+        if (($this->url->post('location')) == '0') {
+            $error_flag = true;
+            $error['title3'] = 'Location';
+        }
+
+        if (($this->inventoryModel->getItemInvNumber($this->url->post('inv_number'))>0)&&(null==($this->url->post('id')))) {
+            $error_flag = true;
+            $error['title4'] = 'inventory Number (already exists)';
         }
 
         if ($this->commons->validateDate($this->url->post('purchase_date'))) {
             $error_flag = true;
-            $error['author'] = 'Item Purchase Date! ' + $this->url->post('purchase_date');
+            $error['title5'] = 'Item Purchase Date! ' . $this->url->post('purchase_date');
         }
 
         if ($error_flag) {

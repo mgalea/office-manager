@@ -31,6 +31,7 @@
                     <label class="col-sm-2 col-form-label"><?php echo $lang['inventory']['text_inventory_type']; ?></label>
                     <div class="col-sm-4">
                         <select class="custom-select background-default" name="type">
+                        <option value="0" ?><?php echo $lang['inventory']['text_select_category']; ?></option>
                             <?php if (!empty($type)) {
                                 foreach ($type as $key => $value) { ?>
                                     <option value="<?php echo $value['id'] ?>" <?php if ($result['type'] == $value['id']) {
@@ -43,7 +44,9 @@
                     <label class="col-sm-2 col-form-label"><?php echo $lang['inventory']['text_item_location']; ?></label>
                     <div class="col-sm-4">
                         <select class="custom-select background-default" name="location">
+                        <option value="0" ?><?php echo $lang['inventory']['text_select_location']; ?></option>
                             <?php if (!empty($location)) {
+                                
                                 foreach ($location as $key => $value) { ?>
                                     <option value="<?php echo $value['id'] ?>" <?php if ($result['location'] == $value['id']) {
                                                                                     echo "selected";
@@ -85,14 +88,14 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="icon-calendar"></i></span>
                         </div>
-                        <input type="text" class="form-control date" name="purchase_date" value="<?php echo date_format(date_create($result['purchase_date']), 'Y-m-d'); ?>" placeholder="<?php echo $lang['inventory']['text_purchase_date']; ?>">
+                        <input type="text" class="form-control date" name="purchase_date" value="<?php echo date_format(date_create($result['purchase_date']), 'Y-m-d'); ?>" placeholder="<?php date_format(new DateTime(), 'Y-m-d'); ?>">
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label class="col-sm-2 col-form-label"><?php echo $lang['common']['text_description']; ?></label>
                     <div class="col-sm-10">
-                        <textarea class="form-control" rows="3" name="description" placeholder="<?php echo $lang['common']['text_description']; ?>"><?php echo $result['description'] ?></textarea>
+                        <textarea class="form-control" rows="3" name="description" value="" placeholder="<?php echo $lang['common']['text_description']; ?>"><?php echo $result['description'] ?></textarea>
                     </div>
                 </div>
 

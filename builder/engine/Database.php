@@ -42,6 +42,8 @@ class Database
 
 	public function query($query, $args = null) 
 	{
+		//echo var_dump($args);
+
 		if (is_null($args)) {
 			$query = $this->obj->query($query);
 			$result = new \stdClass();
@@ -100,6 +102,8 @@ class Database
 						$result->num_rows = $stmt->affected_rows;
 					}
 					$this->error = $stmt->error;
+					echo $this->error;
+					
 					$stmt->free_result();
 					$stmt->close();
 					return $result;

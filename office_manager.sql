@@ -24,7 +24,6 @@ CREATE TABLE IF NOT EXISTS `kk_attached_files` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
-
 --
 -- Table structure for table `kk_clients`
 --
@@ -44,7 +43,25 @@ CREATE TABLE IF NOT EXISTS `kk_clients` (
   UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+-- --------------------------------------------------------
+--
+-- Table structure for table `kk_companies`
+--
 
+DROP TABLE IF EXISTS `kk_companies`;
+CREATE TABLE IF NOT EXISTS `kk_companies` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL UNIQUE,
+  `reg_no` varchar(25) NOT NULL UNIQUE,
+  `address` text,
+  `vat_no` varchar(25),
+  `description` text,
+  `website` text,
+  `status` tinyint(1) NOT NULL DEFAULT 1,
+  `date_formed` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `last_updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1 ;
 -- --------------------------------------------------------
 
 --
