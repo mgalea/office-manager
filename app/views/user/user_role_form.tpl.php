@@ -1,4 +1,4 @@
-<?php include (DIR.'app/views/common/header.tpl.php'); ?>
+<?php include(DIR . 'app/views/common/header.tpl.php'); ?>
 <script>
 	$('#user').show();
 	$('#user-li').addClass('active');
@@ -13,8 +13,8 @@
 			</div>
 			<div class="panel-action">
 				<button type="submit" class="btn btn-info btn-icon" name="submit" data-toggle="tooltip" title="<?php echo $lang['common']['text_save']; ?>"><i class="far fa-save"></i></button>
-				<a href="<?php echo URL.DIR_ROUTE . 'role'; ?>" class="btn btn-white btn-icon" data-toggle="tooltip" title="<?php echo $lang['common']['text_back_to_list']; ?>"><i class="fa fa-reply"></i></a>
-			</div>  
+				<a href="<?php echo URL . DIR_ROUTE . 'role'; ?>" class="btn btn-white btn-icon" data-toggle="tooltip" title="<?php echo $lang['common']['text_back_to_list']; ?>"><i class="fa fa-reply"></i></a>
+			</div>
 		</div>
 		<div class="panel-wrapper p-3">
 			<div class="panel-body">
@@ -38,33 +38,42 @@
 				</div>
 				<div class="mb-2">
 					<label class="col-form-label"><?php echo $lang['users']['text_permission']; ?></label>
-					<table class="table table-bordered">
-						<thead class="thead-light">
+					<table class="table-striped ">
+						<thead>
 							<tr>
-								<th><?php echo $lang['common']['text_list']; ?></th>
-								<th><?php echo $lang['common']['text_add']; ?></th>
-								<th><?php echo $lang['common']['text_edit']; ?></th>
-								<th><?php echo $lang['common']['text_delete']; ?></th>
-								<th><?php echo $lang['common']['text_view']; ?></th>
+								<th class="text-center"><?php echo $lang['common']['text_list']; ?></th>
+								<th class="text-center"><?php echo $lang['common']['text_add']; ?></th>
+								<th class="text-center"><?php echo $lang['common']['text_edit']; ?></th>
+								<th class="text-center"><?php echo $lang['common']['text_delete']; ?></th>
+								<th class="text-center"><?php echo $lang['common']['text_view']; ?></th>
 							</tr>
 						</thead>
 						<tbody>
 							<?php foreach ($role as $role_key => $role_value) { ?>
-							<tr>
-								<?php foreach ($role_value as $sub_key => $sub_value) { ?>
-								<td>
-									<?php if (!empty($sub_value)) { ?>
-									<div class="custom-control custom-checkbox">
-										<input type="checkbox" class="custom-control-input" name="role[]" id="<?php echo $sub_key; ?>" value="<?php echo $sub_key; ?>" <?php if($role_selected) { foreach ($role_selected as $key => $value) { if ($value == $sub_key) { echo "checked"; } } } ?> >
-										<label class="custom-control-label" for="<?php echo $sub_key; ?>"><?php echo $sub_value; ?></label>
-									</div>
+								<tr>
+									<?php foreach ($role_value as $sub_key => $sub_value) { ?>
+										<td class="px-">
+											<?php if (!empty($sub_value)) { ?>
+												<div class="custom-control custom-checkbox">
+													<input type="checkbox" class="custom-control-input" name="role[]" id="<?php echo $sub_key; ?>" value="<?php echo $sub_key; ?>" <?php if ($role_selected) {
+																																														foreach ($role_selected as $key => $value) {
+																																															if ($value == $sub_key) {
+																																																echo "checked";
+																																															}
+																																														}
+																																													} ?>>
+													<label class="custom-control-label" for="<?php echo $sub_key; ?>"><?php echo $sub_value;
+																														?></label>
+												</div>
+											<?php } ?>
+										</td>
 									<?php } ?>
-								</td>
-								<?php } ?>
-							</tr> 
+								</tr>
 							<?php } ?>
 						</tbody>
 					</table>
+					<input type="checkbox" id="select-all">
+					<label for="role">Select All</label>
 				</div>
 			</div>
 			<input type="hidden" name="id" value="<?php echo $result['id']; ?>">
@@ -74,7 +83,16 @@
 		</div>
 	</div>
 </form>
-
+<script>
+	$(document).ready(function() {
+		$('#select-all').click(function() {
+			var checked = this.checked;
+			$('input[type="checkbox"]').each(function() {
+				this.checked = checked;
+			});
+		})
+	});
+</script>
 
 <!-- Footer -->
-<?php include (DIR.'app/views/common/footer.tpl.php'); ?>
+<?php include(DIR . 'app/views/common/footer.tpl.php'); ?>

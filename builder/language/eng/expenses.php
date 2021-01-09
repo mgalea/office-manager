@@ -11,5 +11,7 @@ $expenses = array(
 	'text_purchase_date' => 'Purchase Date',
 	'text_receipt' => 'Receipt',
 	'text_upload_receipt' => 'Upload Receipt',
-	'text_description' => 'Description'
+	'text_description' => 'Description',
+	'text_supplier' => 'Supplier',
+	'text_invoice_number' => 'Invoice Number'
 );

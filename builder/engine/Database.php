@@ -45,6 +45,7 @@ class Database
 		//echo var_dump($args);
 
 		if (is_null($args)) {
+			//echo $query;
 			$query = $this->obj->query($query);
 			$result = new \stdClass();
 			$result->num_rows = $query->num_rows;

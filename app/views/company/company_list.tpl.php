@@ -12,7 +12,20 @@
                 <span class="panel-title-text"><?php echo $page_title; ?></span>
             </div>
             <div class="panel-action">
-                <a href="<?php echo URL . DIR_ROUTE . 'company/add'; ?>" class="btn btn-success btn-sm"><i class="icon-plus mr-1"></i> <?php echo $lang['company']['text_new_company']; ?></a>
+                <form action="<?php echo URL . DIR_ROUTE . 'companies'; ?>" method="post">
+                    <select name="type" onchange="this.form.submit()">
+                        <option value="0">List All</option>
+                        <?php if (!empty($types)) {
+                            foreach ($types as $key => $value) { ?>
+                                <option value="<?php echo $value['id'] ?>" <?php if (isset($type) && $type == $value['id']) {
+                                                                                echo "selected";
+                                                                            } ?>><?php echo $value['name'] ?></option>
+                        <?php }
+                        } ?>
+                    </select>
+
+                    <a href="<?php echo URL . DIR_ROUTE . 'company/add'; ?>" class="btn btn-success btn-sm"><i class="icon-plus mr-1"></i> <?php echo $lang['company']['text_new_company']; ?></a>
+                </form>
             </div>
         </div>
         <div class="panel-wrapper">
@@ -30,7 +43,7 @@
                     <tbody>
                         <?php if ($result) {
                             foreach ($result as $key => $value) { ?>
-                            
+
                                 <tr>
                                     <td><a href="<?php echo URL . DIR_ROUTE . 'company/view&id=' . $value['id']; ?>"><?php echo $value['name']; ?></td>
                                     <td><a href="<?php echo URL . DIR_ROUTE . 'company/view&id=' . $value['id']; ?>"><?php echo $value['reg_no']; ?></a></td>
@@ -38,10 +51,10 @@
                                     <td class="table-action">
 
                                         <p><a href="<?php echo URL . DIR_ROUTE . 'company/edit&id=' . $value['id']; ?>" class="btn btn-success btn-circle  " data-toggle="tooltip" title="<?php echo $lang['common']['text_edit']; ?>"><i class="icon-pencil"></i></a>
-                                        <span class="btn btn-danger btn-circle  table-delete" data-toggle="tooltip" title="<?php echo $lang['common']['text_delete']; ?>"><i class="icon-trash"></i><input type="hidden" value="<?php echo $value['id']; ?>"></span>
+                                            <span class="btn btn-danger btn-circle  table-delete" data-toggle="tooltip" title="<?php echo $lang['common']['text_delete']; ?>"><i class="icon-trash"></i><input type="hidden" value="<?php echo $value['id']; ?>"></span>
                                     </td>
                                 </tr>
-                            
+
                         <?php }
                         } ?>
                     </tbody>

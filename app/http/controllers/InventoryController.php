@@ -20,7 +20,10 @@ class InventoryController extends Controller
      **/
     public function index()
     {
-        $this->commons->isAdmin();
+        if (!$this->commons->hasPermission('companies')) {
+            Not_foundController::show('403');
+            exit();
+        }
 
         /*Get User name and role*/
         $data = $this->commons->getUser();
@@ -57,7 +60,10 @@ class InventoryController extends Controller
      **/
     public function indexAdd()
     {
-        $this->commons->isAdmin();
+        if (!$this->commons->hasPermission('companies')) {
+            Not_foundController::show('403');
+            exit();
+        }
         /*Get User name and role*/
         $data = $this->commons->getUser();
 
@@ -96,7 +102,10 @@ class InventoryController extends Controller
      **/
     public function indexEdit()
     {
-        $this->commons->isAdmin();
+        if (!$this->commons->hasPermission('companies')) {
+            Not_foundController::show('403');
+            exit();
+        }
         /**
          * Check if id exist in url if not exist then redirect to Item list view 
          **/
@@ -155,7 +164,10 @@ class InventoryController extends Controller
      **/
     public function indexAction()
     {
-        $this->commons->isAdmin();
+        if (!$this->commons->hasPermission('companies')) {
+            Not_foundController::show('403');
+            exit();
+        }
         /**
          * Check if from is submitted or not 
          **/
@@ -200,7 +212,11 @@ class InventoryController extends Controller
      **/
     public function indexDelete()
     {
-        $this->commons->isAdmin();
+        if (!$this->commons->hasPermission('companies')) {
+            Not_foundController::show('403');
+            exit();
+        }
+        
         $result = $this->inventoryModel->deleteInventoryItem($this->url->post('id'));
         $this->session->data['message'] = array('alert' => 'success', 'value' => 'Inventory Item deleted successfully.');
         $this->url->redirect('inventory');

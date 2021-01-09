@@ -11,7 +11,7 @@ class Invoice extends Model
 		return $query->rows;
 	}
 
-	public function getInovice($id)
+	public function getInvoice($id)
 	{
 		$query = $this->model->query("SELECT * FROM `" . DB_PREFIX . "invoice` WHERE `id` = ? LIMIT 1", array((int)$id));
 		

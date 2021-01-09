@@ -15,7 +15,6 @@
     <link rel="stylesheet" href="public/css/simple-line-icons.min.css">
     <link rel="stylesheet" href="public/css/datatables.min.css">
     <link rel="stylesheet" href="public/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="public/css/morris.css">
     <link rel="stylesheet" href="public/css/style.css" />
     <!-- Include js files -->
     <script type="text/javascript" src="public/js/jquery-2.1.4.min.js"></script>
@@ -23,8 +22,7 @@
     <script type="text/javascript" src="public/js/datatables.min.js"></script>
     <script type="text/javascript" src="public/js/popper.min.js"></script>
     <script type="text/javascript" src="public/js/bootstrap.min.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-    <script type="text/javascript" src="public/js/morris.min.js"></script>
+
     <script type="text/javascript" src="public/js/toastr.js"></script>
     <script type="text/javascript" src="public/js/daterangepicker.js"></script>
     <script type="text/javascript" src="public/js/admin.js"></script>

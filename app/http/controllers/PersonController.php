@@ -1,0 +1,342 @@
+<?php
+
+/**
+ * PersonController
+ */
+class PersonController extends Controller
+{
+	private $contactModel;
+	function __construct()
+	{
+		parent::__construct();
+		$this->commons = new CommonsController();
+		/*Initialize User model*/
+		$this->contactModel = new Person();
+	}
+	/**
+	 * Person index method
+	 * This method will be called on Person list view
+	 **/
+	public function index()
+	{
+		if (!$this->commons->hasPermission('contacts')) {
+			Not_foundController::show('403');
+			exit();
+		}
+
+		/*Get User name and role*/
+		$data = $this->commons->getUser();
+		/**
+		 * Get all User data from DB using User model 
+		 **/
+		$data['result'] = $this->contactModel->getPersons();
+
+		/*Load Language File*/
+		require DIR_BUILDER . 'language/' . $data['info']['language'] . '/common.php';
+		$data['lang']['common'] = $lang;
+		require DIR_BUILDER . 'language/' . $data['info']['language'] . '/person.php';
+		$data['lang']['person'] = $person;
+
+		/* Set confirmation message if page submitted before */
+		if (isset($this->session->data['message'])) {
+			$data['message'] = $this->session->data['message'];
+			unset($this->session->data['message']);
+		}
+		/* Set page title */
+		$data['page_title'] = $data['lang']['common']['text_contacts'];
+
+		/*Render User list view*/
+		$this->view->render('person/person_list.tpl', $data);
+	}
+
+	public function indexView()
+	{
+		if (!$this->commons->hasPermission('person/view')) {
+			Not_foundController::show('403');
+			exit();
+		}
+		/**
+		 * Check if id exist in url if not exist then redirect to Item list view 
+		 **/
+		$id = (int)$this->url->get('id');
+		if (empty($id) || !is_int($id)) {
+			$this->url->redirect('persons');
+		}
+
+		/*Get User name and role*/
+		$data = $this->commons->getUser();
+		/**
+		 * Get all User data from DB using User model 
+		 **/
+		$data['result'] = $this->contactModel->getPerson($id);
+
+		$data['types'] = $this->contactModel->getContactType();
+		$data['documents'] = $this->contactModel->getDocuments($id);		
+		$data['result']['address'] = json_decode($data['result']['address'], true);
+
+		/*Load Language File*/
+		require DIR_BUILDER . 'language/' . $data['info']['language'] . '/common.php';
+		$data['lang']['common'] = $lang;
+		require DIR_BUILDER . 'language/' . $data['info']['language'] . '/person.php';
+		$data['lang']['person'] = $person;
+
+		/* Set confirmation message if page submitted before */
+		if (isset($this->session->data['message'])) {
+			$data['message'] = $this->session->data['message'];
+			unset($this->session->data['message']);
+		}
+		/* Set page title */
+		$data['page_title'] = $data['lang']['person']['text_view_contact'];
+		$data['action'] = URL . DIR_ROUTE . 'person/action';
+		$data['token'] = hash('sha512', TOKEN . TOKEN_SALT);
+
+		/*Render User list view*/
+		$this->view->render('person/person_view.tpl', $data);
+	}
+	/**
+	 * Person index ADD method
+	 * This method will be called on ADD page
+	 **/
+	public function indexAdd()
+	{
+		if (!$this->commons->hasPermission('person/add')) {
+			Not_foundController::show('403');
+			exit();
+		}
+		/*Get User name and role*/
+		$data = $this->commons->getUser();
+		/**
+		 * Get all User data from DB using User model 
+		 **/
+		$data['result'] = NULL;
+
+		/*Load Language File*/
+		require DIR_BUILDER . 'language/' . $data['info']['language'] . '/common.php';
+		$data['lang']['common'] = $lang;
+		require DIR_BUILDER . 'language/' . $data['info']['language'] . '/person.php';
+		$data['lang']['person'] = $person;
+
+		/* Set confirmation message if page submitted before */
+		if (isset($this->session->data['message'])) {
+			$data['message'] = $this->session->data['message'];
+			unset($this->session->data['message']);
+		}
+		/* Set page title */
+		$data['page_title'] = $data['lang']['common']['text_edit'] . ' ' . $data['lang']['common']['text_contact'];
+		$data['action'] = URL . DIR_ROUTE . 'person/action';
+		$data['token'] = hash('sha512', TOKEN . TOKEN_SALT);
+		$data['types'] = $this->contactModel->getContactType();
+
+		/*Render User list view*/
+		$this->view->render('person/person_form.tpl', $data);
+	}
+	/**
+	 * Person index Edit method
+	 * This method will be called on Person Edit view
+	 **/
+	public function indexEdit()
+	{
+		if (!$this->commons->hasPermission('person/edit')) {
+			Not_foundController::show('403');
+			exit();
+		}
+		/**
+		 * Check if id exist in url if not exist then redirect to Item list view 
+		 **/
+		$id = (int)$this->url->get('id');
+		if (empty($id) || !is_int($id)) {
+			$this->url->redirect('contacts');
+		}
+		/*Get User name and role*/
+		$data = $this->commons->getUser();
+		/**
+		 * Get all User data from DB using User model 
+		 **/
+		$data['result'] = $this->contactModel->getPerson($id);
+		$data['documents'] = $this->contactModel->getDocuments($id);
+
+		$data['result']['address'] = json_decode($data['result']['address'], true);
+
+
+		/*Load Language File*/
+		require DIR_BUILDER . 'language/' . $data['info']['language'] . '/common.php';
+		$data['lang']['common'] = $lang;
+		require DIR_BUILDER . 'language/' . $data['info']['language'] . '/person.php';
+		$data['lang']['person'] = $person;
+
+		/* Set confirmation message if page submitted before */
+		if (isset($this->session->data['message'])) {
+			$data['message'] = $this->session->data['message'];
+			unset($this->session->data['message']);
+		}
+		/* Set page title */
+		$data['page_title'] = $data['lang']['common']['text_edit'] . ' ' . $data['lang']['common']['text_contact'];
+		$data['action'] = URL . DIR_ROUTE . 'person/action';
+		$data['token'] = hash('sha512', TOKEN . TOKEN_SALT);
+
+		/*Render User list view*/
+		$this->view->render('person/person_form.tpl', $data);
+	}
+	/**
+	 * Person index method
+	 * This method will be called on Person ADD or Update view
+	 **/
+	public function indexAction()
+	{
+		if ((!$this->commons->hasPermission('person/edit')) && (!$this->commons->hasPermission('person/add'))) {
+			Not_foundController::show('403');
+			exit();
+		}
+		/**
+		 * Check if from is submitted or not 
+		 **/
+		if (!isset($_POST['submit'])) {
+			$this->url->redirect('contacts');
+			exit();
+		}
+		/**
+		 * Validate form data
+		 * If some data is missing or data does not match pattern
+		 * Return to info view 
+		 **/
+		if ($validate_field = $this->validateField()) {
+			$this->session->data['message'] = array('alert' => 'error', 'value' => 'Please enter valid ' . implode(", ", $validate_field) . '!');
+			$this->url->redirect('contacts');
+		}
+
+		if ($this->commons->validateToken($this->url->post('_token'))) {
+			$this->session->data['message'] = array('alert' => 'warning', 'value' => 'Token does not match!');
+			$this->url->redirect('contacts');
+		}
+
+		if (!empty($this->url->post('id'))) {
+			$data = $this->url->post('person');
+			$data['client'] = $this->url->post('client');
+			$data['country'] = $data['address']['country'];
+			$data['address'] = json_encode($data['address']);
+			$data['person'] = json_encode($data['person']);
+			$data['contact_type'] = $this->url->post('contact_type');
+			$data['id'] = $this->url->post('id');
+			$result = $this->contactModel->updatePerson($data);
+			$this->session->data['message'] = array('alert' => 'success', 'value' => 'Contact Person updated successfully.');
+			$this->url->redirect('person/edit&id=' . $this->url->post('id'));
+		} else {
+			$data = $this->url->post('person');
+			$data['country'] = $data['address']['country'];
+			$data['address'] = json_encode($data['address']);
+			$data['person'] = json_encode($data['person']);
+			$data['contact_type'] = (!empty($this->url->post('id'))) ? $this->url->post('contact_type') : 1;
+			$result = $this->contactModel->createPerson($data);
+			$this->session->data['message'] = array('alert' => 'success', 'value' => 'Contact Person created successfully.');
+			$this->url->redirect('person/edit&id=' . $result);
+		}
+	}
+	/**
+	 * Person index Delete method
+	 * This method will be called on Person Delete view
+	 **/
+	public function indexDelete()
+	{
+		if (!$this->commons->hasPermission('person/delete')) {
+			Not_foundController::show('403');
+			exit();
+		}
+		$result = $this->contactModel->deletePerson($this->url->post('id'));
+		$this->session->data['message'] = array('alert' => 'success', 'value' => 'Contact Person deleted successfully.');
+		$this->url->redirect('contacts');
+	}
+
+	public function indexMail()
+	{
+		if (!$this->commons->hasPermission('person/view')) {
+			Not_foundController::show('403');
+			exit();
+		}
+		$data = $this->url->post('mail');
+
+		if ($validate_field = $this->validateMailField($data)) {
+			$this->session->data['message'] = array('alert' => 'error', 'value' => 'Please enter valid ' . implode(", ", $validate_field) . '!');
+			$this->url->redirect('person/view&id=' . $data['person']);
+		}
+
+		if ($this->commons->validateToken($this->url->post('_token'))) {
+			$this->url->redirect('person/view&id=' . $data['person']);
+		}
+
+		$info = $this->contactModel->getOrganization();
+
+		$mailer = new Mailer();
+		$useornot = $mailer->getData();
+		if (!$useornot) {
+			$mailer->mail->setFrom($info['email'], $info['name']);
+		}
+
+		$mailer->mail->addAddress($data['to'], $data['name']);
+		if (!empty($data['bcc'])) {
+			$mailer->mail->addBCC($data['bcc'], $data['bcc']);
+		}
+
+		$mailer->mail->isHTML(true);
+		$mailer->mail->Subject = $data['subject'];
+		$mailer->mail->Body = html_entity_decode($data['message']);
+
+		$mailer->sendMail();
+		$data['type'] = "person";
+		$data['type_id'] = $data['person'];
+		$data['user_id'] = $this->session->data['user_id'];
+
+		$this->contactModel->emailLog($data);
+		$this->session->data['message'] = array('alert' => 'success', 'value' => 'Email Sent successfully.');
+		$this->url->redirect('person/view&id=' . $data['person']);
+	}
+	/**
+	 * Validate Field Method
+	 * This method will be called on to validate invoice field
+	 **/
+	private function validateMailField($data)
+	{
+		$error = [];
+		$error_flag = false;
+
+		if ($this->commons->validateText($data['to'])) {
+			$error_flag = true;
+			$error['to'] = 'Email!';
+		}
+
+		if ($this->commons->validateText($data['subject'])) {
+			$error_flag = true;
+			$error['subject'] = 'Subject!';
+		}
+
+		if ($this->commons->validateText($data['message'])) {
+			$error_flag = true;
+			$error['message'] = 'Message!';
+		}
+
+		if ($error_flag) {
+			return $error;
+		} else {
+			return false;
+		}
+	}
+	/**
+	 * Person validate field method
+	 * This method will be called for validate input field
+	 **/
+	public function validateField()
+	{
+		$error = [];
+		$error_flag = false;
+
+		if ($this->commons->validateText($this->url->post('person')['company'])) {
+			$error_flag = true;
+			$error['author'] = 'Item Rate!';
+		}
+
+		if ($error_flag) {
+			return $error;
+		} else {
+			return false;
+		}
+	}
+}

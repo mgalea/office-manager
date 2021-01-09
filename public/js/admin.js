@@ -1,7 +1,7 @@
 /**
  * Admin JS - admin js for Office Manager theme
  * @version v1.0.0
- * @copyright 2018 Pepdev.
+ * @copyright 2018 rnggaming.
  */
 /**
  * Mobile Menu Open/Close

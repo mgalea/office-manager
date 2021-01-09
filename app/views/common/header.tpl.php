@@ -101,6 +101,9 @@
                                     <a href="<?php echo URL . DIR_ROUTE; ?>contacts"><span><?php echo $lang['common']['text_contacts']; ?></span></a>
                                 </li>
                                 <li>
+                                    <a href="<?php echo URL . DIR_ROUTE; ?>persons"><span><?php echo $lang['common']['text_persons']; ?></span></a>
+                                </li>
+                                <li>
                                     <a href="<?php echo URL . DIR_ROUTE; ?>clients"><span><?php echo $lang['common']['text_clients'] . ' ' . $lang['common']['text_portal']; ?></span></a>
                                 </li>
                             </ul>
@@ -149,6 +152,7 @@
                         <li id="ticket-li">
                             <a href="<?php echo URL . DIR_ROUTE; ?>tickets"><i class="fas fa-ticket-alt"></i><span><?php echo $lang['common']['text_tickets']; ?></span></a>
                         </li>
+                        <?php if($user['role'] == 'Admin') {?>
                         <li class="menu-title"><?php echo $lang['common']['text_domains']; ?></li>
                         <li id="domain-li">
                             <a href="<?php echo URL . DIR_ROUTE; ?>domains"><i class="fas fa-server"></i><span><?php echo $lang['common']['text_domains']; ?></span></a>
@@ -218,14 +222,17 @@
                                 <li>
                                     <a href="<?php echo URL . DIR_ROUTE; ?>setting&page=recurring"><span><?php echo $lang['common']['text_cron_setting']; ?></span></a>
                                 </li>
-                            <li>
-                            <span><p></p></span>
+                                <li>
+                                    <span>
+                                        <p></p>
+                                    </span>
                                 </li>
                             </ul>
                         </li>
                         <li id="customization-li">
                             <a href="<?php echo URL . DIR_ROUTE; ?>customization"><i class="icon-target"></i><span><?php echo $lang['common']['text_theme_customization']; ?></span></a>
                         </li>
+                        <?php }?>
                     </ul>
                 </div>
             </div>

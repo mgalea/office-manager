@@ -3,8 +3,8 @@
 
 Project  :  Office manager
 Version  :  1.0
-Author   :  Pepdev
-Website  :  www.pepdev.com
+Author   :  rnggaming
+Website  :  www.rnggaming.com
 -------------------------------------------------------------------*/
 /**
 * Table of Contents :
@@ -2877,6 +2877,8 @@ select.form-transparent {
 
 .footer {
   width: 100%;
+  position: absolute;
+  bottom: 0px;
   text-align: center;
   padding: 10px;
   margin: 70px 0 0 0;

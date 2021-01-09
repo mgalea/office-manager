@@ -199,7 +199,7 @@ CREATE TABLE IF NOT EXISTS `kk_expenses` (
   `purchase_by` varchar(255) NOT NULL,
   `expense_type` int(11) NOT NULL,
   `currency` int(3) NOT NULL,
-  `purchase_amount` int(100) NOT NULL,
+  `purchase_amount` decimal(7,2) NOT NULL,
   `payment_type` int(11) NOT NULL,
   `purchase_date` date NOT NULL,
   `description` text NOT NULL,
@@ -367,7 +367,7 @@ CREATE TABLE IF NOT EXISTS `kk_info` (
 --
 
 INSERT INTO `kk_info` (`id`, `url`, `name`, `legal_name`, `language`, `logo`, `favicon`, `email`, `address`, `phone`, `fax`, `currency`, `last_updated`) VALUES
-(1, 'pepdev.com', 'Compnay Name', 'Compnay Legel Name', 'eng', 'logo-color.png', 'favicon.png', 'support@pepdev', '{"address1":"Address 1","address2":"Address 2","city":"City","country":"Country","pincode":"000000"}', '1234567890', '1234567213', 'USD', '2018-02-23 08:46:55');
+(1, 'rnggaming.com', 'Compnay Name', 'Compnay Legel Name', 'eng', 'logo-color.png', 'favicon.png', 'support@rnggaming', '{"address1":"Address 1","address2":"Address 2","city":"City","country":"Country","pincode":"000000"}', '1234567890', '1234567213', 'USD', '2018-02-23 08:46:55');
 
 -- --------------------------------------------------------
 
@@ -824,12 +824,27 @@ CREATE TABLE IF NOT EXISTS `kk_users` (
   UNIQUE KEY `user_name` (`user_name`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
+
+--
+-- Table structure for table `kk_suppliers`
+--
+
+
+DROP TABLE IF EXISTS `kk_suppliers`;
+CREATE TABLE IF NOT EXISTS `kk_suppliers` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` text,
+  `tax_number` varchar(25),
+  `last_updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8mb4 AUTO_INCREMENT=1 ;
+
 --
 -- Dumping data for table `kk_users`
 --
 
 INSERT INTO `kk_users` (`user_id`, `user_role`, `user_name`, `firstname`, `lastname`, `email`, `mobile`, `meta`, `other`, `password`, `temp_hash`, `emailconfirmed`, `status`, `date_of_joining`) VALUES
-(1, 1, 'admin', 'John', '', 'support@pepdev.com', '1111111111', NULL, NULL, '$2y$10$9AdTEHAJODoONsTAsgsZWeRnSCPavPsWJ6f8ifUQ6p1w7zHAAj9/q', '', '1', 1, '2018-02-15 14:24:06');
+(1, 1, 'admin', 'John', '', 'support@rnggaming.com', '1111111111', NULL, NULL, '$2y$10$9AdTEHAJODoONsTAsgsZWeRnSCPavPsWJ6f8ifUQ6p1w7zHAAj9/q', '', '1', 1, '2018-02-15 14:24:06');
 
 -- --------------------------------------------------------
 

@@ -92,7 +92,16 @@ $router->post('contact/action', 'ContactController@indexAction@2');
 $router->post('contact/delete', 'ContactController@indexDelete@2');
 $router->post('contact/sentmail', 'ContactController@indexMail@2');
 
+$router->get('persons', 'PersonController@index@2');
+$router->get('person/view', 'PersonController@indexView@2');
+$router->get('person/add', 'PersonController@indexAdd@2');
+$router->get('person/edit', 'PersonController@indexEdit@2');
+$router->post('person/action', 'PersonController@indexAction@2');
+$router->post('person/delete', 'PersonController@indexDelete@2');
+$router->post('person/sentmail', 'PersonController@indexMail@2');
+
 $router->get('companies', 'CompanyController@index@2');
+$router->post('companies', 'CompanyController@indexType@2');
 $router->get('company/view', 'CompanyController@indexView@2');
 $router->get('company/add', 'CompanyController@indexAdd@2');
 $router->get('company/edit', 'CompanyController@indexEdit@2');

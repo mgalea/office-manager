@@ -29,10 +29,65 @@ class CompanyController extends Controller
 		/*Get User name and role*/
 		$data = $this->commons->getUser();
 
+
 		/**
 		 * Get all User data from DB using User model 
 		 **/
 		$data['result'] = $this->companyModel->getCompanies();
+		$data['types'] = $this->companyModel->getCompanyTypes();
+
+		/**
+		 * Check if type is set in url if not exist then redirect to Item list view 
+		 **/
+
+		if (empty($this->url->get('type')) || !is_int($this->url->get('type'))) {
+			$data['type'] = 0;
+		} else {
+			$$data['type']  = (int)$this->url->get('type');
+		}
+
+		/*Load Language File*/
+		require DIR_BUILDER . 'language/' . $data['info']['language'] . '/common.php';
+		$data['lang']['common'] = $lang;
+		require DIR_BUILDER . 'language/' . $data['info']['language'] . '/company.php';
+		$data['lang']['company'] = $company;
+
+		/* Set confirmation message if page submitted before */
+		if (isset($this->session->data['message'])) {
+			$data['message'] = $this->session->data['message'];
+			unset($this->session->data['message']);
+		}
+		/* Set page title */
+		$data['page_title'] = $data['lang']['common']['text_companies'];
+
+		/*Render User list view*/
+		$this->view->render('company/company_list.tpl', $data);
+	}
+
+	public function indexType()
+	{
+		if (!$this->commons->hasPermission('companies')) {
+			Not_foundController::show('403');
+			exit();
+		}
+
+		/*Get User name and role*/
+		$data = $this->commons->getUser();
+
+		/**
+		 * Check if from is submitted or not 
+		 **/
+		if (!isset($_POST['type']) || $_POST['type'] == 0) {
+			$this->url->redirect('companies');
+			exit();
+		}
+
+		/**
+		 * Get all User data from DB using User model 
+		 **/
+		$data['types'] = $this->companyModel->getCompanyTypes();
+		$data['result'] = $this->companyModel->getCompanyByType((int)$this->url->post('type'));
+		$data['type'] = (int)$this->url->post('type');
 
 		/*Load Language File*/
 		require DIR_BUILDER . 'language/' . $data['info']['language'] . '/common.php';
@@ -73,6 +128,7 @@ class CompanyController extends Controller
 		$data['result'] = $this->companyModel->getCompany($id);
 		$data['result']['address'] = json_decode($data['result']['address'], true);
 		$data['documents'] = $this->companyModel->getDocuments($id);
+		$data['types'] = $this->companyModel->getCompanyTypes();
 
 		/*Load Language File*/
 		require DIR_BUILDER . 'language/' . $data['info']['language'] . '/common.php';
@@ -109,6 +165,8 @@ class CompanyController extends Controller
 		 * Get all User data from DB using User model 
 		 **/
 		$data['result'] = NULL;
+		$data['types'] = $this->companyModel->getCompanyTypes();
+		$data['activity'] = $this->companyModel->getActivityTypes();
 
 		/*Load Language File*/
 		require DIR_BUILDER . 'language/' . $data['info']['language'] . '/common.php';
@@ -153,7 +211,8 @@ class CompanyController extends Controller
 		 **/
 		$data['result'] = $this->companyModel->getCompany($id);
 		$data['documents'] = $this->companyModel->getDocuments($id);
-
+		$data['types'] = $this->companyModel->getCompanyTypes();
+		$data['activity'] = $this->companyModel->getActivityTypes();
 		$data['result']['address'] = json_decode($data['result']['address'], true);
 
 		/*Load Language File*/
@@ -175,6 +234,7 @@ class CompanyController extends Controller
 		/*Render User list view*/
 		$this->view->render('company/company_form.tpl', $data);
 	}
+
 	/**
 	 * Company index method
 	 * This method will be called on Company Add or Update view
@@ -211,34 +271,34 @@ class CompanyController extends Controller
 			$data = $this->url->post('company');
 			$data['address'] = json_encode($data['address']);
 			$data['status'] = (!empty($this->url->post('status'))) ? $this->url->post('status') : 1;
-			$data['date_formed'] = date_format(date_create($data['date_formed']), 'Y-m-d');
+			$data['formation_date'] = date_format(date_create($data['formation_date']), 'Y-m-d');
 			$data['id'] = $this->url->post('id');
-			$result = $this->companyModel->updateCompany($data);
-			if ($result) {
-                $this->session->data['message'] = array('alert' => 'success', 'value' => 'Inventory item created successfully.');
-				$this->url->redirect('company/edit&id=' . $result);
+			$result = (int)$this->companyModel->updateCompany($data);
+
+			if ($result <1) {
+				$this->session->data['message'] = array('alert' => 'success', 'value' => 'Company updated successfully.');
+				$this->url->redirect('company/edit&id=' . $this->url->post('id'));
 				echo $result;
-            } else {
-                $this->session->data['message'] = array('alert' => 'error', 'value' => 'Company failed to update.');
-				$this->url->redirect('company/edit&id='.$this->url->post('id'));
+			} else {
+				$this->session->data['message'] = array('alert' => 'error', 'value' => $result);
+				$this->url->redirect('company/edit&id=' . $this->url->post('id'));
 				echo $result;
-            }
-		
+			}
+
 		} else {
 			$data = $this->url->post('company');
 			$data['address'] = json_encode($data['address']);
 			$data['status'] = (!empty($this->url->post('status'))) ? $this->url->post('status') : 1;
-			$data['date_formed'] = date_format(date_create($data['date_formed']), 'Y-m-d');
+			$data['formation_date'] = date_format(date_create($data['formation_date']), 'Y-m-d');
 			$result = $this->companyModel->createCompany($data);
-			if ($result) {
-                $this->session->data['message'] = array('alert' => 'success', 'value' => 'Company created successfully.');
+			if ($result != 0) {
+				$this->session->data['message'] = array('alert' => 'success', 'value' => 'Company created successfully.');
 				$this->url->redirect('company/edit&id=' . $result);
+			} else {
+				$this->session->data['message'] = array('alert' => 'error', 'value' => 'Company failed to create.');
+				$this->url->redirect('company/edit');
 				echo $result;
-            } else {
-                $this->session->data['message'] = array('alert' => 'error', 'value' => 'Company failed to create.');
-				$this->url->redirect('company/edit&id=' . $result);
-				echo $result;
-            }
+			}
 		}
 	}
 	/**
@@ -269,24 +329,6 @@ class CompanyController extends Controller
 			$error_flag = true;
 			$error['title1'] = 'company name';
 		}
-		
-		if ($this->commons->validateText($this->url->post('company')['reg_no'])) {
-			$error_flag = true;
-			$error['title2'] = 'registration number';
-		}
-		if ($this->commons->validateText($this->url->post('company')['vat_no'])) {
-			$error_flag = true;
-			$error['title3'] = 'vat number';
-		}
-		if ($this->commons->validateText($this->url->post('company')['address']['address1'])) {
-			$error_flag = true;
-			$error['title4'] = 'company address';
-		}
-
-		if ($this->commons->validateDate($this->url->post('company')['date_formed'])) {
-			$error_flag = true;
-			$error['title5'] = 'date of formation: '. $this->url->post('purchase_date');
-		}
 
 		if ($error_flag) {
 			return $error;
@@ -294,5 +336,4 @@ class CompanyController extends Controller
 			return false;
 		}
 	}
-	
 }

@@ -10,7 +10,7 @@ class ContactController extends Controller
 	{
 		parent::__construct();
 		$this->commons = new CommonsController();
-		/*Intilize User model*/
+		/*Initialize User model*/
 		$this->contactModel = new Contact();
 	}
 	/**
@@ -128,6 +128,7 @@ class ContactController extends Controller
 		$data['page_title'] = $data['lang']['common']['text_edit'] . ' ' . $data['lang']['common']['text_contact'];
 		$data['action'] = URL . DIR_ROUTE . 'contact/action';
 		$data['token'] = hash('sha512', TOKEN . TOKEN_SALT);
+		$data['types'] = $this->contactModel->getContactType();
 
 		/*Render User list view*/
 		$this->view->render('contact/contact_form.tpl', $data);
@@ -158,7 +159,7 @@ class ContactController extends Controller
 		$data['client'] = $this->contactModel->getClient($data['result']['email']);
 		$data['invoices'] = $this->contactModel->getInvoices($id);
 		$data['quotes'] = $this->contactModel->getQuotes($id);
-		$data['types'] = $this->contactModel->getContactType($id);
+		$data['types'] = $this->contactModel->getContactType();
 		$data['documents'] = $this->contactModel->getDocuments($id);
 
 		$data['result']['address'] = json_decode($data['result']['address'], true);
@@ -260,7 +261,7 @@ class ContactController extends Controller
 		}
 		$data = $this->url->post('mail');
 
-		if ($validate_field = $this->vaildateMailField($data)) {
+		if ($validate_field = $this->validateMailField($data)) {
 			$this->session->data['message'] = array('alert' => 'error', 'value' => 'Please enter valid ' . implode(", ", $validate_field) . '!');
 			$this->url->redirect('contact/view&id=' . $data['contact']);
 		}
@@ -299,7 +300,7 @@ class ContactController extends Controller
 	 * Validate Field Method
 	 * This method will be called on to validate invoice field
 	 **/
-	private function vaildateMailField($data)
+	private function validateMailField($data)
 	{
 		$error = [];
 		$error_flag = false;

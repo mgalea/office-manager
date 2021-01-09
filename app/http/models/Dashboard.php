@@ -146,13 +146,13 @@ class Dashboard extends Model
 
 	public function getNotes()
 	{
-		$query = $this->model->query("SELECT * FROM `" . DB_PREFIX . "notes` ORDER BY `date_of_joining` DESC");
+		$query = $this->model->query("SELECT * FROM `" . DB_PREFIX . "notes` ORDER BY `date_of_joining` DESC LIMIT 3");
 		return $query->rows;
 	}
 
 	public function getUserNotes($user_id)
 	{
-		$query = $this->model->query("SELECT * FROM `" . DB_PREFIX . "notes` WHERE `user_id` = ?", array((int)$user_id));
+		$query = $this->model->query("SELECT * FROM `" . DB_PREFIX . "notes` WHERE `user_id` = ? ", array((int)$user_id));
 		return $query->rows;
 	}
 

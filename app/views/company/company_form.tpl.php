@@ -36,10 +36,8 @@
                 <div class="tab-content mt-3 pl-4 pr-4">
                     <div class="tab-pane active" id="basic-info">
                         <div class="form-group row align-items-start">
-                            <div class="col-md-2">
-                                <label class="col-form-label pt-3"><?php echo $lang['company']['text_name']; ?></label>
-                            </div>
-                           <div class="col-md-10">
+                            <div class=" col-md-5">
+                                <label class="col-form-label"><?php echo $lang['company']['text_name']; ?></label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="icon-user"></i></span>
@@ -47,57 +45,118 @@
                                     <input type="text" class="form-control" name="company[name]" value="<?php echo $result['name']; ?>" placeholder="<?php echo $lang['company']['text_name']; ?>" required>
                                 </div>
                             </div>
+                            <div class="col-xs-5 col-md-3">
+                                <label class="col-form-label"><?php echo $lang['company']['text_brand']; ?></label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="icon-user"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" name="company[short_name]" value="<?php echo $result['short_name']; ?>" placeholder="<?php echo $lang['company']['text_name']; ?>" required>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="col-form-label"><?php echo $lang['company']['text_type']; ?></label>
 
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="icon-user"></i></span>
+                                    </div>
+
+                                    <select name="company[type]" class="form-control">
+                                        <option value="0">List All</option>
+                                        <?php if (!empty($types)) {
+                                            foreach ($types as $key => $value) { ?>
+                                                <option value="<?php echo $value['id'] ?>" <?php if ($result['type'] == $value['id']) {
+                                                                                                echo "selected";
+                                                                                            } ?>><?php echo $value['name'] ?></option>
+                                        <?php }
+                                        } ?>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group row align-items-start">
-                            <label class="col-md-2 col-form-label pt-3"><?php echo $lang['company']['text_company_id']; ?></label>
-                            <div class="col-md-6">
+                            <div class="col-md-3">
+                                <label class="col-form-label"><?php echo $lang['company']['text_company_id']; ?></label>
+
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="far fa-building"></i></span>
                                     </div>
-                                    <input type="text" class="form-control" name="company[reg_no]" value="<?php echo $result['reg_no']; ?>" placeholder="<?php echo $lang['company']['text_company_id']; ?>" required>
+                                    <input type="text" class="form-control" name="company[reg_no]" value="<?php echo $result['reg_no']; ?>" placeholder="<?php echo $lang['company']['text_company_id']; ?>">
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-group row align-items-start">
-                            <label class="col-md-2 col-form-label pt-3"><?php echo $lang['company']['text_vat_no']; ?></label>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
+                                <label class="col-form-label"><?php echo $lang['company']['text_vat_no']; ?></label>
+
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="far fa-building"></i></span>
                                     </div>
-                                    <input type="text" class="form-control" name="company[vat_no]" value="<?php echo $result['vat_no']; ?>" placeholder="<?php echo $lang['company']['text_vat_no']; ?>" required>
+                                    <input type="text" class="form-control" name="company[vat_no]" value="<?php echo $result['vat_no']; ?>" placeholder="<?php echo $lang['company']['text_vat_no']; ?>">
                                 </div>
                             </div>
-                        </div>
+                            <div class="col-md-4">
+                                <label class="col-form-label"><?php echo $lang['company']['text_date_formed']; ?></label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="icon-calendar"></i></span>
+                                    </div>
+                                    <input type="text" name="company[formation_date]" class="form-control date" value="<?php if($result['formation_date']){echo date_format(date_create($result['formation_date']), 'd-m-Y');} ?>" ?>
+                                </div>
+                            </div>
 
-                        <div class="form-group row">
-                            <label class="col-md-2 col-form-label"><?php echo $lang['company']['text_date_formed']; ?></label>
-                            <div class="col-md-4 input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="icon-calendar"></i></span>
-                                </div>
-                                <input type="date" name="company[date_formed]" class="form-control " value="<?php echo date_format(date_create($result['date_formed']), 'Y-m-d'); ?>" placeholder="<?php echo $lang['company']['text_date_formed']; ?>">
-                            </div>
                         </div>
+                        <div class="form-group row align-items-start">
+                            <div class="col-md-6">
+                                <label class="col-form-label"><?php echo $lang['common']['text_website']; ?></label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="icon-globe"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" name="company[website]" value="<?php echo $result['website']; ?>" placeholder="<?php echo $lang['common']['text_website']; ?>">
+                                </div>
+                                <label class="col-form-label"><?php echo $lang['company']['text_phone']; ?></label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="icon-phone"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" name="company[phone]" value="<?php echo $result['phone']; ?>" placeholder="<?php echo $lang['company']['text_phone']; ?>">
+                                </div>
+                                <label class="col-form-label"><?php echo $lang['company']['text_email']; ?></label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="icon-envelope"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" name="company[email]" value="<?php echo $result['email']; ?>" placeholder="<?php echo $lang['company']['text_email']; ?>">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="col-form-label"><?php echo $lang['company']['text_description']; ?></label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="icon-speech"></i></span>
+                                    </div>
+                                    <textarea name="company[description]" class="form-control" rows="7"><?php echo $result['description']; ?></textarea>
+                                </div>
+                                <label class="col-md-5 col-form-label"><?php echo $lang['company']['text_activity']; ?></label>
 
-                        <div class="form-group row">
-                            <label class="col-md-2 col-form-label"><?php echo $lang['common']['text_website']; ?></label>
-                            <div class="col-md-6 input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="icon-globe"></i></span>
+                                <div class="col-sm-6 col-md-5 input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="icon-user"></i></span>
+                                    </div>
+
+                                    <select name="company[activity]" class="form-control">
+                                        <option value="0">List All</option>
+                                        <?php if (!empty($activity)) {
+                                            foreach ($activity as $key => $value) { ?>
+                                                <option value="<?php echo $value['id'] ?>" <?php if ($result['activity'] == $value['id']) {
+                                                                                                echo "selected";
+                                                                                            } ?>><?php echo $value['name'] ?></option>
+                                        <?php }
+                                        } ?>
+                                    </select>
                                 </div>
-                                <input type="text" class="form-control" name="company[website]" value="<?php echo $result['website']; ?>" placeholder="<?php echo $lang['common']['text_website']; ?>">
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-md-2 col-form-label"><?php echo $lang['company']['text_description']; ?></label>
-                            <div class="col-md-6 input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="icon-speech"></i></span>
-                                </div>
-                                <textarea name="company[description]" class="form-control" rows="5"><?php echo $result['description']; ?></textarea>
                             </div>
                         </div>
                     </div>
@@ -229,7 +288,6 @@
 <!-- include summernote css/js-->
 
 <script>
-
     //********************************************
     //Add Contact Persons ************************
     //********************************************

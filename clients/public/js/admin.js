@@ -1,7 +1,7 @@
 /**
  * Admin JS - admin js for klinikal theme
  * @version v1.0.1
- * @copyright 2017 Pepdev.
+ * @copyright 2017 rnggaming.
  */
  $(document).ready(function () {
     "use strict";

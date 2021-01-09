@@ -39,6 +39,8 @@ class ExpenseController extends Controller
 		* Get all Expenses data from DB using User model 
 		**/
 		$data['result'] = $this->expenseModel->getExpenses();
+		$data['suppliers'] = $this->expenseModel->getSuppliers();
+		
 		/* Set confirmation message if page submitted before */
 		if (isset($this->session->data['message'])) {
 			$data['message'] = $this->session->data['message'];
@@ -82,6 +84,8 @@ class ExpenseController extends Controller
 		$data['currency'] = $this->expenseModel->getCurrency();
 		$data['expensetype'] = $this->expenseModel->expensesType();
 		$data['paymenttype'] = $this->expenseModel->paymentType();
+		$data['suppliers'] = $this->expenseModel->getSuppliers();
+
 
 		/* Set page title */
 		$data['page_title'] = $data['lang']['expenses']['text_add_expense'];
@@ -127,7 +131,8 @@ class ExpenseController extends Controller
 		$data['expensetype'] = $this->expenseModel->expensesType();
 		$data['paymenttype'] = $this->expenseModel->paymentType();
 		$data['receipt'] = $this->expenseModel->getReceipt($id);
-		
+		$data['suppliers'] = $this->expenseModel->getSuppliers();
+
 		/*Load Language File*/
 		require DIR_BUILDER.'language/'.$data['info']['language'].'/common.php';
 		$data['lang']['common'] = $lang;

@@ -28,7 +28,7 @@
                         <?php if ($result) { foreach ($result as $key => $value) { ?>
                         <tr>
                             <td class="table-srno"><?php echo $key+1; ?></td>
-                            <td><a class="font-14"><?php echo $value['firstname']; ?></a></td>
+                            <td><a class="font-14"><?php echo $value['name']; ?></a></td>
                             <td><?php echo $value['email']; ?></td>
                             <td><?php echo $value['mobile']; ?></td>
                             <td class="table-action">

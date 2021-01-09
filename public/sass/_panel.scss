@@ -1,119 +1,269 @@
 .panel {
-	position: relative;
-	color: $colorF;
-	background: $color-panel;
-	margin-bottom: 30px;
-	border-radius: 10px;
-    box-shadow: 0px 0px 50px -15px rgba(0, 0, 0, 0.33);
+  position: relative;
+  color: $colorF;
+  background: $color-panel;
+  margin-bottom: 30px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 50px -15px rgba(0, 0, 0, 0.33);
+
+  .nav-link {
+    padding: 10px;
+    margin-left: 2px;
+    color: $colorF;
+
+    i {
+      font-size: 16px;
+    }
+  }
+  .nav-tabs.nav-tabs-line {
+    border-bottom: 1px solid $colorE;
+
+    .nav-link {
+      border: 0;
+    }
+
+    .nav-link.active,
+    .show > .nav-link {
+      border-bottom: 2px solid $colorA;
+    }
+  }
+
+  .nav-tabs.nav-tabs-line-primary {
+    .nav-link {
+      &:hover {
+        color: $color-green;
+      }
+    }
+    .nav-link.active,
+    .show > .nav-link {
+      color: $color-primary;
+      background-color: coral !important;
+    }
+  }
+
+  .nav-tabs.nav-tabs-line-secondary {
+    .nav-link {
+      &:hover {
+        color: $color-secondary;
+      }
+    }
+    .nav-link.active,
+    .show > .nav-link {
+      color: $color-secondary;
+      border-color: $color-secondary;
+    }
+  }
+
+  .nav-tabs.nav-tabs-line-success {
+    .nav-link {
+      &:hover {
+        color: $color-success;
+      }
+    }
+    .nav-link.active,
+    .show > .nav-link {
+      color: $color-success;
+      border-color: $color-success;
+    }
+  }
+
+  .nav-tabs.nav-tabs-line-warning {
+    .nav-link {
+      &:hover {
+        color: $color-warning;
+      }
+    }
+    .nav-link.active,
+    .show > .nav-link {
+      color: $color-warning;
+      border-color: $color-warning;
+    }
+  }
+
+  .nav-tabs.nav-tabs-line-danger {
+    .nav-link {
+      &:hover {
+        color: $color-danger;
+      }
+    }
+    .nav-link.active,
+    .show > .nav-link {
+      color: $color-danger;
+      border-color: $color-danger;
+    }
+  }
+
+  .nav-tabs.nav-tabs-line-info {
+    .nav-link {
+      &:hover {
+        color: $color-info;
+      }
+    }
+    .nav-link.active,
+    .show > .nav-link {
+      color: $color-info;
+      border-color: $color-info;
+    }
+  }
+
+  .nav-tabs.nav-tabs-line-dark {
+    .nav-link {
+      &:hover {
+        color: $color-dark;
+      }
+    }
+    .nav-link.active,
+    .show > .nav-link {
+      color: $color-dark;
+      border-color: $color-dark;
+    }
+  }
+
+  .vnav-tabs {
+    padding: 10px;
+    li {
+      font-size: 14px;
+      color: $color7;
+      padding: 0;
+      border-bottom: 1px solid $colorE;
+      transition: all 0.2s;
+
+      &:nth-last-child(1) {
+        border-bottom: 0;
+      }
+
+      i {
+        width: 32px;
+        text-align: center;
+        display: inline-block;
+      }
+
+      a {
+        padding: 10px 15px;
+        display: block;
+      }
+
+      &:hover {
+        color: $color-primary;
+        background: #f8f8f8;
+      }
+
+      &.active,
+      .active {
+        color: $color-primary;
+        background: #f8f8f8;
+        border-left: 4px solid $color-primary;
+      }
+    }
+  }
 }
 
 .panel-head {
-	display: table;
-	width: 100%;
-	margin: 0;
-	color: $colorF;
-	padding: 20px 25px 15px 25px;
-	border-bottom: 1px solid $colorE;
+  display: table;
+  width: 100%;
+  margin: 0;
+  color: $colorF;
+  padding: 20px 25px 15px 25px;
+  border-bottom: 1px solid $colorE;
 }
 
 .panel-title {
-	display: table-cell;
-	vertical-align: middle;
-	text-align: left;
-	font-size: 18px;
-	font-family: $fontHeading;
-	font-weight: 600;
-	margin-bottom: 0;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: left;
+  font-size: 18px;
+  font-family: $fontHeading;
+  font-weight: 600;
+  margin-bottom: 0;
 }
 
 .panel-head-icon {
-	font-size: 20px;
-	padding: 0 10px 0 0;
-	display: table-cell;
-	vertical-align: middle;
+  font-size: 20px;
+  padding: 0 10px 0 0;
+  display: table-cell;
+  vertical-align: middle;
 }
 
 .panel-action {
-	display: table-cell;
-	vertical-align: middle;
-	text-align: right;
-	font-size: 18px;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: right;
+  font-size: 18px;
 }
 
 .panel-title-text {
-
-	display: table-cell;
-	vertical-align: middle;
+  display: table-cell;
+  vertical-align: middle;
 }
 
 .panel-body {
-	padding: 25px;
+  padding: 25px;
 }
 
 .panel-footer {
-	border-top: 1px solid $colorD;
-	padding: 20px 25px;
+  border-top: 1px solid $colorD;
+  padding: 20px 25px;
 }
 
 .panel-primary {
-	border: 0;
+  border: 0;
 
-	.panel-head {
-		color: $colorF;
-		background-color: $color-primary;
-	}
+  .panel-head {
+    color: $colorF;
+    background-color: $color-primary;
+  }
 }
 
 .panel-success {
-	border: 0;
-	
-	.panel-head {
-		color: $colorF;
-		background-color: $color-success;
-	}
+  border: 0;
+
+  .panel-head {
+    color: $colorF;
+    background-color: $color-success;
+  }
 }
 
 .panel-warning {
-	border: 0;
+  border: 0;
 
-	.panel-head {
-		color: $colorF;
-		background-color: $color-warning;
-	}
+  .panel-head {
+    color: $colorF;
+    background-color: $color-warning;
+  }
 }
 
 .panel-danger {
-	border: 0;
+  border: 0;
 
-	.panel-head {
-		color: $colorF;
-		background-color: $color-danger;
-	}
+  .panel-head {
+    color: $colorF;
+    background-color: $color-danger;
+  }
 }
 
 .panel-secondary {
-	border: 0;
+  border: 0;
 
-	.panel-head {
-		color: $colorF;
-		background-color: $color-secondary;
-	}
+  .panel-head {
+    color: $colorF;
+    background-color: $color-secondary;
+  }
 }
 
 .panel-info {
-	border: 0;
+  border: 0;
 
-	.panel-head {
-		color: $colorF;
-		background-color: $color-info;
-	}
+  .panel-head {
+    color: $colorF;
+    background-color: $color-info;
+  }
 }
 
 .panel-dark {
-	border: 0;
+  border: 0;
 
-	.panel-head {
-		color: $colorF;
-		background-color: $color-dark;
-	}
+  .panel-head {
+    color: $colorF;
+    background-color: $color-dark;
+  }
 }

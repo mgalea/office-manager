@@ -14,13 +14,13 @@
                         <p><i class="icon-globe"><br></i> <?php echo $result['website']; ?></p>
                         <ul class="nav flex-column vnav-tabs text-left">
                             <li class="nav-item">
-                                <a href="#contacts" class="nav-link active" data-toggle="tab"><i class="icon-user"></i> <span><?php echo $lang['common']['text_contact']; ?></span></a>
+                                <a href="#company" class="nav-link active" data-toggle="tab"><i class="icon-user"></i> <span><?php echo $lang['common']['text_contact']; ?></span></a>
                             </li>
                             <li class="nav-item">
-                                <a href="<?php echo URL . DIR_ROUTE . 'contact/edit&id=' . $result['id']; ?>"><i class="icon-pencil"></i> <span><?php echo $lang['common']['text_edit']; ?></span></a>
+                                <a href="<?php echo URL . DIR_ROUTE . 'company/edit&id=' . $result['id']; ?>"><i class="icon-pencil"></i> <span><?php echo $lang['common']['text_edit']; ?></span></a>
                             </li>
                             <li class="nav-item">
-                                <a href="<?php echo URL . DIR_ROUTE . 'contacts'; ?>"><i class="fa fa-reply"> </i><span><?php echo $lang['common']['text_back_to_list']; ?></span></a>
+                                <a href="<?php echo URL . DIR_ROUTE . 'company'; ?>"><i class="fa fa-reply"> </i><span><?php echo $lang['common']['text_back_to_list']; ?></span></a>
                             </li>
                         </ul>
                     </div>
@@ -57,36 +57,47 @@
                 </div>
                 <div class="row">
                     <h5 class="font-500 font-20 text-green mt-4"><?php echo $lang['company']['text_documents']; ?></h5>
-                    </div>
+                </div>
                 <div class="attached-files">
                     <?php if (!empty($documents)) {
 
                         foreach ($documents as $key => $value) {
                             $file_ext = pathinfo($value['file_name'], PATHINFO_EXTENSION);
-                            if ($file_ext == "pdf") { ?>
-                                <div class="row">
-                                    <div class="attached-files-block">
-                                        <a href="public/uploads/<?php echo $value['file_name']; ?>" class="open-pdf"><i class="fa fa-file-pdf"></i><span class="filename"><?php echo $value['file_name']; ?></span></a>
-                                        <input type="hidden" name="document[attached][]" value="<?php echo $value['file_name']; ?>">
-                                    </div>
+                            $file_name = pathinfo($value['file_name'], PATHINFO_FILENAME);
+                            $file_date = preg_split("/_/", $file_name);
+                            $file_date= $file_date[sizeof($file_date) - 1];
+                            $file_date = substr($file_date,0,10);
+                            $file_date = new DateTime("@$file_date");
+                            if (strlen($file_name) > 20) {
+                                $show_name = substr($file_name, 0, 20) . '...';
+                            } else {
+                                $show_name = $file_name;
+                            }
 
+                            if ($file_ext == "pdf") { ?>
+
+                                <div class="attached-files-block">
+                                    <a href="public/uploads/<?php echo $value['file_name']; ?>" data-toggle="tooltip" title="<?php echo $file_name; ?>" class="open-pdf"><i class="fa fa-file-pdf"></i>
+                                    <br><span class="filename"><?php echo $show_name; ?></span><br><span class="filename"><?php echo date_format($file_date,"d-M-Y"); ?></span> </a>
+                                    <input type="hidden" name="document[attached][]" value="<?php echo $value['file_name']; ?>">
                                 </div>
+
                             <?php } else { ?>
-                                <div class="row">
-                                    <div class="attached-files-block">
-                                        <a href="public/uploads/<?php echo $value['file_name']; ?>" data-fancybox="gallery"><img src="public/uploads/<?php echo $value['file_name']; ?>" alt=""><span class="filename"><?php echo $value['file_name']; ?></span></a>
-                                        <input type="hidden" name="document[attached][]" value="<?php echo $value['file_name']; ?>">
-                                    </div>
+
+                                <div class="attached-files-block">
+                                    <a href="public/uploads/<?php echo $value['file_name']; ?>" data-fancybox="gallery"><img src="public/uploads/<?php echo $value['file_name']; ?>" alt=""><span class="filename"><?php echo $value['file_name']; ?></span></a>
+                                    <input type="hidden" name="document[attached][]" value="<?php echo $value['file_name']; ?>">
                                 </div>
+
                     <?php }
                         }
                     } ?>
                 </div>
                 <div class="row">
                     <h5 class="font-500 font-20 text-green mt-4"><?php echo $lang['company']['text_description']; ?></h5>
-                    </div>
-                    <div ><?php echo html_entity_decode($result['description']); ?></div>
-    
+                </div>
+                <div><?php echo html_entity_decode($result['description']); ?></div>
+
 
             </div>
 

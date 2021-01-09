@@ -25,6 +25,7 @@ class Commons extends Model
 		}
 	}
 
+
 	public function getRoleString($role)
 	{
 		$query = $this->model->query("SELECT `permission` FROM `" . DB_PREFIX . "user_role` WHERE `id` = ? LIMIT 1", array((int)$role));

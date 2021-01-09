@@ -1,7 +1,7 @@
 <?php
 
 /**
- * COmpany Model
+ * Company Model
  */
 class Company extends Model
 {
@@ -17,32 +17,36 @@ class Company extends Model
         return $query->row;
     }
 
-    public function createInventoryItem($data)
+    public function getCompanyTypes()
     {
-        if (!isset($data['stock'])) {
-            $data['stock'] = 0;
-        }
-        if (!isset($data['stored'])) {
-            $data['stored'] = 'Unknown Location';
-        }
-
-        $query = $this->model->query(
-            "INSERT INTO `" . DB_PREFIX . "inventory` (`item`, `location`, `inv_number`, `type`, `storage`,  
-            `description`, `purchase_date`,`is_stock`, `quantity`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-            array(
-                $data['item'], (int)$data['location'], (int)$data['inv_number'],
-                (int)$data['type'], $data['stored'], $data['description'],
-                $data['purchase_date'], (bool)$data['stock'], (int)$data['quantity']
-            )
-        );
-
+        $query = $this->model->query("SELECT * FROM `" . DB_PREFIX . "company_type` ORDER BY `name` ASC");
         if ($query->num_rows > 0) {
-            return $this->model->last_id();
+            return $query->rows;
         } else {
-            return 0;
+            return '';
         }
     }
 
+    public function getActivityTypes()
+    {
+        $query = $this->model->query("SELECT * FROM `" . DB_PREFIX . "primary_activity_type` ORDER BY `name` ASC");
+        if ($query->num_rows > 0) {
+            return $query->rows;
+        } else {
+            return '';
+        }
+    }
+
+
+    public function getCompanyByType($type)
+    {
+        $query = $this->model->query("SELECT * FROM `" . DB_PREFIX . "companies`  WHERE `type` = ?", array((int)$type));
+        if ($query->num_rows > 0) {
+            return $query->rows;
+        } else {
+            return '';
+        }
+    }
 
     public function createCompany($data)
     {
@@ -51,10 +55,23 @@ class Company extends Model
         }
 
         $query = $this->model->query(
-            "INSERT INTO `" . DB_PREFIX . "companies` (`name`, `reg_no`,`address`,`vat_no`,`date_formed`,`description`,`status`,`website`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+            "INSERT INTO `" . DB_PREFIX . "companies` (`name`, `reg_no`,`address`,`vat_no`,`formation_date`,
+            `description`,`status`,`type`,`activity`,`phone`,`email`,`website`,`short_name`) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
             array(
-                    $this->model->escape($data['name']), $data['reg_no'], $data['address'], $data['vat_no'],
-                    $data['date_formed'], $this->model->escape($data['description']), (int)$data['status'], $this->model->escape($data['website'])
+                    $data['name'], 
+                    $data['reg_no'], 
+                    $data['address'], 
+                    $data['vat_no'],
+                    $data['formation_date'],
+                    $data['description'], 
+                    $data['status'],
+                    $data['type'],
+                    $data['activity'], 
+                    $data['phone'], 
+                    $data['email'], 
+                    $this->model->escape($data['website']), 
+                    $data['short_name'] 
         ));
 
         if ($query->num_rows > 0) {
@@ -63,9 +80,6 @@ class Company extends Model
             return 0;
         }
     }
-    /* 'Random', 1, "{}", 123, "2020-10-01", "hello", 1, "www.rng.com"
-    
-        )*/
 
     public function updateCompany($data)
     {
@@ -74,16 +88,23 @@ class Company extends Model
         }
 
         $query = $this->model->query(
-            "UPDATE `" . DB_PREFIX . "companies` SET `name`=?, `reg_no`=?, `address` = ?, `vat_no` = ?, `website`=?, `description`=?, `date_formed`=? WHERE `id` = ? ",
+            "UPDATE `" . DB_PREFIX . "companies` SET `name`=?,`short_name`=?, `reg_no`=?, `address` = ?, `vat_no` = ?, `website`=?, 
+            `description`=?, `type`=?,`activity`=?,`phone`=?,`email`=?,`formation_date`=?,`status`=? WHERE `id` = ? ",
             array(
                 $data['name'],
+                $data['short_name'],
                 $data['reg_no'],
                 $data['address'],
                 $data['vat_no'],
                 $this->model->escape($data['website']),
                 $data['description'],
-                $this->model->escape($data['date_formed']),
-                (int)$data['id'],
+                $data['type'],
+                $data['activity'],
+                $data['phone'],
+                $data['email'],
+                $data['formation_date'],
+                (int)$data['status'],
+                (int)$data['id']
             )
         );
         if ($query->num_rows > 0) {

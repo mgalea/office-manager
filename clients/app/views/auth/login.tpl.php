@@ -56,7 +56,7 @@
 					<div class="lgn-forgot">
 						<div class="row">
 							<div class="col-sm-6">
-								<a href="<?php echo URL_CLIENTS.DIR_ROUTE.'register'; ?>"><?php echo $lang['login']['text_create_account']; ?></a>
+								<a href="<?php //echo URL_CLIENTS.DIR_ROUTE.'register'; ?>"><?php //echo $lang['login']['text_create_account']; ?></a>
 							</div>
 							<div class="col-sm-6 text-right">
 								<a href="<?php echo URL_CLIENTS.DIR_ROUTE.'forgot'; ?>"><?php echo $lang['login']['text_forgotten_password']; ?></a>
