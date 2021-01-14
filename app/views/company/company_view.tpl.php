@@ -1,7 +1,7 @@
 <?php include(DIR . 'app/views/common/header.tpl.php'); ?>
 <script>
-    $('#contact').show();
-    $('#contact-li').addClass('active');
+    $('#company').show();
+    $('#company-li').addClass('active');
 </script>
 <div class="row">
     <div class="col-lg-4">
@@ -17,10 +17,12 @@
                                 <a href="#company" class="nav-link active" data-toggle="tab"><i class="icon-user"></i> <span><?php echo $lang['common']['text_contact']; ?></span></a>
                             </li>
                             <li class="nav-item">
-                                <a href="<?php echo URL . DIR_ROUTE . 'company/edit&id=' . $result['id']; ?>"><i class="icon-pencil"></i> <span><?php echo $lang['common']['text_edit']; ?></span></a>
+                                <a href="<?php echo URL . DIR_ROUTE . 'company/edit&id=' . $result['id']; ?>">
+                                <i class="icon-pencil"></i> <span><?php echo $lang['common']['text_edit']; ?></span></a>
                             </li>
                             <li class="nav-item">
-                                <a href="<?php echo URL . DIR_ROUTE . 'company'; ?>"><i class="fa fa-reply"> </i><span><?php echo $lang['common']['text_back_to_list']; ?></span></a>
+                                <a href="<?php echo URL . DIR_ROUTE . 'company'; ?>"><i class="fa fa-reply"> 
+                                </i><span><?php echo $lang['common']['text_back_to_list']; ?></span></a>
                             </li>
                         </ul>
                     </div>
@@ -60,7 +62,6 @@
                 </div>
                 <div class="attached-files">
                     <?php if (!empty($documents)) {
-
                         foreach ($documents as $key => $value) {
                             $file_ext = pathinfo($value['file_name'], PATHINFO_EXTENSION);
                             $file_name = pathinfo($value['file_name'], PATHINFO_FILENAME);
@@ -101,44 +102,42 @@
 
             </div>
 
-
-
         </div>
         <!-- Send Email Modal -->
         <div id="contactMail" class="modal fade" role="dialog">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title"><?php echo $lang['contact']['text_send_mail']; ?></h5>
+                        <h5 class="modal-title"><?php echo $lang['company']['text_send_mail']; ?></h5>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
-                    <form action="<?php echo URL . DIR_ROUTE . 'contact/sentmail'; ?>" method="post" enctype="multipart/form-data">
+                    <form action="<?php echo URL . DIR_ROUTE . 'company/sentmail'; ?>" method="post" enctype="multipart/form-data">
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-md-6 form-group">
-                                    <label class="col-form-label"><?php echo $lang['contact']['text_to']; ?></label>
-                                    <input type="text" class="form-control" value="<?php echo $result['email'] ?>" placeholder="<?php echo $lang['contact']['text_to']; ?>" readonly>
+                                    <label class="col-form-label"><?php echo $lang['company']['text_to']; ?></label>
+                                    <input type="text" class="form-control" value="<?php echo $result['email'] ?>" placeholder="<?php echo $lang['company']['text_to']; ?>" readonly>
                                 </div>
                                 <div class="col-md-6 form-group">
-                                    <label class="col-form-label"><?php echo $lang['contact']['text_bcc']; ?></label>
-                                    <input type="email" class="form-control" name="mail[bcc]" value="" placeholder="<?php echo $lang['contact']['text_bcc']; ?>">
+                                    <label class="col-form-label"><?php echo $lang['company']['text_bcc']; ?></label>
+                                    <input type="email" class="form-control" name="mail[bcc]" value="" placeholder="<?php echo $lang['company']['text_bcc']; ?>">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-form-label"><?php echo $lang['contact']['text_subject']; ?></label>
-                                <input type="text" class="form-control" name="mail[subject]" value="Invoice Reminder" placeholder="<?php echo $lang['contact']['text_subject']; ?>" required>
+                                <label class="col-form-label"><?php echo $lang['company']['text_subject']; ?></label>
+                                <input type="text" class="form-control" name="mail[subject]" value="Invoice Reminder" placeholder="<?php echo $lang['company']['text_subject']; ?>" required>
                             </div>
                             <div class="form-group">
-                                <label class="col-form-label"><?php echo $lang['contact']['text_message']; ?></label>
-                                <textarea name="mail[message]" class="summernote1" placeholder="<?php echo $lang['contact']['text_message']; ?>"></textarea>
+                                <label class="col-form-label"><?php echo $lang['company']['text_message']; ?></label>
+                                <textarea name="mail[message]" class="summernote1" placeholder="<?php echo $lang['company']['text_message']; ?>"></textarea>
                             </div>
                             <input type="hidden" name="mail[contact]" value="<?php echo $result['id']; ?>">
                             <input type="hidden" name="mail[to]" value="<?php echo $result['email']; ?>">
-                            <input type="hidden" name="mail[name]" value="<?php echo $result['company']; ?>">
+                            <input type="hidden" name="mail[name]" value="<?php //echo $result['contact']; ?>">
                             <input type="hidden" name="_token" value="<?php echo $token; ?>">
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary" name="submit"><?php echo $lang['contact']['text_send']; ?></button>
+                            <button type="submit" class="btn btn-primary" name="submit"><?php echo $lang['company']['text_send']; ?></button>
                         </div>
                     </form>
                 </div>
