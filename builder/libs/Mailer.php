@@ -12,12 +12,20 @@ class Mailer
 		//$this->mail->isSMTP();
 		if( defined('SMTP_HOST') && defined('SMTP_USERNAME') && defined('SMTP_PASSWORD') && defined('SMTP_PORT')) {
 			if (!empty(DB_HOSTNAME) || !empty(SMTP_USERNAME) || !empty(SMTP_PASSWORD) || !empty(SMTP_PORT) ) {
-				$this->mail->Host = SMTP_HOST;
+				/*$this->mail->Host = SMTP_HOST;
 				$this->mail->SMTPAuth = true;
 				$this->mail->Username = SMTP_USERNAME;
 				$this->mail->Password = SMTP_PASSWORD;
 				$this->mail->SMTPSecure = 'tls';
-				$this->mail->Port = 25;
+				$this->mail->Port = 25;*/
+				$this->$mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
+				$this->$mail->isSMTP();                                            // Send using SMTP
+				$this->$mail->Host       = 'mail.rnggaming.com';                    // Set the SMTP server to send through
+				$this->$mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+				$this->$mail->Username   = 'mario.galea@rnggaming.com';                     // SMTP username
+				$this->$mail->Password   = 'Mgalea!1310';                               // SMTP password
+				$this->$mail->SMTPSecure = 'tls';//PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+				$this->$mail->Port       = 465;   
 			}
 		}
 	}

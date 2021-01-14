@@ -466,6 +466,14 @@ class UserController extends Controller
 			),
 
 			array(
+				'persons' => $data['lang']['users']['text_person_list'],
+				'person/add' => $data['lang']['users']['text_person_add'],
+				'person/edit' => $data['lang']['users']['text_person_edit'],
+				'person/delete' => $data['lang']['users']['text_person_delete'],
+				'person/view' => $data['lang']['users']['text_person_view']
+			),
+
+			array(
 				'projects' => $data['lang']['users']['text_project_list'],
 				'project/add' => $data['lang']['users']['text_project_add'],
 				'project/edit' => $data['lang']['users']['text_project_edit'],

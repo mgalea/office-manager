@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="public/css/dropzone.min.css">
     <link rel="stylesheet" href="public/css/perfect-scrollbar.css">
     <link rel="stylesheet" href="public/css/style.css" />
+    <link rel="stylesheet" href="public/css/chosen.css">
     <!-- Include js files -->
     <script type="text/javascript" src="public/js/moment.min.js"></script>
     <script type="text/javascript" src="public/js/jquery-2.1.4.min.js"></script>
@@ -31,6 +32,7 @@
     <script type="text/javascript" src="public/js/perfect-scrollbar.min.js"></script>
     <script type="text/javascript" src="public/js/toastr.js"></script>
     <script type="text/javascript" src="public/js/admin.js"></script>
+    <script type="text/javascript" src="public/js/chosen.jquery.js"></script>
 </head>
 
 <body>
@@ -98,21 +100,24 @@
                             <a><i class="far fa-address-book"></i><span><?php echo $lang['common']['text_contacts']; ?></span><i class="arrow rotate"></i></a>
                             <ul id="contact" class="sub-menu">
                                 <li>
-                                    <a href="<?php echo URL . DIR_ROUTE; ?>contacts"><span><?php echo $lang['common']['text_contacts']; ?></span></a>
+                                    <a href="<?php echo URL . DIR_ROUTE; ?>persons"><span><?php echo $lang['common']['text_by'] . ' ' . $lang['common']['text_person']; ?></span></a>
                                 </li>
                                 <li>
-                                    <a href="<?php echo URL . DIR_ROUTE; ?>persons"><span><?php echo $lang['common']['text_persons']; ?></span></a>
+                                    <a href="<?php echo URL . DIR_ROUTE; ?>companies"><span><?php echo $lang['common']['text_by'] . ' ' . $lang['common']['text_company']; ?></span></a>
                                 </li>
                                 <li>
-                                    <a href="<?php echo URL . DIR_ROUTE; ?>clients"><span><?php echo $lang['common']['text_clients'] . ' ' . $lang['common']['text_portal']; ?></span></a>
+                                    <a href="<?php echo URL . DIR_ROUTE; ?>clients"><span><?php echo $lang['common']['text_by'] . ' ' . $lang['common']['text_clients'] . ' ' . $lang['common']['text_portal']; ?></span></a>
                                 </li>
                             </ul>
                         </li>
                         <li id="company-li" class="has-sub">
-                            <a><i class="far fa-building"></i><span><?php echo $lang['common']['text_companies']; ?></span><i class="arrow rotate"></i></a>
+                            <a><i class="far fa-building"></i><span><?php echo $lang['common']['text_corporate_info']; ?></span><i class="arrow rotate"></i></a>
                             <ul id="company" class="sub-menu">
                                 <li>
-                                    <a href="<?php echo URL . DIR_ROUTE; ?>companies"><span><?php echo $lang['common']['text_corporate_info']; ?></span></a>
+                                    <a href="<?php echo URL . DIR_ROUTE; ?>info"><span><?php echo $lang['common']['text_organisation_info']; ?></span></a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo URL . DIR_ROUTE; ?>subsidiaries"><span><?php echo $lang['common']['text_subsidiaries']; ?></span></a>
                                 </li>
                                 <li>
                                     <a href="<?php echo URL . DIR_ROUTE; ?>employees"><span><?php echo $lang['common']['text_employees'] ?></span></a>
@@ -152,87 +157,87 @@
                         <li id="ticket-li">
                             <a href="<?php echo URL . DIR_ROUTE; ?>tickets"><i class="fas fa-ticket-alt"></i><span><?php echo $lang['common']['text_tickets']; ?></span></a>
                         </li>
-                        <?php if($user['role'] == 'Admin') {?>
-                        <li class="menu-title"><?php echo $lang['common']['text_domains']; ?></li>
-                        <li id="domain-li">
-                            <a href="<?php echo URL . DIR_ROUTE; ?>domains"><i class="fas fa-server"></i><span><?php echo $lang['common']['text_domains']; ?></span></a>
-                        </li>
+                        <?php if ($user['role'] == 'Admin') { ?>
+                            <li class="menu-title"><?php echo $lang['common']['text_domains']; ?></li>
+                            <li id="domain-li">
+                                <a href="<?php echo URL . DIR_ROUTE; ?>domains"><i class="fas fa-server"></i><span><?php echo $lang['common']['text_domains']; ?></span></a>
+                            </li>
 
-                        <li class="menu-title"><?php echo $lang['common']['text_users']; ?></li>
-                        <li id="user-li" class="has-sub">
-                            <a><i class="icon-people"></i><span><?php echo $lang['common']['text_users']; ?></span><i class="arrow rotate"></i></a>
-                            <ul id="user" class="sub-menu">
-                                <li>
-                                    <a href="<?php echo URL . DIR_ROUTE; ?>user"><span><?php echo $lang['common']['text_users']; ?></span></a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo URL . DIR_ROUTE; ?>role"><span><?php echo $lang['common']['text_user_role']; ?></span></a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo URL . DIR_ROUTE; ?>subscriber"><span><?php echo $lang['common']['text_subscribers']; ?></span></a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="menu-title"><?php echo $lang['common']['text_utilities']; ?></li>
-                        <li id="utilities-li" class="has-sub">
-                            <a><i class="icon-puzzle"></i><span><?php echo $lang['common']['text_utilities']; ?></span><i class="arrow rotate"></i></a>
-                            <ul id="utilities" class="sub-menu">
-                                <li>
-                                    <a href="<?php echo URL . DIR_ROUTE; ?>emaillog"><span><?php echo $lang['common']['text_email_log']; ?></span></a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo URL . DIR_ROUTE; ?>cronlog"><span><?php echo $lang['common']['text_cron_log']; ?></span></a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="menu-title"><?php echo $lang['common']['text_settings']; ?></li>
-                        <li id="setting-li" class="has-sub">
-                            <a><i class="icon-settings"></i><span><?php echo $lang['common']['text_settings']; ?></span><i class="arrow rotate"></i></a>
-                            <ul id="setting" class="sub-menu">
-                                <li>
-                                    <a href="<?php echo URL . DIR_ROUTE; ?>info"><span><?php echo $lang['common']['text_organisation_info']; ?></span></a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo URL . DIR_ROUTE; ?>taxes"><span><?php echo $lang['common']['text_finance']; ?></span></a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo URL . DIR_ROUTE; ?>emailtemplate&for=newticket"><span><?php echo $lang['common']['text_email_template']; ?></span></a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo URL . DIR_ROUTE; ?>setting&page=emailsetting"><span><?php echo $lang['common']['text_email_settings']; ?></span></a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo URL . DIR_ROUTE; ?>items"><span><?php echo $lang['common']['text_items']; ?></span></a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo URL . DIR_ROUTE; ?>departments"><span><?php echo $lang['common']['text_departments']; ?></span></a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo URL . DIR_ROUTE; ?>suppliestype"><span><?php echo $lang['common']['text_supplies_types']; ?></span></a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo URL . DIR_ROUTE; ?>contacttype"><span><?php echo $lang['common']['text_contact_types']; ?></span></a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo URL . DIR_ROUTE; ?>expensetype"><span><?php echo $lang['common']['text_expense_types']; ?></span></a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo URL . DIR_ROUTE; ?>inventorytype"><span><?php echo $lang['common']['text_inventory_types']; ?></span></a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo URL . DIR_ROUTE; ?>setting&page=recurring"><span><?php echo $lang['common']['text_cron_setting']; ?></span></a>
-                                </li>
-                                <li>
-                                    <span>
-                                        <p></p>
-                                    </span>
-                                </li>
-                            </ul>
-                        </li>
-                        <li id="customization-li">
-                            <a href="<?php echo URL . DIR_ROUTE; ?>customization"><i class="icon-target"></i><span><?php echo $lang['common']['text_theme_customization']; ?></span></a>
-                        </li>
-                        <?php }?>
+                            <li class="menu-title"><?php echo $lang['common']['text_users']; ?></li>
+                            <li id="user-li" class="has-sub">
+                                <a><i class="icon-people"></i><span><?php echo $lang['common']['text_users']; ?></span><i class="arrow rotate"></i></a>
+                                <ul id="user" class="sub-menu">
+                                    <li>
+                                        <a href="<?php echo URL . DIR_ROUTE; ?>user"><span><?php echo $lang['common']['text_users']; ?></span></a>
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo URL . DIR_ROUTE; ?>role"><span><?php echo $lang['common']['text_user_role']; ?></span></a>
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo URL . DIR_ROUTE; ?>subscriber"><span><?php echo $lang['common']['text_subscribers']; ?></span></a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="menu-title"><?php echo $lang['common']['text_utilities']; ?></li>
+                            <li id="utilities-li" class="has-sub">
+                                <a><i class="icon-puzzle"></i><span><?php echo $lang['common']['text_utilities']; ?></span><i class="arrow rotate"></i></a>
+                                <ul id="utilities" class="sub-menu">
+                                    <li>
+                                        <a href="<?php echo URL . DIR_ROUTE; ?>emaillog"><span><?php echo $lang['common']['text_email_log']; ?></span></a>
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo URL . DIR_ROUTE; ?>cronlog"><span><?php echo $lang['common']['text_cron_log']; ?></span></a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="menu-title"><?php echo $lang['common']['text_settings']; ?></li>
+                            <li id="setting-li" class="has-sub">
+                                <a><i class="icon-settings"></i><span><?php echo $lang['common']['text_settings']; ?></span><i class="arrow rotate"></i></a>
+                                <ul id="setting" class="sub-menu">
+                                    <li>
+                                        <a href="<?php echo URL . DIR_ROUTE; ?>info"><span><?php echo $lang['common']['text_organisation_info']; ?></span></a>
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo URL . DIR_ROUTE; ?>taxes"><span><?php echo $lang['common']['text_finance']; ?></span></a>
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo URL . DIR_ROUTE; ?>emailtemplate&for=newticket"><span><?php echo $lang['common']['text_email_template']; ?></span></a>
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo URL . DIR_ROUTE; ?>setting&page=emailsetting"><span><?php echo $lang['common']['text_email_settings']; ?></span></a>
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo URL . DIR_ROUTE; ?>items"><span><?php echo $lang['common']['text_items']; ?></span></a>
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo URL . DIR_ROUTE; ?>departments"><span><?php echo $lang['common']['text_departments']; ?></span></a>
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo URL . DIR_ROUTE; ?>suppliestype"><span><?php echo $lang['common']['text_supplies_types']; ?></span></a>
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo URL . DIR_ROUTE; ?>contacttype"><span><?php echo $lang['common']['text_contact_types']; ?></span></a>
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo URL . DIR_ROUTE; ?>expensetype"><span><?php echo $lang['common']['text_expense_types']; ?></span></a>
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo URL . DIR_ROUTE; ?>inventorytype"><span><?php echo $lang['common']['text_inventory_types']; ?></span></a>
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo URL . DIR_ROUTE; ?>setting&page=recurring"><span><?php echo $lang['common']['text_cron_setting']; ?></span></a>
+                                    </li>
+                                    <li>
+                                        <span>
+                                            <p></p>
+                                        </span>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li id="customization-li">
+                                <a href="<?php echo URL . DIR_ROUTE; ?>customization"><i class="icon-target"></i><span><?php echo $lang['common']['text_theme_customization']; ?></span></a>
+                            </li>
+                        <?php } ?>
                     </ul>
                 </div>
             </div>
@@ -419,9 +424,9 @@
                                     <div class="menu-dropdown-body p-0">
                                         <div class="row m-0 box">
                                             <div class="col-6 p-0 box">
-                                                <a href="<?php echo URL . DIR_ROUTE . 'contact/add'; ?>">
+                                                <a href="<?php echo URL . DIR_ROUTE . 'persons'; ?>">
                                                     <i class="icon-user"></i>
-                                                    <span><?php echo $lang['common']['text_new'] . ' ' . $lang['common']['text_contact']; ?></span>
+                                                    <span><?php echo $lang['common']['text_list'] . ' ' . $lang['common']['text_contacts']; ?></span>
                                                 </a>
                                             </div>
                                             <div class="col-6 p-0 box">
@@ -440,6 +445,31 @@
                                                 <a href="<?php echo URL . DIR_ROUTE . 'expense/add'; ?>">
                                                     <i class="icon-rocket"></i>
                                                     <span><?php echo $lang['common']['text_new'] . ' ' . $lang['common']['text_expense']; ?></span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="page-menu menu-dropdown-wrapper menu-quick-links ">
+                            <a><i class="icon-phone"></i></a>
+                            <div class="menu-dropdown menu-dropdown-right menu-dropdown-push-right">
+                                <div class="arrow arrow-right"></div>
+                                <div class="menu-dropdown-inner">
+                                    <div class="menu-dropdown-head"><?php echo $lang['common']['text_emergency']. ' ' . $lang['common']['text_contacts']; ?></div>
+                                    <div class="menu-dropdown-body p-0">
+                                        <div class="row m-0 box">
+                                            <div class="col-12 p-0 box">
+                                                <a href="https://pulizija.gov.mt/en/services/Pages/Emergency-Services.aspx">
+                                                    <i class="fa fa-first-aid"></i>
+                                                    <h2 class="phones">Emergency 112</h2>
+                                                </a>
+                                            </div>
+                                            <div class="col-12 p-0 box">
+                                                <a href="https://www.maltalifesciencespark.com/">
+                                                    <i class="fa fa-shield-alt"></i>
+                                                    <h3 class="phones">Security: 22477605</h3>
                                                 </a>
                                             </div>
                                         </div>

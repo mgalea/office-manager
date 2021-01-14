@@ -23,7 +23,10 @@
                     <a class="nav-link active" href="#basic-info" data-toggle="tab"><i class="icon-home mr-2"></i><?php echo $lang['company']['text_basic_info']; ?></a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link" href="#address" data-toggle="tab"><i class="icon-location-pin mr-2"></i><?php echo $lang['common']['text_address']; ?></a>
+                    <a class="nav-link" href="#address" data-toggle="tab"><i class="icon-location-pin mr-2"></i><?php echo $lang['company']['text_registered'] . ' ' . $lang['common']['text_address']; ?></a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="#postal_address" data-toggle="tab"><i class="icon-location-pin mr-2"></i><?php echo $lang['company']['text_postal'] . ' ' . $lang['common']['text_address']; ?></a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link" href="#contact-person" data-toggle="tab"><i class="fa fa-user mr-2"></i><?php echo $lang['company']['text_employees']; ?></a>
@@ -102,7 +105,9 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="icon-calendar"></i></span>
                                     </div>
-                                    <input type="text" name="company[formation_date]" class="form-control date" value="<?php if($result['formation_date']){echo date_format(date_create($result['formation_date']), 'd-m-Y');} ?>" ?>
+                                    <input type="text" name="company[formation_date]" class="form-control date" value="<?php if ($result['formation_date']) {
+                                                                                                                            echo date_format(date_create($result['formation_date']), 'd-m-Y');
+                                                                                                                        } ?>" ?>
                                 </div>
                             </div>
 
@@ -214,6 +219,63 @@
                                     <span class="input-group-text"><i class="icon-flag"></i></span>
                                 </div>
                                 <input type="text" class="form-control" name="company[address][pin]" value="<?php echo $result['address']['pin'] ?>" placeholder="<?php echo $lang['company']['text_pincode'] ?>">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane" id="postal_address">
+                        <div class="row form-group">
+                            <label class="col-md-2 col-form-label"><?php echo $lang['common']['text_address']; ?></label>
+                            <div class="col-md-5">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="icon-direction"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" name="company[postal_address][address1]" value="<?php echo $result['postal_address']['address1'] ?>" placeholder="<?php echo $lang['company']['text_address_line_1'] ?>">
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="icon-directions"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control" name="company[postal_address][address2]" value="<?php echo $result['postal_address']['address2'] ?>" placeholder="<?php echo $lang['company']['text_address_line_2'] ?>">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-2 col-form-label"><?php echo $lang['company']['text_city'] ?></label>
+                            <div class="col-md-10 input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="icon-location-pin"></i></span>
+                                </div>
+                                <input type="text" class="form-control" name="company[postal_address][city]" value="<?php echo $result['postal_address']['city'] ?>" placeholder="<?php echo $lang['company']['text_city'] ?>">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-2 col-form-label"><?php echo $lang['company']['text_state'] ?></label>
+                            <div class="col-md-10 input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="icon-map"></i></span>
+                                </div>
+                                <input type="text" class="form-control" name="company[postal_address][state]" value="<?php echo $result['postal_address']['state'] ?>" placeholder="<?php echo $lang['company']['text_state'] ?>">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-2 col-form-label"><?php echo $lang['company']['text_country'] ?></label>
+                            <div class="col-md-10 input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="icon-globe"></i></span>
+                                </div>
+                                <input type="text" class="form-control" name="company[postal_address][country]" value="<?php echo $result['postal_address']['country'] ?>" placeholder="<?php echo $lang['company']['text_country'] ?>">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-md-2 col-form-label"><?php echo $lang['company']['text_pincode'] ?></label>
+                            <div class="col-md-10 input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="icon-flag"></i></span>
+                                </div>
+                                <input type="text" class="form-control" name="company[postal_address][pin]" value="<?php echo $result['postal_address']['pin'] ?>" placeholder="<?php echo $lang['company']['text_pincode'] ?>">
                             </div>
                         </div>
                     </div>

@@ -4,7 +4,7 @@
     <div class="panel panel-default">
         <div class="panel-head">
             <div class="panel-title">
-                <i class="icon-emotsmile panel-head-icon"></i>
+                <i class="icon-user panel-head-icon"></i>
                 <span class="panel-title-text"><?php echo $page_title; ?></span>
             </div>
             <div class="panel-action">

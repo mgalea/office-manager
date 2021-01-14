@@ -85,7 +85,7 @@
                     <div class="col-sm-4 form-group">
                         <label class="col-form-label"><?php echo $lang['expenses']['text_purchase_amount']; ?></label>
                         <div class="input-group">
-                            <input type="text" name="expense[amount]" class="form-control" value="<?php echo ltrim($result['purchase_amount'],'0'); ?>" placeholder="<?php echo $lang['expenses']['text_purchase_amount']; ?>">
+                            <input type="text" name="expense[amount]" class="form-control" value="<?php echo ltrim($result['purchase_amount'],'0'); ?>" placeholder="<?php echo $lang['expenses']['text_purchase_amount']; ?>" required>
                         </div>
 
                     </div>
@@ -95,7 +95,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="icon-wallet"></i></span>
                             </div>
-                            <select name="expense[paymenttype]" class="custom-select" required>
+                            <select name="expense[paymenttype]" class="custom-select" >
                                 <option value=""><?php echo $lang['expenses']['text_payment_method']; ?></option>
                                 <?php if (!empty($paymenttype)) {
                                     foreach ($paymenttype as $key => $value) { ?>
@@ -124,7 +124,7 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="icon-badge"></i></span>
                             </div>
-                            <select class="custom-select" name="expense[expensetype]" required>
+                            <select class="custom-select" name="expense[expensetype]">
                                 <?php if (!empty($expensetype)) {
                                     foreach ($expensetype as $key => $value) { ?>
                                         <option value="<?php echo $value['id'] ?>" <?php if ($result['expense_type'] == $value['id']) {

@@ -103,8 +103,7 @@ class Database
 						$result->num_rows = $stmt->affected_rows;
 					}
 					$this->error = $stmt->error;
-					echo $this->error;
-					
+					//echo $this->error.$query;
 					$stmt->free_result();
 					$stmt->close();
 					return $result;

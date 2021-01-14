@@ -43,7 +43,7 @@ class CompanyController extends Controller
 		if (empty($this->url->get('type')) || !is_int($this->url->get('type'))) {
 			$data['type'] = 0;
 		} else {
-			$$data['type']  = (int)$this->url->get('type');
+			$data['type']  = (int)$this->url->get('type');
 		}
 
 		/*Load Language File*/
@@ -63,6 +63,45 @@ class CompanyController extends Controller
 		/*Render User list view*/
 		$this->view->render('company/company_list.tpl', $data);
 	}
+	/**
+	 * Company index method
+	 * This method will be called on Company list view
+	 **/
+	public function indexSubsidiaries()
+	{
+		if (!$this->commons->hasPermission('companies')) {
+			Not_foundController::show('403');
+			exit();
+		}
+
+		/*Get User name and role*/
+		$data = $this->commons->getUser();
+
+		/**
+		 * Get all User data from DB using User model 
+		 **/
+		$data['result'] = $this->companyModel->getSubsidiaries();
+		$data['types'] = $this->companyModel->getCompanyTypes();
+		$data['type'] = 2;
+
+		/*Load Language File*/
+		require DIR_BUILDER . 'language/' . $data['info']['language'] . '/common.php';
+		$data['lang']['common'] = $lang;
+		require DIR_BUILDER . 'language/' . $data['info']['language'] . '/company.php';
+		$data['lang']['company'] = $company;
+
+		/* Set confirmation message if page submitted before */
+		if (isset($this->session->data['message'])) {
+			$data['message'] = $this->session->data['message'];
+			unset($this->session->data['message']);
+		}
+		/* Set page title */
+		$data['page_title'] = $data['lang']['common']['text_companies'];
+
+		/*Render User list view*/
+		$this->view->render('company/company_list.tpl', $data);
+	}
+	
 
 	public function indexType()
 	{
@@ -214,7 +253,7 @@ class CompanyController extends Controller
 		$data['types'] = $this->companyModel->getCompanyTypes();
 		$data['activity'] = $this->companyModel->getActivityTypes();
 		$data['result']['address'] = json_decode($data['result']['address'], true);
-
+		$data['result']['postal_address'] = json_decode($data['result']['postal_address'], true);
 		/*Load Language File*/
 		require DIR_BUILDER . 'language/' . $data['info']['language'] . '/common.php';
 		$data['lang']['common'] = $lang;
@@ -270,6 +309,7 @@ class CompanyController extends Controller
 		if (!empty($this->url->post('id'))) {
 			$data = $this->url->post('company');
 			$data['address'] = json_encode($data['address']);
+			$data['postal_address'] = json_encode($data['postal_address']);
 			$data['status'] = (!empty($this->url->post('status'))) ? $this->url->post('status') : 1;
 			$data['formation_date'] = date_format(date_create($data['formation_date']), 'Y-m-d');
 			$data['id'] = $this->url->post('id');
@@ -288,6 +328,7 @@ class CompanyController extends Controller
 		} else {
 			$data = $this->url->post('company');
 			$data['address'] = json_encode($data['address']);
+			$data['postal_address'] = json_encode($data['postal_address']);
 			$data['status'] = (!empty($this->url->post('status'))) ? $this->url->post('status') : 1;
 			$data['formation_date'] = date_format(date_create($data['formation_date']), 'Y-m-d');
 			$result = $this->companyModel->createCompany($data);

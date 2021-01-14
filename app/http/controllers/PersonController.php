@@ -5,13 +5,13 @@
  */
 class PersonController extends Controller
 {
-	private $contactModel;
+	private $personModel;
 	function __construct()
 	{
 		parent::__construct();
 		$this->commons = new CommonsController();
 		/*Initialize User model*/
-		$this->contactModel = new Person();
+		$this->personModel = new Person();
 	}
 	/**
 	 * Person index method
@@ -19,7 +19,7 @@ class PersonController extends Controller
 	 **/
 	public function index()
 	{
-		if (!$this->commons->hasPermission('contacts')) {
+		if (!$this->commons->hasPermission('persons')) {
 			Not_foundController::show('403');
 			exit();
 		}
@@ -29,7 +29,7 @@ class PersonController extends Controller
 		/**
 		 * Get all User data from DB using User model 
 		 **/
-		$data['result'] = $this->contactModel->getPersons();
+		$data['result'] = $this->personModel->getPersons();
 
 		/*Load Language File*/
 		require DIR_BUILDER . 'language/' . $data['info']['language'] . '/common.php';
@@ -68,10 +68,8 @@ class PersonController extends Controller
 		/**
 		 * Get all User data from DB using User model 
 		 **/
-		$data['result'] = $this->contactModel->getPerson($id);
-
-		$data['types'] = $this->contactModel->getContactType();
-		$data['documents'] = $this->contactModel->getDocuments($id);		
+		$data['result'] = $this->personModel->getPerson($id);
+		$data['documents'] = $this->personModel->getDocuments($id);		
 		$data['result']['address'] = json_decode($data['result']['address'], true);
 
 		/*Load Language File*/
@@ -125,7 +123,7 @@ class PersonController extends Controller
 		$data['page_title'] = $data['lang']['common']['text_edit'] . ' ' . $data['lang']['common']['text_contact'];
 		$data['action'] = URL . DIR_ROUTE . 'person/action';
 		$data['token'] = hash('sha512', TOKEN . TOKEN_SALT);
-		$data['types'] = $this->contactModel->getContactType();
+		$data['companies'] = $this->personModel->getCompanies();
 
 		/*Render User list view*/
 		$this->view->render('person/person_form.tpl', $data);
@@ -145,18 +143,18 @@ class PersonController extends Controller
 		 **/
 		$id = (int)$this->url->get('id');
 		if (empty($id) || !is_int($id)) {
-			$this->url->redirect('contacts');
+			$this->url->redirect('persons');
 		}
 		/*Get User name and role*/
 		$data = $this->commons->getUser();
 		/**
 		 * Get all User data from DB using User model 
 		 **/
-		$data['result'] = $this->contactModel->getPerson($id);
-		$data['documents'] = $this->contactModel->getDocuments($id);
-
+		$data['result'] = $this->personModel->getPerson($id);
+		$data['documents'] = $this->personModel->getDocuments($id);
+		$data['companies'] = $this->personModel->getCompanies();
 		$data['result']['address'] = json_decode($data['result']['address'], true);
-
+		$data['result']['persons'] = json_decode($data['result']['persons'], true);
 
 		/*Load Language File*/
 		require DIR_BUILDER . 'language/' . $data['info']['language'] . '/common.php';
@@ -191,7 +189,7 @@ class PersonController extends Controller
 		 * Check if from is submitted or not 
 		 **/
 		if (!isset($_POST['submit'])) {
-			$this->url->redirect('contacts');
+			$this->url->redirect('persons');
 			exit();
 		}
 		/**
@@ -201,34 +199,43 @@ class PersonController extends Controller
 		 **/
 		if ($validate_field = $this->validateField()) {
 			$this->session->data['message'] = array('alert' => 'error', 'value' => 'Please enter valid ' . implode(", ", $validate_field) . '!');
-			$this->url->redirect('contacts');
+			$this->url->redirect('persons');
 		}
 
 		if ($this->commons->validateToken($this->url->post('_token'))) {
 			$this->session->data['message'] = array('alert' => 'warning', 'value' => 'Token does not match!');
-			$this->url->redirect('contacts');
+			$this->url->redirect('persons');
 		}
 
 		if (!empty($this->url->post('id'))) {
 			$data = $this->url->post('person');
-			$data['client'] = $this->url->post('client');
 			$data['country'] = $data['address']['country'];
 			$data['address'] = json_encode($data['address']);
-			$data['person'] = json_encode($data['person']);
-			$data['contact_type'] = $this->url->post('contact_type');
+			$data['persons'] = json_encode($data['persons']);
 			$data['id'] = $this->url->post('id');
-			$result = $this->contactModel->updatePerson($data);
-			$this->session->data['message'] = array('alert' => 'success', 'value' => 'Contact Person updated successfully.');
+			$result = $this->personModel->updatePerson($data);
+			if($result){
+				$this->session->data['message'] = array('alert' => 'success', 'value' => 'Contact Person updated successfully.');
+			}else {
+				$this->session->data['message'] = array('alert' => 'error', 'value' => 'Contact Person failed to update.');
+			}
 			$this->url->redirect('person/edit&id=' . $this->url->post('id'));
+
 		} else {
 			$data = $this->url->post('person');
 			$data['country'] = $data['address']['country'];
 			$data['address'] = json_encode($data['address']);
-			$data['person'] = json_encode($data['person']);
-			$data['contact_type'] = (!empty($this->url->post('id'))) ? $this->url->post('contact_type') : 1;
-			$result = $this->contactModel->createPerson($data);
-			$this->session->data['message'] = array('alert' => 'success', 'value' => 'Contact Person created successfully.');
-			$this->url->redirect('person/edit&id=' . $result);
+			$data['persons'] = json_encode($data['persons']);
+			$result = $this->personModel->createPerson($data);
+			if ($result>0) {
+				$this->session->data['message'] = array('alert' => 'success', 'value' => 'Contact Person created successfully.');
+				$this->url->redirect('person/edit&id=' . $result);
+			} else {
+				$this->session->data['message'] = array('alert' => 'error', 'value' => 'Contact Person failed to create.');
+				$this->url->redirect('person/edit');
+			}
+
+			
 		}
 	}
 	/**
@@ -241,9 +248,17 @@ class PersonController extends Controller
 			Not_foundController::show('403');
 			exit();
 		}
-		$result = $this->contactModel->deletePerson($this->url->post('id'));
-		$this->session->data['message'] = array('alert' => 'success', 'value' => 'Contact Person deleted successfully.');
-		$this->url->redirect('contacts');
+		$result = $this->personModel->deletePerson($this->url->post('id'));
+		
+		if ($result) {
+			$this->session->data['message'] = array('alert' => 'success', 'value' => 'Contact Person deleted successfully.');
+			$this->url->redirect('persons');
+		} else {
+			$this->session->data['message'] = array('alert' => 'error', 'value' => 'Contact Person failed to delete.');
+			$this->url->redirect('person/edit&id=' . $this->url->post('id'));
+		}
+
+		
 	}
 
 	public function indexMail()
@@ -263,7 +278,7 @@ class PersonController extends Controller
 			$this->url->redirect('person/view&id=' . $data['person']);
 		}
 
-		$info = $this->contactModel->getOrganization();
+		$info = $this->personModel->getOrganization();
 
 		$mailer = new Mailer();
 		$useornot = $mailer->getData();
@@ -285,7 +300,7 @@ class PersonController extends Controller
 		$data['type_id'] = $data['person'];
 		$data['user_id'] = $this->session->data['user_id'];
 
-		$this->contactModel->emailLog($data);
+		$this->personModel->emailLog($data);
 		$this->session->data['message'] = array('alert' => 'success', 'value' => 'Email Sent successfully.');
 		$this->url->redirect('person/view&id=' . $data['person']);
 	}
@@ -327,10 +342,10 @@ class PersonController extends Controller
 	{
 		$error = [];
 		$error_flag = false;
-
-		if ($this->commons->validateText($this->url->post('person')['company'])) {
+		$data = $this->url->post('person');
+		if ($this->commons->validateText($data['firstname'])) {
 			$error_flag = true;
-			$error['author'] = 'Item Rate!';
+			$error['author'] = "Name";
 		}
 
 		if ($error_flag) {

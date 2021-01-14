@@ -7,7 +7,7 @@ class Company extends Model
 {
     public function getCompanies()
     {
-        $query = $this->model->query("SELECT * FROM `" . DB_PREFIX . "companies`");
+        $query = $this->model->query("SELECT * FROM `" . DB_PREFIX . "companies` ORDER BY `name` ASC");
         return $query->rows;
     }
 
@@ -40,13 +40,24 @@ class Company extends Model
 
     public function getCompanyByType($type)
     {
-        $query = $this->model->query("SELECT * FROM `" . DB_PREFIX . "companies`  WHERE `type` = ?", array((int)$type));
+        $query = $this->model->query("SELECT * FROM `" . DB_PREFIX . "companies`  WHERE `type` = ? ORDER BY `name` ASC", array((int)$type));
         if ($query->num_rows > 0) {
             return $query->rows;
         } else {
             return '';
         }
     }
+
+    public function getSubsidiaries()
+    {
+        $query = $this->model->query("SELECT * FROM `" . DB_PREFIX . "companies`  WHERE `type` = 2 ORDER BY `name` ASC");
+        if ($query->num_rows > 0) {
+            return $query->rows;
+        } else {
+            return '';
+        }
+    }
+
 
     public function createCompany($data)
     {
@@ -55,13 +66,14 @@ class Company extends Model
         }
 
         $query = $this->model->query(
-            "INSERT INTO `" . DB_PREFIX . "companies` (`name`, `reg_no`,`address`,`vat_no`,`formation_date`,
+            "INSERT INTO `" . DB_PREFIX . "companies` (`name`, `reg_no`,`address`,`postal_address`,`vat_no`,`formation_date`,
             `description`,`status`,`type`,`activity`,`phone`,`email`,`website`,`short_name`) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
             array(
                     $data['name'], 
                     $data['reg_no'], 
-                    $data['address'], 
+                    $data['address'],
+                    $data['postal_address'], 
                     $data['vat_no'],
                     $data['formation_date'],
                     $data['description'], 
@@ -88,13 +100,14 @@ class Company extends Model
         }
 
         $query = $this->model->query(
-            "UPDATE `" . DB_PREFIX . "companies` SET `name`=?,`short_name`=?, `reg_no`=?, `address` = ?, `vat_no` = ?, `website`=?, 
+            "UPDATE `" . DB_PREFIX . "companies` SET `name`=?,`short_name`=?, `reg_no`=?, `address` = ?, `postal_address` = ?, `vat_no` = ?, `website`=?, 
             `description`=?, `type`=?,`activity`=?,`phone`=?,`email`=?,`formation_date`=?,`status`=? WHERE `id` = ? ",
             array(
                 $data['name'],
                 $data['short_name'],
                 $data['reg_no'],
                 $data['address'],
+                $data['postal_address'],
                 $data['vat_no'],
                 $this->model->escape($data['website']),
                 $data['description'],

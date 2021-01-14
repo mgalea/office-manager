@@ -108,6 +108,8 @@ $router->get('company/edit', 'CompanyController@indexEdit@2');
 $router->post('company/action', 'CompanyController@indexAction@2');
 $router->post('company/delete', 'CompanyController@indexDelete@2');
 
+$router->get('subsidiaries', 'CompanyController@indexSubsidiaries@2');
+
 $router->get('leads', 'LeadController@index@2');
 $router->get('lead/add', 'LeadController@indexAdd@2');
 $router->get('lead/edit', 'LeadController@indexEdit@2');

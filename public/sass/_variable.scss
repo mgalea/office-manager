@@ -1,8 +1,11 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500');
 @import url('https://fonts.googleapis.com/css?family=Dosis:500,700');
 //Font-Faimily
-$font: 'Poppins', sans-serif;
-$fontHeading: "Dosis", 'Poppins', sans-serif;
+$font: 'Poppins',
+sans-serif;
+$fontHeading: "Dosis",
+'Poppins',
+sans-serif;
 //$fontHeading: 'Playfair Display', serif;
 //Background Color
 $bodyColor: #FAFAFA;
@@ -11,24 +14,24 @@ $bodyColor: #FAFAFA;
 // Blue Theme Color Code **************************
 //************************************************/
 
-$color-primary-0: #3483FF;	// Main Primary color */
-$color-primary-0: #3F51B5;	// Main Primary color */
+$color-primary-0: #3483FF; // Main Primary color */
+$color-primary-0: #3F51B5; // Main Primary color */
 $color-primary-1: #8895DC;
 $color-primary-2: #5E6EC7;
 $color-primary-3: #2137AA;
 $color-primary-4: #132584;
 
 // As RGBa codes */
-$rgba-primary-0: rgba( 52,131,255,1);	// Main Primary color */
-$rgba-primary-0: rgba( 63, 81, 181,1);	// Main Primary color */
-$rgba-primary-1: rgba(136,149,220,1);
-$rgba-primary-2: rgba( 94,110,199,1);
-$rgba-primary-3: rgba( 33, 55,170,1);
-$rgba-primary-4: rgba( 19, 37,132,1);
+$rgba-primary-0: rgba(52, 131, 255, 1); // Main Primary color */
+$rgba-primary-0: rgba(63, 81, 181, 1); // Main Primary color */
+$rgba-primary-1: rgba(136, 149, 220, 1);
+$rgba-primary-2: rgba(94, 110, 199, 1);
+$rgba-primary-3: rgba(33, 55, 170, 1);
+$rgba-primary-4: rgba(19, 37, 132, 1);
 
-$gradientColor: linear-gradient(-90deg,rgba(31, 255, 218,1), rgba(52,131,255,1));
-$gradientBackground: linear-gradient(-90deg,rgba(31, 255, 218,.8), rgba(52,131,255,.8));
-$color-primary-4-rgba-80: rgba(1, 82, 89,.8);
+$gradientColor: linear-gradient(-90deg, rgba(31, 255, 218, 1), rgba(52, 131, 255, 1));
+$gradientBackground: linear-gradient(-90deg, rgba(31, 255, 218, .8), rgba(52, 131, 255, .8));
+$color-primary-4-rgba-80: rgba(1, 82, 89, .8);
 
 $color-secondary-0: #282a3c;
 $color-secondary-0-rgba: rgba(40, 42, 60, .9);
@@ -54,7 +57,8 @@ $color-success: #0bc36e;
 $color-white: #fff;
 $color-black: #222;
 $color-menu : #282a3c;
-$color-panel :rgba(0, 0, 0, .40);;
+$color-panel :rgba(0, 0, 0, .40);
+$color-panel-highlight :rgba(255, 255, 255, .40);
 
 $color-primary-rgba: rgba(63, 81, 181, .1);
 $color-secondary-rgba: rgba(40, 42, 60, .1);
@@ -105,9 +109,9 @@ $color5: #555;
 $color3: #333;
 
 // Color Code 
-$colorF-60:  rgba(255, 255, 255, .60);
-$colorF-50:  rgba(255, 255, 255, .50);
-$colorF-40:  rgba(255, 255, 255, .40);
+$colorF-60: rgba(255, 255, 255, .60);
+$colorF-50: rgba(255, 255, 255, .50);
+$colorF-40: rgba(255, 255, 255, .40);
 
 
 //Font Code

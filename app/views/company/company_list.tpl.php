@@ -1,8 +1,15 @@
 <?php include(DIR . 'app/views/common/header.tpl.php'); ?>
-<script>
-    $('#company').show();
-    $('#company-li').addClass('active');
-</script>
+<?php if (isset($type) && $type == 2) { ?>
+    <script>
+        $('#company').show();
+        $('#company-li').addClass('active');
+    </script>
+<?php  } else { ?>
+    <script>
+        $('#contact').show();
+        $('#contact-li').addClass('active');
+    </script>
+<?php  } ?>
 <!-- User list page start -->
 <div class="content">
     <div class="panel panel-default">
@@ -34,6 +41,7 @@
                     <thead>
                         <tr class="table-heading">
                             <th><?php echo $lang['company']['text_company']; ?></th>
+                            <th><?php echo $lang['company']['text_brand']; ?></th>
                             <th><?php echo $lang['company']['text_company_id']; ?></th>
                             <th><?php echo $lang['company']['text_vat_no']; ?></th>
 
@@ -46,6 +54,7 @@
 
                                 <tr>
                                     <td><a href="<?php echo URL . DIR_ROUTE . 'company/view&id=' . $value['id']; ?>"><?php echo $value['name']; ?></td>
+                                    <td><a href="<?php echo URL . DIR_ROUTE . 'company/view&id=' . $value['id']; ?>"><?php echo $value['short_name']; ?></td>
                                     <td><a href="<?php echo URL . DIR_ROUTE . 'company/view&id=' . $value['id']; ?>"><?php echo $value['reg_no']; ?></a></td>
                                     <td><a href="<?php echo URL . DIR_ROUTE . 'company/view&id=' . $value['id']; ?>"><?php echo $value['vat_no']; ?></a></td>
                                     <td class="table-action">

@@ -60,5 +60,8 @@ $company = array(
 	'text_type' => 'Type',
 	'text_activity' => 'Primary Activity',
 	'text_brand' => 'Brand Name (Short Name)',
+	'text_postal' => 'Postal',
+	'text_registered' => 'Registered',
+
 	
 );

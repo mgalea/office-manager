@@ -10,7 +10,7 @@ class Expense extends Model
 	{
 		$query = $this->model->query("SELECT  e.*, et.name, c.abbr, s.name AS supplier FROM `" . DB_PREFIX . "expenses` AS e LEFT JOIN `" . 
 		DB_PREFIX . "expense_type` AS et ON et.id = e.expense_type LEFT JOIN `" . DB_PREFIX . "currency` AS c ON c.id = e.currency ". " LEFT JOIN `"
-		. DB_PREFIX . "suppliers` AS s ON "."s.id = e.supplier_id ORDER BY e.date_of_joining DESC");
+		. DB_PREFIX . "companies` AS s ON "."s.id = e.supplier_id ORDER BY e.date_of_joining DESC");
 		return $query->rows;
 	}
 
@@ -28,7 +28,7 @@ class Expense extends Model
 
 	public function getSuppliers()
 	{
-		$query = $this->model->query("SELECT `id`, `name` FROM `" . DB_PREFIX . "suppliers` ORDER BY `name` ASC ");
+		$query = $this->model->query("SELECT `id`, `name` FROM `" . DB_PREFIX . "companies` WHERE `type`=1 ORDER BY `name` ASC ");
 		return $query->rows;
 	}
 	
@@ -67,9 +67,11 @@ class Expense extends Model
 
 	public function createExpense($data)
 	{
-		$query = $this->model->query("INSERT INTO `" . DB_PREFIX . "expenses` (`purchase_by`, `expense_type`, `currency`, `purchase_amount`, `payment_type`, `purchase_date`, `description`, `supplier_id`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)", 
+		$query = $this->model->query("INSERT INTO `" . DB_PREFIX . "expenses` (`purchase_by`, `expense_type`, `currency`,
+		 `purchase_amount`, `payment_type`, `purchase_date`, `description`,`inv_number`, `supplier_id`) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?)", 
 		array( $this->model->escape($data['purchaseby']), (int)$data['expensetype'], (int)$data['currency'],
-		 $this->model->escape($data['amount']), (int)$data['paymenttype'], $data['purchasedate'], $data['description'], $data['supplier_id']));
+		 $this->model->escape($data['amount']), (int)$data['paymenttype'], $data['purchasedate'], $data['description'],
+		 $data['inv_number'], $data['supplier_id']));
 		
 		if ($query->num_rows > 0) {
 			return $this->model->last_id();

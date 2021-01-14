@@ -5,7 +5,7 @@
     <div class="panel panel-default">
         <div class="panel-head">
             <div class="panel-title">
-                <i class="icon-emotsmile panel-head-icon"></i>
+                <i class="icon-user panel-head-icon"></i>
                 <span class="panel-title-text"><?php echo $page_title; ?> <small class="text-muted ml-1">(<?php echo $lang['contact']['text_user_registered_on_client_portal']; ?>)</small></span>
             </div>
             <div class="panel-action">
