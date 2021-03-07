@@ -36,7 +36,7 @@ class Dashboard extends Model
 		$contact = $this->model->query("SELECT `id`, concat(`salutation`, ' ', `firstname`, ' ', `lastname`) AS name, `company`, `date_of_joining` FROM `" . DB_PREFIX . "contacts` ORDER BY `date_of_joining` DESC LIMIT 5");
 		$data['contacts'] = $contact->rows;
 
-		$invoice = $this->model->query("SELECT i.id, c.company, i.amount, cr.abbr, i.date_of_joining FROM `" . DB_PREFIX . "invoice` AS i LEFT JOIN `" . DB_PREFIX . "contacts` AS c ON c.id = i.customer LEFT JOIN `" . DB_PREFIX . "currency` AS cr ON cr.id = i.currency ORDER BY i.date_of_joining DESC LIMIT 5");
+		$invoice = $this->model->query("SELECT i.id, c.company, i.amount, cr.abbr, i.inv_date FROM `" . DB_PREFIX . "invoice` AS i LEFT JOIN `" . DB_PREFIX . "contacts` AS c ON c.id = i.customer LEFT JOIN `" . DB_PREFIX . "currency` AS cr ON cr.id = i.currency ORDER BY i.inv_date DESC LIMIT 5");
 
 		$data['invoices'] = $invoice->rows;
 

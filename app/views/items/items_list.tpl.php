@@ -1,7 +1,8 @@
-<?php include (DIR.'app/views/common/header.tpl.php'); ?>
+<?php include(DIR . 'app/views/common/header.tpl.php'); ?>
 <script>
     $('#setting').show();
-    $('#setting-li').addClass('active');</script>
+    $('#setting-li').addClass('active');
+</script>
 </script>
 <!-- Items list page start -->
 <div class="content">
@@ -12,12 +13,12 @@
                 <span class="panel-title-text"><?php echo $page_title; ?></span>
             </div>
             <div class="panel-action">
-                <a href="<?php echo URL.DIR_ROUTE . 'item/add'; ?>" class="btn btn-success btn-sm"><i class="icon-plus mr-1"></i> <?php echo $lang['settings']['text_new_item']; ?></a>
+                <a href="<?php echo URL . DIR_ROUTE . 'item/add'; ?>" class="btn btn-success btn-sm"><i class="icon-plus mr-1"></i> <?php echo $lang['settings']['text_new_item']; ?></a>
             </div>
         </div>
         <div class="panel-wrapper">
             <div class="table-container">
-                <table class="table table-bordered table-striped datatable-table" width="100%">
+                <table class="table table-striped table-dark  datatable-table" width="100%">
                     <thead>
                         <tr class="table-heading">
                             <th class="table-srno">#</th>
@@ -28,18 +29,20 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php if ($result) { foreach ($result as $key => $value) { ?>
-                        <tr>
-                            <td class="table-srno"><?php echo $key+1; ?></td>
-                            <td><?php echo $value['name']; ?></td>
-                            <td><?php echo $value['price']; ?></td>
-                            <td><?php echo $value['description']; ?></td>
-                            <td class="table-action">
-                                <a href="<?php echo URL.DIR_ROUTE . 'item/edit&id=' .$value['id']; ?>" class="btn btn-info btn-circle btn-outline btn-outline-1x" data-toggle="tooltip" data-placement="top" title="<?php echo $lang['common']['text_edit']; ?>"><i class="icon-pencil"></i></a>
-                                <p class="btn btn-danger btn-circle btn-outline btn-outline-1x table-delete" data-toggle="tooltip" title="<?php echo $lang['common']['text_delete']; ?>"><i class="icon-trash"></i><input type="hidden" value="<?php echo $value['id'] ?>"></p>
-                            </td>
-                        </tr>
-                        <?php } } ?>
+                        <?php if ($result) {
+                            foreach ($result as $key => $value) { ?>
+                                <tr>
+                                    <td class="table-srno"><?php echo $key + 1; ?></td>
+                                    <td><?php echo $value['name']; ?></td>
+                                    <td><?php echo $value['price']; ?></td>
+                                    <td><?php echo $value['description']; ?></td>
+                                    <td class="table-action">
+                                        <a href="<?php echo URL . DIR_ROUTE . 'item/edit&id=' . $value['id']; ?>" class="btn btn-primary text-info" data-toggle="tooltip" data-placement="top" title="<?php echo $lang['common']['text_edit']; ?>"><i class="icon-pencil"></i></a>
+                                        <p class="btn btn-warning text-dark" data-toggle="tooltip" title="<?php echo $lang['common']['text_delete']; ?>"><i class="icon-trash"></i><input type="hidden" value="<?php echo $value['id'] ?>"></p>
+                                    </td>
+                                </tr>
+                        <?php }
+                        } ?>
                     </tbody>
                 </table>
             </div>
@@ -69,4 +72,4 @@
     </div>
 </div>
 <!-- Footer -->
-<?php include (DIR.'app/views/common/footer.tpl.php'); ?>
+<?php include(DIR . 'app/views/common/footer.tpl.php'); ?>

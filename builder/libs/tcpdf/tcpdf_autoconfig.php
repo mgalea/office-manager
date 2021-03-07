@@ -173,11 +173,11 @@ if (!defined('PDF_MARGIN_BOTTOM')) {
 }
 
 if (!defined('PDF_MARGIN_LEFT')) {
-	define ('PDF_MARGIN_LEFT', 15);
+	define ('PDF_MARGIN_LEFT', 25);
 }
 
 if (!defined('PDF_MARGIN_RIGHT')) {
-	define ('PDF_MARGIN_RIGHT', 15);
+	define ('PDF_MARGIN_RIGHT', 25);
 }
 
 if (!defined('PDF_FONT_NAME_MAIN')) {

@@ -69,7 +69,7 @@ class PersonController extends Controller
 		 * Get all User data from DB using User model 
 		 **/
 		$data['result'] = $this->personModel->getPerson($id);
-		$data['documents'] = $this->personModel->getDocuments($id);		
+		$data['documents'] = $this->personModel->getDocuments($id);
 		$data['result']['address'] = json_decode($data['result']['address'], true);
 
 		/*Load Language File*/
@@ -214,28 +214,25 @@ class PersonController extends Controller
 			$data['persons'] = json_encode($data['persons']);
 			$data['id'] = $this->url->post('id');
 			$result = $this->personModel->updatePerson($data);
-			if($result){
+			if ($result) {
 				$this->session->data['message'] = array('alert' => 'success', 'value' => 'Contact Person updated successfully.');
-			}else {
+			} else {
 				$this->session->data['message'] = array('alert' => 'error', 'value' => 'Contact Person failed to update.');
 			}
 			$this->url->redirect('person/edit&id=' . $this->url->post('id'));
-
 		} else {
 			$data = $this->url->post('person');
 			$data['country'] = $data['address']['country'];
 			$data['address'] = json_encode($data['address']);
 			$data['persons'] = json_encode($data['persons']);
 			$result = $this->personModel->createPerson($data);
-			if ($result>0) {
+			if ($result > 0) {
 				$this->session->data['message'] = array('alert' => 'success', 'value' => 'Contact Person created successfully.');
 				$this->url->redirect('person/edit&id=' . $result);
 			} else {
 				$this->session->data['message'] = array('alert' => 'error', 'value' => 'Contact Person failed to create.');
 				$this->url->redirect('person/edit');
 			}
-
-			
 		}
 	}
 	/**
@@ -249,7 +246,7 @@ class PersonController extends Controller
 			exit();
 		}
 		$result = $this->personModel->deletePerson($this->url->post('id'));
-		
+
 		if ($result) {
 			$this->session->data['message'] = array('alert' => 'success', 'value' => 'Contact Person deleted successfully.');
 			$this->url->redirect('persons');
@@ -257,8 +254,6 @@ class PersonController extends Controller
 			$this->session->data['message'] = array('alert' => 'error', 'value' => 'Contact Person failed to delete.');
 			$this->url->redirect('person/edit&id=' . $this->url->post('id'));
 		}
-
-		
 	}
 
 	public function indexMail()
@@ -268,6 +263,9 @@ class PersonController extends Controller
 			exit();
 		}
 		$data = $this->url->post('mail');
+		if (empty($data['message'])) {
+			$data['message'] = '<p>No message content</p>';
+		}
 
 		if ($validate_field = $this->validateMailField($data)) {
 			$this->session->data['message'] = array('alert' => 'error', 'value' => 'Please enter valid ' . implode(", ", $validate_field) . '!');
@@ -280,17 +278,32 @@ class PersonController extends Controller
 
 		$info = $this->personModel->getOrganization();
 
+
 		$mailer = new Mailer();
+		$emailData = $this->commons->getUser();
+		$emailData = $emailData['user'];
+		/* SMTP authentication username. */
+		echo var_dump($emailData['email']);
+		$mailer->mail->Username = $emailData['email'];
+
+		/* SMTP authentication password. */
+		$mailer->mail->Password = $emailData['email_password'];
+
+		/* Set the mail sender. */
+		$mailer->mail->setFrom($emailData['email'], $emailData['firstname'] . ' ' . $emailData['lastname']);
+		$mailer->mail->addReplyTo($emailData['email'], $emailData['firstname'] . ' ' . $emailData['lastname']);
+		/*
 		$useornot = $mailer->getData();
 		if (!$useornot) {
 			$mailer->mail->setFrom($info['email'], $info['name']);
 		}
+		*/
 
 		$mailer->mail->addAddress($data['to'], $data['name']);
 		if (!empty($data['bcc'])) {
 			$mailer->mail->addBCC($data['bcc'], $data['bcc']);
 		}
-
+		echo $data['message'];
 		$mailer->mail->isHTML(true);
 		$mailer->mail->Subject = $data['subject'];
 		$mailer->mail->Body = html_entity_decode($data['message']);
@@ -301,7 +314,7 @@ class PersonController extends Controller
 		$data['user_id'] = $this->session->data['user_id'];
 
 		$this->personModel->emailLog($data);
-		$this->session->data['message'] = array('alert' => 'success', 'value' => 'Email Sent successfully.');
+		$this->session->data['message'] = array('alert' => 'success', 'value' => 'Email Sent successfully.' . $data['message']);
 		$this->url->redirect('person/view&id=' . $data['person']);
 	}
 	/**
@@ -313,7 +326,7 @@ class PersonController extends Controller
 		$error = [];
 		$error_flag = false;
 
-		if ($this->commons->validateText($data['to'])) {
+		if ($this->commons->validateEmail($data['to'])) {
 			$error_flag = true;
 			$error['to'] = 'Email!';
 		}
@@ -324,7 +337,8 @@ class PersonController extends Controller
 		}
 
 		if ($this->commons->validateText($data['message'])) {
-			$error_flag = true;
+
+			$error_flag = false;
 			$error['message'] = 'Message!';
 		}
 

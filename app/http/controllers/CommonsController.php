@@ -22,6 +22,19 @@ class CommonsController extends Controller
 		return $data;
 	}
 
+	public function getUserEmail(){
+		$commons = new Commons();
+		$id= $this->session->data['user_id'];
+		$data['email'] = $commons->getUserEmail($id);
+		return $data;
+	}
+
+	public function getAddressBook(){
+		$commons = new Commons();
+		$data = $commons->getAddressBook();
+		return $data;
+	}
+
 	public function getInfo()
 	{
 		$commons = new Commons();

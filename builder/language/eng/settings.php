@@ -86,6 +86,9 @@ $settings = array(
 	'text_SMTP_password' => 'SMTP Password',
 	'text_type_of_encryption' => 'Type of Encryption',
 	'text_SMTP_authentication' => 'SMTP Authentication',
+	'text_inventory_type_name'=> 'Inventory Type',
+	'text_document_type' => 'Document Type',
+	'text_document_format' => 'Document Format',
 	'text_no' => 'No',
 	'text_yes' => 'Yes'
 );

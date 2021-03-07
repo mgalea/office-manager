@@ -7,7 +7,7 @@ class Commons extends Model
 {
 	public function getUserData($id)
 	{
-		$query = $this->model->query("SELECT `id`, `name`, `email`, `mobile` FROM `" . DB_PREFIX . "clients` WHERE `id` = ? LIMIT 1", array((int)$id));
+		$query = $this->model->query("SELECT `id`, `name`, `email`, `mobile`, `role` FROM `" . DB_PREFIX . "clients` WHERE `id` = ? LIMIT 1", array((int)$id));
 		if ($query->num_rows > 0) {
 			return $query->row;
 		} else {

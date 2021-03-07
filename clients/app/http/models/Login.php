@@ -7,7 +7,8 @@ class Login extends Model
 {
 	public function checkUser($email)
 	{
-		$query = $this->model->query( "SELECT c.id, c.name, c.email, c.password, c.status, ct.id AS `customer` FROM `" . DB_PREFIX . "clients` AS c LEFT JOIN `" . DB_PREFIX . "contacts` AS ct ON c.email = ct.email WHERE c.email = ? LIMIT 1", array($this->model->escape($email)));
+		$query = $this->model->query( "SELECT c.id, c.name, c.email, c.password, c.status, ct.id AS `customer` FROM `" . DB_PREFIX . "clients` AS c 
+		LEFT JOIN `" . DB_PREFIX . "persons` AS ct ON c.email = ct.email WHERE c.email = ? LIMIT 1", array($this->model->escape($email)));
 		
 		if ($query->num_rows) {
 			return $query->row;

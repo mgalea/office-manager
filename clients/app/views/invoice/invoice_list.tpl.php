@@ -6,7 +6,7 @@
         <div class="panel-head">
             <div class="panel-title">
                 <i class="icon-docs panel-head-icon"></i>
-                <span class="panel-title-text"><?php echo $page_title; ?></span>
+                <span class="panel-title-text"><?php echo $page_title;?></span>
             </div>
             <div class="panel-action"></div>
         </div>

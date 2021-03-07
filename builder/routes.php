@@ -48,6 +48,8 @@ $router->post('recurring/delete', 'RecurringController@indexDelete@2');
 $router->post('recurring/sentmail', 'RecurringController@indexMail@2');
 
 $router->get('recurringjob', 'RecurringjobController@index@2');
+$router->get('mail', 'MailController@sendEmail@2');
+$router->post('mail/sendmail', 'MailController@indexMail@2');
 
 $router->get('expenses', 'ExpenseController@index@2');
 $router->get('expense/add', 'ExpenseController@indexAdd@2');
@@ -109,6 +111,15 @@ $router->post('company/action', 'CompanyController@indexAction@2');
 $router->post('company/delete', 'CompanyController@indexDelete@2');
 
 $router->get('subsidiaries', 'CompanyController@indexSubsidiaries@2');
+$router->get('suppliers', 'CompanyController@indexSuppliers@2');
+$router->get('supplier/view', 'CompanyController@supplierView@2');
+
+$router->get('bank_accounts', 'BankController@index@2');
+$router->get('bank_account/view', 'BankController@indexView@2');
+$router->get('bank_account/add', 'BankController@indexAdd@2');
+$router->get('bank_account/edit', 'BankController@indexEdit@2');
+$router->post('bank_account/action', 'BankController@indexAction@2');
+$router->post('bank_account/delete', 'BankController@indexDelete@2');
 
 $router->get('leads', 'LeadController@index@2');
 $router->get('lead/add', 'LeadController@indexAdd@2');
@@ -142,6 +153,14 @@ $router->post('tax/delete', 'TaxController@indexDelete@2');
 $router->get('departments', 'TypesController@departments@2');
 $router->post('department/action', 'TypesController@departmentAction@2');
 $router->post('department/delete', 'TypesController@departmentDelete@2');
+
+$router->get('documentformat', 'TypesController@documentFormat@2');
+$router->post('documentformat/action', 'TypesController@documentFormatAction@2');
+$router->post('documentformat/delete', 'TypesController@documentFormatDelete@2');
+
+$router->get('documenttype', 'TypesController@documentType@2');
+$router->post('documenttype/action', 'TypesController@documentTypeAction@2');
+$router->post('documenttype/delete', 'TypesController@documentTypeDelete@2');
 
 $router->get('paymenttype', 'TypesController@paymentType@2');
 $router->post('paymenttype/action', 'TypesController@paymentTypeAction@2');

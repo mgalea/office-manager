@@ -1,3 +1,5 @@
+
+</div>
 </div>
 <div class="footer">
 	<p> © <?php echo Date('Y'); ?> Random Systems All Rights Reserved.</p>
@@ -32,5 +34,6 @@
 	</script>
 <?php } ?>
 </body>
+
 
 </html>

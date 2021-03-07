@@ -20,11 +20,13 @@
                     <thead>
                         <tr class="table-heading">
                             <th class="table-srno">#</th>
+                            <th><?php echo $lang['common']['text_created_date']; ?></th>
                             <th><?php echo $lang['expenses']['text_supplier']; ?></th>
+
                             <th><?php echo $lang['expenses']['text_invoice_number']; ?></th>
                             <th><?php echo $lang['expenses']['text_purchase_by']; ?></th>
                             <th><?php echo $lang['expenses']['text_purchase_amount']; ?></th>
-                            <th><?php echo $lang['common']['text_created_date']; ?></th>
+
                             <th></th>
                         </tr>
                     </thead>
@@ -32,15 +34,39 @@
                         <?php if (!empty($result)) {
                             foreach ($result as $key => $value) { ?>
                                 <tr>
-                                    <td class="table-srno"><?php echo $key + 1; ?></td>
+                                    <td class="table-srno"><?php
+                                                            //echo ($key + 1);
+                                                            $amount_paid = (int)($value['paid_amount']) / (int)($value['purchase_amount']);
+
+                                                            if ($amount_paid == 0) {
+                                                                echo ' <span class="badge badge-pill badge-pinterest badge-min-size small">unpaid</span>';
+                                                            }
+
+                                                            if ($amount_paid == 1) {
+                                                                echo ' <span class="badge badge-pill badge-success badge-min-size small">paid</span>';
+                                                            }
+
+                                                            if ($amount_paid > 0 && $amount_paid < 1) {
+                                                                echo ' <span class="badge badge-pill badge-warning badge-min-size small">partial</span>';
+                                                            }
+
+
+                                                            if ($amount_paid > 0 && $amount_paid > 1) {
+                                                                echo ' <span class="badge badge-pill badge-primary badge-min-size small">overpaid</span>';
+                                                            }
+
+                                                            ?>
+                                    </td>
+                                    <td><?php echo date_format(date_create($value['purchase_date']), 'Y-m-d'); ?></td>
                                     <td>
                                         <?php echo $value['supplier']; ?>
                                     </td>
+
                                     <td><?php echo $value['inv_number']; ?></td>
                                     <td class="font-14"><?php echo $value['purchase_by']; ?></td>
 
                                     <td><?php echo $value['abbr'] . ' ' . ltrim($value['purchase_amount'], '0'); ?></td>
-                                    <td><?php echo date_format(date_create($value['purchase_date']), 'd-m-Y'); ?></td>
+
                                     <td class="table-action">
                                         <a href="<?php echo URL . DIR_ROUTE . 'expense/edit&id=' . $value['id']; ?>" class="btn btn-info btn-circle btn-outline btn-outline-1x" data-toggle="tooltip" title="<?php echo $lang['common']['text_edit']; ?>"><i class="icon-pencil"></i></a>
                                         <span class="btn btn-danger btn-circle btn-outline btn-outline-1x table-delete" data-toggle="tooltip" data-placement="top" title="<?php echo $lang['common']['text_delete']; ?>"><i class="icon-trash"></i><input type="hidden" value="<?php echo $value['id']; ?>"></span>

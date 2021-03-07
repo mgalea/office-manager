@@ -25,6 +25,7 @@ class InvoiceController extends Controller
 		
 		$customer = $this->session->data['customer'];
 
+
 		/**
 		* Get all User data from DB using User model 
 		**/
@@ -36,7 +37,7 @@ class InvoiceController extends Controller
 		} else {
 			$data['result'] = NULL;
 		}
-
+		$data['customer'] = $customer;
 		/* Set confirmation message if page submitted before */
 		if (isset($this->session->data['message'])) {
 			$data['message'] = $this->session->data['message'];
@@ -75,14 +76,17 @@ class InvoiceController extends Controller
 		$data['lang']['invoices'] = $invoices;
 
 		$data['customer'] = $this->session->data['customer'];
+		
 		if (empty($data['customer'])) {
 			$this->url->redirect('invoices');
 		}
 
-		$data['result'] = $this->invoiceModel->getInoviceView($data);
+		$data['result'] = $this->invoiceModel->getInvoiceView($data);
+
 		$data['payments'] = $this->invoiceModel->getPayments($data['id']);
+
 		if (empty($data['result'])) {
-			$this->url->redirect('invoices');
+			//$this->url->redirect('invoices');
 		}
 
 		$data['attachments'] = $this->invoiceModel->getAttachments($data['id']);
@@ -126,7 +130,7 @@ class InvoiceController extends Controller
 			$this->url->redirect('invoices');
 		}
 
-		$data['result'] = $this->invoiceModel->getInoviceView($data);
+		$data['result'] = $this->invoiceModel->getInvoiceView($data);
 		if (empty($data['result'])) {
 			$this->url->redirect('invoices');
 		}
@@ -178,7 +182,7 @@ class InvoiceController extends Controller
 			$this->url->redirect('invoices');
 		}
 
-		$result = $this->invoiceModel->getInoviceView($data);
+		$result = $this->invoiceModel->getInvoice($data);
 		if (empty($result)) {
 			$this->url->redirect('invoices');
 		}

@@ -38,7 +38,7 @@
 									<?php $caddress = json_decode($result['address'], true); ?>
 									<p class="body"><?php echo $caddress['address1'].', '.$caddress['address2'].'<br />'; ?></p>
 									<p class="body"><?php echo $caddress['city'].' '.$caddress['state'].'<br />'; ?></p>
-									<p class="body"><?php echo $caddress['country'].'  '.$caddress['pin']; ?></p>
+									<p class="body"><?php echo $caddress['country'].'  '.$caddress['pincode']; ?></p>
 								</div>
 							</td>
 							<td class="text-right">

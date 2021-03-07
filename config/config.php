@@ -3,7 +3,7 @@
 define('NAME', 'Random Group Office Manager');
 /*Domain name like www.yourdomain.com*/
 define('URL', 'http://portal.rnggaming.com/');
-define('URL_CLIENTS', 'http://portal.rnggaming.com/clients/');
+define('URL_CLIENTS', 'http://cube.rnggaming.com/');
 /*Support email*/
 define('SITEEMAIL', 'info@rnggaming.com');
 /*Clinic address*/
@@ -16,14 +16,12 @@ define('DIR', 'C:/www/RNGportal/');
 define('DIR_CLIENTS', 'C:/www/RNGportal/clients/');
 define('DIR_APP', 'C:/www/RNGportal/app/');
 define('DIR_BUILDER', 'C:/www/RNGportal/builder/');
+define('DIR_UPLOADS', 'C:/www/RNGportal/public/uploads/');
 
 
 /** SMTP Credentials **/
 define('SMTP_HOST', 'mail.rnggaming.com');
-define('SMTP_USERNAME', 'mario.galea@rnggaming.com');
-define('SMTP_PASSWORD', 'Mgalea!1310');
-define('SMTP_PORT', '465');
-
+define('SMTP_PORT', '587');
 
 /** MySQL settings - You can get this info from your web host **/
 /*MySQL database host*/

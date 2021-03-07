@@ -59,8 +59,8 @@
                                     <td><a href="<?php echo URL . DIR_ROUTE . 'company/view&id=' . $value['id']; ?>"><?php echo $value['vat_no']; ?></a></td>
                                     <td class="table-action">
 
-                                        <p><a href="<?php echo URL . DIR_ROUTE . 'company/edit&id=' . $value['id']; ?>" class="btn btn-success btn-circle  " data-toggle="tooltip" title="<?php echo $lang['common']['text_edit']; ?>"><i class="icon-pencil"></i></a>
-                                            <span class="btn btn-danger btn-circle  table-delete" data-toggle="tooltip" title="<?php echo $lang['common']['text_delete']; ?>"><i class="icon-trash"></i><input type="hidden" value="<?php echo $value['id']; ?>"></span>
+                                        <p><a href="<?php echo URL . DIR_ROUTE . 'company/edit&id=' . $value['id']; ?>" class="btn btn-primary text-info " data-toggle="tooltip" title="<?php echo $lang['common']['text_edit']; ?>"><i class="icon-pencil"></i></a>
+                                            <span class="btn btn-warning text-dark table-delete" data-toggle="tooltip" title="<?php echo $lang['common']['text_delete']; ?>"><i class="icon-trash"></i><input type="hidden" value="<?php echo $value['id']; ?>"></span>
                                     </td>
                                 </tr>
 

@@ -40,7 +40,7 @@ class ClientController extends Controller
 			unset($this->session->data['message']);
 		}
 		/* Set page title */
-		$data['page_title'] = $data['lang']['common']['text_clients'];
+		$data['page_title'] = $data['lang']['client']['text_clients'];
 
 		/*Render User list view*/
 		$this->view->render('client/client_list.tpl', $data);

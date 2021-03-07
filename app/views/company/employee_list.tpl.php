@@ -1,5 +1,8 @@
-<?php include (DIR.'app/views/common/header.tpl.php'); ?>
-<script>$('#contact').show();$('#contact-li').addClass('active');</script>
+<?php include(DIR . 'app/views/common/header.tpl.php'); ?>
+<script>
+    $('#contact').show();
+    $('#contact-li').addClass('active');
+</script>
 <!-- User list page start -->
 <div class="content">
     <div class="panel panel-default">
@@ -25,18 +28,20 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php if ($result) { foreach ($result as $key => $value) { ?>
-                        <tr>
-                            <td class="table-srno"><?php echo $key+1; ?></td>
-                            <td><a class="font-14"><?php echo $value['firstname']; ?></a></td>
-                            <td><?php echo $value['email']; ?></td>
-                            <td><?php echo $value['mobile']; ?></td>
-                            <td class="table-action">
-                                <a href="<?php echo URL.DIR_ROUTE . 'client/edit&id=' .$value['id']; ?>" class="btn btn-info btn-circle btn-outline btn-outline-1x" data-toggle="tooltip" title="<?php echo $lang['common']['text_edit']; ?>"><i class="icon-pencil"></i></a>
-                                <p class="btn btn-danger btn-circle btn-outline btn-outline-1x table-delete" data-toggle="tooltip" title="<?php echo $lang['common']['text_delete']; ?>"><i class="icon-trash"></i><input type="hidden" value="<?php echo $value['id']; ?>"></p>
-                            </td>
-                        </tr>
-                        <?php } } ?>
+                        <?php if ($result) {
+                            foreach ($result as $key => $value) { ?>
+                                <tr>
+                                    <td class="table-srno"><?php echo $key + 1; ?></td>
+                                    <td><a class="font-14"><?php echo $value['firstname']; ?></a></td>
+                                    <td><?php echo $value['email']; ?></td>
+                                    <td><?php echo $value['mobile']; ?></td>
+                                    <td class="table-action">
+                                        <a href="<?php echo URL . DIR_ROUTE . 'client/edit&id=' . $value['id']; ?>" class="btn btn-info btn-circle btn-outline btn-outline-1x" data-toggle="tooltip" title="<?php echo $lang['common']['text_edit']; ?>"><i class="icon-pencil"></i></a>
+                                        <p class="btn btn-danger btn-circle btn-outline btn-outline-1x table-delete" data-toggle="tooltip" title="<?php echo $lang['common']['text_delete']; ?>"><i class="icon-trash"></i><input type="hidden" value="<?php echo $value['id']; ?>"></p>
+                                    </td>
+                                </tr>
+                        <?php }
+                        } ?>
                     </tbody>
                 </table>
             </div>
@@ -55,7 +60,7 @@
                 <p class="delete-card-ttl"><?php echo $lang['common']['text_are_you_sure_you_want_to_delete?']; ?></p>
             </div>
             <div class="modal-footer">
-                <form action="<?php echo URL.DIR_ROUTE . 'client/delete'; ?>" class="delete-card-button" method="post">
+                <form action="<?php echo URL . DIR_ROUTE . 'client/delete'; ?>" class="delete-card-button" method="post">
                     <input type="hidden" value="" name="id">
                     <button type="submit" class="btn btn-danger" name="delete"><?php echo $lang['common']['text_delete']; ?></button>
                 </form>
@@ -65,4 +70,4 @@
     </div>
 </div>
 <!-- Footer -->
-<?php include (DIR.'app/views/common/footer.tpl.php'); ?>
+<?php include(DIR . 'app/views/common/footer.tpl.php'); ?>

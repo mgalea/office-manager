@@ -1,5 +1,8 @@
-<?php include (DIR.'app/views/common/header.tpl.php'); ?>
-<script>$('#contact').show();$('#contact-li').addClass('active');</script>
+<?php include(DIR . 'app/views/common/header.tpl.php'); ?>
+<script>
+    $('#contact').show();
+    $('#contact-li').addClass('active');
+</script>
 <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data">
     <div class="panel panel-default">
         <div class="panel-head">
@@ -9,8 +12,8 @@
             </div>
             <div class="panel-action">
                 <button type="submit" class="btn btn-info btn-icon" name="submit" data-toggle="tooltip" title="<?php echo $lang['common']['text_save']; ?>"><i class="far fa-save"></i></button>
-                <a href="<?php echo URL.DIR_ROUTE . 'clients'; ?>" class="btn btn-white btn-icon" data-toggle="tooltip" title="<?php echo $lang['common']['text_back_to_list']; ?>"><i class="fa fa-reply"></i></a>
-            </div>  
+                <a href="<?php echo URL . DIR_ROUTE . 'clients'; ?>" class="btn btn-white btn-icon" data-toggle="tooltip" title="<?php echo $lang['common']['text_back_to_list']; ?>"><i class="fa fa-reply"></i></a>
+            </div>
         </div>
         <div class="panel-wrapper p-3">
             <input type="hidden" name="_token" value="<?php echo $token; ?>">
@@ -58,8 +61,12 @@
                             <span class="input-group-text"><i class="icon-check"></i></span>
                         </div>
                         <select name="client[status]" class="custom-select">
-                            <option value="1" <?php if ($result['status'] == "1") { echo "selected"; } ?>><?php echo $lang['common']['text_active']; ?></option>
-                            <option value="0" <?php if ($result['status'] == "0") { echo "selected"; } ?>>In <?php echo $lang['common']['text_inactive']; ?></option>
+                            <option value="1" <?php if ($result['status'] == "1") {
+                                                    echo "selected";
+                                                } ?>><?php echo $lang['common']['text_active']; ?></option>
+                            <option value="0" <?php if ($result['status'] == "0") {
+                                                    echo "selected";
+                                                } ?>>In <?php echo $lang['common']['text_inactive']; ?></option>
                         </select>
                     </div>
                 </div>
@@ -76,4 +83,4 @@
     </div>
 </form>
 <!-- Footer -->
-<?php include (DIR.'app/views/common/footer.tpl.php'); ?>
+<?php include(DIR . 'app/views/common/footer.tpl.php'); ?>

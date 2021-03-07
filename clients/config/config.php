@@ -15,13 +15,12 @@ define('DIR', 'C:/www/RNGportal/');
 define('DIR_CLIENTS', 'C:/www/RNGportal/clients/');
 define('DIR_APP', 'C:/www/RNGportal/clients/app/');
 define('DIR_BUILDER', 'C:/www/RNGportal/clients/builder/');
-
+define('DIR_UPLOADS', 'C:/www/RNGportal/public/uploads');
 /*SMTP Credentials*/
-define('SMTP_HOST', 'mail.rnggaming.com');
-define('SMTP_USERNAME', 'mario.galea@rnggaming.com');
-define('SMTP_PASSWORD', 'Mgalea!1310');
-define('SMTP_PORT', '465');
 
+/** SMTP Credentials **/
+define('SMTP_HOST', 'mail.rnggaming.com');
+define('SMTP_PORT', '587');
 
 /** MySQL settings - You can get this info from your web host **/
 /*Database hostname*/

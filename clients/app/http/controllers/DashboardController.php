@@ -28,7 +28,7 @@ class DashboardController extends Controller
 	{
 		$customer = $this->session->data['customer'];
 		$data = $this->commons->getUser();
-
+		$data['customer']= $customer;
 		/*Load Language File*/
 		require DIR_BUILDER.'language/'.$data['info']['language'].'/common.php';
 		$data['lang']['common'] = $lang;
@@ -38,9 +38,8 @@ class DashboardController extends Controller
 		$invoice_status = $this->dashboardModel->invoiceStatus($customer);
 
 		if (empty($invoice_status)) {
-			$data['invoice_status']['value'] = 0;
-			$data['invoice_status']['label'] = 'No Invoice Found';
-			$data['invoice_status'] = json_encode($data['invoice_status']);
+			$data['invoice_status'][0]['label'] = $data['lang']['dashboard']['text_no_invoice'];
+			//$data['invoice_status'] = json_encode($data['invoice_status']);
 		} else {
 			foreach ($invoice_status as $key => $value) {
 				if ($value['label'] == "Paid") 
@@ -62,7 +61,7 @@ class DashboardController extends Controller
 					$invoice_status[$key]['label'] = $data['lang']['dashboard']['text_unknown']; 
 				}
 			}
-			$data['invoice_status'] = json_encode($invoice_status);
+			$data['invoice_status'] = $invoice_status;
 		}
 
 		$ticket_status = $this->dashboardModel->ticketStatus($data['user']['email']);

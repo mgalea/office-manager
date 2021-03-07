@@ -8,7 +8,10 @@ class Dashboard extends Model
 {
 	public function invoiceStatus($customer)
 	{
-		$query = $this->model->query("SELECT COUNT(status) AS `value`, `status` AS `label` FROM `" . DB_PREFIX . "invoice` WHERE `customer` = ? GROUP BY status", array($customer));
+		$query = $this->model->query("SELECT COUNT(`status`) AS `value`, `status` AS `label` FROM `" . DB_PREFIX . "invoice`  
+				WHERE `customer` =  (SELECT p.company FROM `kk_companies` AS c, `kk_persons` AS p, `kk_clients` AS cl 
+				WHERE cl.email = p.email AND p.company = c.id AND cl.id = ?) 
+				GROUP BY status", array ((int)$customer));
 		return $query->rows;
 	}
 
@@ -27,13 +30,14 @@ class Dashboard extends Model
 
 	public function invoiceCount($customer)
 	{
-		$query = $this->model->query("SELECT COUNT(*) AS `count` FROM `" . DB_PREFIX . "invoice` WHERE `customer` = ?", array($customer));
+		$query = $this->model->query("SELECT COUNT(*) AS `count` FROM `" . DB_PREFIX . "invoice` WHERE `customer` = (SELECT p.company FROM `kk_companies` AS c, `kk_persons` AS p, `kk_clients` AS cl 
+				WHERE cl.email = p.email AND p.company = c.id AND cl.id = ?) ", array($customer));
 		return $query->row['count'];
 	}
 
 	public function getInvoices($customer)
 	{
-		$query = $this->model->query("SELECT i.id, c.company, i.amount, i.status, cr.abbr FROM `" . DB_PREFIX . "invoice` AS i LEFT JOIN `" . DB_PREFIX . "contacts` AS c ON c.id = i.customer LEFT JOIN `" . DB_PREFIX . "currency` AS cr ON cr.id = i.currency WHERE i.customer = ? ORDER BY i.date_of_joining DESC LIMIT 6", array($customer));
+		$query = $this->model->query("SELECT i.id, c.company, i.amount, i.status, cr.abbr FROM `" . DB_PREFIX . "invoice` AS i LEFT JOIN `" . DB_PREFIX . "contacts` AS c ON c.id = i.customer LEFT JOIN `" . DB_PREFIX . "currency` AS cr ON cr.id = i.currency WHERE i.customer = ? ORDER BY i.inv_date DESC LIMIT 6", array($customer));
 		return $query->rows;
 	}
 

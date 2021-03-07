@@ -34,13 +34,13 @@
             <div class="container">
                 <div class="row align-items-center">
                     <div class="col-4">
-                        <a href="<?php echo URL_CLIENTS; ?>" class="logo">
+                        <a href="<?php echo URL_CLIENTS . DIR_ROUTE . 'dashboard'; ?>" class="logo">
                             <img src="public/images/logo.png" alt="">
                         </a>
                     </div>
                     <div class="col-8 menu text-right">
                         <ul>
-                            <li><a href="<?php echo URL_CLIENTS; ?>"><?php echo $lang['common']['text_dashboard']; ?></a></li>
+                            <li><a href="<?php echo URL_CLIENTS. DIR_ROUTE . 'dashboard'; ?>"><?php echo $lang['common']['text_dashboard']; ?></a></li>
                             <li><a href="<?php echo URL_CLIENTS.DIR_ROUTE . 'quotes'; ?>"><?php echo $lang['common']['text_quotations']; ?></a></li>
                             <li><a href="<?php echo URL_CLIENTS.DIR_ROUTE . 'invoices'; ?>"><?php echo $lang['common']['text_invoices']; ?></a></li>
                             <li><a href="<?php echo URL_CLIENTS.DIR_ROUTE . 'tickets'; ?>"><?php echo $lang['common']['text_tickets']; ?></a></li>

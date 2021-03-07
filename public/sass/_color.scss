@@ -214,10 +214,14 @@
 /* [ BADGE CSS START ] */
 .badge {
     padding: 0.4em .8em;
-    font-size: 100%;
     letter-spacing: .5px;
     vertical-align: baseline;
     font-weight: 500;
+}
+
+.badge-min-size {
+    min-width: 64px;
+
 }
 
 .badge-sm {
@@ -257,6 +261,55 @@
 .badge-info {
     background-color: $color-info;
 }
+
+.badge-accent {
+    background-color: #00c5dc;
+}
+
+.badge-facebook {
+    background-color: #3b5998;
+}
+
+.badge-twitter {   
+    background-color: #00aced; 
+}
+
+.badge-instagram {
+    background-color: #9b6954;   
+}
+
+.badge-linkedin {
+    background-color: #4875B4;
+}
+
+.badge-google {
+    background-color: #C63D2D;
+}
+
+.badge-pinterest {
+    background-color: #C92228;
+}
+
+.badge-flickr  {
+    background-color: #FE0883;
+}
+
+.badge-tumblr {
+    background-color: #2B4964;
+}
+
+.badge-youtube {
+    background-color: #FF3333;
+}
+
+.badge-dribbble {
+    background-color: #ea4c89;
+}
+
+.badge-gradient {
+    background: linear-gradient(to left, rgba(255, 255, 255, 0) 25%, rgba(255, 255, 255, 0.25));
+}
+
 
 .badge-light {
     color: $color3;

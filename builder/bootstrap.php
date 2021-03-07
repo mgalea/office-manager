@@ -78,5 +78,4 @@ if (!$common->isLoggedIn() && Request::uri() != 'login' &&  Request::uri() != 'f
 	exit();
 }
 
-Router::load(DIR_BUILDER. 'routes.php')
-->route(Request::uri(), Request::method());
+Router::load(DIR_BUILDER. 'routes.php')->route(Request::uri(), Request::method());

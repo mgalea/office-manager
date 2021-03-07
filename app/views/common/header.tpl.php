@@ -96,6 +96,9 @@
                         <li id="dashboard-li">
                             <a href="<?php echo URL . DIR_ROUTE; ?>dashboard"><i class="icon-screen-desktop"></i><span><?php echo $lang['common']['text_dashboard']; ?></span></a>
                         </li>
+                        <li id="supplier-li">
+                            <a href="<?php echo URL . DIR_ROUTE; ?>suppliers"><i class="icon-social-dropbox"></i><span><?php echo $lang['common']['text_suppliers']; ?></span></a>
+                        </li>
                         <li id="contact-li" class="has-sub">
                             <a><i class="far fa-address-book"></i><span><?php echo $lang['common']['text_contacts']; ?></span><i class="arrow rotate"></i></a>
                             <ul id="contact" class="sub-menu">
@@ -120,6 +123,9 @@
                                     <a href="<?php echo URL . DIR_ROUTE; ?>subsidiaries"><span><?php echo $lang['common']['text_subsidiaries']; ?></span></a>
                                 </li>
                                 <li>
+                                    <a href="<?php echo URL . DIR_ROUTE; ?>bank_accounts"><span><?php echo $lang['common']['text_bank_accounts']; ?></span></a>
+                                </li>
+                                <li>
                                     <a href="<?php echo URL . DIR_ROUTE; ?>employees"><span><?php echo $lang['common']['text_employees'] ?></span></a>
                                 </li>
                             </ul>
@@ -130,6 +136,9 @@
                         </li>
                         <li id="calendar-li">
                             <a href="<?php echo URL . DIR_ROUTE; ?>calendar"><i class="icon-event"></i><span><?php echo $lang['common']['text_calendar']; ?></span></a>
+                        </li>
+                        <li id="mail-li">
+                            <a href="<?php echo URL . DIR_ROUTE; ?>mail"><i class="icon-envelope"></i><span><?php echo $lang['common']['text_send_email']; ?></span></a>
                         </li>
                         <li id="note-li">
                             <a href="<?php echo URL . DIR_ROUTE; ?>notes"><i class="icon-notebook"></i><span><?php echo $lang['common']['text_notes']; ?></span></a>
@@ -146,6 +155,9 @@
                         <li class="menu-title"><?php echo $lang['common']['text_sales']; ?></li>
                         <li id="quotes-li">
                             <a href="<?php echo URL . DIR_ROUTE; ?>quotes"><i class="icon-calculator"></i><span><?php echo $lang['common']['text_quotes'] . '/' . $lang['common']['text_estimates']; ?></span></a>
+                        </li>
+                        <li id="items-li">
+                            <a href="<?php echo URL . DIR_ROUTE; ?>items"><i class="icon-doc"></i><span><?php echo $lang['common']['text_items']; ?></span></a>
                         </li>
                         <li id="invoice-li">
                             <a href="<?php echo URL . DIR_ROUTE; ?>invoices"><i class="icon-doc"></i><span><?php echo $lang['common']['text_invoices']; ?></span></a>
@@ -213,6 +225,12 @@
                                         <a href="<?php echo URL . DIR_ROUTE; ?>departments"><span><?php echo $lang['common']['text_departments']; ?></span></a>
                                     </li>
                                     <li>
+                                        <a href="<?php echo URL . DIR_ROUTE; ?>documenttype"><span><?php echo $lang['common']['text_document_type']; ?></span></a>
+                                    </li>
+                                    <li>
+                                        <a href="<?php echo URL . DIR_ROUTE; ?>documentformat"><span><?php echo $lang['common']['text_document_format']; ?></span></a>
+                                    </li>
+                                    <li>
                                         <a href="<?php echo URL . DIR_ROUTE; ?>suppliestype"><span><?php echo $lang['common']['text_supplies_types']; ?></span></a>
                                     </li>
                                     <li>
@@ -238,6 +256,14 @@
                                 <a href="<?php echo URL . DIR_ROUTE; ?>customization"><i class="icon-target"></i><span><?php echo $lang['common']['text_theme_customization']; ?></span></a>
                             </li>
                         <?php } ?>
+                        <li id="none-li">
+                            <span class="placeholder"> </span>
+                            <span class="placeholder"> </span>
+
+                            <span class="placeholder"> </span>
+
+
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -457,7 +483,7 @@
                             <div class="menu-dropdown menu-dropdown-right menu-dropdown-push-right">
                                 <div class="arrow arrow-right"></div>
                                 <div class="menu-dropdown-inner">
-                                    <div class="menu-dropdown-head"><?php echo $lang['common']['text_emergency']. ' ' . $lang['common']['text_contacts']; ?></div>
+                                    <div class="menu-dropdown-head"><?php echo $lang['common']['text_emergency'] . ' ' . $lang['common']['text_contacts']; ?></div>
                                     <div class="menu-dropdown-body p-0">
                                         <div class="row m-0 box">
                                             <div class="col-12 p-0 box">

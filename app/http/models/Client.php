@@ -3,7 +3,7 @@
 /**
 * Contact Model
 */
-class Contact extends Model
+class Client extends Model
 {
 	public function getContacts()
 	{

@@ -21,55 +21,73 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label class="col-form-label"><?php echo $lang['expenses']['text_supplier']; ?></label>
+                            <label class="col-form-label"><?php echo $lang['expenses']['text_payee']; ?></label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="icon-user"></i></span>
                                 </div>
                                 <select class="custom-select" name="expense[supplier_id]" required>
-                                    <option value="0">Select Supplier</option>
+                                    <option value="0"><?php echo $lang['expenses']['text_payee']; ?></option>
                                     <?php if (!empty($suppliers)) {
                                         foreach ($suppliers as $key => $value) { ?>
                                             <option value=" <?php echo $value['id'] ?>" <?php if ($result['supplier_id'] == $value['id']) {
                                                                                             echo "selected";
                                                                                         } ?>><?php echo $value['name'] ?></option>
-                            <?php }
+                                    <?php }
                                     } ?>
                                 </select>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 col-lg-2">
                         <div class="form-group">
                             <label class="col-form-label"><?php echo $lang['expenses']['text_invoice_number']; ?></label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="icon-user"></i></span>
+                                    <span class="input-group-text"><i class="fas fa-receipt"></i></span>
                                 </div>
                                 <input type="text" name="expense[inv_number]" class="form-control" value="<?php echo $result['inv_number']; ?>" placeholder="<?php echo $lang['expenses']['text_invoice_number']; ?>">
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-4 col-lg-3">
                         <div class="form-group">
                             <label class="col-form-label"><?php echo $lang['expenses']['text_purchase_by']; ?></label>
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="icon-user"></i></span>
                                 </div>
-                                <input type="text" name="expense[purchaseby]" class="form-control" value="<?php echo $result['purchase_by']; ?>" placeholder="<?php echo $lang['expenses']['text_purchase_by']; ?>">
+                                <select name="expense[purchaseby]" class="custom-select">
+                                    <option value=""><?php echo $lang['expenses']['text_purchase_by']; ?></option>
+                                    <?php if (!empty($subsidiaries)) {
+                                        foreach ($subsidiaries as $key => $value) { ?>
+                                            <option value="<?php echo $value['id'] ?>" <?php if ($result['purchase_by'] == $value['id']) {
+                                                                                            echo "selected";
+                                                                                        } ?>>
+                                                <?php echo $value['name'] ?></option>
+                                    <?php }
+                                    } ?>
+                                </select>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-
-                    <div class="col-sm-3 form-group">
+                    <div class="col-md-3 col-lg-2 form-group">
+                        <label class="col-form-label"><?php echo $lang['expenses']['text_purchase_date']; ?></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="icon-calendar"></i></span>
+                            </div>
+                            <input type="text" name="expense[purchasedate]" class="form-control date" value="<?php echo date_format(date_create($result['purchase_date']), 'd-m-Y'); ?>" placeholder="<?php echo $lang['expenses']['text_purchase_date']; ?>">
+                        </div>
+                    </div>
+                    <div class="col-sm-4 col-lg-2 form-group">
                         <label class="col-form-label"><?php echo $lang['common']['text_currency']; ?></label>
                         <div class="input-group">
                             <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="icon-credit-card"></i></span>
+                                <span class="input-group-text"><i class="fa fa-euro-sign"></i></span>
                             </div>
                             <select name="expense[currency]" class="custom-select" required>
                                 <?php if (!empty($currency)) {
@@ -82,20 +100,64 @@
                             </select>
                         </div>
                     </div>
-                    <div class="col-sm-4 form-group">
+                    <div class="col-sm-4 col-lg-2 form-group">
                         <label class="col-form-label"><?php echo $lang['expenses']['text_purchase_amount']; ?></label>
                         <div class="input-group">
-                            <input type="text" name="expense[amount]" class="form-control" value="<?php echo ltrim($result['purchase_amount'],'0'); ?>" placeholder="<?php echo $lang['expenses']['text_purchase_amount']; ?>" required>
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="far fa-coins"></i></span>
+                            </div>
+                            <input type="text" name="expense[amount]" class="form-control" value="<?php echo ltrim($result['purchase_amount'], '0'); ?>" placeholder="<?php echo $lang['expenses']['text_purchase_amount']; ?>" required>
+                        </div>
+                    </div>
+                    <div class="col-cm-4 col-lg-3">
+                        <div class="form-group">
+                            <label class="col-form-label"><?php echo $lang['expenses']['text_charge_client']; ?></label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="icon-user"></i></span>
+                                </div>
+                                <select class="custom-select" name="expense[charge_client_id]" required>
+                                    <option value="0">Select Client</option>
+                                    <?php if (!empty($clients)) {
+                                        foreach ($clients as $key => $value) { ?>
+                                            <option value=" <?php echo $value['id'] ?>" <?php if ($result['charge_client_id'] == $value['id']) {
+                                                                                            echo "selected";
+                                                                                        } ?>><?php echo $value['name'] ?></option>
+                                    <?php }
+                                    } ?>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3  col-lg-2 form-group">
+                        <label class="col-form-label"><?php echo $lang['expenses']['text_paid_date']; ?></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="icon-calendar"></i></span>
+                            </div>
+                            <input type="text" name="expense[paiddate]" class="form-control date" value="<?php echo date_format(date_create($result['paid_date']), 'd-m-Y'); ?>" placeholder="<?php echo $lang['expenses']['text_paid_date']; ?>">
+                        </div>
+                    </div>
+                    <div class="col-sm-3 col-lg-2 form-group">
+                        <label class="col-form-label"><?php echo $lang['expenses']['text_amount_paid']; ?></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-money-bill"></i></span>
+                            </div>
+
+                            <input type="text" name="expense[paid_amount]" class="form-control" value="<?php echo $result['paid_amount']; ?>" placeholder="<?php echo $lang['expenses']['text_amount_paid']; ?>" required>
                         </div>
 
                     </div>
-                    <div class="col-sm-5 form-group">
+                    <div class="col-sm-4 col-lg-2 form-group">
                         <label class="col-form-label"><?php echo $lang['expenses']['text_payment_method']; ?></label>
                         <div class="input-group">
                             <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="icon-wallet"></i></span>
+                                <span class="input-group-text"><i class="icon-credit-card"></i></span>
                             </div>
-                            <select name="expense[paymenttype]" class="custom-select" >
+                            <select name="expense[paymenttype]" class="custom-select">
                                 <option value=""><?php echo $lang['expenses']['text_payment_method']; ?></option>
                                 <?php if (!empty($paymenttype)) {
                                     foreach ($paymenttype as $key => $value) { ?>
@@ -109,15 +171,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3 form-group">
-                        <label class="col-form-label"><?php echo $lang['expenses']['text_purchase_date']; ?></label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="icon-calendar"></i></span>
-                            </div>
-                            <input type="text" name="expense[purchasedate]" class="form-control date" value="<?php echo date_format(date_create($result['purchase_date']), 'd-m-Y'); ?>" placeholder="<?php echo $lang['expenses']['text_purchase_date']; ?>">
-                        </div>
-                    </div>
+
                     <div class="col-md-3 form-group">
                         <label class="col-form-label"><?php echo $lang['expenses']['text_expense_type']; ?></label>
                         <div class="input-group">

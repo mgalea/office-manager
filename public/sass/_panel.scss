@@ -15,6 +15,7 @@
       font-size: 16px;
     }
   }
+
   .nav-tabs.nav-tabs-line {
     border-bottom: 1px solid $colorE;
 
@@ -23,7 +24,7 @@
     }
 
     .nav-link.active,
-    .show > .nav-link {
+    .show>.nav-link {
       border-bottom: 2px solid $colorA;
     }
   }
@@ -34,8 +35,9 @@
         color: $color-green;
       }
     }
+
     .nav-link.active,
-    .show > .nav-link {
+    .show>.nav-link {
       color: $color-primary;
       background-color: coral !important;
     }
@@ -47,8 +49,9 @@
         color: $color-secondary;
       }
     }
+
     .nav-link.active,
-    .show > .nav-link {
+    .show>.nav-link {
       color: $color-secondary;
       border-color: $color-secondary;
     }
@@ -60,8 +63,9 @@
         color: $color-success;
       }
     }
+
     .nav-link.active,
-    .show > .nav-link {
+    .show>.nav-link {
       color: $color-success;
       border-color: $color-success;
     }
@@ -73,8 +77,9 @@
         color: $color-warning;
       }
     }
+
     .nav-link.active,
-    .show > .nav-link {
+    .show>.nav-link {
       color: $color-warning;
       border-color: $color-warning;
     }
@@ -86,8 +91,9 @@
         color: $color-danger;
       }
     }
+
     .nav-link.active,
-    .show > .nav-link {
+    .show>.nav-link {
       color: $color-danger;
       border-color: $color-danger;
     }
@@ -99,8 +105,9 @@
         color: $color-info;
       }
     }
+
     .nav-link.active,
-    .show > .nav-link {
+    .show>.nav-link {
       color: $color-info;
       border-color: $color-info;
     }
@@ -112,8 +119,9 @@
         color: $color-dark;
       }
     }
+
     .nav-link.active,
-    .show > .nav-link {
+    .show>.nav-link {
       color: $color-dark;
       border-color: $color-dark;
     }
@@ -121,6 +129,7 @@
 
   .vnav-tabs {
     padding: 10px;
+
     li {
       font-size: 14px;
       color: $color7;
@@ -152,18 +161,24 @@
       .active {
         color: $color-primary;
         background: #f8f8f8;
-        border-left: 4px solid $color-primary;
       }
     }
   }
+
 }
+
+.panel-wrapper {
+
+  padding: 25px;
+}
+
 
 .panel-head {
   display: table;
   width: 100%;
   margin: 0;
   color: $colorF;
-  padding: 20px 25px 15px 25px;
+  padding: 10px 15px 15px 25px;
   border-bottom: 1px solid $colorE;
 }
 
@@ -198,6 +213,19 @@
 
 .panel-body {
   padding: 25px;
+
+  .bg-light {
+    background-color: $colorF-50 !important;
+
+  }
+
+  textarea {
+    border-radius: 5px;
+    padding: 10px;
+    overflow: hidden;
+    resize: vertical;
+  }
+
 }
 
 .panel-footer {

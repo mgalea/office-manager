@@ -58,6 +58,15 @@ class Company extends Model
         }
     }
 
+    public function getSuppliers()
+    {
+        $query = $this->model->query("SELECT * FROM `" . DB_PREFIX . "companies`  WHERE `type` = 1 OR `type`= 5 ORDER BY `name` ASC");
+        if ($query->num_rows > 0) {
+            return $query->rows;
+        } else {
+            return '';
+        }
+    }
 
     public function createCompany($data)
     {

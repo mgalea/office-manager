@@ -1,0 +1,11 @@
+[07-Mar-2021 15:28:51 UTC] PHP Notice:  Trying to get property of non-object in C:\www\RNGportal\builder\engine\Database.php on line 51
+[07-Mar-2021 15:28:51 UTC] PHP Fatal error:  Uncaught Error: Call to a member function fetch_assoc() on boolean in C:\www\RNGportal\builder\engine\Database.php:52
+Stack trace:
+#0 C:\www\RNGportal\app\http\models\Invoice.php(11): Database->query(false)
+#1 C:\www\RNGportal\app\http\controllers\InvoiceController.php(49): Invoice->getInvoices()
+#2 C:\www\RNGportal\builder\engine\Router.php(52): InvoiceController->index()
+#3 C:\www\RNGportal\builder\engine\Router.php(41): Router->dispatch(Array)
+#4 C:\www\RNGportal\builder\bootstrap.php(81): Router->route('invoices', 'GET')
+#5 C:\www\RNGportal\index.php(34): require_once('C:\\www\\RNGporta...')
+#6 {main}
+  thrown in C:\www\RNGportal\builder\engine\Database.php on line 52

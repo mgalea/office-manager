@@ -9,9 +9,9 @@
 				<span class="panel-title-text"><?php echo $page_title; ?></span>
 			</div>
 			<div class="panel-action">
-				<a href="<?php echo URL.DIR_ROUTE . 'tickets&filter=open'; ?>" class="btn btn-outline btn-warning btn-outline-1x btn-sm"><?php echo $lang['tickets']['text_open_tickets'].'('.$ticketCount['open']; ?> )</a>
-				<a href="<?php echo URL.DIR_ROUTE . 'tickets&filter=closed'; ?>" class="btn btn-outline btn-success btn-outline-1x btn-sm"><?php echo $lang['tickets']['text_closed_tickets'].'('.$ticketCount['closed']; ?> )</a>
-				<a href="<?php echo URL.DIR_ROUTE . 'tickets&filter=all'; ?>" class="btn btn-outline btn-primary btn-outline-1x btn-sm"><?php echo $lang['tickets']['text_all_tickets'].'('.$ticketCount['all']; ?> )</a>
+				<a href="<?php echo URL.DIR_ROUTE . 'tickets&filter=open'; ?>" class="btn btn-danger  btn-sm"><?php echo $lang['tickets']['text_open_tickets'].'('.$ticketCount['open']; ?>)</a>
+				<a href="<?php echo URL.DIR_ROUTE . 'tickets&filter=closed'; ?>" class="btn  btn-primary  btn-sm"><?php echo $lang['tickets']['text_closed_tickets'].'('.$ticketCount['closed']; ?>)</a>
+				<a href="<?php echo URL.DIR_ROUTE . 'tickets&filter=all'; ?>" class="btn btn-info  btn-sm"><?php echo $lang['tickets']['text_all_tickets'].'('.$ticketCount['all']; ?>)</a>
 				<a href="<?php echo URL.DIR_ROUTE . 'ticket/add'; ?>" class="btn btn-success btn-sm"><i class="icon-plus mr-1"></i> <?php echo $lang['tickets']['text_new_ticket']; ?></a>
 			</div>
 		</div>

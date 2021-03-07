@@ -2,6 +2,7 @@
 
 $dashboard = array(
 	'text_total_invoices' => 'Total Invoices',
+	'text_no_invoice' => 'No Invoices Found',
 	'text_paid_unpaid_other' => 'Paid, Unpaid, other',
 	'text_total_quotes' => 'Total Quotes',
 	'text_all_quotes_count' => 'All Quotes Count',

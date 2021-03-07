@@ -200,7 +200,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="icon-flag"></i></span>
                                 </div>
-                                <input type="text" class="form-control" name="person[address][pin]" value="<?php echo $result['address']['pin'] ?>" placeholder="<?php echo $lang['person']['text_pincode'] ?>">
+                                <input type="text" class="form-control" name="person[address][pincode]" value="<?php echo $result['address']['pincode'] ?>" placeholder="<?php echo $lang['person']['text_pincode'] ?>">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -241,7 +241,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php if (isset($result['persons'])) {
+                                            <?php if (isset($result['persons']) && !empty($result['persons'])) {
                                                 foreach ($result['persons'] as $key => $value) { ?>
                                                     <tr>
                                                         <td>

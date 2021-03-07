@@ -43,7 +43,8 @@
 	}
 
 	.nav-link.active {
-		background-color: $color-primary;
+		background-color: $color-dark-rgba-60; 
+		color: $color-warning;
 	}
 }
 

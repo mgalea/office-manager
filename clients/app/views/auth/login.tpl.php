@@ -16,6 +16,7 @@
 </head>
 <body>
 	<div class="lgn-background">
+	<div class="container-fluid">
 		<div class="lgn-wrapper">
 			<div class="lgn-logo text-center">
 				<a href="../"><img class="mr-2" src="public/images/icon.png" alt=""><img src="public/images/logo-color.png" alt="Office Manager"></a>
@@ -59,7 +60,7 @@
 								<a href="<?php //echo URL_CLIENTS.DIR_ROUTE.'register'; ?>"><?php //echo $lang['login']['text_create_account']; ?></a>
 							</div>
 							<div class="col-sm-6 text-right">
-								<a href="<?php echo URL_CLIENTS.DIR_ROUTE.'forgot'; ?>"><?php echo $lang['login']['text_forgotten_password']; ?></a>
+								<a class="font-12 text-warning" href="<?php echo URL_CLIENTS.DIR_ROUTE.'forgot'; ?>"><?php echo $lang['login']['text_forgotten_password']; ?></a>
 							</div>
 						</div>
 
@@ -69,13 +70,10 @@
 					</div>
 				</form>
 			</div>
-			<div class="lgn-footer">
-				<p><?php echo $lang['login']['text_are_you_admin_user']; ?></p>
-				<a href="<?php echo URL.DIR_ROUTE.'login'; ?>"><?php echo $lang['login']['text_admin_login']; ?></a>
-			</div>
+
 		</div>
 	</div>
-
+	</div>
 </body>
 </html>
 

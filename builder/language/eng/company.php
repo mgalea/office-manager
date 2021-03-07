@@ -62,6 +62,7 @@ $company = array(
 	'text_brand' => 'Brand Name (Short Name)',
 	'text_postal' => 'Postal',
 	'text_registered' => 'Registered',
+	'text_payee' => 'Payee',
 
 	
 );

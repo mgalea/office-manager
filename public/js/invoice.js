@@ -153,7 +153,7 @@ $(document).ready(function () {
         '<textarea type="text" name="invoice[item]['+count+'][cost]" class="item-cost"></textarea>'+
         '</td>'+
         '<td class="invoice-tax">'+
-        '<input type="hidden" name="invoice[item][0][taxprice]" class="item-tax-price" value="0" readonly>' +
+        '<input type="hidden" name="invoice[item]['+count+'][taxprice]" class="item-tax-price" value="0" readonly>' +
         '</td>'+
         '<td class="">'+
         '<textarea type="text" name="invoice[item]['+count+'][price]" class="item-total-price" readonly></textarea>'+

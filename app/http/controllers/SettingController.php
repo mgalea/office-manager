@@ -70,11 +70,12 @@ class SettingController extends Controller
 			exit();
 		}
 
-		if ($this->commons->validateToken($this->url->post('_token'))){
-			$this->url->redirect('setting&page='.$data['setting']);
-		}
 
 		$data['setting'] = $this->url->post('name');
+
+		if ($this->commons->validateToken($this->url->post('_token'))) {
+			$this->url->redirect('setting&page=' . $data['setting']);
+		}
 		
 		if ($data['setting'] == "emailsetting") {
 			$data['data'] = $this->url->post('smtp');	

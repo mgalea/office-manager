@@ -70,7 +70,9 @@ body {
   background-color: #edf1f5;
   font-family: "Poppins", "Poppins", sans-serif;
   font-size: 14px;
-  font-weight: 400; }
+  font-weight: 400;
+  display: flex;
+  flex-direction: column; }
 
 /************************************************
 [ shortcodes CSS START ] ************************
@@ -211,6 +213,11 @@ blockquote {
 /************************************************
 [ COMMON CSS START ] ****************************
 *************************************************/
+.wrapper {
+  width: 100%;
+  margin: 0 auto;
+  flex: 1 0 auto; }
+
 .container-fluid {
   padding-left: 25px;
   padding-right: 25px; }
@@ -219,7 +226,76 @@ blockquote {
   margin-left: -7.5px;
   margin-right: -7.5px; }
 
-.col, .col-1, .col-10, .col-11, .col-12, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-auto, .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-auto, .col-md, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-auto, .col-sm, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-auto, .col-xl, .col-xl-1, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-auto {
+.col,
+.col-1,
+.col-10,
+.col-11,
+.col-12,
+.col-2,
+.col-3,
+.col-4,
+.col-5,
+.col-6,
+.col-7,
+.col-8,
+.col-9,
+.col-auto,
+.col-lg,
+.col-lg-1,
+.col-lg-10,
+.col-lg-11,
+.col-lg-12,
+.col-lg-2,
+.col-lg-3,
+.col-lg-4,
+.col-lg-5,
+.col-lg-6,
+.col-lg-7,
+.col-lg-8,
+.col-lg-9,
+.col-lg-auto,
+.col-md,
+.col-md-1,
+.col-md-10,
+.col-md-11,
+.col-md-12,
+.col-md-2,
+.col-md-3,
+.col-md-4,
+.col-md-5,
+.col-md-6,
+.col-md-7,
+.col-md-8,
+.col-md-9,
+.col-md-auto,
+.col-sm,
+.col-sm-1,
+.col-sm-10,
+.col-sm-11,
+.col-sm-12,
+.col-sm-2,
+.col-sm-3,
+.col-sm-4,
+.col-sm-5,
+.col-sm-6,
+.col-sm-7,
+.col-sm-8,
+.col-sm-9,
+.col-sm-auto,
+.col-xl,
+.col-xl-1,
+.col-xl-10,
+.col-xl-11,
+.col-xl-12,
+.col-xl-2,
+.col-xl-3,
+.col-xl-4,
+.col-xl-5,
+.col-xl-6,
+.col-xl-7,
+.col-xl-8,
+.col-xl-9,
+.col-xl-auto {
   padding-left: 7.5px;
   padding-right: 7.5px; }
 
@@ -2281,7 +2357,7 @@ select.form-control:not([size]):not([multiple]) {
 
 .material-card {
   width: 100%;
-  background-color: #FFF;
+  background-color: #fff;
   box-shadow: 0 0 4px 0 rgba(150, 150, 150, 0.17); }
 
 .menu-dropdown-wrapper {
@@ -2469,13 +2545,16 @@ select.form-control:not([size]):not([multiple]) {
     .invoice-items td input {
       padding: 0 10px;
       letter-spacing: 1px; }
-    .invoice-items td input, .invoice-items td textarea {
+    .invoice-items td input,
+    .invoice-items td textarea {
       border: 0; }
-      .invoice-items td input:hover, .invoice-items td textarea:hover {
+      .invoice-items td input:hover,
+      .invoice-items td textarea:hover {
         background: #EEE;
         border: 0;
         outline: 0; }
-      .invoice-items td input:focus, .invoice-items td textarea:focus {
+      .invoice-items td input:focus,
+      .invoice-items td textarea:focus {
         outline: 0;
         border: 0; }
     .invoice-items td select {
@@ -2533,7 +2612,7 @@ select.form-control:not([size]):not([multiple]) {
     list-style: none;
     position: relative; }
     .timeline li::before {
-      content: '';
+      content: "";
       position: absolute;
       display: block;
       width: 10px;
@@ -2617,7 +2696,7 @@ select.form-transparent {
   background-image: url(../images/bg_pattern.svg), -webkit-radial-gradient(10% 0, farthest-side ellipse, #414e60 20%, #94a3b1);
   background-image: url(../images/bg_pattern.svg), -moz-radial-gradient(10% 0, farthest-side ellipse, #414e60 20%, #94a3b1); }
   .lgn-background::after {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
@@ -2704,7 +2783,7 @@ select.form-transparent {
     margin: 0 0 5px 0; }
   .lgn-footer a {
     font-size: 18px;
-    letter-spacing: .5px;
+    letter-spacing: 0.5px;
     font-family: "Dosis", "Montserrat", sans-serif;
     color: #FFF; }
     .lgn-footer a:hover {
@@ -2746,7 +2825,7 @@ select.form-transparent {
   .notfound-wrapper h2 {
     font-size: 150px;
     text-transform: uppercase;
-    color: #F09E71;
+    color: #f09e71;
     letter-spacing: 2px;
     font-weight: bold;
     display: block;
@@ -2782,7 +2861,7 @@ select.form-transparent {
     padding: 5px 20px;
     background: #555; }
     .inv-template-hdr .ribbon::before {
-      content: '';
+      content: "";
       position: absolute;
       bottom: -9px;
       left: 0;
@@ -2792,7 +2871,7 @@ select.form-transparent {
       border-left: solid 5px transparent; }
 
 .inv-template-bdy table {
-  width: 100%; }
+  width: 680px; }
   .inv-template-bdy table p {
     margin: 0; }
 .inv-template-bdy td {
@@ -2877,11 +2956,10 @@ select.form-transparent {
 
 .footer {
   width: 100%;
-  position: absolute;
-  bottom: 0px;
   text-align: center;
   padding: 10px;
   margin: 70px 0 0 0;
+  flex-shrink: 0;
   background: #3a2250; }
   .footer p {
     color: #AAA;
@@ -2916,7 +2994,7 @@ Card CLASS **************************************
   padding: 5px;
   background: #FFF;
   border: 0;
-  transition: all .4s; }
+  transition: all 0.4s; }
   .card:hover {
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.18); }
 
@@ -3017,17 +3095,17 @@ Card CLASS **************************************
         width: 0;
         position: absolute;
         pointer-events: none;
-        border-bottom-color: #CFC4FF;
+        border-bottom-color: #cfc4ff;
         border-width: 10px;
         margin-left: -10px; }
       .chat .chat-history .message:nth-last-child(1) p {
         margin-bottom: 0; }
     .chat .chat-history .my-message .message {
-      background: #CFC4FF; }
+      background: #cfc4ff; }
     .chat .chat-history .other-message .message {
-      background: #FFED7D; }
+      background: #ffed7d; }
       .chat .chat-history .other-message .message:after {
-        border-bottom-color: #FFED7D;
+        border-bottom-color: #ffed7d;
         left: unset;
         right: 20px; }
 
@@ -3048,6 +3126,9 @@ Card CLASS **************************************
 
 .note-editable.card-block {
   border: 0; }
+
+.attached-files {
+  color: #00c292; }
 
 .attached-files-block {
   display: inline-block;

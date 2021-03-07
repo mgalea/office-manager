@@ -1,15 +1,26 @@
 <?php
 
 /**
-* Invoice Model
-*/
+ * Invoice Model
+ */
 class Invoice extends Model
 {
 	public function getInvoices($customer)
+
 	{
-		$query = $this->model->query("SELECT i.*, c.company, cr.abbr AS `abbr` FROM `" . DB_PREFIX . "invoice` AS i LEFT JOIN `" . DB_PREFIX . "contacts` AS c ON c.id = i.customer LEFT JOIN `" . DB_PREFIX . "currency` AS cr ON i.currency = cr.id WHERE i.customer = ? AND i.inv_status = 1 ORDER BY i.id DESC", array((int)$customer));
+		$query = $this->model->query("SELECT cr.abbr AS `abbr`, i.*, c.name AS company FROM  `" . DB_PREFIX ."companies` AS c, `" . DB_PREFIX ."invoice` AS i
+				LEFT JOIN `" . DB_PREFIX ."currency` AS cr ON i.currency = cr.id
+				WHERE i.customer=  (SELECT p.company FROM `" . DB_PREFIX ."companies` AS c, `" . DB_PREFIX ."persons` AS p, `" . DB_PREFIX . "clients` AS cl
+				WHERE cl.email=p.email AND p.company=c.id AND cl.id=?)
+				AND i.inv_status = 1", array((int)$customer));
+
+		/*("SELECT i.*, c.company, cr.abbr AS `abbr` FROM `" . DB_PREFIX . "invoice` AS i 
+		LEFT JOIN `" . DB_PREFIX . "persons` AS c ON c.id = i.customer LEFT JOIN `" . DB_PREFIX . "currency` AS cr ON i.currency = cr.id 
+		WHERE c.id = ? AND i.inv_status = 1 ORDER BY i.id DESC", array((int)$customer));*/
+
 		return $query->rows;
 	}
+
 
 	public function getOrganization()
 	{
@@ -21,10 +32,10 @@ class Invoice extends Model
 		}
 	}
 
-	public function getInovice($id)
+	public function getInvoice($id)
 	{
 		$query = $this->model->query("SELECT * FROM `" . DB_PREFIX . "invoice` WHERE `id` = ? AND i.inv_status = 1 LIMIT 1", array((int)$id));
-		
+
 		if ($query->num_rows > 0) {
 			return $query->row;
 		} else {
@@ -32,10 +43,13 @@ class Invoice extends Model
 		}
 	}
 
-	public function getInoviceView($data)
+	public function getInvoiceView($data)
 	{
-		$query = $this->model->query("SELECT i.*, c.company, c.email, c.address, p.name AS payment, cr.name AS currency_name, cr.abbr AS currency_abbr, ps.name AS `payment_status` FROM `" . DB_PREFIX . "invoice` AS i LEFT JOIN `" . DB_PREFIX . "contacts` AS c ON i.customer = c.id LEFT JOIN `" . DB_PREFIX . "payment_type` AS p ON i.paymenttype = p.id LEFT JOIN `" . DB_PREFIX . "payment_status` AS ps ON i.status = ps.id LEFT JOIN `" . DB_PREFIX . "currency` AS cr ON i.currency = cr.id WHERE i.id = ? AND i.customer = ? AND i.inv_status = 1 LIMIT 1", array((int)$data['id'], (int)$data['customer']));
-		
+		$query = $this->model->query("SELECT i.*, c.name as company, c.email, c.address, p.name AS payment, cr.name AS currency_name, cr.abbr AS currency_abbr, ps.name AS `payment_status` 
+		FROM `" . DB_PREFIX . "invoice` AS i LEFT JOIN `" . DB_PREFIX . "companies` AS c ON i.customer = c.id LEFT JOIN `" . DB_PREFIX . "payment_type` AS p ON i.paymenttype = p.id 
+		LEFT JOIN `" . DB_PREFIX . "payment_status` AS ps ON i.status = ps.id LEFT JOIN `" . DB_PREFIX . "currency` AS cr ON i.currency = cr.id WHERE i.id = ?
+		AND i.inv_status = 1 LIMIT 1", array((int)$data['id']));
+
 		if ($query->num_rows > 0) {
 			return $query->row;
 		} else {
@@ -104,17 +118,17 @@ class Invoice extends Model
 
 	public function createInvoice($data)
 	{
-		$query = $this->model->query("INSERT INTO `" . DB_PREFIX . "invoice` (`customer`, `duedate`, `paiddate`, `currency`, `paymenttype`, `items`, `subtotal`, `tax`, `discount`, `discount_type`, `discount_value`, `amount`, `paid`, `due`, `note`, `tc`, `status`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", array( (int)$data['customer'], $this->model->escape($data['duedate']), $this->model->escape($data['paiddate']), (int)$data['currency'], (int)$data['paymenttype'], $data['item'], $data['subtotal'], $data['tax'], $data['discount'], $data['discounttype'], $data['discount_value'], $data['amount'], $data['paid'], $data['due'], $data['note'], $data['tc'], $data['status']));
+		$query = $this->model->query("INSERT INTO `" . DB_PREFIX . "invoice` (`customer`, `duedate`, `paiddate`, `currency`, `paymenttype`, `items`, `subtotal`, `tax`, `discount`, `discount_type`, `discount_value`, `amount`, `paid`, `due`, `note`, `tc`, `status`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", array((int)$data['customer'], $this->model->escape($data['duedate']), $this->model->escape($data['paiddate']), (int)$data['currency'], (int)$data['paymenttype'], $data['item'], $data['subtotal'], $data['tax'], $data['discount'], $data['discounttype'], $data['discount_value'], $data['amount'], $data['paid'], $data['due'], $data['note'], $data['tc'], $data['status']));
 		if ($query->num_rows > 0) {
 			return $this->model->last_id();
 		} else {
 			return false;
 		}
 	}
-	
+
 	public function deleteInvoice($id)
 	{
-		$query = $this->model->query("DELETE FROM `" . DB_PREFIX . "invoice` WHERE `id` = ?", array((int)$id ));
+		$query = $this->model->query("DELETE FROM `" . DB_PREFIX . "invoice` WHERE `id` = ?", array((int)$id));
 		if ($query->num_rows > 0) {
 			return true;
 		} else {

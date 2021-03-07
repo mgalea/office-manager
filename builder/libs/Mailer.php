@@ -1,38 +1,49 @@
 <?php
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\SMTP;
+//require DIR_BUILDER.'libs/vendor/autoload.php';
+
+require DIR_BUILDER . 'libs/vendor/phpmailer/phpmailer/src/PHPMailer.php';
+require DIR_BUILDER . 'libs/vendor/phpmailer/phpmailer/src/Exception.php';
+require DIR_BUILDER . 'libs/vendor/phpmailer/phpmailer/src/SMTP.php';
+
 /**
-* Phpmailer Class
-*/
+ * Phpmailer Class
+ */
 class Mailer
 {
 	public $mail;
 	public function __construct()
 	{
-		require DIR_BUILDER.'libs/mailer/PHPMailerAutoload.php';
-		$this->mail = new PHPMailer;
-		//$this->mail->isSMTP();
-		if( defined('SMTP_HOST') && defined('SMTP_USERNAME') && defined('SMTP_PASSWORD') && defined('SMTP_PORT')) {
-			if (!empty(DB_HOSTNAME) || !empty(SMTP_USERNAME) || !empty(SMTP_PASSWORD) || !empty(SMTP_PORT) ) {
-				/*$this->mail->Host = SMTP_HOST;
-				$this->mail->SMTPAuth = true;
-				$this->mail->Username = SMTP_USERNAME;
-				$this->mail->Password = SMTP_PASSWORD;
+		$this->mail = new PHPMailer(TRUE);
+		if (defined('SMTP_HOST') && defined('SMTP_PORT')) {
+			if (!empty(DB_HOSTNAME) || !empty(SMTP_PORT)) {
+				$this->mail->isSMTP();
+				$this->mail->Host = SMTP_HOST;
+				$this->mail->SMTPAuth = TRUE;
 				$this->mail->SMTPSecure = 'tls';
-				$this->mail->Port = 25;*/
-				$this->$mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
-				$this->$mail->isSMTP();                                            // Send using SMTP
-				$this->$mail->Host       = 'mail.rnggaming.com';                    // Set the SMTP server to send through
-				$this->$mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-				$this->$mail->Username   = 'mario.galea@rnggaming.com';                     // SMTP username
-				$this->$mail->Password   = 'Mgalea!1310';                               // SMTP password
-				$this->$mail->SMTPSecure = 'tls';//PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
-				$this->$mail->Port       = 465;   
+				$this->mail->Port = SMTP_PORT;
+				$this->mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
+				// Send using SMTP
 			}
 		}
 	}
 
 	public function sendMail()
 	{
-		$this->mail->send();
+		try {
+			/* Finally send the mail. */
+			$result=$this->mail->send();
+		} catch (Exception $e) {
+			/* PHPMailer exception. */
+			//echo $e->errorMessage();
+		} catch (\Exception $e) {
+			/* PHP exception (note the backslash to select the global namespace Exception class). */
+			//echo $e->getMessage();
+		}
+		return $result;
 	}
 
 	public function getData($name = 'emailsetting')
@@ -43,15 +54,12 @@ class Mailer
 		$query = $this->model->query("SELECT * FROM `" . DB_PREFIX . "setting` WHERE `name` = ? LIMIT 1", array($name));
 		$result = $query->row;
 		$smtp_crd = json_decode($result['data'], true);
-		
+
 		if ($result['status'] == "1") {
 			$this->mail->Host = $smtp_crd['host'];
 			$this->mail->SMTPAuth = $smtp_crd['authentication'];
-			$this->mail->Username = $smtp_crd['username'];
-			$this->mail->Password = $smtp_crd['password'];
 			$this->mail->SMTPSecure = $smtp_crd['encryption'];
 			$this->mail->Port = $smtp_crd['port'];
-
 
 			$this->mail->setFrom($smtp_crd['fromemail'], $smtp_crd['fromname']);
 			if (!empty($smtp_crd)) {

@@ -69,13 +69,14 @@ class Url
 	public function redirect($to, $exit = true)
 	{
 		if (headers_sent()) {
-			echo '<script>window.location ='. URL . DIR_ROUTE . $to .'</script>';
+			echo '<script>window.location ='. URL.DIR_ROUTE.$to .'</script>';
 		} else {
 			header('location:'.URL.DIR_ROUTE.$to);
 		}
 
 		if ($exit) {
-			die('Redirection Failed!');
+			echo 'Redirection Failed! ' . URL . DIR_ROUTE . $to;
+			die('Redirection Failed! '.URL.DIR_ROUTE.$to);
 		}
 	}
 }

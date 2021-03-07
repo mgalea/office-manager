@@ -15,6 +15,7 @@ class CompanyController extends Controller
 		/*Intilize Company model*/
 		$this->companyModel = new Company();
 	}
+
 	/**
 	 * Company index method
 	 * This method will be called on Company list view
@@ -29,7 +30,6 @@ class CompanyController extends Controller
 		/*Get User name and role*/
 		$data = $this->commons->getUser();
 
-
 		/**
 		 * Get all User data from DB using User model 
 		 **/
@@ -37,7 +37,7 @@ class CompanyController extends Controller
 		$data['types'] = $this->companyModel->getCompanyTypes();
 
 		/**
-		 * Check if type is set in url if not exist then redirect to Item list view 
+		 * Check if type is set in url, if not exist then redirect to Item list view 
 		 **/
 
 		if (empty($this->url->get('type')) || !is_int($this->url->get('type'))) {
@@ -63,46 +63,11 @@ class CompanyController extends Controller
 		/*Render User list view*/
 		$this->view->render('company/company_list.tpl', $data);
 	}
+
 	/**
-	 * Company index method
-	 * This method will be called on Company list view
+	 * Company by Type index method
+	 * This method will be called on Company list view to generate a company by types list
 	 **/
-	public function indexSubsidiaries()
-	{
-		if (!$this->commons->hasPermission('companies')) {
-			Not_foundController::show('403');
-			exit();
-		}
-
-		/*Get User name and role*/
-		$data = $this->commons->getUser();
-
-		/**
-		 * Get all User data from DB using User model 
-		 **/
-		$data['result'] = $this->companyModel->getSubsidiaries();
-		$data['types'] = $this->companyModel->getCompanyTypes();
-		$data['type'] = 2;
-
-		/*Load Language File*/
-		require DIR_BUILDER . 'language/' . $data['info']['language'] . '/common.php';
-		$data['lang']['common'] = $lang;
-		require DIR_BUILDER . 'language/' . $data['info']['language'] . '/company.php';
-		$data['lang']['company'] = $company;
-
-		/* Set confirmation message if page submitted before */
-		if (isset($this->session->data['message'])) {
-			$data['message'] = $this->session->data['message'];
-			unset($this->session->data['message']);
-		}
-		/* Set page title */
-		$data['page_title'] = $data['lang']['common']['text_companies'];
-
-		/*Render User list view*/
-		$this->view->render('company/company_list.tpl', $data);
-	}
-	
-
 	public function indexType()
 	{
 		if (!$this->commons->hasPermission('companies')) {
@@ -146,12 +111,89 @@ class CompanyController extends Controller
 		$this->view->render('company/company_list.tpl', $data);
 	}
 
-	public function indexView()
+	/**
+	 * Company index method
+	 * This method will be called on Company list view
+	 **/
+	public function indexSubsidiaries()
 	{
-		if (!$this->commons->hasPermission('company/view')) {
+		if (!$this->commons->hasPermission('companies')) {
 			Not_foundController::show('403');
 			exit();
 		}
+
+		/*Get User name and role*/
+		$data = $this->commons->getUser();
+
+		/**
+		 * Get all User data from DB using User model 
+		 **/
+		$data['result'] = $this->companyModel->getSubsidiaries();
+		$data['types'] = $this->companyModel->getCompanyTypes();
+		$data['type'] = 2;
+
+		/*Load Language File*/
+		require DIR_BUILDER . 'language/' . $data['info']['language'] . '/common.php';
+		$data['lang']['common'] = $lang;
+		require DIR_BUILDER . 'language/' . $data['info']['language'] . '/company.php';
+		$data['lang']['company'] = $company;
+
+		/* Set confirmation message if page submitted before */
+		if (isset($this->session->data['message'])) {
+			$data['message'] = $this->session->data['message'];
+			unset($this->session->data['message']);
+		}
+		/* Set page title */
+		$data['page_title'] = $data['lang']['common']['text_companies'];
+
+		/*Render User list view*/
+		$this->view->render('company/company_list.tpl', $data);
+	}
+
+	/**
+	 * Company index method
+	 * This method will be called on Company list view
+	 **/
+	public function indexSuppliers()
+	{
+		if (!$this->commons->hasPermission('companies')) {
+			Not_foundController::show('403');
+			exit();
+		}
+
+		/*Get User name and role*/
+		$data = $this->commons->getUser();
+
+		/**
+		 * Get all User data from DB using User model 
+		 **/
+		$data['result'] = $this->companyModel->getSuppliers();
+		$data['types'] = $this->companyModel->getCompanyTypes();
+		$data['type'] = 1;
+
+		/*Load Language File*/
+		require DIR_BUILDER . 'language/' . $data['info']['language'] . '/common.php';
+		$data['lang']['common'] = $lang;
+		require DIR_BUILDER . 'language/' . $data['info']['language'] . '/company.php';
+		$data['lang']['company'] = $company;
+
+		/* Set confirmation message if page submitted before */
+		if (isset($this->session->data['message'])) {
+			$data['message'] = $this->session->data['message'];
+			unset($this->session->data['message']);
+		}
+		/* Set page title */
+		$data['page_title'] = $data['lang']['common']['text_suppliers'];
+
+		/*Render User list view*/
+		$this->view->render('company/supplier_list.tpl', $data);
+	}
+	
+
+
+	private function generalView()
+	{
+
 		/**
 		 * Check if id exist in url if not exist then redirect to Item list view 
 		 **/
@@ -181,13 +223,42 @@ class CompanyController extends Controller
 			unset($this->session->data['message']);
 		}
 		/* Set page title */
+
+		return $data;
+	}
+
+	public function indexView()
+	{
+		if (!$this->commons->hasPermission('company/view')) {
+			Not_foundController::show('403');
+			exit();
+		}
+
+		$data = $this->generalView();
+		/*Render User list view*/
 		$data['page_title'] = $data['lang']['company']['text_edit_company'];
 		$data['action'] = URL . DIR_ROUTE . 'company/action';
 		$data['token'] = hash('sha512', TOKEN . TOKEN_SALT);
-
-		/*Render User list view*/
 		$this->view->render('company/company_view.tpl', $data);
 	}
+
+	public function supplierView()
+	{
+		if (!$this->commons->hasPermission('company/view')) {
+			Not_foundController::show('403');
+			exit();
+		}
+		$data = $this->generalView();
+
+		/*Render Supplier list view*/
+
+		$data['page_title'] = $data['lang']['common']['text_supplier'];
+		$data['action'] = URL . DIR_ROUTE . 'company/action';
+		$data['token'] = hash('sha512', TOKEN . TOKEN_SALT);
+		$this->view->render('company/supplier_view.tpl', $data);
+	}
+
+
 	/**
 	 * Company index ADD method
 	 * This method will be called on ADD page

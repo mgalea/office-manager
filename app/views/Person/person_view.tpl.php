@@ -38,7 +38,7 @@
     </div>
 </div>
 <!-- Send Email Modal -->
-<div id="personMail" class="modal fade" role="dialog">
+<div id="contactMail" class="modal fade" role="dialog">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -59,7 +59,7 @@
                     </div>
                     <div class="form-group">
                         <label class="col-form-label"><?php echo $lang['person']['text_subject']; ?></label>
-                        <input type="text" class="form-control" name="mail[subject]" value="Invoice Reminder" placeholder="<?php echo $lang['person']['text_subject']; ?>" required>
+                        <input type="text" class="form-control" name="mail[subject]" value="" placeholder="<?php echo $lang['person']['text_subject']; ?>" required>
                     </div>
                     <div class="form-group">
                         <label class="col-form-label"><?php echo $lang['person']['text_message']; ?></label>
