@@ -49,7 +49,7 @@ class DashboardController extends Controller
 			$data['notes'] = $this->dashboardModel->getUserNotes($this->session->data['user_id']);
 		}
 
-
+		$data['statistics']=$this->dashboardModel->getStatistics();
 		$data['contacts'] = $this->dashboardModel->getLatestContact();
 		/*Get latest invoices*/
 

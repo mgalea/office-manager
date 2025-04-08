@@ -76,7 +76,9 @@
 					<label for="role">Select All</label>
 				</div>
 			</div>
-			<input type="hidden" name="id" value="<?php echo $result['id']; ?>">
+			<input type="hidden" name="id" value="<?php if (isset($result['id'])) {
+                                                                    echo $result['id'];
+                                                                } ?>">
 		</div>
 		<div class="panel-footer text-center">
 			<button type="submit" name="submit" class="btn btn-info"><?php echo $lang['common']['text_save']; ?></button>

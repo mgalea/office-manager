@@ -3,7 +3,9 @@
 <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data">
     <div class="row">
         <div class="col-md-8">
-            <input type="hidden" name="id" value="<?php echo $result['id']; ?>">
+            <input type="hidden" name="id" value="<?php if (isset($result['id'])) {
+                                                                    echo $result['id'];
+                                                                } ?>">
             <div class="panel panel-default">
                 <div class="panel-head">
                     <div class="panel-title">
@@ -158,7 +160,7 @@
                     </div>
                     <?php } else { ?>
                     <div class="ticket-info table-responsive">
-                        <table class="table table-bordered table-striped">
+                        <table class="table table-dark table-striped datatable-table dataTable no-footer">
                             <tbody>
                                 <tr>
                                     <td>ID</td>

@@ -1,15 +1,15 @@
 <?php
 
 error_reporting(E_ALL);
-ini_set('display_error', 1);
-ini_set("log_errors", true);
+ini_set('display_error', 0);
+ini_set("log_errors", false);
 ini_set("error_log", "error.log"); //send error log to log file specified here. 
 
 // Version
 define('VERSION', '2.0.0.0');
 
 // Check Version
-if (version_compare(phpversion(), '5.5.0', '<') == true) {
+if (version_compare(phpversion(), '7.4.13', '<') == true) {
 	exit('PHP5.5+ Required');
 }
 

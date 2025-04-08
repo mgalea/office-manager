@@ -172,6 +172,15 @@
   padding: 25px;
 }
 
+@media screen and (max-width:480px) {
+
+  .panel-wrapper {
+
+    padding: 5px;
+  }
+  
+}
+
 
 .panel-head {
   display: table;

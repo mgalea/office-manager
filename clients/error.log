@@ -1,20 +1,156 @@
-[16-Feb-2021 11:38:20 UTC] PHP Notice:  Array to string conversion in C:\www\RNGportal\clients\app\views\dashboard\dashboard.tpl.php on line 259
-[16-Feb-2021 11:40:07 UTC] PHP Notice:  Array to string conversion in C:\www\RNGportal\clients\app\views\dashboard\dashboard.tpl.php on line 259
-[16-Feb-2021 11:40:33 UTC] PHP Notice:  Array to string conversion in C:\www\RNGportal\clients\app\views\dashboard\dashboard.tpl.php on line 259
-[16-Feb-2021 13:01:19 UTC] PHP Notice:  Array to string conversion in C:\www\RNGportal\clients\app\views\dashboard\dashboard.tpl.php on line 259
-[16-Feb-2021 13:06:49 UTC] PHP Notice:  Array to string conversion in C:\www\RNGportal\clients\app\views\dashboard\dashboard.tpl.php on line 259
-[17-Feb-2021 06:00:16 UTC] PHP Notice:  Array to string conversion in C:\www\RNGportal\clients\app\views\dashboard\dashboard.tpl.php on line 259
-[17-Feb-2021 06:10:56 UTC] PHP Notice:  Array to string conversion in C:\www\RNGportal\clients\app\views\dashboard\dashboard.tpl.php on line 259
-[17-Feb-2021 09:02:23 UTC] PHP Notice:  Array to string conversion in C:\www\RNGportal\clients\app\views\dashboard\dashboard.tpl.php on line 259
-[17-Feb-2021 09:03:36 UTC] PHP Notice:  Array to string conversion in C:\www\RNGportal\clients\app\views\dashboard\dashboard.tpl.php on line 259
-[17-Feb-2021 09:03:51 UTC] PHP Notice:  Array to string conversion in C:\www\RNGportal\clients\app\views\dashboard\dashboard.tpl.php on line 259
-[17-Feb-2021 09:03:52 UTC] PHP Notice:  Array to string conversion in C:\www\RNGportal\clients\app\views\dashboard\dashboard.tpl.php on line 259
-[18-Feb-2021 09:02:03 UTC] PHP Notice:  Array to string conversion in C:\www\RNGportal\clients\app\views\dashboard\dashboard.tpl.php on line 259
-[19-Feb-2021 06:30:21 UTC] PHP Notice:  Array to string conversion in C:\www\RNGportal\clients\app\views\dashboard\dashboard.tpl.php on line 259
-[19-Feb-2021 08:25:46 UTC] PHP Notice:  Array to string conversion in C:\www\RNGportal\clients\app\views\dashboard\dashboard.tpl.php on line 259
-[19-Feb-2021 12:50:26 UTC] PHP Notice:  Array to string conversion in C:\www\RNGportal\clients\app\views\dashboard\dashboard.tpl.php on line 259
-[20-Feb-2021 06:16:19 UTC] PHP Notice:  Array to string conversion in C:\www\RNGportal\clients\app\views\dashboard\dashboard.tpl.php on line 259
-[21-Feb-2021 18:49:10 UTC] PHP Notice:  Array to string conversion in C:\www\RNGportal\clients\app\views\dashboard\dashboard.tpl.php on line 259
-[25-Feb-2021 06:22:18 UTC] PHP Notice:  Array to string conversion in C:\www\RNGportal\clients\app\views\dashboard\dashboard.tpl.php on line 259
-[25-Feb-2021 06:22:40 UTC] PHP Notice:  Array to string conversion in C:\www\RNGportal\clients\app\views\dashboard\dashboard.tpl.php on line 259
-[25-Feb-2021 06:22:47 UTC] PHP Notice:  Array to string conversion in C:\www\RNGportal\clients\app\views\dashboard\dashboard.tpl.php on line 259
+[27-Oct-2022 17:00:00 Asia/Kuwait] PHP Notice:  Trying to get property 'num_rows' of non-object in C:\www\RNGportal\clients\app\http\models\Commons.php on line 11
+[27-Oct-2022 17:00:00 Asia/Kuwait] PHP Warning:  Illegal string offset 'email' in C:\www\RNGportal\clients\app\http\controllers\DashboardController.php on line 67
+[27-Oct-2022 17:00:00 Asia/Kuwait] PHP Notice:  Uninitialized string offset: 0 in C:\www\RNGportal\clients\app\http\controllers\DashboardController.php on line 67
+[27-Oct-2022 17:00:00 Asia/Kuwait] PHP Warning:  Illegal string offset 'email' in C:\www\RNGportal\clients\app\http\controllers\DashboardController.php on line 84
+[27-Oct-2022 17:00:00 Asia/Kuwait] PHP Notice:  Uninitialized string offset: 0 in C:\www\RNGportal\clients\app\http\controllers\DashboardController.php on line 84
+[27-Oct-2022 17:00:00 Asia/Kuwait] PHP Warning:  Illegal string offset 'email' in C:\www\RNGportal\clients\app\http\controllers\DashboardController.php on line 88
+[27-Oct-2022 17:00:00 Asia/Kuwait] PHP Notice:  Uninitialized string offset: 0 in C:\www\RNGportal\clients\app\http\controllers\DashboardController.php on line 88
+[27-Oct-2022 17:00:00 Asia/Kuwait] PHP Warning:  Illegal string offset 'name' in C:\www\RNGportal\clients\app\views\common\header.tpl.php on line 57
+[27-Oct-2022 17:00:00 Asia/Kuwait] PHP Notice:  Uninitialized string offset: 0 in C:\www\RNGportal\clients\app\views\common\header.tpl.php on line 57
+[27-Oct-2022 17:00:00 Asia/Kuwait] PHP Notice:  Array to string conversion in C:\www\RNGportal\clients\app\views\dashboard\dashboard.tpl.php on line 259
+[04-Mar-2023 14:56:35 Asia/Kuwait] PHP Notice:  Trying to get property 'num_rows' of non-object in C:\www\RNGportal\clients\app\http\models\Commons.php on line 11
+[04-Mar-2023 14:56:35 Asia/Kuwait] PHP Warning:  Illegal string offset 'email' in C:\www\RNGportal\clients\app\http\controllers\DashboardController.php on line 67
+[04-Mar-2023 14:56:35 Asia/Kuwait] PHP Notice:  Uninitialized string offset: 0 in C:\www\RNGportal\clients\app\http\controllers\DashboardController.php on line 67
+[04-Mar-2023 14:56:35 Asia/Kuwait] PHP Warning:  Illegal string offset 'email' in C:\www\RNGportal\clients\app\http\controllers\DashboardController.php on line 84
+[04-Mar-2023 14:56:35 Asia/Kuwait] PHP Notice:  Uninitialized string offset: 0 in C:\www\RNGportal\clients\app\http\controllers\DashboardController.php on line 84
+[04-Mar-2023 14:56:35 Asia/Kuwait] PHP Warning:  Illegal string offset 'email' in C:\www\RNGportal\clients\app\http\controllers\DashboardController.php on line 88
+[04-Mar-2023 14:56:35 Asia/Kuwait] PHP Notice:  Uninitialized string offset: 0 in C:\www\RNGportal\clients\app\http\controllers\DashboardController.php on line 88
+[04-Mar-2023 14:56:35 Asia/Kuwait] PHP Warning:  Illegal string offset 'name' in C:\www\RNGportal\clients\app\views\common\header.tpl.php on line 57
+[04-Mar-2023 14:56:35 Asia/Kuwait] PHP Notice:  Uninitialized string offset: 0 in C:\www\RNGportal\clients\app\views\common\header.tpl.php on line 57
+[04-Mar-2023 14:56:35 Asia/Kuwait] PHP Notice:  Array to string conversion in C:\www\RNGportal\clients\app\views\dashboard\dashboard.tpl.php on line 259
+[04-Mar-2023 14:56:36 Asia/Kuwait] PHP Notice:  Trying to get property 'num_rows' of non-object in C:\www\RNGportal\clients\app\http\models\Commons.php on line 11
+[04-Mar-2023 14:56:36 Asia/Kuwait] PHP Warning:  Illegal string offset 'email' in C:\www\RNGportal\clients\app\http\controllers\DashboardController.php on line 67
+[04-Mar-2023 14:56:36 Asia/Kuwait] PHP Notice:  Uninitialized string offset: 0 in C:\www\RNGportal\clients\app\http\controllers\DashboardController.php on line 67
+[04-Mar-2023 14:56:36 Asia/Kuwait] PHP Warning:  Illegal string offset 'email' in C:\www\RNGportal\clients\app\http\controllers\DashboardController.php on line 84
+[04-Mar-2023 14:56:36 Asia/Kuwait] PHP Notice:  Uninitialized string offset: 0 in C:\www\RNGportal\clients\app\http\controllers\DashboardController.php on line 84
+[04-Mar-2023 14:56:36 Asia/Kuwait] PHP Warning:  Illegal string offset 'email' in C:\www\RNGportal\clients\app\http\controllers\DashboardController.php on line 88
+[04-Mar-2023 14:56:36 Asia/Kuwait] PHP Notice:  Uninitialized string offset: 0 in C:\www\RNGportal\clients\app\http\controllers\DashboardController.php on line 88
+[04-Mar-2023 14:56:36 Asia/Kuwait] PHP Warning:  Illegal string offset 'name' in C:\www\RNGportal\clients\app\views\common\header.tpl.php on line 57
+[04-Mar-2023 14:56:36 Asia/Kuwait] PHP Notice:  Uninitialized string offset: 0 in C:\www\RNGportal\clients\app\views\common\header.tpl.php on line 57
+[04-Mar-2023 14:56:36 Asia/Kuwait] PHP Notice:  Array to string conversion in C:\www\RNGportal\clients\app\views\dashboard\dashboard.tpl.php on line 259
+[04-Mar-2023 14:56:50 Asia/Kuwait] PHP Notice:  Trying to get property 'num_rows' of non-object in C:\www\RNGportal\clients\app\http\models\Commons.php on line 11
+[04-Mar-2023 14:56:50 Asia/Kuwait] PHP Warning:  Illegal string offset 'email' in C:\www\RNGportal\clients\app\http\models\Ticket.php on line 34
+[04-Mar-2023 14:56:50 Asia/Kuwait] PHP Notice:  Uninitialized string offset: 0 in C:\www\RNGportal\clients\app\http\models\Ticket.php on line 34
+[04-Mar-2023 14:56:50 Asia/Kuwait] PHP Warning:  Illegal string offset 'name' in C:\www\RNGportal\clients\app\views\common\header.tpl.php on line 57
+[04-Mar-2023 14:56:50 Asia/Kuwait] PHP Notice:  Uninitialized string offset: 0 in C:\www\RNGportal\clients\app\views\common\header.tpl.php on line 57
+[04-Mar-2023 14:56:50 Asia/Kuwait] PHP Warning:  Illegal string offset 'email' in C:\www\RNGportal\clients\app\views\ticket\ticket_edit.tpl.php on line 8
+[04-Mar-2023 14:56:50 Asia/Kuwait] PHP Notice:  Uninitialized string offset: 0 in C:\www\RNGportal\clients\app\views\ticket\ticket_edit.tpl.php on line 8
+[04-Mar-2023 14:56:51 Asia/Kuwait] PHP Notice:  Trying to get property 'num_rows' of non-object in C:\www\RNGportal\clients\app\http\models\Commons.php on line 11
+[04-Mar-2023 14:56:51 Asia/Kuwait] PHP Warning:  Illegal string offset 'email' in C:\www\RNGportal\clients\app\http\models\Ticket.php on line 34
+[04-Mar-2023 14:56:51 Asia/Kuwait] PHP Notice:  Uninitialized string offset: 0 in C:\www\RNGportal\clients\app\http\models\Ticket.php on line 34
+[04-Mar-2023 14:56:51 Asia/Kuwait] PHP Warning:  Illegal string offset 'name' in C:\www\RNGportal\clients\app\views\common\header.tpl.php on line 57
+[04-Mar-2023 14:56:51 Asia/Kuwait] PHP Notice:  Uninitialized string offset: 0 in C:\www\RNGportal\clients\app\views\common\header.tpl.php on line 57
+[04-Mar-2023 14:56:51 Asia/Kuwait] PHP Warning:  Illegal string offset 'email' in C:\www\RNGportal\clients\app\views\ticket\ticket_edit.tpl.php on line 8
+[04-Mar-2023 14:56:51 Asia/Kuwait] PHP Notice:  Uninitialized string offset: 0 in C:\www\RNGportal\clients\app\views\ticket\ticket_edit.tpl.php on line 8
+[04-Mar-2023 14:57:09 Asia/Kuwait] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in C:\www\RNGportal\clients\builder\libs\tcpdf\tcpdf.php on line 16899
+[04-Mar-2023 14:57:09 Asia/Kuwait] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in C:\www\RNGportal\clients\builder\libs\tcpdf\tcpdf.php on line 16899
+[04-Mar-2023 14:57:09 Asia/Kuwait] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in C:\www\RNGportal\clients\builder\libs\tcpdf\tcpdf.php on line 16902
+[04-Mar-2023 14:57:09 Asia/Kuwait] PHP Warning:  "continue" targeting switch is equivalent to "break". Did you mean to use "continue 2"? in C:\www\RNGportal\clients\builder\libs\tcpdf\tcpdf.php on line 17784
+[04-Mar-2023 14:57:09 Asia/Kuwait] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in C:\www\RNGportal\clients\builder\libs\tcpdf\include\tcpdf_images.php on line 318
+[04-Mar-2023 14:57:09 Asia/Kuwait] PHP Notice:  Trying to get property 'num_rows' of non-object in C:\www\RNGportal\clients\app\http\models\Commons.php on line 11
+[04-Mar-2023 14:57:09 Asia/Kuwait] PHP Warning:  Illegal string offset 'name' in C:\www\RNGportal\clients\app\views\common\header.tpl.php on line 57
+[04-Mar-2023 14:57:09 Asia/Kuwait] PHP Notice:  Uninitialized string offset: 0 in C:\www\RNGportal\clients\app\views\common\header.tpl.php on line 57
+[04-Mar-2023 14:57:10 Asia/Kuwait] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in C:\www\RNGportal\clients\builder\libs\tcpdf\tcpdf.php on line 16899
+[04-Mar-2023 14:57:10 Asia/Kuwait] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in C:\www\RNGportal\clients\builder\libs\tcpdf\tcpdf.php on line 16899
+[04-Mar-2023 14:57:10 Asia/Kuwait] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in C:\www\RNGportal\clients\builder\libs\tcpdf\tcpdf.php on line 16902
+[04-Mar-2023 14:57:10 Asia/Kuwait] PHP Warning:  "continue" targeting switch is equivalent to "break". Did you mean to use "continue 2"? in C:\www\RNGportal\clients\builder\libs\tcpdf\tcpdf.php on line 17784
+[04-Mar-2023 14:57:10 Asia/Kuwait] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in C:\www\RNGportal\clients\builder\libs\tcpdf\include\tcpdf_images.php on line 318
+[04-Mar-2023 14:57:10 Asia/Kuwait] PHP Notice:  Trying to get property 'num_rows' of non-object in C:\www\RNGportal\clients\app\http\models\Commons.php on line 11
+[04-Mar-2023 14:57:10 Asia/Kuwait] PHP Warning:  Illegal string offset 'name' in C:\www\RNGportal\clients\app\views\common\header.tpl.php on line 57
+[04-Mar-2023 14:57:10 Asia/Kuwait] PHP Notice:  Uninitialized string offset: 0 in C:\www\RNGportal\clients\app\views\common\header.tpl.php on line 57
+[04-Mar-2023 14:57:11 Asia/Kuwait] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in C:\www\RNGportal\clients\builder\libs\tcpdf\tcpdf.php on line 16899
+[04-Mar-2023 14:57:11 Asia/Kuwait] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in C:\www\RNGportal\clients\builder\libs\tcpdf\tcpdf.php on line 16899
+[04-Mar-2023 14:57:11 Asia/Kuwait] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in C:\www\RNGportal\clients\builder\libs\tcpdf\tcpdf.php on line 16902
+[04-Mar-2023 14:57:11 Asia/Kuwait] PHP Warning:  "continue" targeting switch is equivalent to "break". Did you mean to use "continue 2"? in C:\www\RNGportal\clients\builder\libs\tcpdf\tcpdf.php on line 17784
+[04-Mar-2023 14:57:11 Asia/Kuwait] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in C:\www\RNGportal\clients\builder\libs\tcpdf\include\tcpdf_images.php on line 318
+[04-Mar-2023 14:57:11 Asia/Kuwait] PHP Notice:  Trying to get property 'num_rows' of non-object in C:\www\RNGportal\clients\app\http\models\Commons.php on line 11
+[04-Mar-2023 14:57:11 Asia/Kuwait] PHP Warning:  Illegal string offset 'name' in C:\www\RNGportal\clients\app\views\common\header.tpl.php on line 57
+[04-Mar-2023 14:57:11 Asia/Kuwait] PHP Notice:  Uninitialized string offset: 0 in C:\www\RNGportal\clients\app\views\common\header.tpl.php on line 57
+[04-Mar-2023 14:57:11 Asia/Kuwait] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in C:\www\RNGportal\clients\builder\libs\tcpdf\tcpdf.php on line 16899
+[04-Mar-2023 14:57:11 Asia/Kuwait] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in C:\www\RNGportal\clients\builder\libs\tcpdf\tcpdf.php on line 16899
+[04-Mar-2023 14:57:11 Asia/Kuwait] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in C:\www\RNGportal\clients\builder\libs\tcpdf\tcpdf.php on line 16902
+[04-Mar-2023 14:57:11 Asia/Kuwait] PHP Warning:  "continue" targeting switch is equivalent to "break". Did you mean to use "continue 2"? in C:\www\RNGportal\clients\builder\libs\tcpdf\tcpdf.php on line 17784
+[04-Mar-2023 14:57:11 Asia/Kuwait] PHP Deprecated:  Array and string offset access syntax with curly braces is deprecated in C:\www\RNGportal\clients\builder\libs\tcpdf\include\tcpdf_images.php on line 318
+[04-Mar-2023 14:57:11 Asia/Kuwait] PHP Notice:  Trying to get property 'num_rows' of non-object in C:\www\RNGportal\clients\app\http\models\Commons.php on line 11
+[04-Mar-2023 14:57:11 Asia/Kuwait] PHP Warning:  Illegal string offset 'name' in C:\www\RNGportal\clients\app\views\common\header.tpl.php on line 57
+[04-Mar-2023 14:57:11 Asia/Kuwait] PHP Notice:  Uninitialized string offset: 0 in C:\www\RNGportal\clients\app\views\common\header.tpl.php on line 57
+[04-Mar-2023 14:57:13 Asia/Kuwait] PHP Notice:  Trying to get property 'num_rows' of non-object in C:\www\RNGportal\clients\app\http\models\Commons.php on line 11
+[04-Mar-2023 14:57:13 Asia/Kuwait] PHP Warning:  Illegal string offset 'email' in C:\www\RNGportal\clients\app\http\controllers\TicketController.php on line 32
+[04-Mar-2023 14:57:13 Asia/Kuwait] PHP Notice:  Uninitialized string offset: 0 in C:\www\RNGportal\clients\app\http\controllers\TicketController.php on line 32
+[04-Mar-2023 14:57:13 Asia/Kuwait] PHP Warning:  Illegal string offset 'name' in C:\www\RNGportal\clients\app\views\common\header.tpl.php on line 57
+[04-Mar-2023 14:57:13 Asia/Kuwait] PHP Notice:  Uninitialized string offset: 0 in C:\www\RNGportal\clients\app\views\common\header.tpl.php on line 57
+[04-Mar-2023 14:57:13 Asia/Kuwait] PHP Notice:  Trying to get property 'num_rows' of non-object in C:\www\RNGportal\clients\app\http\models\Commons.php on line 11
+[04-Mar-2023 14:57:13 Asia/Kuwait] PHP Warning:  Illegal string offset 'email' in C:\www\RNGportal\clients\app\http\controllers\TicketController.php on line 32
+[04-Mar-2023 14:57:13 Asia/Kuwait] PHP Notice:  Uninitialized string offset: 0 in C:\www\RNGportal\clients\app\http\controllers\TicketController.php on line 32
+[04-Mar-2023 14:57:13 Asia/Kuwait] PHP Warning:  Illegal string offset 'name' in C:\www\RNGportal\clients\app\views\common\header.tpl.php on line 57
+[04-Mar-2023 14:57:13 Asia/Kuwait] PHP Notice:  Uninitialized string offset: 0 in C:\www\RNGportal\clients\app\views\common\header.tpl.php on line 57
+[04-Mar-2023 14:57:22 Asia/Kuwait] PHP Notice:  Trying to get property 'num_rows' of non-object in C:\www\RNGportal\clients\app\http\models\Commons.php on line 11
+[04-Mar-2023 14:57:22 Asia/Kuwait] PHP Warning:  Illegal string offset 'email' in C:\www\RNGportal\clients\app\http\models\Ticket.php on line 34
+[04-Mar-2023 14:57:22 Asia/Kuwait] PHP Notice:  Uninitialized string offset: 0 in C:\www\RNGportal\clients\app\http\models\Ticket.php on line 34
+[04-Mar-2023 14:57:22 Asia/Kuwait] PHP Warning:  Illegal string offset 'name' in C:\www\RNGportal\clients\app\views\common\header.tpl.php on line 57
+[04-Mar-2023 14:57:22 Asia/Kuwait] PHP Notice:  Uninitialized string offset: 0 in C:\www\RNGportal\clients\app\views\common\header.tpl.php on line 57
+[04-Mar-2023 14:57:22 Asia/Kuwait] PHP Warning:  Illegal string offset 'email' in C:\www\RNGportal\clients\app\views\ticket\ticket_edit.tpl.php on line 8
+[04-Mar-2023 14:57:22 Asia/Kuwait] PHP Notice:  Uninitialized string offset: 0 in C:\www\RNGportal\clients\app\views\ticket\ticket_edit.tpl.php on line 8
+[04-Mar-2023 14:57:23 Asia/Kuwait] PHP Notice:  Trying to get property 'num_rows' of non-object in C:\www\RNGportal\clients\app\http\models\Commons.php on line 11
+[04-Mar-2023 14:57:23 Asia/Kuwait] PHP Warning:  Illegal string offset 'email' in C:\www\RNGportal\clients\app\http\models\Ticket.php on line 34
+[04-Mar-2023 14:57:23 Asia/Kuwait] PHP Notice:  Uninitialized string offset: 0 in C:\www\RNGportal\clients\app\http\models\Ticket.php on line 34
+[04-Mar-2023 14:57:23 Asia/Kuwait] PHP Warning:  Illegal string offset 'name' in C:\www\RNGportal\clients\app\views\common\header.tpl.php on line 57
+[04-Mar-2023 14:57:23 Asia/Kuwait] PHP Notice:  Uninitialized string offset: 0 in C:\www\RNGportal\clients\app\views\common\header.tpl.php on line 57
+[04-Mar-2023 14:57:23 Asia/Kuwait] PHP Warning:  Illegal string offset 'email' in C:\www\RNGportal\clients\app\views\ticket\ticket_edit.tpl.php on line 8
+[04-Mar-2023 14:57:23 Asia/Kuwait] PHP Notice:  Uninitialized string offset: 0 in C:\www\RNGportal\clients\app\views\ticket\ticket_edit.tpl.php on line 8
+[04-Mar-2023 14:57:29 Asia/Kuwait] PHP Notice:  Trying to get property 'num_rows' of non-object in C:\www\RNGportal\clients\app\http\models\Commons.php on line 11
+[04-Mar-2023 14:57:29 Asia/Kuwait] PHP Warning:  Illegal string offset 'name' in C:\www\RNGportal\clients\app\views\common\header.tpl.php on line 57
+[04-Mar-2023 14:57:29 Asia/Kuwait] PHP Notice:  Uninitialized string offset: 0 in C:\www\RNGportal\clients\app\views\common\header.tpl.php on line 57
+[04-Mar-2023 14:57:29 Asia/Kuwait] PHP Warning:  Illegal string offset 'name' in C:\www\RNGportal\clients\app\views\profile\profile.tpl.php on line 21
+[04-Mar-2023 14:57:29 Asia/Kuwait] PHP Notice:  Uninitialized string offset: 0 in C:\www\RNGportal\clients\app\views\profile\profile.tpl.php on line 21
+[04-Mar-2023 14:57:29 Asia/Kuwait] PHP Warning:  Illegal string offset 'email' in C:\www\RNGportal\clients\app\views\profile\profile.tpl.php on line 30
+[04-Mar-2023 14:57:29 Asia/Kuwait] PHP Notice:  Uninitialized string offset: 0 in C:\www\RNGportal\clients\app\views\profile\profile.tpl.php on line 30
+[04-Mar-2023 14:57:29 Asia/Kuwait] PHP Warning:  Illegal string offset 'mobile' in C:\www\RNGportal\clients\app\views\profile\profile.tpl.php on line 39
+[04-Mar-2023 14:57:29 Asia/Kuwait] PHP Notice:  Uninitialized string offset: 0 in C:\www\RNGportal\clients\app\views\profile\profile.tpl.php on line 39
+[04-Mar-2023 14:57:29 Asia/Kuwait] PHP Warning:  Illegal string offset 'id' in C:\www\RNGportal\clients\app\views\profile\profile.tpl.php on line 42
+[04-Mar-2023 14:57:29 Asia/Kuwait] PHP Notice:  Uninitialized string offset: 0 in C:\www\RNGportal\clients\app\views\profile\profile.tpl.php on line 42
+[04-Mar-2023 14:57:29 Asia/Kuwait] PHP Warning:  Illegal string offset 'email' in C:\www\RNGportal\clients\app\views\profile\profile.tpl.php on line 43
+[04-Mar-2023 14:57:29 Asia/Kuwait] PHP Notice:  Uninitialized string offset: 0 in C:\www\RNGportal\clients\app\views\profile\profile.tpl.php on line 43
+[04-Mar-2023 14:57:29 Asia/Kuwait] PHP Notice:  Trying to get property 'num_rows' of non-object in C:\www\RNGportal\clients\app\http\models\Commons.php on line 11
+[04-Mar-2023 14:57:29 Asia/Kuwait] PHP Warning:  Illegal string offset 'name' in C:\www\RNGportal\clients\app\views\common\header.tpl.php on line 57
+[04-Mar-2023 14:57:29 Asia/Kuwait] PHP Notice:  Uninitialized string offset: 0 in C:\www\RNGportal\clients\app\views\common\header.tpl.php on line 57
+[04-Mar-2023 14:57:29 Asia/Kuwait] PHP Warning:  Illegal string offset 'name' in C:\www\RNGportal\clients\app\views\profile\profile.tpl.php on line 21
+[04-Mar-2023 14:57:29 Asia/Kuwait] PHP Notice:  Uninitialized string offset: 0 in C:\www\RNGportal\clients\app\views\profile\profile.tpl.php on line 21
+[04-Mar-2023 14:57:29 Asia/Kuwait] PHP Warning:  Illegal string offset 'email' in C:\www\RNGportal\clients\app\views\profile\profile.tpl.php on line 30
+[04-Mar-2023 14:57:29 Asia/Kuwait] PHP Notice:  Uninitialized string offset: 0 in C:\www\RNGportal\clients\app\views\profile\profile.tpl.php on line 30
+[04-Mar-2023 14:57:29 Asia/Kuwait] PHP Warning:  Illegal string offset 'mobile' in C:\www\RNGportal\clients\app\views\profile\profile.tpl.php on line 39
+[04-Mar-2023 14:57:29 Asia/Kuwait] PHP Notice:  Uninitialized string offset: 0 in C:\www\RNGportal\clients\app\views\profile\profile.tpl.php on line 39
+[04-Mar-2023 14:57:29 Asia/Kuwait] PHP Warning:  Illegal string offset 'id' in C:\www\RNGportal\clients\app\views\profile\profile.tpl.php on line 42
+[04-Mar-2023 14:57:29 Asia/Kuwait] PHP Notice:  Uninitialized string offset: 0 in C:\www\RNGportal\clients\app\views\profile\profile.tpl.php on line 42
+[04-Mar-2023 14:57:29 Asia/Kuwait] PHP Warning:  Illegal string offset 'email' in C:\www\RNGportal\clients\app\views\profile\profile.tpl.php on line 43
+[04-Mar-2023 14:57:29 Asia/Kuwait] PHP Notice:  Uninitialized string offset: 0 in C:\www\RNGportal\clients\app\views\profile\profile.tpl.php on line 43
+[04-Mar-2023 14:57:33 Asia/Kuwait] PHP Notice:  Trying to get property 'num_rows' of non-object in C:\www\RNGportal\clients\app\http\models\Commons.php on line 11
+[04-Mar-2023 14:57:33 Asia/Kuwait] PHP Warning:  Illegal string offset 'email' in C:\www\RNGportal\clients\app\http\controllers\DashboardController.php on line 67
+[04-Mar-2023 14:57:33 Asia/Kuwait] PHP Notice:  Uninitialized string offset: 0 in C:\www\RNGportal\clients\app\http\controllers\DashboardController.php on line 67
+[04-Mar-2023 14:57:33 Asia/Kuwait] PHP Warning:  Illegal string offset 'email' in C:\www\RNGportal\clients\app\http\controllers\DashboardController.php on line 84
+[04-Mar-2023 14:57:33 Asia/Kuwait] PHP Notice:  Uninitialized string offset: 0 in C:\www\RNGportal\clients\app\http\controllers\DashboardController.php on line 84
+[04-Mar-2023 14:57:33 Asia/Kuwait] PHP Warning:  Illegal string offset 'email' in C:\www\RNGportal\clients\app\http\controllers\DashboardController.php on line 88
+[04-Mar-2023 14:57:33 Asia/Kuwait] PHP Notice:  Uninitialized string offset: 0 in C:\www\RNGportal\clients\app\http\controllers\DashboardController.php on line 88
+[04-Mar-2023 14:57:33 Asia/Kuwait] PHP Warning:  Illegal string offset 'name' in C:\www\RNGportal\clients\app\views\common\header.tpl.php on line 57
+[04-Mar-2023 14:57:33 Asia/Kuwait] PHP Notice:  Uninitialized string offset: 0 in C:\www\RNGportal\clients\app\views\common\header.tpl.php on line 57
+[04-Mar-2023 14:57:33 Asia/Kuwait] PHP Notice:  Array to string conversion in C:\www\RNGportal\clients\app\views\dashboard\dashboard.tpl.php on line 259
+[04-Mar-2023 14:57:33 Asia/Kuwait] PHP Notice:  Trying to get property 'num_rows' of non-object in C:\www\RNGportal\clients\app\http\models\Commons.php on line 11
+[04-Mar-2023 14:57:33 Asia/Kuwait] PHP Warning:  Illegal string offset 'email' in C:\www\RNGportal\clients\app\http\controllers\DashboardController.php on line 67
+[04-Mar-2023 14:57:33 Asia/Kuwait] PHP Notice:  Uninitialized string offset: 0 in C:\www\RNGportal\clients\app\http\controllers\DashboardController.php on line 67
+[04-Mar-2023 14:57:33 Asia/Kuwait] PHP Warning:  Illegal string offset 'email' in C:\www\RNGportal\clients\app\http\controllers\DashboardController.php on line 84
+[04-Mar-2023 14:57:33 Asia/Kuwait] PHP Notice:  Uninitialized string offset: 0 in C:\www\RNGportal\clients\app\http\controllers\DashboardController.php on line 84
+[04-Mar-2023 14:57:33 Asia/Kuwait] PHP Warning:  Illegal string offset 'email' in C:\www\RNGportal\clients\app\http\controllers\DashboardController.php on line 88
+[04-Mar-2023 14:57:33 Asia/Kuwait] PHP Notice:  Uninitialized string offset: 0 in C:\www\RNGportal\clients\app\http\controllers\DashboardController.php on line 88
+[04-Mar-2023 14:57:33 Asia/Kuwait] PHP Warning:  Illegal string offset 'name' in C:\www\RNGportal\clients\app\views\common\header.tpl.php on line 57
+[04-Mar-2023 14:57:33 Asia/Kuwait] PHP Notice:  Uninitialized string offset: 0 in C:\www\RNGportal\clients\app\views\common\header.tpl.php on line 57
+[04-Mar-2023 14:57:33 Asia/Kuwait] PHP Notice:  Array to string conversion in C:\www\RNGportal\clients\app\views\dashboard\dashboard.tpl.php on line 259
+[04-Mar-2023 14:57:35 Asia/Kuwait] PHP Notice:  Trying to get property 'num_rows' of non-object in C:\www\RNGportal\clients\app\http\models\Commons.php on line 11
+[04-Mar-2023 14:57:35 Asia/Kuwait] PHP Warning:  Illegal string offset 'email' in C:\www\RNGportal\clients\app\http\controllers\TicketController.php on line 32
+[04-Mar-2023 14:57:35 Asia/Kuwait] PHP Notice:  Uninitialized string offset: 0 in C:\www\RNGportal\clients\app\http\controllers\TicketController.php on line 32
+[04-Mar-2023 14:57:35 Asia/Kuwait] PHP Warning:  Illegal string offset 'name' in C:\www\RNGportal\clients\app\views\common\header.tpl.php on line 57
+[04-Mar-2023 14:57:35 Asia/Kuwait] PHP Notice:  Uninitialized string offset: 0 in C:\www\RNGportal\clients\app\views\common\header.tpl.php on line 57
+[04-Mar-2023 14:57:35 Asia/Kuwait] PHP Notice:  Trying to get property 'num_rows' of non-object in C:\www\RNGportal\clients\app\http\models\Commons.php on line 11
+[04-Mar-2023 14:57:35 Asia/Kuwait] PHP Warning:  Illegal string offset 'email' in C:\www\RNGportal\clients\app\http\controllers\TicketController.php on line 32
+[04-Mar-2023 14:57:35 Asia/Kuwait] PHP Notice:  Uninitialized string offset: 0 in C:\www\RNGportal\clients\app\http\controllers\TicketController.php on line 32
+[04-Mar-2023 14:57:35 Asia/Kuwait] PHP Warning:  Illegal string offset 'name' in C:\www\RNGportal\clients\app\views\common\header.tpl.php on line 57
+[04-Mar-2023 14:57:35 Asia/Kuwait] PHP Notice:  Uninitialized string offset: 0 in C:\www\RNGportal\clients\app\views\common\header.tpl.php on line 57

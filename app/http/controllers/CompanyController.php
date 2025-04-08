@@ -403,12 +403,13 @@ class CompanyController extends Controller
 			$data['status'] = (!empty($this->url->post('status'))) ? $this->url->post('status') : 1;
 			$data['formation_date'] = date_format(date_create($data['formation_date']), 'Y-m-d');
 			$result = $this->companyModel->createCompany($data);
+
 			if ($result != 0) {
 				$this->session->data['message'] = array('alert' => 'success', 'value' => 'Company created successfully.');
 				$this->url->redirect('company/edit&id=' . $result);
 			} else {
 				$this->session->data['message'] = array('alert' => 'error', 'value' => 'Company failed to create.');
-				$this->url->redirect('company/edit');
+				$this->url->redirect('companies');
 				echo $result;
 			}
 		}

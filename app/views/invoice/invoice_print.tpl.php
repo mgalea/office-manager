@@ -97,7 +97,7 @@
 								<td rowspan="6" colspan="1">
 									<?php if (!empty($account)) {
 										foreach ($account as $key => $value) { ?>
-											<span class="font-500"><?php echo $lang['invoices']['text_remittance']; ?></span></br>
+											</br><span class="font-500"><?php echo $lang['invoices']['text_remittance']; ?></span></br>
 											<span class="font-500"><?php echo $lang['bank']['text_account']; ?></span>: <span class="font-100"><?php echo $account[$key]['account_name']; ?></span></br>
 											<span class="font-500"><?php echo $lang['bank']['text_number']; ?></span>: <span class="font-100"><?php echo $account[$key]['account_number']; ?></span></br>
 											<span class="font-500"><?php echo $lang['bank']['text_currency']; ?></span>: <span class="font-100"><?php echo $account[$key]['currency']; ?></span></br>

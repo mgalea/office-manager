@@ -2,7 +2,7 @@
 
 $inventory= array(
     'text_inventory_name' => 'Item',
-	'text_inventory_number' => 'Model No.',
+	'text_inventory_number' => 'Inv.No.',
 	'text_quantity' => 'Quantity',
 	'text_description' => 'Item Description',
 	'text_stock' => 'Stock Item?',

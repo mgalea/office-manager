@@ -84,10 +84,11 @@ class InvoiceController extends Controller
 		$data['taxes'] = $this->invoiceModel->getTaxes();
 		$data['payment_type'] = $this->invoiceModel->paymentType();
 		$data['payments'] = $this->invoiceModel->getPayments($id);
-		$data['bank'] = $this->invoiceModel->getBankAccount($id);
+		//$data['bank'] = $this->invoiceModel->getBankAccount($id);
 		$data['attachments'] = $this->invoiceModel->getAttachments($id);
-		$data['companies'] = $this->invoiceModel->getCompanies();
+		$data['companies'] = $this->invoiceModel->getSubdiaries();
 		$data['account'] = $this->invoiceModel->getInvoiceBankAccountDetails($id);
+
 
 		if (empty($data['result']['billing_id'])) {
 			$commonsModel = new Commons();
@@ -218,7 +219,7 @@ class InvoiceController extends Controller
 		//$data['payment_status'] = $this->invoiceModel->getPaymentStatus();
 		$data['currency'] = $this->invoiceModel->getCurrency();
 		$data['customers'] = $this->invoiceModel->getCustomers();
-		$data['companies'] = $this->invoiceModel->getCompanies();
+		$data['subsidiaries'] = $this->invoiceModel->getSubdiaries();
 
 		/*Load Language File*/
 		require DIR_BUILDER . 'language/' . $data['info']['language'] . '/common.php';
@@ -273,7 +274,7 @@ class InvoiceController extends Controller
 		//$data['payment_status'] = $this->invoiceModel->getPaymentStatus();
 		$data['currency'] = $this->invoiceModel->getCurrency();
 		$data['customers'] = $this->invoiceModel->getCustomers();
-		$data['companies'] = $this->invoiceModel->getCompanies();
+		$data['subsidiaries'] = $this->invoiceModel->getSubdiaries();
 
 		/*Load Language File*/
 		require DIR_BUILDER . 'language/' . $data['info']['language'] . '/common.php';
@@ -436,7 +437,7 @@ class InvoiceController extends Controller
 
 		$mailer->mail->addAddress($data['email'], $data['company']);
 		$mailer->mail->addBCC($info['email'], $info['name']);
-		$mailer->mail->addAttachment(DIR . 'public/uploads/pdf/invoice-' . $id . '.pdf', 'Invoice.pdf');
+		$mailer->mail->addAttachment(DIR . 'public/uploads/pdf/invoice-' .str_pad($id, 4, '0', STR_PAD_LEFT) . '.pdf', 'Invoice.pdf');
 		$mailer->mail->isHTML(true);
 		$mailer->mail->Subject = $template['subject'];
 		$mailer->mail->Body = html_entity_decode($message);
@@ -503,7 +504,7 @@ class InvoiceController extends Controller
 		$pdf->AddPage();
 
 		$pdf->writeHTML($html_array['html'], true, false, true, false, '');
-		$pdf->Output('proposal.pdf', 'I');
+		$pdf->Output('Invoice_'. str_pad($id, 4, '0', STR_PAD_LEFT) .'.pdf', 'I');
 	}
 
 	public function createPDF($id)
@@ -702,7 +703,7 @@ class InvoiceController extends Controller
 			$result['status'] = $data['lang']['invoices']['text_unknown'];
 		}
 
-		$account = $this->invoiceModel->getInvoiceBankAccountDetails($id);
+
 
 		foreach ($items as $key => $value) {
 			$tax = NULL;
@@ -712,7 +713,7 @@ class InvoiceController extends Controller
 				}
 			}
 			$item .= '<tr>
-			<td class="item" width="280">' . $value['name'] . '<br /><span style="color: #555;">' . $value['descr'] . '</span></td>
+			<td class="item" width="280">' . $value['name'] . '<br /><span style="color: #555;" class="inv-meta-sm">' . $value['descr'] . '</span></td>
 			<td width="50">' . $value['quantity'] . '</td>
 			<td width="100">' . $value['cost'] . '</td>
 			<td width="160">' . $tax . '</td>
@@ -722,9 +723,11 @@ class InvoiceController extends Controller
 
 		$bank_details = '<span class="remit_title">' . $data['lang']['invoices']['text_remittance']."</span><br><br><table>";
 
+		$account = $this->invoiceModel->getInvoiceBankAccountDetails($id);
+
 		if (!empty($account)) {
 			foreach ($account as $key => $value) {
-				$bank_details = $bank_details . '<tr><td width="30%" ><span class="remit">' . $data['lang']['bank']['text_bank'] . '</span>:</td><td width="70%" ><span class="remit">' . $account[$key]['bank_name'] . '</span></td></tr>';
+				$bank_details = $bank_details . '<br><tr><td width="30%" ><span class="remit">' . $data['lang']['bank']['text_bank'] . '</span>:</td><td width="70%" ><span class="remit">' . $account[$key]['bank_name'] . '</span></td></tr>';
 				$bank_details = $bank_details . '<tr><td width="30%"><span class="remit">' . $data['lang']['bank']['text_branch'] . '</span>:</td width="70%"><td><span class="remit">' . $account[$key]['bank_branch'] . '</span></td></tr>';
 				$bank_details = $bank_details . '<tr><td width="30%"><span class="remit">' . $data['lang']['bank']['text_account'] . '</span>:</td width="70%"><td><span class="remit">' . $account[$key]['account_name'] . '</span></td></tr>';
 				$bank_details = $bank_details . '<tr><td width="30%"><span class="remit">' . $data['lang']['bank']['text_number'] . '</span>: </td width="70%"><td><span class="remit">' . $account[$key]['account_number'] . '</span></td></tr>';
@@ -805,6 +808,10 @@ class InvoiceController extends Controller
 			font-weight: 500;
 		}
 
+		.bold {
+			font-weight: bold;
+		}
+
 		.inv-bill-to .email {
 			color: #333;
 			font-weight: 500;
@@ -813,6 +820,10 @@ class InvoiceController extends Controller
 
 		.inv-meta {
 			font-size: 10px;
+		}
+
+		.inv-meta-sm {
+			font-size: 7px;
 		}
 
 		.inv-template-item {
@@ -859,7 +870,7 @@ class InvoiceController extends Controller
 		<div class="inv-bill-from">
 			<span class="title head">' . $organization . '<br></span>
 			<span class="body">' . $address['address1'] . '<br>'
-			. $address['address2'] . '<br>' . $address['city'] . ' ' . $address['pincode'] . '<br>'
+			. $address['address2'] . '<br>' . $address['city'] . ' ' . $address['pin'] . '<br>'
 			. $address['country'] .  '<br></span>
 			<span class="tax">' . $data['lang']['invoices']['text_vat_no']  . ': ' . $info['vat_no'] . '<br></span>
 		</div>
@@ -873,14 +884,14 @@ class InvoiceController extends Controller
 			<span class="title">' . $result['company'] . '</span><br />
 			<span class="body">' . $caddress['address1'] . ', ' . $caddress['address2'] . '</span><br />
 			<span class="body">' . $caddress['city'] . ', ' . $caddress['state'] . '</span> <br />
-			<span class="body">' . $caddress['country'] . '  ' . $caddress['pincode'] . '</span><br />
+			<span class="body">' . $caddress['country'] . '  ' . $caddress['pin'] . '</span><br />
 			<span class="email">' . $result['customer_email'] . '</span>
 		</div>
 		</td>
 		<td colspan="2" valign="middle" class="text-right">
 		<div class="inv-meta">
 		<span><span># : </span><span>INV-' . str_pad($result['id'], 4, '0', STR_PAD_LEFT) . '</span></span>
-		<p><span>' . $data['lang']['common']['text_created_date'] . ' : </span><span>' . date_format(date_create($result['inv_date']), 'd-m-Y') . '</span></p>
+		<p><span>' . $data['lang']['common']['text_created_date'] . ' : </span><span class="bold">' . date_format(date_create($result['inv_date']), 'd-m-Y') . '</span></p>
 		<p><span>' . $data['lang']['invoices']['text_due_date'] . ' : </span><span>' . date_format(date_create($result['duedate']), 'd-m-Y') . '</span></p>
 		<p><span>' . $data['lang']['invoices']['text_payment_method'] . ': </span><span>' . $result['payment'] . '</span></p>
 		<p><span>' . $data['lang']['common']['text_status'] . ' : </span><span>' . $result['status'] . '</span></p>
@@ -903,7 +914,7 @@ class InvoiceController extends Controller
 		<tbody>
 		' . $item . '
 		<tr class="total">
-		<td width="330" rowspan="6" colspan="3">' . $result['note'] . $bank_details.'</td>
+		<td width="330" rowspan="6" colspan="3">' . $result['note'] . '<br><br>'.$bank_details.'</td>
 		<td width="180" colspan="2" align="right">' . $data['lang']['invoices']['text_sub_total'] . '</td>
 		<td width="200" colspan="2">' . $result['currency_abbr'] . ' ' . $result['subtotal'] . '</td>
 		</tr>

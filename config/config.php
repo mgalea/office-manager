@@ -2,7 +2,7 @@
 /*This name will represent title in auto generated mail*/
 define('NAME', 'Random Group Office Manager');
 /*Domain name like www.yourdomain.com*/
-define('URL', 'http://portal.rnggaming.com/');
+define('URL', 'https://portal.rnggaming.com/');
 define('URL_CLIENTS', 'http://cube.rnggaming.com/');
 /*Support email*/
 define('SITEEMAIL', 'info@rnggaming.com');
@@ -17,7 +17,6 @@ define('DIR_CLIENTS', 'C:/www/RNGportal/clients/');
 define('DIR_APP', 'C:/www/RNGportal/app/');
 define('DIR_BUILDER', 'C:/www/RNGportal/builder/');
 define('DIR_UPLOADS', 'C:/www/RNGportal/public/uploads/');
-
 
 /** SMTP Credentials **/
 define('SMTP_HOST', 'mail.rnggaming.com');

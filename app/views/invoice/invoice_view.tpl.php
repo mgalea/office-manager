@@ -60,7 +60,7 @@
 									<p class="title"><?php echo $organization; ?><br></p>
 									<p class="body"><?php echo $address['address1']; ?></p>
 									<p class="body"><?php echo $address['address2'] . ' ' . $address['city']; ?></p>
-									<p class="body"><?php echo $address['country'] . '  ' . (isset($address['pincode'])) ? $address['pincode'] : ''; ?></p>
+									<p class="body"><?php echo $address['country'] . '  ' . (isset($address['pin'])) ? $address['pin'] : ''; ?></p>
 								</div>
 							</td>
 							<td class="font-24 text-right">
@@ -75,7 +75,7 @@
 									<?php $caddress = json_decode($result['address'], true); ?>
 									<p class="body"><?php echo $caddress['address1'] . ', ' . $caddress['address2'] . '<br />'; ?></p>
 									<p class="body"><?php echo $caddress['city'] . ' ' . $caddress['state'] . '<br />'; ?></p>
-									<p class="body"><?php echo $caddress['country'] . '  ' . $caddress['pincode']; ?></p>
+									<p class="body"><?php echo $caddress['country'] . '  ' . $caddress['pin']; ?></p>
 									<p class="font-500 font-12">Attention: <?php echo $result['customer_email']; ?></p>
 								</div>
 							</td>
@@ -132,7 +132,7 @@
 								<td rowspan="6" colspan="1">
 								<?php if (!empty($account)) {
 										foreach ($account as $key=>$value) { ?>
-									<span class="font-500"><?php echo $lang['invoices']['text_remittance']; ?></span></br>
+									</br><span class="font-500"><?php echo $lang['invoices']['text_remittance']; ?></span></br>
 									<span class="font-500"><?php echo $lang['bank']['text_account']; ?></span>: <span class="font-100"><?php echo $account[$key]['account_name']; ?></span></br>
 									<span class="font-500"><?php echo $lang['bank']['text_number']; ?></span>: <span class="font-100"><?php echo $account[$key]['account_number']; ?></span></br>
 									<span class="font-500"><?php echo $lang['bank']['text_currency']; ?></span>: <span class="font-100"><?php echo $account[$key]['currency']; ?></span></br>

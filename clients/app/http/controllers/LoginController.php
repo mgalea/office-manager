@@ -239,7 +239,7 @@ class LoginController extends Controller
 			$mailer->mail->AltBody = 'Hello '.$data['name'].'.
 			Welcome to '.URL. PHP_EOL.'Thanks for creating an account with us.
 			If you have not created this account then contact our support team at '.$info['email'].'.';
-			$mailer->sendMail();
+			//$mailer->sendMail();
 
 			/**
 			* Set success message 

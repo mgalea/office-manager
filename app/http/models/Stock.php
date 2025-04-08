@@ -1,29 +1,29 @@
 <?php
 
 /**
- * Inventory
+ * Stock
  */
-class Inventory extends Model
+class Stock extends Model
 {
-    public function getInventory()
+    public function getStock()
 
     {
-        $query = $this->model->query("SELECT " . DB_PREFIX . "inventory.id, inv_number, item, quantity, " . DB_PREFIX . "inventory_type.name AS type, " . DB_PREFIX . "location_type.name AS location FROM " . DB_PREFIX . "inventory, " . DB_PREFIX . "location_type," . DB_PREFIX . "inventory_type 
-        WHERE " . DB_PREFIX . "location_type.id=" . DB_PREFIX . "inventory.location AND " . DB_PREFIX . "inventory_type.id=" . DB_PREFIX . "inventory.type ORDER BY inv_number");
+        $query = $this->model->query("SELECT " . DB_PREFIX . "Stock.id, inv_number, item, quantity, " . DB_PREFIX . "Stock_type.name AS type, " . DB_PREFIX . "location_type.name AS location FROM " . DB_PREFIX . "Stock, " . DB_PREFIX . "location_type," . DB_PREFIX . "Stock_type 
+        WHERE " . DB_PREFIX . "location_type.id=" . DB_PREFIX . "Stock.location AND " . DB_PREFIX . "Stock_type.id=" . DB_PREFIX . "Stock.type ORDER BY inv_number");
 
-        //$query = $this->model->query("SELECT `id`, `inv_number`, `item`, `description` FROM `" . DB_PREFIX . "inventory`");
+        //$query = $this->model->query("SELECT `id`, `inv_number`, `item`, `description` FROM `" . DB_PREFIX . "Stock`");
         return $query->rows;
     }
 
-    public function getInventoryItem($id)
+    public function getStockItem($id)
     {
-        $query = $this->model->query("SELECT * FROM `" . DB_PREFIX . "inventory` WHERE `id` = ? LIMIT 1", array((int)$id));
+        $query = $this->model->query("SELECT * FROM `" . DB_PREFIX . "Stock` WHERE `id` = ? LIMIT 1", array((int)$id));
         return $query->row;
     }
 
-    public function getInventoryTypes()
+    public function getStockTypes()
     {
-        $query = $this->model->query("SELECT `id`, `name` FROM `" . DB_PREFIX . "inventory_type`");
+        $query = $this->model->query("SELECT `id`, `name` FROM `" . DB_PREFIX . "Stock_type`");
         return $query->rows;
     }
 
@@ -35,7 +35,7 @@ class Inventory extends Model
 
     public function getNextID()
     {
-        $query = $this->model->query("SELECT MAX(id)+1 AS next_id FROM `" . DB_PREFIX . "inventory`");
+        $query = $this->model->query("SELECT MAX(id)+1 AS next_id FROM `" . DB_PREFIX . "Stock`");
 
         if ($query->num_rows > 0) {
             return $query->row;
@@ -46,18 +46,18 @@ class Inventory extends Model
 
     public function getItemInvNumber($id)
     {
-        $query = $this->model->query("SELECT `id`, `item` FROM `" . DB_PREFIX . "inventory` WHERE `inv_number` = ? LIMIT 1", array((int)$id));
+        $query = $this->model->query("SELECT `id`, `item` FROM `" . DB_PREFIX . "Stock` WHERE `inv_number` = ? LIMIT 1", array((int)$id));
         return $query->num_rows;
     }
 
-    public function updateInventoryItem($data)
+    public function updateStockItem($data)
     {
         if (!isset($data['stock'])) {
             $data['stock'] = 0;
         }
 
         $query = $this->model->query(
-            "UPDATE `" . DB_PREFIX . "inventory` SET `item` = ?, `location` = ?, `inv_number` = ?, 
+            "UPDATE `" . DB_PREFIX . "Stock` SET `item` = ?, `location` = ?, `inv_number` = ?, 
         `type` = ?, `storage` = ?, `description` = ?, `purchase_date` = ? ,
          `is_stock` = ?, `quantity` = ? WHERE `id` = ? ",
             array(
@@ -73,7 +73,7 @@ class Inventory extends Model
         }
     }
 
-    public function createInventoryItem($data)
+    public function createStockItem($data)
     {
         if (!isset($data['stock'])) {
             $data['stock'] = 0;
@@ -83,7 +83,7 @@ class Inventory extends Model
         }
 
         $query = $this->model->query(
-            "INSERT INTO `" . DB_PREFIX . "inventory` (`item`, `location`, `inv_number`, `type`, `storage`,  
+            "INSERT INTO `" . DB_PREFIX . "Stock` (`item`, `location`, `inv_number`, `type`, `storage`,  
             `description`, `purchase_date`,`is_stock`, `quantity`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
             array(
                 $data['item'], (int)$data['location'], (int)$data['inv_number'],
@@ -99,9 +99,9 @@ class Inventory extends Model
         }
     }
 
-    public function deleteInventoryItem($id)
+    public function deleteStockItem($id)
     {
-        $query = $this->model->query("DELETE FROM `" . DB_PREFIX . "inventory` WHERE `id` = ?", array((int)$id));
+        $query = $this->model->query("DELETE FROM `" . DB_PREFIX . "Stock` WHERE `id` = ?", array((int)$id));
         if ($query->num_rows > 0) {
             return true;
         } else {
@@ -111,7 +111,7 @@ class Inventory extends Model
 
     public function getDocuments($id)
     {
-        $query = $this->model->query("SELECT `id`, `file_name` FROM `" . DB_PREFIX . "attached_files` WHERE `file_type` = ? AND `file_type_id` = ?", array('inventory', $id));
+        $query = $this->model->query("SELECT `id`, `file_name` FROM `" . DB_PREFIX . "attached_files` WHERE `file_type` = ? AND `file_type_id` = ?", array('Stock', $id));
         return $query->rows;
     }
 }

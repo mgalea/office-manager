@@ -49,5 +49,8 @@ $quotes = array(
 	'text_tax_price' => 'Tax price',
 	'text_amount_due' => 'Amount Due',
 	'text_convert_to_invoice' => 'Convert to Invoice',
-	'text_quotation_invoiced' => 'Quotation Invoiced'
+	'text_quotation_invoiced' => 'Quotation Invoiced',
+	'text_from' => 'From',
+	'text_remittance' => 'Payments must be made to:',
+
 );

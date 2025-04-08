@@ -2,6 +2,7 @@
 
 $lang = array(
 	'text_dashboard' => 'Dashboard',
+	'text_name' => 'Name',
 	'text_contacts' => 'Contacts',
 	'text_contact' => 'Contact',
 	'text_leads' => 'Leads',

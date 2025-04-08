@@ -48,26 +48,26 @@
                                         <span class="input-group-text"><i class="far fa-hand-spock"></i></span>
                                     </div>
                                     <select class="custom-select" name="person[salutation]">
-                                        <option value=""><?php echo $lang['person']['text_salutation']; ?></option>
-                                        <option value="<?php echo $lang['person']['text_mr.']; ?>" <?php if ($result['salutation'] == $lang['person']['text_mr.']) {
+                                        <option value="" disabled selected><?php echo $lang['person']['text_salutation']; ?></option>
+                                        <option value="<?php echo $lang['person']['text_mr.']; ?>" <?php if (isset($result['salutation'])  && $result['salutation'] == $lang['person']['text_mr.']) {
                                                                                                         echo "selected";
                                                                                                     } ?>><?php echo $lang['person']['text_mr.']; ?></option>
-                                        <option value="<?php echo $lang['person']['text_mrs.']; ?>" <?php if ($result['salutation'] == $lang['person']['text_mrs.']) {
+                                        <option value="<?php echo $lang['person']['text_mrs.']; ?>" <?php if (isset($result['salutation'])  && $result['salutation'] == $lang['person']['text_mrs.']) {
                                                                                                         echo "selected";
                                                                                                     } ?>><?php echo $lang['person']['text_mrs.']; ?></option>
-                                        <option value="<?php echo $lang['person']['text_ms.']; ?>" <?php if ($result['salutation'] == $lang['person']['text_ms.']) {
+                                        <option value="<?php echo $lang['person']['text_ms.']; ?>" <?php if (isset($result['salutation'])  && $result['salutation'] == $lang['person']['text_ms.']) {
                                                                                                         echo "selected";
                                                                                                     } ?>><?php echo $lang['person']['text_ms.']; ?></option>
-                                        <option value="<?php echo $lang['person']['text_dr.']; ?>" <?php if ($result['salutation'] == $lang['person']['text_dr.']) {
+                                        <option value="<?php echo $lang['person']['text_dr.']; ?>" <?php if (isset($result['salutation'])  && $result['salutation'] == $lang['person']['text_dr.']) {
                                                                                                         echo "selected";
                                                                                                     } ?>><?php echo $lang['person']['text_dr.']; ?></option>
-                                        <option value="<?php echo $lang['person']['text_prof.']; ?>" <?php if ($result['salutation'] == $lang['person']['text_prof.']) {
+                                        <option value="<?php echo $lang['person']['text_prof.']; ?>" <?php if (isset($result['salutation'])  && $result['salutation'] == $lang['person']['text_prof.']) {
                                                                                                             echo "selected";
                                                                                                         } ?>><?php echo $lang['person']['text_prof.']; ?></option>
-                                        <option value="<?php echo $lang['person']['text_rev.']; ?>" <?php if ($result['salutation'] == $lang['person']['text_rev.']) {
+                                        <option value="<?php echo $lang['person']['text_rev.']; ?>" <?php if (isset($result['salutation'])  && $result['salutation'] == $lang['person']['text_rev.']) {
                                                                                                         echo "selected";
                                                                                                     } ?>><?php echo $lang['person']['text_rev.']; ?></option>
-                                        <option value="<?php echo $lang['person']['text_hon.']; ?>" <?php if ($result['salutation'] == $lang['person']['text_hon.']) {
+                                        <option value="<?php echo $lang['person']['text_hon.']; ?>" <?php if (isset($result['salutation'])  && $result['salutation'] == $lang['person']['text_hon.']) {
                                                                                                         echo "selected";
                                                                                                     } ?>><?php echo $lang['person']['text_hon.']; ?></option>
 
@@ -79,7 +79,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="icon-user"></i></span>
                                     </div>
-                                    <input type="text" class="form-control" name="person[firstname]" value="<?php echo $result['firstname']; ?>" placeholder="<?php echo $lang['common']['text_first_name']; ?>" required>
+                                    <input type="text" class="form-control" name="person[firstname]" value="<?php if(isset($result['firstname']))  echo $result['firstname']; ?>" placeholder="<?php echo $lang['common']['text_first_name']; ?>" required>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -87,7 +87,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="icon-user"></i></span>
                                     </div>
-                                    <input type="text" class="form-control" name="person[lastname]" value="<?php echo $result['lastname']; ?>" placeholder="<?php echo $lang['common']['text_last_name']; ?>">
+                                    <input type="text" class="form-control" name="person[lastname]" value="<?php if(isset($result['lastname']))  echo $result['lastname']; ?>" placeholder="<?php echo $lang['common']['text_last_name']; ?>">
                                 </div>
                             </div>
                         </div>
@@ -98,7 +98,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="icon-envelope"></i></span>
                                 </div>
-                                <input type="email" class="form-control" name="person[email]" value="<?php echo $result['email']; ?>" placeholder="<?php echo $lang['common']['text_email_address']; ?>">
+                                <input type="email" class="form-control" name="person[email]" value="<?php if(isset($result['email']))  echo $result['email']; ?>" placeholder="<?php echo $lang['common']['text_email_address']; ?>">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -107,7 +107,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="icon-phone"></i></span>
                                 </div>
-                                <input type="number" class="form-control" name="person[phone]" value="<?php echo $result['phone']; ?>" placeholder="<?php echo $lang['common']['text_phone_number']; ?>">
+                                <input type="number" class="form-control" name="person[phone]" value="<?php if(isset($result['phone'])) echo $result['phone']; ?>" placeholder="<?php echo $lang['common']['text_phone_number']; ?>">
                             </div>
                         </div>
                         <div class="form-group row align-items-start">
@@ -125,7 +125,7 @@
 
                                             foreach ($companies as $key => $value) { ?>
 
-                                                <option value="<?php echo $value['id'] ?>" <?php if ($result['company'] == $value['id']) {
+                                                <option value="<?php echo $value['id'] ?>" <?php if (isset($result['company']) && $result['company'] == $value['id']) {
                                                                                                 echo "selected";
                                                                                             } ?>>
                                                     <?php echo $value['name']; ?>
@@ -142,7 +142,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="far fa-building"></i></span>
                                     </div>
-                                    <input type="text" class="form-control" name="person[designation]" value="<?php echo $result['designation']; ?>" placeholder="<?php echo $lang['person']['text_designation']; ?>">
+                                    <input type="text" class="form-control" name="person[designation]" value="<?php if(isset($result['designation'])) echo $result['designation']; ?>" placeholder="<?php echo $lang['person']['text_designation']; ?>">
                                 </div>
                             </div>
                         </div>
@@ -155,7 +155,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="icon-direction"></i></span>
                                     </div>
-                                    <input type="text" class="form-control" name="person[address][address1]" value="<?php echo $result['address']['address1'] ?>" placeholder="<?php echo $lang['person']['text_address_line_1'] ?>">
+                                    <input type="text" class="form-control" name="person[address][address1]" value="<?php if(isset($result['address']['address1'])) echo $result['address']['address1'] ?>" placeholder="<?php echo $lang['person']['text_address_line_1'] ?>">
                                 </div>
                             </div>
                             <div class="col-md-5">
@@ -163,7 +163,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="icon-directions"></i></span>
                                     </div>
-                                    <input type="text" class="form-control" name="person[address][address2]" value="<?php echo $result['address']['address2'] ?>" placeholder="<?php echo $lang['person']['text_address_line_2'] ?>">
+                                    <input type="text" class="form-control" name="person[address][address2]" value="<?php if(isset($result['address']['address2'])) echo $result['address']['address2'] ?>" placeholder="<?php echo $lang['person']['text_address_line_2'] ?>">
                                 </div>
                             </div>
                         </div>
@@ -173,7 +173,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="icon-location-pin"></i></span>
                                 </div>
-                                <input type="text" class="form-control" name="person[address][city]" value="<?php echo $result['address']['city'] ?>" placeholder="<?php echo $lang['person']['text_city'] ?>">
+                                <input type="text" class="form-control" name="person[address][city]" value="<?php if(isset($result['address']['city'])) echo $result['address']['city'] ?>" placeholder="<?php echo $lang['person']['text_city'] ?>">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -182,7 +182,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="icon-map"></i></span>
                                 </div>
-                                <input type="text" class="form-control" name="person[address][state]" value="<?php echo $result['address']['state'] ?>" placeholder="<?php echo $lang['person']['text_state'] ?>">
+                                <input type="text" class="form-control" name="person[address][state]" value="<?php if(isset($result['state']['state'])) echo $result['state']['state'] ?>" placeholder="<?php echo $lang['person']['text_state'] ?>">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -191,7 +191,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="icon-globe"></i></span>
                                 </div>
-                                <input type="text" class="form-control" name="person[address][country]" value="<?php echo $result['address']['country'] ?>" placeholder="<?php echo $lang['person']['text_country'] ?>">
+                                <input type="text" class="form-control" name="person[address][country]" value="<?php if(isset($result['address']['country'])) echo $result['address']['country'] ?>" placeholder="<?php echo $lang['person']['text_country'] ?>">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -200,7 +200,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="icon-flag"></i></span>
                                 </div>
-                                <input type="text" class="form-control" name="person[address][pincode]" value="<?php echo $result['address']['pincode'] ?>" placeholder="<?php echo $lang['person']['text_pincode'] ?>">
+                                <input type="text" class="form-control" name="person[address][pincode]" value="<?php if(isset($result['address']['pincode'])) echo $result['address']['pincode'] ?>" placeholder="<?php echo $lang['person']['text_pincode'] ?>">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -209,7 +209,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="icon-phone"></i></span>
                                 </div>
-                                <input type="text" class="form-control" name="person[address][phone1]" value="<?php echo $result['address']['phone1'] ?>" placeholder="<?php echo $lang['common']['text_phone_number'] ?>">
+                                <input type="text" class="form-control" name="person[address][phone1]" value="<?php if(isset($result['address']['phone1'])) echo $result['address']['phone1'] ?>" placeholder="<?php echo $lang['common']['text_phone_number'] ?>">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -218,14 +218,13 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="icon-call-in"></i></span>
                                 </div>
-                                <input type="text" class="form-control" name="person[address][fax]" value="<?php echo $result['address']['fax'] ?>" placeholder="<?php echo $lang['person']['text_fax']; ?>">
+                                <input type="text" class="form-control" name="person[address][fax]" value="<?php if(isset($result['address']['fax'])) echo $result['address']['fax'] ?>" placeholder="<?php echo $lang['person']['text_fax']; ?>">
                             </div>
                         </div>
                     </div>
                     <div class="tab-pane" id="person-contacts">
                         <div class="row">
                             <label class="col-form-label"><?php echo $lang['person']['text_contact_persons'] . ' (' . $lang['person']['text_for_emergency'] . ')'; ?></label>
-
                             <div class="col-12">
                                 <div class="table-responsive">
                                     <table class="table table-input font-12">
@@ -325,7 +324,7 @@
                     <div class="tab-pane" id="remarks">
                         <div class="form-group">
                             <label class="col-form-label"><?php echo $lang['person']['text_remark'] . ' (' . $lang['person']['text_for_internal_use'] . ')'; ?></label>
-                            <textarea id='summernote' class="summernote" name="person[remark]"><?php echo $result['remark']; ?></textarea>
+                            <textarea id='summernote' class="summernote" name="person[remark]"><?php  if(isset($result['remark'])) echo $result['remark']; ?></textarea>
                         </div>
                     </div>
                     <div class="tab-pane" id="documents">
@@ -343,9 +342,10 @@
                                         <?php if (!empty($documents)) {
                                             foreach ($documents as $key => $value) {
                                                 $file_ext = pathinfo($value['file_name'], PATHINFO_EXTENSION);
-                                                if ($file_ext == "pdf") { ?>
+
+                                                if (strtolower($file_ext) == "pdf") { ?>
                                                     <div class="attached-files-block">
-                                                        <a href="public/uploads/<?php echo $value['file_name']; ?>" class="open-pdf"><i class="fa fa-file-pdf"></i></a>
+                                                        <a href="public/uploads/<?php echo $value['file_name']; ?>" class="open-pdf"><i class="fa fa-file-pdf"></i><span class="filename"><?php echo $value['file_name']; ?></span></a>
                                                         <input type="hidden" name="document[attached][]" value="<?php echo $value['file_name']; ?>">
                                                         <div class="delete-file"><a class="fa fa-trash"></a></div>
                                                     </div>
@@ -364,7 +364,9 @@
                         </div>
                     </div>
                 </div>
-                <input type="hidden" name="id" value="<?php echo $result['id']; ?>">
+                <input type="hidden" name="id" value="<?php if (isset($result['id'])) {
+                                                                    echo $result['id'];
+                                                                } ?>">
             </div>
             <div class="panel-footer">
                 <div class="row">
@@ -440,7 +442,6 @@
         $(this).parents('tr').remove();
     })
 
-    $(document).ready(function() {
         $("a.open-pdf").fancybox({
             'frameWidth': 800,
             'frameHeight': 900,
@@ -524,7 +525,6 @@
             });
             ele.parents('.attached-files-block').remove();
         });
-    });
 </script>
 <!-- Footer -->
 <?php include(DIR . 'app/views/common/footer.tpl.php'); ?>

@@ -7310,6 +7310,17 @@ div.dataTables_wrapper {
   background: #ebe9f2;
   opacity: 0.3; }
 
+@media only screen and (max-width: 600px) {
+  div.dataTables_wrapper {
+    font-size: 12px; }
+
+  .page-item .page-link {
+    height: 20px;
+    min-width: 20px;
+    padding: 0px;
+    font-size: 14px;
+    border-radius: 50%;
+    margin: 2px; } }
 td.details-control {
   background: url("../../assets/plugin/datatable/details_open.png") no-repeat center center;
   cursor: pointer; }
@@ -7904,6 +7915,10 @@ div.dataTables_wrapper {
   font-size: 14px;
   margin: 10px 0 10px 0; }
 
+@media only screen and (max-width: 480px) {
+  div.dataTables_wrapper {
+    font-size: 12px;
+    padding: 5px 25px 25px 10px; } }
 .fc button:active {
   color: #333;
   background: #FFF; }
@@ -8043,6 +8058,9 @@ div.dataTables_wrapper {
 .panel-wrapper {
   padding: 25px; }
 
+@media screen and (max-width: 480px) {
+  .panel-wrapper {
+    padding: 5px; } }
 .panel-head {
   display: table;
   width: 100%;
@@ -9724,6 +9742,17 @@ div.dataTables_wrapper {
   background: #ebe9f2;
   opacity: 0.3; }
 
+@media only screen and (max-width: 600px) {
+  div.dataTables_wrapper {
+    font-size: 12px; }
+
+  .page-item .page-link {
+    height: 20px;
+    min-width: 20px;
+    padding: 0px;
+    font-size: 14px;
+    border-radius: 50%;
+    margin: 2px; } }
 td.details-control {
   background: url("../../assets/plugin/datatable/details_open.png") no-repeat center center;
   cursor: pointer; }
@@ -9785,15 +9814,13 @@ tr.shown td.details-control {
 .custom-file-label {
   font-size: 16px;
   font-weight: 400;
-  height: 51px;
-  line-height: 51px;
-  padding: 0 20px;
+  height: 42px;
+  line-height: 42px;
+  padding: 0 10px;
   color: #333;
-  margin: 0 0 12px 0;
+  margin: 0 0 10px 0;
   width: 100%;
   background-color: #bbb;
-  border: 1px solid #dbdbdb;
-  box-shadow: 0 1px 3px 0px rgba(0, 0, 0, 0.06);
   border-radius: 4px; }
   .form-group input::-webkit-input-placeholder,
   .form-control::-webkit-input-placeholder,
@@ -10202,6 +10229,19 @@ select.form-control:not([size]):not([multiple]) {
   box-shadow: 0 1px 3px 0px rgba(0, 0, 0, 0.06);
   border-radius: 4px; }
 
+@media only screen and (max-width: 600px) {
+  .form-group input,
+  .form-control,
+  .custom-select,
+  .select,
+  .chosen-select,
+  .chosen-select-no-single,
+  .chosen-select-no-results,
+  .chosen-select-deselect,
+  .chosen-select-rtl,
+  .chosen-select-width,
+  .custom-file-label {
+    font-size: 12px; } }
 /************************************************
 [ DROPZONE CSS START ] **************************
 *************************************************/
@@ -11837,6 +11877,12 @@ select.form-control:not([size]):not([multiple]) {
 .table-input td .bootstrap-select > .dropdown-toggle {
   border: 0; }
 
+@media screen and (max-width: 600px) {
+  .table-container th {
+    font-size: 12px; }
+  .table-container td {
+    vertical-align: middle;
+    font-size: 12px; } }
 /**************************************************
 [ INVOICE CSS START] ******************************
 //*************************************************/
@@ -12861,14 +12907,15 @@ select.form-transparent {
   vertical-align: top;
   margin: 0 0 0 0; }
   .delete-file a {
-    width: 28px;
-    height: 28px;
-    line-height: 28px;
+    width: 22px;
+    height: 22px;
+    line-height: 22px;
     font-size: 14px !important;
     color: #FFF;
     text-align: center;
     background-color: #ff2424;
-    border-radius: 2px; }
+    border-radius: 4px;
+    margin-top: 5px; }
 
 /**************************************************
 [ NOTE CSS START] *********************************
@@ -13111,6 +13158,9 @@ Card CLASS **************************************
   padding: 3px;
   margin: 5px 0 5px 0;
   border: 1px solid #333; }
+
+.modal-backdrop {
+  opacity: 0.8 !important; }
 
 .ticket-info {
   padding: 0 0 20px 0; }

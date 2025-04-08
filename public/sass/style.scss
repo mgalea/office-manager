@@ -181,6 +181,13 @@ div.dataTables_wrapper {
   margin: 10px 0 10px 0;
 }
 
+@media only screen and (max-width: 480px) {
+  div.dataTables_wrapper {
+    font-size: $smallFont;
+    padding: 5px 25px 25px 10px;
+  }
+}
+
 .fc {
   button {
     &:active {
@@ -241,7 +248,7 @@ div.dataTables_wrapper {
 
 .placeholder {
   display: block;
-  min-height:1rem;
+  min-height: 1rem;
 }
 
 /************************************************
@@ -496,7 +503,6 @@ div.dataTables_wrapper {
 /**************************************************
 [ MENU CSS STAR] **********************************
 ***************************************************/
-
 
 .boxed {
   max-width: 1170px;
@@ -1349,11 +1355,8 @@ div.dataTables_wrapper {
   }
 
   .phones {
-
-      color: $color-success;
-  
+    color: $color-success;
   }
-
 
   .menu-dropdown-head {
     border-bottom: 1px solid $colorD;
@@ -1478,8 +1481,6 @@ div.dataTables_wrapper {
 /**************************************************
 [ TABLE CSS START] *********************************
 //*************************************************/
-.content {
-}
 
 .table-container {
   background: rgba(0, 0, 0, 0.2);
@@ -1531,7 +1532,7 @@ div.dataTables_wrapper {
 
 .table-action {
   min-width: 120px;
-  width:140px;
+  width: 140px;
   text-align: center;
 
   p {
@@ -1567,6 +1568,20 @@ div.dataTables_wrapper {
 
     .bootstrap-select > .dropdown-toggle {
       border: 0;
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .table-container {
+
+    th {
+      font-size: $smallFont;
+    }
+
+    td {
+      vertical-align: middle;
+      font-size: $smallFont;
     }
   }
 }
@@ -3048,14 +3063,15 @@ select.form-transparent {
   margin: 0 0 0 0;
 
   a {
-    width: 28px;
-    height: 28px;
-    line-height: 28px;
+    width: 22px;
+    height: 22px;
+    line-height: 22px;
     font-size: $sMediumFont !important;
     color: $colorF;
     text-align: center;
     background-color: $color-danger;
-    border-radius: 2px;
+    border-radius: 4px;
+    margin-top:5px
   }
 }
 
@@ -3407,6 +3423,10 @@ Card CLASS **************************************
   padding: 3px;
   margin: 5px 0 5px 0;
   border: 1px solid $color3;
+}
+
+.modal-backdrop {
+  opacity: 0.8 !important;
 }
 
 .ticket-info {

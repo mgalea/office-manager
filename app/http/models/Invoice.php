@@ -8,7 +8,7 @@ class Invoice extends Model
 	public function getInvoices()
 	{
 		$query = $this->model->query("SELECT i.*, c.name AS `customer_name`, cr.abbr AS `abbr`, s.name AS `subsidiary` FROM `" . DB_PREFIX . "invoice` AS i LEFT JOIN `" . DB_PREFIX . "companies` AS c ON c.id = i.customer 
-		LEFT JOIN `" . DB_PREFIX ."currency` AS cr ON i.currency = cr.id LEFT JOIN `" . DB_PREFIX . "companies` AS s ON s.id = i.billing_id ORDER BY i.inv_date DESC");
+		LEFT JOIN `" . DB_PREFIX . "currency` AS cr ON i.currency = cr.id LEFT JOIN `" . DB_PREFIX . "companies` AS s ON s.id = i.billing_id ORDER BY i.inv_date DESC");
 		return $query->rows;
 	}
 
@@ -33,7 +33,7 @@ class Invoice extends Model
 		}
 	}
 
-	public function getCompanies()
+	public function getSubdiaries()
 	{
 		$query = $this->model->query("SELECT * FROM `" . DB_PREFIX . "companies` WHERE type=2 ORDER BY `name` ASC");
 		return $query->rows;
@@ -43,8 +43,8 @@ class Invoice extends Model
 	public function getInvoiceView($id)
 	{
 		$query = $this->model->query("SELECT i.*, c.name AS company, c.email AS customer_email, c.address, p.name AS payment, cr.name AS currency_name, cr.abbr AS currency_abbr, s.name AS subsidiary, s.address AS sbaddress 
-		FROM `" . DB_PREFIX . "invoice` AS i INNER JOIN `" . DB_PREFIX . "companies` AS c ON i.customer = c.id INNER JOIN `" 
-		. DB_PREFIX . "payment_type` AS p ON i.paymenttype = p.id INNER JOIN `" . DB_PREFIX ."currency` AS cr ON i.currency = cr.id 
+		FROM `" . DB_PREFIX . "invoice` AS i INNER JOIN `" . DB_PREFIX . "companies` AS c ON i.customer = c.id INNER JOIN `"
+			. DB_PREFIX . "payment_type` AS p ON i.paymenttype = p.id INNER JOIN `" . DB_PREFIX . "currency` AS cr ON i.currency = cr.id 
 		INNER JOIN `" . DB_PREFIX . "companies` AS s ON i.billing_id = s.id WHERE i.id = ? LIMIT 1", array((int)$id));
 
 		if ($query->num_rows > 0) {
@@ -54,16 +54,6 @@ class Invoice extends Model
 		}
 	}
 
-	public function getBankAccount($id)
-	{
-		$query = $this->model->query("SELECT bank.name AS bank, acc.* FROM kk_bank_accounts AS acc, kk_invoice AS inv, kk_companies AS bank WHERE inv.account = acc.id AND bank.id=acc.bank AND inv.id = ? LIMIT 1", array((int)$id));
-
-		if ($query->num_rows > 0) {
-			return $query->row;
-		} else {
-			return false;
-		}
-	}
 
 	public function getAttachments($id)
 	{
@@ -114,7 +104,7 @@ class Invoice extends Model
 
 	public function getBiller($id)
 	{
-		$query = $this->model->query("SELECT * FROM `" . DB_PREFIX . "companies` WHERE `id`=?",array((int)$id));
+		$query = $this->model->query("SELECT * FROM `" . DB_PREFIX . "companies` WHERE `id`=?", array((int)$id));
 		if ($query->num_rows > 0) {
 			return $query->row;
 		} else {
@@ -124,7 +114,7 @@ class Invoice extends Model
 
 	public function getCustomer($id)
 	{
-		$query = $this->model->query("SELECT `id`, `name` As company FROM `" . DB_PREFIX . "companies` WHERE `id`=?",array((int)$id));
+		$query = $this->model->query("SELECT `id`, `name` As company FROM `" . DB_PREFIX . "companies` WHERE `id`=?", array((int)$id));
 		if ($query->num_rows > 0) {
 			return $query->row;
 		} else {
@@ -146,7 +136,30 @@ class Invoice extends Model
 
 	public function updateInvoice($data)
 	{
-		$query = $this->model->query("UPDATE `" . DB_PREFIX . "invoice` SET `customer` = ?, `duedate` = ?, `paiddate` = ?, `currency` = ?, `paymenttype` = ?, `items` = ?, `subtotal` = ?, `tax` = ?, `discount` = ?, `discount_type` = ?, `discount_value` = ?, `amount` = ?, `paid` = ?, `due` = ?, `note` = ?, `tc` = ?, `status` = ?, `inv_status` = ? WHERE `id` = ?", array((int)$data['customer'], $this->model->escape($data['duedate']), $this->model->escape($data['paiddate']), (int)$data['currency'], (int)$data['paymenttype'], $data['item'], $data['subtotal'], $data['tax'], $data['discount'], $data['discounttype'], $data['discount_value'], $data['amount'], $data['paid'], $data['due'], $data['note'], $data['tc'], $data['status'], $data['inv_status'], (int)$data['id']));
+		$query = $this->model->query(
+			"UPDATE `" . DB_PREFIX . "invoice` SET `customer` = ?, `duedate` = ?, `paiddate` = ?, `currency` = ?, `paymenttype` = ?, `items` = ?, `subtotal` = ?, `tax` = ?, `discount` = ?, `discount_type` = ?, `discount_value` = ?, `amount` = ?, `paid` = ?, `due` = ?, `note` = ?, `tc` = ?, `billing_id` = ?,  `inv_status` = ? WHERE `id` = ?",
+			array(
+				(int)$data['customer'],
+				$this->model->escape($data['duedate']),
+				$this->model->escape($data['paiddate']),
+				(int)$data['currency'],
+				(int)$data['paymenttype'],
+				$data['item'],
+				$data['subtotal'],
+				$data['tax'],
+				$data['discount'],
+				$data['discounttype'],
+				$data['discount_value'],
+				$data['amount'],
+				$data['paid'],
+				$data['due'],
+				$data['note'],
+				$data['tc'],
+				(int)$data['billing_id'],
+				$data['inv_status'],
+				(int)$data['id']
+			)
+		);
 
 		if ($query->num_rows > 0) {
 			return true;
@@ -178,9 +191,11 @@ class Invoice extends Model
 
 	public function createQuoteInvoice($data)
 	{
-		$query = $this->model->query("INSERT INTO `" . DB_PREFIX . "invoice` (`customer`, `currency`, `duedate`, `paiddate`, `paymenttype`, `items`, `subtotal`, `tax`, `discount`, `discount_type`, `discount_value`, `amount`, `paid`, `due`, `note`, `tc`, `status`) 
-		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", 
-		array((int)$data['customer'], (int)$data['currency'], $this->model->escape($data['duedate']), $this->model->escape($data['paiddate']), (int)$data['paymenttype'], $data['items'], $data['subtotal'], $data['tax'], $data['discount'], $data['discounttype'], $data['discount_value'], $data['amount'], $data['paid'], $data['due'], $data['note'], $data['tc'], $data['status']));
+		$query = $this->model->query(
+			"INSERT INTO `" . DB_PREFIX . "invoice` (`customer`, `currency`, `duedate`, `paiddate`, `paymenttype`, `items`, `subtotal`, `tax`, `discount`, `discount_type`, `discount_value`, `amount`, `paid`, `due`, `note`, `tc`, `status`) 
+		VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+			array((int)$data['customer'], (int)$data['currency'], $this->model->escape($data['duedate']), $this->model->escape($data['paiddate']), (int)$data['paymenttype'], $data['items'], $data['subtotal'], $data['tax'], $data['discount'], $data['discounttype'], $data['discount_value'], $data['amount'], $data['paid'], $data['due'], $data['note'], $data['tc'], $data['status'])
+		);
 
 		if ($query->num_rows > 0) {
 			$id = $this->model->last_id();
@@ -241,18 +256,17 @@ class Invoice extends Model
 	public function getInvoiceBankAccountDetails($id)
 	{
 		$query = $this->model->query("SELECT acc.name as account_name, acc.number as account_number, acc.sort_code as sort_code,
-                                        acc.iban,  acc.swift as swift_code, curr.name as currency, curr.abbr as abbr, bank.name as bank_name,
-                                        acc.bank_branch as bank_branch, acc.remittance as remittance 
-                                        FROM kk_companies as sub, kk_bank_accounts as acc 
-                                        INNER JOIN kk_currency as curr ON acc.currency=curr.id 
-                                        INNER JOIN kk_companies as bank ON acc.bank=bank.id 
-                                        WHERE sub.id=(SELECT company FROM office_manager.kk_invoice where id=?)", array((int)$id));
+		acc.iban,  acc.swift as swift_code, bank.name as bank_name,
+		acc.bank_branch as bank_branch, acc.remittance as remittance 
+		FROM kk_companies as bank, kk_bank_accounts as acc 
+		WHERE acc.company= (SELECT billing_id FROM office_manager.kk_invoice WHERE id=?) AND
+		bank.id= acc.bank;", array((int)$id));
 		if ($query->num_rows > 0) {
 			return $query->rows;
 		} else {
 			return '';
 		}
-	}                                    
+	}
 
 
 	public function getInvoicesCreatedfromRecurring($id)

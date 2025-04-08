@@ -25,8 +25,8 @@
                             <div class="input-group">
 
                                 <select class="selectpicker" data-width="100%" data-live-search="true" data-placeholder="Select Billing Company" name="invoice[billing_id]">
-                                    <?php if (!empty($companies)) {
-                                        foreach ($companies as $key => $value) { ?>
+                                    <?php if (!empty($subsidiaries)) {
+                                        foreach ($subsidiaries as $key => $value) { ?>
                                             <option value="<?php echo $value['id'] ?>" <?php if (isset($result['billing_id']) && $result['billing_id'] == $value['id']) {
                                                                                             echo "selected";
                                                                                         } ?>><?php echo $value['name'] ?></option>
@@ -43,7 +43,7 @@
                                 <select class="selectpicker" name="invoice[customer]" data-width="100%" data-live-search="true" title="<?php echo $lang['common']['text_customer']; ?>" required>
                                     <?php if (!empty($customers)) {
                                         foreach ($customers as $key => $value) { ?>
-                                            <option value="<?php echo $value['id']; ?>" <?php if ($value['id'] == $result['customer']) {
+                                            <option value="<?php echo $value['id']; ?>" <?php if (isset($result['customer']) && $value['id'] == $result['customer']) {
                                                                                             echo "selected";
                                                                                         } ?>><?php echo $value['company']; ?></option>
                                     <?php }
@@ -59,6 +59,9 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="icon-event"></i></span>
                                 </div>
+                                <?php if (!isset($result['duedate'])) {
+                                    $result['duedate'] = date("Y/m/d");
+                                } ?>
                                 <input type="text" id="duedate" name="invoice[duedate]" class="form-control date" value="<?php echo date_format(date_create($result['duedate'])->add(new DateInterval('P30D')), 'd-m-Y') ?>" placeholder="<?php echo $lang['invoices']['text_due_date']; ?>">
 
                             </div>
@@ -80,7 +83,7 @@
                                 <select name="invoice[currency]" class="custom-select" required>
                                     <?php if ($currency) {
                                         foreach ($currency as $key => $value) { ?>
-                                            <option value="<?php echo $value['id'] ?>" <?php if ($result['currency'] == $value['id']) {
+                                            <option value="<?php echo $value['id'] ?>" <?php if (isset($result['currency']) && $result['currency'] == $value['id']) {
                                                                                             echo "selected";
                                                                                         } ?>><?php echo $value['name']; ?></option>
                                     <?php }
@@ -100,7 +103,7 @@
                                     <option value=""><?php echo $lang['invoices']['text_payment_method']; ?></option>
                                     <?php if ($payment_type) {
                                         foreach ($payment_type as $key => $value) { ?>
-                                            <option value="<?php echo $value['id'] ?>" <?php if ($result['paymenttype'] == $value['id']) {
+                                            <option value="<?php echo $value['id'] ?>" <?php if (isset($result['paymenttype']) && $result['paymenttype'] == $value['id']) {
                                                                                             echo "selected";
                                                                                         } ?>><?php echo $value['name']; ?></option>
                                     <?php }
@@ -118,10 +121,10 @@
                                     <span class="input-group-text"><i class="icon-check"></i></span>
                                 </div>
                                 <select name="invoice[inv_status]" class="custom-select" required>
-                                    <option value="0" <?php if ($result['inv_status'] == "0") {
+                                    <option value="0" <?php if (isset($result['inv_status']) && $result['inv_status'] == "0") {
                                                             echo "selected";
                                                         } ?>><?php echo $lang['invoices']['text_draft']; ?></option>
-                                    <option value="1" <?php if ($result['inv_status'] == "1") {
+                                    <option value="1" <?php if (isset($result['inv_status']) && $result['inv_status'] == "1") {
                                                             echo "selected";
                                                         } ?>><?php echo $lang['invoices']['text_published']; ?></option>
                                 </select>
@@ -222,7 +225,7 @@
                                 <label><?php echo $lang['invoices']['text_sub_total']; ?></label>
                             </td>
                             <td colspan="2" class="total-value">
-                                <input type="text" name="invoice[subtotal]" class="form-transparent sub-total" value="<?php echo $result['subtotal'] ?>" readonly>
+                                <input type="text" name="invoice[subtotal]" class="form-transparent sub-total" value="<?php if (isset($result['subtotal'])) echo $result['subtotal'] ?>" readonly>
                             </td>
                         </tr>
                         <tr>
@@ -232,7 +235,7 @@
                                 <label><?php echo $lang['invoices']['text_tax']; ?></label>
                             </td>
                             <td colspan="2" class="total-value">
-                                <input type="text" name="invoice[tax]" class="form-transparent tax-total" value="<?php echo $result['tax'] ?>" readonly>
+                                <input type="text" name="invoice[tax]" class="form-transparent tax-total" value="<?php if (isset($result['tax'])) echo $result['tax'] ?>" readonly>
                             </td>
                         </tr>
                         <tr>
@@ -243,10 +246,10 @@
                                     <div class="col-8"><label><?php echo $lang['invoices']['text_discount']; ?></label></div>
                                     <div class="col-4">
                                         <select name="invoice[discounttype]" class="form-control discount-type">
-                                            <option value="1" <?php if ($result['discount_type'] == 1) {
+                                            <option value="1" <?php if (isset($result['discount_type']) && $result['discount_type'] == 1) {
                                                                     echo "selected";
                                                                 } ?>>%</option>
-                                            <option value="2" <?php if ($result['discount_type'] == 2) {
+                                            <option value="2" <?php if (isset($result['discount_type']) && $result['discount_type'] == 2) {
                                                                     echo "selected";
                                                                 } ?>><?php echo $lang['invoices']['text_flat']; ?></option>
                                         </select>
@@ -254,8 +257,8 @@
                                 </div>
                             </td>
                             <td colspan="2" class="total-value">
-                                <input type="text" name="invoice[discount]" class="form-transparent discount-total" value="<?php echo $result['discount'] ?>">
-                                <input type="hidden" class="discount_amount" name="invoice[discount_value]" value="<?php echo $result['discount_value'] ?>">
+                                <input type="text" name="invoice[discount]" class="form-transparent discount-total" value="<?php if (isset($result['discount'])) echo $result['discount']; ?>">
+                                <input type="hidden" class="discount_amount" name="invoice[discount_value]" value="<?php if (isset($result['discount_value'])) echo $result['discount_value']; ?>">
                             </td>
                         </tr>
                         <tr>
@@ -265,7 +268,11 @@
                                 <label><?php echo $lang['invoices']['text_total']; ?></label>
                             </td>
                             <td colspan="2" class="total-value">
-                                <input type="text" name="invoice[amount]" class="form-transparent  total-amount" value="<?php echo $result['amount'] ?>" readonly>
+                                <input type="text" name="invoice[amount]" class="form-transparent  total-amount" value="<?php if (isset($result['amount'])) {
+                                                                                                                            echo $result['amount'];
+                                                                                                                        } else {
+                                                                                                                            echo '';
+                                                                                                                        } ?>" readonly>
                             </td>
                         </tr>
                         <tr>
@@ -275,7 +282,7 @@
                                 <label><?php echo $lang['invoices']['text_paid']; ?></label>
                             </td>
                             <td colspan="2" class="total-value">
-                                <input type="text" name="invoice[paid]" class="form-transparent paid-amount" value="<?php echo $result['paid'] ?>">
+                                <input type="text" name="invoice[paid]" class="form-transparent paid-amount" value="<?php if (isset($result['paid']))  echo $result['paid'] ?>">
                             </td>
                         </tr>
                         <tr>
@@ -285,7 +292,7 @@
                                 <label><?php echo $lang['invoices']['text_due']; ?></label>
                             </td>
                             <td colspan="2" class="total-value">
-                                <input type="text" name="invoice[due]" class="form-transparent due-amount" value="<?php echo $result['due'] ?>" readonly>
+                                <input type="text" name="invoice[due]" class="form-transparent due-amount" value="<?php if (isset($result['due'])) echo $result['due'] ?>" readonly>
                             </td>
                         </tr>
                     </tbody>
@@ -298,14 +305,14 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label><?php echo $lang['invoices']['text_customer_note']; ?></label>
-                                <textarea class="form-control" name="invoice[note]" rows="3"><?php echo $result['note']; ?></textarea>
+                                <textarea class="form-control" name="invoice[note]" rows="3"><?php if (isset($result['note '])) echo $result['note']; ?></textarea>
                             </div>
                         </div>
 
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label><?php echo $lang['invoices']['text_terms_Conditions']; ?></label>
-                                <textarea class="form-control" name="invoice[tc]" rows="3"><?php echo $result['tc']; ?></textarea>
+                                <textarea class="form-control" name="invoice[tc]" rows="3"><?php if (isset($result['tc'])) echo $result['tc']; ?></textarea>
                             </div>
                         </div>
                     </div>
@@ -318,6 +325,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="icon-check"></i></span>
                                     </div>
+                                    <?php if (!isset($result['status'])) $result['status'] = "Unpaid"; ?>
                                     <select name="invoice[status]" id="" class="custom-select" required>
                                         <option value="Paid" <?php if ("paid" == $result['status']) {
                                                                     echo "selected";
@@ -354,7 +362,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="icon-calendar"></i></span>
                                     </div>
-                                    <input type="text" name="invoice[paiddate]" class="form-control date" value="<?php echo date_format(date_create($result['paiddate']), 'd-m-Y'); ?>" placeholder="<?php echo $lang['invoices']['text_paid_date']; ?>">
+                                    <input type="text" name="invoice[paiddate]" class="form-control date" value="<?php if (isset($result['paiddate'])) echo date_format(date_create($result['paiddate']), 'd-m-Y'); ?>" placeholder="<?php echo $lang['invoices']['text_paid_date']; ?>">
                                 </div>
                             </div>
                         </div>

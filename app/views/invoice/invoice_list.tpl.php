@@ -67,8 +67,8 @@
                                     <?php } ?>
                                 </td>
                                 <td class="table-action">
-                                    <a href="<?php echo URL . DIR_ROUTE . 'invoice/view&id=' . $value['id']; ?>" class="btn btn-success " data-toggle="tooltip" title="<?php echo $lang['common']['text_view']; ?>"><i class="fa fa-eye"></i></a>
-                                    <a href="<?php echo URL . DIR_ROUTE . 'invoice/edit&id=' . $value['id']; ?>" class="btn btn-primary text-info  " data-toggle="tooltip" title="<?php echo $lang['common']['text_edit']; ?>"><i class="icon-pencil"></i></a>
+                                    <a target="_blank" href="<?php echo URL . DIR_ROUTE . 'invoice/view&id=' . $value['id']; ?>" class="btn btn-success " data-toggle="tooltip" title="<?php echo $lang['common']['text_view']; ?>"><i class="fa fa-eye"></i></a>
+                                    <a target="_blank" href="<?php echo URL . DIR_ROUTE . 'invoice/edit&id=' . $value['id']; ?>" class="btn btn-primary text-info  " data-toggle="tooltip" title="<?php echo $lang['common']['text_edit']; ?>"><i class="icon-pencil"></i></a>
                                     <p class="btn btn-warning  text-dark table-delete" data-toggle="tooltip" data-placement="top" title="<?php echo $lang['common']['text_delete']; ?>"><i class="icon-trash"></i><input type="hidden" value="<?php echo $value['id']; ?>"></p>
                                 </td>
                             </tr>

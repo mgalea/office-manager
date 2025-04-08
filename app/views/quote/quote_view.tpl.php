@@ -7,6 +7,11 @@
 			<i class="icon-calculator panel-head-icon"></i>
 			<span class="panel-title-text"><?php echo $page_title; ?></span>
 		</div>
+		<div class="panel-action">
+
+                <a href="<?php echo URL.DIR_ROUTE . 'quotes'; ?>" class="btn btn-white btn-icon" data-toggle="tooltip" title="<?php echo $lang['common']['text_back_to_list'] ?>"><i class="fa fa-reply"></i></a>
+            
+        </div>
 	</div>
 	<div class="panel-wrapper">
 		<div class="inv-template">
@@ -44,9 +49,8 @@
 							<td>
 								<div class="inv-bill-to">
 									<p><?php echo $lang['quotes']['text_quote_to']; ?></p>
-									<p class="title"><?php echo $result['company']; ?></p>
-									<p class="font-500 font-14"><?php echo $result['email']; ?></p>
-									<?php $caddress = json_decode($result['address'], true); ?>
+									<p class="title"><?php echo $result['customer_name']; ?></p>
+									<?php $caddress = json_decode($result['customer_address'], true); ?>
 									<p class="body"><?php echo $caddress['address1'].', '.$caddress['address2'].'<br />'; ?></p>
 									<p class="body"><?php echo $caddress['city'].' '.$caddress['state'].'<br />'; ?></p>
 									<p class="body"><?php echo $caddress['country'].'  '.$caddress['pin']; ?></p>

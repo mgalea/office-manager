@@ -10,7 +10,17 @@
     <!-- Font Faimily -->
     <link href="https://fonts.googleapis.com/css?family=Dosis:500,600" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500" rel="stylesheet">
-    <!-- Include css files -->
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.bundle.min.js" integrity="sha512-igl8WEUuas9k5dtnhKqyyld6TzzRjvMqLC79jkgT3z02FvJyHAuUtyemm/P/jYSne1xwFI06ezQxEwweaiV7VA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/css/bootstrap.min.css" integrity="sha512-rt/SrQ4UNIaGfDyEXZtNcyWvQeOq0QLygHluFQcSjaGB04IxWhal71tKuzP6K8eYXYB6vJV4pHkXcmFGGQ1/0w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js" integrity="sha512-lbwH47l/tPXJYG9AcFNoJaTMhGvYWhVM9YI43CT+uteTRRaiLCui8snIgyAN8XWgNjNhCqlAUdzZptso6OCoFQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+ 
+        <!-- Include css files -->
     <link rel="stylesheet" href="public/css/jquery-ui.min.css" />
     <link rel="stylesheet" href="public/css/datatables.min.css">
     <link rel="stylesheet" href="public/css/bootstrap-select.min.css" />
@@ -19,21 +29,23 @@
     <link rel="stylesheet" href="public/css/perfect-scrollbar.css">
     <link rel="stylesheet" href="public/css/style.css" />
     <link rel="stylesheet" href="public/css/chosen.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" integrity="sha512-6S2HWzVFxruDlZxI3sXOZZ4/eJ8AcxkQH1+JjSe/ONCEqR9L4Ysq5JdT5ipqtzU7WHalNwzwBv+iE51gNHJNqQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha512-H9jrZiiopUdsLpg94A333EfumgUBpO9MdbxStdeITo+KEIMaNfHNvwyjjDJb+ERPaRS6DpyRlKbvPUasNItRyw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <!-- Include js files -->
     <script type="text/javascript" src="public/js/moment.min.js"></script>
-    <script type="text/javascript" src="public/js/jquery-2.1.4.min.js"></script>
-    <script type="text/javascript" src="public/js/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="public/js/popper.min.js"></script>
-    <script type="text/javascript" src="public/js/bootstrap.min.js"></script>
+
     <script type="text/javascript" src="public/js/bootstrap-select.min.js"></script>
     <script type="text/javascript" src="public/js/daterangepicker.js"></script>
     <script type="text/javascript" src="public/js/datatables.min.js"></script>
     <script type="text/javascript" src="public/js/dropzone.min.js"></script>
     <script type="text/javascript" src="public/js/perfect-scrollbar.min.js"></script>
-    <script type="text/javascript" src="public/js/toastr.js"></script>
     <script type="text/javascript" src="public/js/admin.js"></script>
     <script type="text/javascript" src="public/js/chosen.jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha512-uURl+ZXMBrF4AwGaWmEetzrd+J5/8NRkWAvJx5sbPSSuOb0bZLqf+tOzniObO00BjHa/dD7gub9oCGMLPQHtQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 </head>
+
 
 <body>
     <!-- Media Modal -->
@@ -103,7 +115,7 @@
                             <a><i class="far fa-address-book"></i><span><?php echo $lang['common']['text_contacts']; ?></span><i class="arrow rotate"></i></a>
                             <ul id="contact" class="sub-menu">
                                 <li>
-                                    <a href="<?php echo URL . DIR_ROUTE; ?>persons"><span><?php echo $lang['common']['text_by'] . ' ' . $lang['common']['text_person']; ?></span></a>
+                                    <a href="<?php echo URL . DIR_ROUTE; ?>persons"><span><?php echo $lang['common']['text_by'] . ' ' . $lang['common']['text_name']; ?></span></a>
                                 </li>
                                 <li>
                                     <a href="<?php echo URL . DIR_ROUTE; ?>companies"><span><?php echo $lang['common']['text_by'] . ' ' . $lang['common']['text_company']; ?></span></a>
@@ -370,7 +382,7 @@
                                                         <?php if (!empty($recents['invoices'])) {
                                                             foreach ($recents['invoices'] as $key => $value) { ?>
                                                                 <li>
-                                                                    <div class="time"><small><?php echo date_format(date_create($value['date_of_joining']), 'd-m-Y'); ?></small></div>
+                                                                    <div class="time"><small><?php echo date_format(date_create($value['inv_date']), 'd-m-Y'); ?></small></div>
                                                                     <a href="<?php echo URL . DIR_ROUTE . 'invoice/view&id=' . $value['id']; ?>" target="_blank" class="timeline-container">
                                                                         <div class="arrow"></div>
                                                                         <div class="description"><?php echo $value['company']; ?></div>

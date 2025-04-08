@@ -91,7 +91,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="icon-user"></i></span>
                                     </div>
-                                    <input type="text" class="form-control" name="contact[firstname]" value="<?php echo $result['firstname']; ?>" placeholder="<?php echo $lang['common']['text_first_name']; ?>" required>
+                                    <input type="text" class="form-control" name="contact[firstname]" value="<?php if($result['firstname']) echo $result['firstname']; ?>" placeholder="<?php echo $lang['common']['text_first_name']; ?>" required>
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -99,7 +99,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="icon-user"></i></span>
                                     </div>
-                                    <input type="text" class="form-control" name="contact[lastname]" value="<?php echo $result['lastname']; ?>" placeholder="<?php echo $lang['common']['text_last_name']; ?>" required>
+                                    <input type="text" class="form-control" name="contact[lastname]" value="<?php if($result['lastname'])  echo $result['lastname']; ?>" placeholder="<?php echo $lang['common']['text_last_name']; ?>" required>
                                 </div>
                             </div>
                         </div>

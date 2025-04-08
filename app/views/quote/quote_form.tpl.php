@@ -16,6 +16,25 @@
         <div class="panel-wrapper p-3">
             <input type="hidden" name="_token" value="<?php echo $token; ?>">
             <div class="mt-3 pl-4 pr-4">
+            <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group customer-search">
+                            <label class="col-form-label"><?php echo $lang['quotes']['text_from']; ?></label>
+                            <div class="input-group">
+
+                                <select class="selectpicker" data-width="100%" data-live-search="true" data-placeholder="Select Billing Company" name="invoice[billing_id]">
+                                    <?php if (!empty($subsidiaries)) {
+                                        foreach ($subsidiaries as $key => $value) { ?>
+                                            <option value="<?php echo $value['id'] ?>" <?php if (isset($result['billing_id']) && $result['billing_id'] == $value['id']) {
+                                                                                            echo "selected";
+                                                                                        } ?>><?php echo $value['name'] ?></option>
+                                    <?php }
+                                    } ?>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+            </div>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group customer-search">
@@ -23,7 +42,7 @@
                             <div class="input-group">
                                 <select class="selectpicker" name="invoice[customer]" data-width="100%" data-live-search="true" title="<?php echo $lang['common']['text_customer'] ?>" required>
                                     <?php if (!empty($customers)) { foreach ($customers as $key => $value) { ?>
-                                    <option value="<?php echo $value['id'] ?>" <?php if ($result['customer'] == $value['id']) { echo "selected"; } ?>><?php echo $value['company'] ?></option>
+                                    <option value="<?php echo $value['id'] ?>" <?php if ($result['customer'] == $value['id']) { echo "selected"; } ?>><?php echo $value['name'] ?></option>
                                     <?php } } ?>
                                 </select>
                             </div>

@@ -7,7 +7,7 @@ define('URL_CLIENTS', 'http://portal.rnggaming.com/clients/');
 /*Support Email*/
 define('SITEEMAIL', 'info@rnggaming.com');
 /*Organization Address*/
-define('ADDRESS', 'Random Group LS3 The Cube Malta Life Sciences Park San Gwann Malta');
+define('ADDRESS', 'Random Group F26, MOSTA TECHNOPARK MOSTA, MST3000, MALTA');
 
 /*Application Address*/
 define('DIR_ROUTE', 'index.php?route=');

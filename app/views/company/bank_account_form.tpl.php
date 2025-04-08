@@ -72,7 +72,9 @@
                     </div>
                 </div>
             </div>
-            <input type="hidden" name="client[id]" value="<?php echo $result['id']; ?>">
+            <input type="hidden" name="client[id]" value="<?php if (isset($result['id'])) {
+                                                                    echo $result['id'];
+                                                                } ?>">
         </div>
         <div class="panel-footer">
             <div class="row">

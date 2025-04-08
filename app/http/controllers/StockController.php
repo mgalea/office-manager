@@ -1,26 +1,26 @@
 <?php
 
 /**
- * Inventory Controller
+ * Stock Controller
  */
-class InventoryController extends Controller
+class StockController extends Controller
 {
-    private $inventoryModel;
+    private $stockModel;
     function __construct()
     {
         parent::__construct();
         $this->commons = new CommonsController();
         /*Intilize User model*/
-        $this->inventoryModel = new Inventory();
+        $this->stockModel = new Stock();
     }
 
     /**
      * Item index method
-     * This method will be called on Inventory Items list view
+     * This method will be called on Stock Items list view
      **/
     public function index()
     {
-        if (!$this->commons->hasPermission('inventory')) {
+        if (!$this->commons->hasPermission('companies')) {
             Not_foundController::show('403');
             exit();
         }
@@ -33,14 +33,14 @@ class InventoryController extends Controller
         $data['lang']['common'] = $lang;
         require DIR_BUILDER . 'language/' . $data['info']['language'] . '/settings.php';
         $data['lang']['settings'] = $settings;
-        require DIR_BUILDER . 'language/' . $data['info']['language'] . '/inventory.php';
-        $data['lang']['inventory'] = $inventory;
+        require DIR_BUILDER . 'language/' . $data['info']['language'] . '/stock.php';
+        $data['lang']['stock'] = $stock;
 
         /**
          * Get all User data from DB using User model 
          **/
 
-        $data['result'] = $this->inventoryModel->getInventory();
+        $data['result'] = $this->stockModel->getStock();
 
         /* Set confirmation message if page submitted before */
         if (isset($this->session->data['message'])) {
@@ -48,19 +48,19 @@ class InventoryController extends Controller
             unset($this->session->data['message']);
         }
         /* Set page title */
-        $data['page_title'] = $data['lang']['common']['text_inventory'];
+        $data['page_title'] = $data['lang']['common']['text_stock'];
 
         /*Render User list view*/
-        $this->view->render('inventory/inventory_list.tpl', $data);
+        $this->view->render('stock/stock_list.tpl', $data);
     }
 
     /**
-     * Inventory index ADD method
-     * This method will be called on Inventory ADD view
+     * Stock index ADD method
+     * This method will be called on Stock ADD view
      **/
     public function indexAdd()
     {
-        if (!$this->commons->hasPermission('inventory')) {
+        if (!$this->commons->hasPermission('companies')) {
             Not_foundController::show('403');
             exit();
         }
@@ -72,11 +72,11 @@ class InventoryController extends Controller
         $data['lang']['common'] = $lang;
         require DIR_BUILDER . 'language/' . $data['info']['language'] . '/settings.php';
         $data['lang']['settings'] = $settings;
-        require DIR_BUILDER . 'language/' . $data['info']['language'] . '/inventory.php';
-        $data['lang']['inventory'] = $inventory;
+        require DIR_BUILDER . 'language/' . $data['info']['language'] . '/stock.php';
+        $data['lang']['stock'] = $stock;
 
         /**
-         * Get all Inventory data from DB using Inventory model 
+         * Get all Stock data from DB using Stock model 
          **/
 
         /* Set confirmation message if page submitted before */
@@ -85,25 +85,25 @@ class InventoryController extends Controller
             unset($this->session->data['message']);
         }
         $data['result'] = NULL;
-        $data['type'] = $this->inventoryModel->getInventoryTypes();
-        $data['location'] = $this->inventoryModel->getLocationTypes();
-        $data['record'] = ($this->inventoryModel->getNextID());
+        $data['type'] = $this->stockModel->getStockTypes();
+        $data['location'] = $this->stockModel->getLocationTypes();
+        $data['record'] = ($this->stockModel->getNextID());
 
         /* Set page title */
-        $data['page_title'] = $data['lang']['settings']['text_new_inventory_item'];
-        $data['action'] = URL . DIR_ROUTE . 'inventory/action';
+        $data['page_title'] = $data['lang']['settings']['text_new_stock_item'];
+        $data['action'] = URL . DIR_ROUTE . 'stock/action';
         $data['token'] = hash('sha512', TOKEN . TOKEN_SALT);
 
         /*Render User list view*/
-        $this->view->render('inventory/inventory_form.tpl', $data);
+        $this->view->render('stock/stock_form.tpl', $data);
     }
     /**
      * Item index Edit method
-     * This method will be called on Inventory Item Edit view
+     * This method will be called on Stock Item Edit view
      **/
     public function indexEdit()
     {
-        if (!$this->commons->hasPermission('inventory')) {
+        if (!$this->commons->hasPermission('companies')) {
             Not_foundController::show('403');
             exit();
         }
@@ -112,7 +112,7 @@ class InventoryController extends Controller
          **/
         $id = (int)$this->url->get('id');
         if (empty($id) || !is_int($id)) {
-            $this->url->redirect('inventory');
+            //$this->url->redirect('stock');
         }
         /*Get User name and role*/
         $data = $this->commons->getUser();
@@ -122,50 +122,51 @@ class InventoryController extends Controller
         $data['lang']['common'] = $lang;
         require DIR_BUILDER . 'language/' . $data['info']['language'] . '/settings.php';
         $data['lang']['settings'] = $settings;
-        require DIR_BUILDER . 'language/' . $data['info']['language'] . '/inventory.php';
-        $data['lang']['inventory'] = $inventory;
+        require DIR_BUILDER . 'language/' . $data['info']['language'] . '/stock.php';
+        $data['lang']['stock'] = $stock;
 
         /**
-         * Get all Inventory data from DB using Inventory model 
+         * Get all Stock data from DB using Stock model 
          **/
 
-        $data['result'] = $this->inventoryModel->getInventoryItem($id);
+        $data['result'] = $this->stockModel->getStockItem($id);
 
         if (empty($data['result'])) {
-            $this->url->redirect('inventory');
+            $this->url->redirect('stock');
         }
 
-        $data['type'] = $this->inventoryModel->getInventoryTypes();
+        $data['type'] = $this->stockModel->getStockTypes();
         /* Set confirmation message if page submitted before */
         if (isset($this->session->data['message'])) {
             $data['message'] = $this->session->data['message'];
             unset($this->session->data['message']);
         }
 
-        $data['location'] = $this->inventoryModel->getLocationTypes();
+        $data['location'] = $this->stockModel->getLocationTypes();
         /* Set confirmation message if page submitted before */
         if (isset($this->session->data['message'])) {
             $data['message'] = $this->session->data['message'];
             unset($this->session->data['message']);
         }
 
-        $data['documents'] = $this->inventoryModel->getDocuments($id);
+        $data['documents'] = $this->stockModel->getDocuments($id);
+        $data['record'] = ($this->stockModel->getNextID());
         /* Set page title */
-        $data['page_title'] = $data['lang']['settings']['text_edit_inventory_item'];
-        $data['action'] = URL . DIR_ROUTE . 'inventory/action';
+        $data['page_title'] = $data['lang']['settings']['text_edit_stock_item'];
+        $data['action'] = URL . DIR_ROUTE . 'stock/action';
         $data['token'] = hash('sha512', TOKEN . TOKEN_SALT);
 
         /*Render User list view*/
-        $this->view->render('inventory/inventory_form.tpl', $data);
+        $this->view->render('stock/stock_form.tpl', $data);
     }
 
     /**
-     * Inventory index Action method
-     * This method will be called on Inventory Item Save or Inventory Update view
+     * Stock index Action method
+     * This method will be called on Stock Item Save or Stock Update view
      **/
     public function indexAction()
     {
-        if (!$this->commons->hasPermission('')) {
+        if (!$this->commons->hasPermission('companies')) {
             Not_foundController::show('403');
             exit();
         }
@@ -173,9 +174,10 @@ class InventoryController extends Controller
          * Check if from is submitted or not 
          **/
         if (!isset($_POST['submit'])) {
-            $this->url->redirect('inventory');
+            $this->url->redirect('stock');
             exit();
         }
+
         /**
          * Validate form data
          * If some data is missing or data does not match pattern
@@ -183,30 +185,25 @@ class InventoryController extends Controller
          **/
         if ($validate_field = $this->validateField()) {
             $this->session->data['message'] = array('alert' => 'error', 'value' => 'Please enter a valid ' . implode(" and ", $validate_field) . '!');
-            $this->url->redirect('inventory/add');
+            $this->url->redirect('stock/add');
         }
 
         if ($this->commons->validateToken($this->url->post('_token'))) {
-            $this->url->redirect('inventory/add');
+            $this->url->redirect('stock/add');
         }
 
         if (!empty($this->url->post('id'))) {
-            $data = $this->url->post;
-            $data['purchase_date'] = date_format(date_create($data['purchase_date']), 'Y-m-d');
-
-            $result = $this->inventoryModel->updateInventoryItem($data);
-            $this->session->data['message'] = array('alert' => 'success', 'value' => 'Inventory item updated successfully.');
-            $this->url->redirect('inventory/edit&id=' . $this->url->post('id'));
+            $result = $this->stockModel->updateStockItem($this->url->post);
+            $this->session->data['message'] = array('alert' => 'success', 'value' => 'Stock item updated successfully.');
+            $this->url->redirect('stock/edit&id=' . $this->url->post('id'));
         } else {
-            $data = $this->url->post;
-            $data['purchase_date'] = date_format(date_create($data['purchase_date']), 'Y-m-d');
-            $result = $this->inventoryModel->createInventoryItem($data);
+            $result = $this->stockModel->createStockItem($this->url->post);
             if ($result > 0) {
-                $this->session->data['message'] = array('alert' => 'success', 'value' => 'Inventory item created successfully.');
-                $this->url->redirect('inventory');
+                $this->session->data['message'] = array('alert' => 'success', 'value' => 'Stock item created successfully.');
+                $this->url->redirect('stock/edit&id=' . $result);
             } else {
-                $this->session->data['message'] = array('alert' => 'error', 'value' => 'Inventory item failed to create.');
-                $this->url->redirect('inventory/edit&id=' . $result);
+                $this->session->data['message'] = array('alert' => 'error', 'value' => 'Stock item failed to create.');
+                $this->url->redirect('stock/edit&id=' . $result);
             }
         }
     }
@@ -217,14 +214,14 @@ class InventoryController extends Controller
      **/
     public function indexDelete()
     {
-        if (!$this->commons->hasPermission('inventory')) {
+        if (!$this->commons->hasPermission('companies')) {
             Not_foundController::show('403');
             exit();
         }
 
-        $result = $this->inventoryModel->deleteInventoryItem($this->url->post('id'));
-        $this->session->data['message'] = array('alert' => 'success', 'value' => 'Inventory Item deleted successfully.');
-        $this->url->redirect('inventory');
+        $result = $this->stockModel->deleteStockItem($this->url->post('id'));
+        $this->session->data['message'] = array('alert' => 'success', 'value' => 'Stock Item deleted successfully.');
+        $this->url->redirect('stock');
     }
     /**
      * Item validate method
@@ -250,9 +247,14 @@ class InventoryController extends Controller
             $error['title3'] = 'Location';
         }
 
-        if (($this->inventoryModel->getItemInvNumber($this->url->post('inv_number')) > 0) && (null == ($this->url->post('id')))) {
+        if (($this->stockModel->getItemInvNumber($this->url->post('inv_number')) > 0) && (null == ($this->url->post('id')))) {
             $error_flag = true;
-            $error['title4'] = 'inventory Number (already exists)';
+            $error['title4'] = 'stock Number (already exists)';
+        }
+
+        if ($this->commons->validateDate($this->url->post('purchase_date'))) {
+            $error_flag = true;
+            $error['title5'] = 'Item Purchase Date! ' . $this->url->post('purchase_date');
         }
 
         if ($error_flag) {

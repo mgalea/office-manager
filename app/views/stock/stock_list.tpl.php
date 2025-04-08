@@ -33,10 +33,10 @@
                             <td class="table-srno"><?php echo $value['inv_number']; ?></td>
                             <td><?php echo $value['item']; ?></td>
                             <td><?php echo $value['location']; ?></td>
-                            <td class="text-center"><?php echo $value['type']; ?></td>
-                            <td class="table-action text-center">
-                                <a href="<?php echo URL.DIR_ROUTE . 'inventory/edit&id=' .$value['id']; ?>" class="btn btn-success btn-circle btn-icon" data-toggle="tooltip" data-placement="top" title="<?php echo $lang['common']['text_edit']; ?>"><i class="icon-pencil"></i></a>
-                                <span class="btn btn-danger btn-circle table-delete btn-icon" data-toggle="tooltip" title="<?php echo $lang['common']['text_delete']; ?>"><i class="icon-trash"></i><input type="hidden" value="<?php echo $value['id'] ?>"></span>
+                            <td><?php echo $value['type']; ?></td>
+                            <td class="table-action">
+                                <a href="<?php echo URL.DIR_ROUTE . 'inventory/edit&id=' .$value['id']; ?>" class="btn btn-info btn-circle btn-outline btn-outline-1x" data-toggle="tooltip" data-placement="top" title="<?php echo $lang['common']['text_edit']; ?>"><i class="icon-pencil"></i></a>
+                                <p class="btn btn-danger btn-circle btn-outline btn-outline-1x table-delete" data-toggle="tooltip" title="<?php echo $lang['common']['text_delete']; ?>"><i class="icon-trash"></i><input type="hidden" value="<?php echo $value['id'] ?>"></p>
                             </td>
                         </tr>
                         <?php } } ?>

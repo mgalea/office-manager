@@ -14,7 +14,7 @@
         </div>
         <div class="panel-wrapper">
             <div class="table-container">
-                <table class="table table-bordered table-striped datatable-table" width="100%">
+                <table class="table table-striped table-dark datatable-table" width="100%">
                     <thead>
                         <tr class="table-heading">
                             <th>#</th>
@@ -34,8 +34,8 @@
                             <td><?php echo date_format(date_create($value['date']), 'd-m-Y'); ?></td>
                             <td><?php echo date_format(date_create($value['expiry']), 'd-m-Y'); ?></td>
                             <td class="table-action">
-                                <a href="<?php echo URL.DIR_ROUTE . 'quote/view&id=' .$value['id']; ?>" class="btn btn-dark btn-circle btn-outline btn-outline-1x" data-toggle="tooltip" title="<?php echo $lang['common']['text_view']; ?>"><i class="fa fa-eye"></i></a>
-                                <a href="<?php echo URL.DIR_ROUTE . 'quote/edit&id=' .$value['id']; ?>" class="btn btn-info btn-circle btn-outline btn-outline-1x" data-toggle="tooltip" title="<?php echo $lang['common']['text_edit']; ?>"><i class="icon-pencil"></i></a>
+                                <a href="<?php echo URL.DIR_ROUTE . 'quote/view&id=' .$value['id']; ?>" class="btn btn-success" data-toggle="tooltip" title="<?php echo $lang['common']['text_view']; ?>"><i class="fa fa-eye"></i></a>
+                                <a href="<?php echo URL.DIR_ROUTE . 'quote/edit&id=' .$value['id']; ?>" class="btn btn-primary text-info  " data-toggle="tooltip" title="<?php echo $lang['common']['text_edit']; ?>"><i class="icon-pencil"></i></a>
                                 <p class="btn btn-danger btn-circle btn-outline btn-outline-1x table-delete" data-toggle="tooltip" data-placement="top" title="<?php echo $lang['common']['text_delete']; ?>"><i class="icon-trash"></i><input type="hidden" value="<?php echo $value['id'] ?>"></p>
                             </td>
                         </tr>

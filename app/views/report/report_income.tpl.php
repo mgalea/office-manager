@@ -22,7 +22,7 @@
                                     <span class="descr">All Time</span>
                                 </div>
                                 <div class="col text-right">
-                                    <div class="number text-primary">$22900 + Rs12000</div>
+                                    <div class="number text-primary">000</div>
                                 </div>
                             </div>
                         </div>
@@ -33,7 +33,7 @@
                                     <span class="descr">Monthly</span>
                                 </div>
                                 <div class="col text-right">
-                                    <div class="number text-danger">+$2900</div>
+                                    <div class="number text-danger">000</div>
                                 </div>
                             </div>
                         </div>

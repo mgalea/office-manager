@@ -63,6 +63,12 @@ $router->get('inventory/edit', 'InventoryController@indexEdit@2');
 $router->post('inventory/action', 'InventoryController@indexAction@2');
 $router->post('inventory/delete', 'InventoryController@indexDelete@2');
 
+$router->get('stock', 'StockController@index@2');
+$router->get('stock/add', 'StockController@indexAdd@2');
+$router->get('stock/edit', 'StockController@indexEdit@2');
+$router->post('stock/action', 'StockController@indexAction@2');
+$router->post('stock/delete', 'StockController@indexDelete@2');
+
 $router->get('domains', 'DomainController@index@2');
 $router->get('domain/add', 'DomainController@indexAdd@2');
 $router->get('domain/edit', 'DomainController@indexEdit@2');
@@ -187,7 +193,11 @@ $router->post('contacttype/delete', 'TypesController@contactTypeDelete@2');
 
 $router->get('inventorytype', 'TypesController@inventoryType@2');
 $router->post('inventorytype/action', 'TypesController@inventoryTypeAction@2');
-$router->post('inventorype/delete', 'TypesController@inventoryTypeDelete@2');
+$router->post('inventorytype/delete', 'TypesController@inventoryTypeDelete@2');
+
+$router->get('stocktype', 'TypesController@stockType@2');
+$router->post('stocktype/action', 'TypesController@stockTypeAction@2');
+$router->post('stocktype/delete', 'TypesController@stockTypeDelete@2');
 
 $router->get('projects', 'ProjectController@index@2');
 $router->get('project/add', 'ProjectController@indexAdd@2');

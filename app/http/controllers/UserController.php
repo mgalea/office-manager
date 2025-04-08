@@ -270,7 +270,7 @@ class UserController extends Controller
 
 		$data['hash'] = md5(uniqid(mt_rand(), true));
 		$data['chars'] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#";
-		$data['password_text'] = "RnG!101"; //substr( str_shuffle( $data['chars'] ), 0, 12 );
+		$data['password_text'] = PASSWORD_DEFAULT; //substr( str_shuffle( $data['chars'] ), 0, 12 );
 		$data['password'] = password_hash($data['password_text'], PASSWORD_DEFAULT);
 
 		$result = $this->userModel->createUser($data);

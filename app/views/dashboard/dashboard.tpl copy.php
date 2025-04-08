@@ -1,223 +1,275 @@
-<?php include (DIR.'app/views/common/header.tpl.php'); ?>
-<script>$('#dashboard-li').addClass('active');</script>
-<!-- Moris Chart Plugin -->
-<script type="text/javascript" src="public/js/raphael-min.js"></script>
-<script type="text/javascript" src="public/js/morris.min.js"></script>
-<!-- Dahsboard Body -->
+<?php include(DIR . 'app/views/common/header.tpl.php'); ?>
+<script>
+    $('#dashboard-li').addClass('active');
+</script>
+
+<!-- Dashboard Body -->
 <div class="content">
+
+    <div class="row">
+        <div class="col-12 col-lg-9 mb-3">
+            <div id="calendar"></div>
+        </div>
+        <div class="col-12 col-lg-3 mb-3">
+            <div class="notes-block">
+                <?php if (!empty($notes)) {
+                    foreach ($notes as $key => $value) { ?>
+                        
+                            <div class="notes-card" style="background: <?php echo $value['background']; ?>;color: <?php echo $value['color']; ?>">
+                                <div class="notes">
+                                    <h2><?php echo $value['title']; ?></h2>
+                                    <div class="notes-body">
+                                        <?php echo html_entity_decode($value['description']); ?>
+                                    </div>
+                                </div>
+                                <div class="notes-footer">
+                                    <div class="row align-items-center">
+                                        <div class="col-md-6 text-left">
+                                            <p class=" mb-0"><i class="icon-calendar mr-1"></i><?php echo date_format(date_create($value['date_of_joining']), 'd-m-Y'); ?></p>
+                                        </div>
+                                        <div class="col-md-6 text-right">
+                                            <a href="index.php?route=note/edit&id=<?php echo $value['id']; ?>"><i class="icon-pencil"></i></a>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                    <?php }
+                } else { ?>
+                        <p class="mb-0 font-18">No Note Found</p>
+
+                <?php } ?>
+                <div class="row">
+                    <div class="col-6 text-center">
+                        <a href="<?php echo URL . DIR_ROUTE . 'notes'; ?>" class="btn btn-red mt-3">See More Notes</a>
+                    </div>
+                    <div class="col-6 text-center">
+                        <a href="<?php echo URL . DIR_ROUTE . 'note/add'; ?>" class="btn btn-success mt-3">Create New Note</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-md-6 col-lg-3">
             <div class="dashboard-stat color-success">
-                <div class="content"><h4><?php echo $statistics['0']['total']; ?></h4> <span><?php echo $lang['common']['text_contact']; ?></span></div>
+                <div class="content">
+                    <h4><?php //echo $statistics['0']['total']; 
+                        ?></h4> <span><?php echo $lang['common']['text_contact']; ?></span>
+                </div>
                 <div class="icon"><i class="icon-people"></i></div>
             </div>
         </div>
         <div class="col-md-6 col-lg-3">
             <div class="dashboard-stat color-warning">
-                <div class="content"><h4><?php echo $statistics['1']['total']; ?></h4> <span><?php echo $lang['common']['text_projects']; ?></span></div>
+                <div class="content">
+                    <h4><?php //echo $statistics['1']['total']; 
+                        ?></h4> <span><?php echo $lang['common']['text_projects']; ?></span>
+                </div>
                 <div class="icon"><i class="icon-layers"></i></div>
             </div>
         </div>
         <div class="col-md-6 col-lg-3">
             <div class="dashboard-stat color-primary">
-                <div class="content"><h4><?php echo $statistics['2']['total']; ?></h4> <span><?php echo $lang['common']['text_invoices']; ?></span></div>
+                <div class="content">
+                    <h4><?php //echo $statistics['2']['total']; 
+                        ?></h4> <span><?php echo $lang['common']['text_invoices']; ?></span>
+                </div>
                 <div class="icon"><i class="icon-docs"></i></div>
             </div>
         </div>
         <div class="col-md-6 col-lg-3">
             <div class="dashboard-stat color-danger">
-                <div class="content"><h4><?php echo $statistics['3']['total']; ?></h4> <span><?php echo $lang['common']['text_quotes']; ?></span></div>
+                <div class="content">
+                    <h4><?php //echo $statistics['3']['total']; 
+                        ?></h4> <span><?php echo $lang['common']['text_quotes']; ?></span>
+                </div>
                 <div class="icon"><i class="icon-envelope-letter"></i></div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-8">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <div class="icon-widget-heading pb-3"><?php echo $lang['dashboard']['text_notes']; ?></div>
-                    <div id="inv-exp-chart" style="height: 380px;"></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4">
-        <div class="panel panel-default">
-                <div class="">
-                    <div class="icon-widget-heading pr-3 pl-3 pt-3 pb-0"><?php echo $lang['dashboard']['text_ticket_status_breakdown']; ?></div>
-                    <div id="ticket-chart" style="height: 180px;"></div>
-                </div>
-            </div>
-            <div class="panel panel-default">
-                <div class="">
-                    <div class="icon-widget-heading pr-3 pl-3 pt-3 pb-0"><?php echo $lang['dashboard']['text_expense_categories_breakdown']; ?></div>
-                    <div id="exp-catg-chart" style="height: 180px;"></div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-8">
-            <div class="panel panel-default">
-                <div class="panel-head">
-                    <div class="panel-title">
-                        <i class="icon-credit-card panel-head-icon"></i>
-                        <span class="panel-title-text"><?php echo $lang['dashboard']['text_latest_invoices']; ?></span>
-                    </div>
-                    <div class="panel-action"></div>
-                </div>
-                <div class="panel-wrapper">
-                    <div class="panel-body">
-                        <div class="table-responsive">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th><?php echo $lang['common']['text_customer']; ?></th>
-                                        <th><?php echo $lang['dashboard']['text_amount']; ?></th>
-                                        <th><?php echo $lang['common']['text_status']; ?></th>
-                                        <th><?php echo $lang['common']['text_date']; ?></th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php if (!empty($invoices)) { foreach ($invoices as $key => $value) { ?>
-                                    <tr>
-                                        <td><a href="<?php echo URL.DIR_ROUTE . 'invoice/view&id=' .$value['id']; ?>" class="text-primary">INV-<?php echo str_pad($value['id'], 4, '0', STR_PAD_LEFT); ?></a></td>
-                                        <td class="text-dark"><?php echo $value['company']; ?></td>
-                                        <td class="text-dark"><?php echo $value['abbr'].$value['amount']; ?></td>
-                                        <td>
-                                            <?php if ($value['status'] == "Paid") { ?>
-                                            <span class="badge badge-Paid badge-pill badge-sm"><?php echo $lang['dashboard']['text_paid']; ?></span>
-                                            <?php } elseif ($value['status'] == "Unpaid") { ?>
-                                            <span class="badge badge-Unpaid badge-pill badge-sm"><?php echo $lang['dashboard']['text_unpaid']; ?></span>
-                                            <?php } elseif ($value['status'] == "Pending") { ?>
-                                            <span class="badge badge-Pending badge-pill badge-sm"><?php echo $lang['dashboard']['text_pending']; ?></span>
-                                            <?php } elseif ($value['status'] == "In Process") { ?>
-                                            <span class="badge badge-In-Process badge-pill badge-sm"><?php echo $lang['dashboard']['text_in_process']; ?></span>
-                                            <?php } elseif ($value['status'] == "Cancelled") { ?>
-                                            <span class="badge badge-Cancelled badge-pill badge-sm"><?php echo $lang['dashboard']['text_cancelled']; ?></span>
-                                            <?php } elseif ($value['status'] == "Other") { ?>
-                                            <span class="badge badge-Other badge-pill badge-sm"><?php echo $lang['dashboard']['text_other']; ?></span>
-                                            <?php } elseif ($value['status'] == "Partially Paid") { ?>
-                                            <span class="badge badge-Partially-Paid badge-pill badge-sm"><?php echo $lang['dashboard']['text_partially_paid']; ?></span>
-                                            <?php } else { ?>
-                                            <span class="badge badge-Unknown badge-pill badge-sm"><?php echo $lang['dashboard']['text_unknown']; ?></span>
-                                            <?php } ?>
-                                        </td>
-                                        <td><i class="fa fa-clock-o mr-2 text-muted"></i><?php echo date_format(date_create($value['date_of_joining']), 'd-m-Y'); ?></td>
-                                        <td>
-                                            <a href="<?php echo URL.DIR_ROUTE . 'invoice/view&id=' .$value['id']; ?>" class="mr-2"><i class="fa fa-eye mr-2 text-dark" data-toggle="tooltip" title="<?php echo $lang['common']['text_view'] ?>"></i></a>
-                                            <a href="<?php echo URL.DIR_ROUTE . 'invoice/edit&id=' .$value['id']; ?>"><i class="icon-pencil mr-2 text-info" data-toggle="tooltip" title="<?php echo $lang['common']['text_edit'] ?>"></i></a>
-                                        </td>
-                                    </tr>
-                                    <?php } } else { ?>
-                                    <tr>
-                                        <td colspan="6" class="text-center font-18"><?php echo $lang['dashboard']['text_no_record_found']; ?></td>
-                                    </tr>
-                                    <?php } ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div> 
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <div class="icon-widget-heading pb-3"><?php echo $lang['dashboard']['text_invoice_status_breakdown']; ?></div>
-                    <div id="inv-status-chart" style="height: 350px;"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="panel panel-default">
-                <div class="panel-head">
-                    <div class="panel-title">
-                        <i class="icon-credit-card panel-head-icon"></i>
-                        <span class="panel-title-text"><?php echo $lang['dashboard']['text_latest_contacts']; ?></span>
-                    </div>
-                    <div class="panel-action"></div>
-                </div>
-                <div class="panel-wrapper">
-                    <div class="panel-body">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th><?php echo $lang['dashboard']['text_company']; ?></th>
-                                    <th><?php echo $lang['common']['text_first_name']; ?></th>
-                                    <th><?php echo $lang['common']['text_last_name']; ?></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php if (!empty($contacts)) { foreach ($contacts as $key => $value) { ?>
-                                <tr>
-                                    <td><a href="<?php echo URL.DIR_ROUTE.'contact/edit&id='.$value['id']; ?>" class="text-primary"><?php echo $value['company']; ?></a></td>
-                                    <td class="text-dark"><?php echo $value['firstname']; ?></td>
-                                    <td class="text-dark"><?php echo $value['lastname']; ?></td>
-                                </tr>
-                                <?php } } else { ?>
-                                <tr>
-                                    <td colspan="3" class="text-center font-18"><?php echo $lang['dashboard']['text_no_record_found']; ?></td>
-                                </tr>
-                                <?php } ?>
-                            </tbody>
-                        </table>
-                    </div> 
-                </div>
             </div>
         </div>
     </div>
 </div>
 
+<!-- Event Modal -->
+<div id="event-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><?php echo $lang['calendar']['text_calendar_event']; ?></h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <form action="<?php echo $calendar_action; ?>" method="post">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="col-form-label"><?php echo $lang['calendar']['text_event_title']; ?></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="icon-user"></i></span>
+                            </div>
+                            <input type="text" class="form-control event-title" name="event[title]" value="" placeholder="<?php echo $lang['calendar']['text_event_title']; ?>" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-form-label"><?php echo $lang['calendar']['text_start_date']; ?></label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="icon-clock"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control datetime event-start" name="event[start]" value="" placeholder="<?php echo $lang['calendar']['text_start_date']; ?>" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label"><?php echo $lang['calendar']['text_end_date']; ?></label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="icon-clock"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control datetime event-end" name="event[end]" value="" placeholder="<?php echo $lang['calendar']['text_end_date']; ?>">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group mb-0">
+                                <label><?php echo $lang['calendar']['text_all_day_event_(Select_if_all_day_event)']; ?></label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" name="event[allday]" class="custom-control-input event-allday" id="allday">
+                                <label class="custom-control-label" for="allday"><?php echo $lang['calendar']['text_all_day_event']; ?></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-form-label"><?php echo $lang['common']['text_description']; ?></label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="icon-note"></i></span>
+                            </div>
+                            <textarea class="form-control event-descr" name="event[description]" placeholder="<?php echo $lang['common']['text_description']; ?>"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-info font-12" name="submit"><?php echo $lang['common']['text_save']; ?></button>
+                    <a class="btn btn-danger table-delete font-12"><input type="hidden" name="id" class="event-id"> <?php echo $lang['common']['text_delete']; ?></a>
+                    <button type="button" class="btn btn-default font-12" data-dismiss="modal"><?php echo $lang['common']['text_close']; ?></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Delete Modal -->
+<div id="delete-card" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><?php echo $lang['common']['text_confirm_delete']; ?></h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p class="delete-card-ttl"><?php echo $lang['common']['text_are_you_sure_you_want_to_delete?']; ?></p>
+            </div>
+            <div class="modal-footer">
+                <form action="index.php?route=calendar/delete" class="delete-card-button" method="post">
+                    <input type="hidden" value="" name="id">
+                    <button type="submit" class="btn btn-danger" name="delete"><?php echo $lang['common']['text_delete']; ?></button>
+                </form>
+                <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $lang['common']['text_close']; ?></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Full Calendar Plugin -->
+<link rel="stylesheet" href="public/css/fullcalendar.min.css" />
+<script type="text/javascript" src="public/js/fullcalendar.min.js"></script>
+
+<!-- Calendar script -->
 <script>
-    $(function() {
-        var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-        Morris.Area({
-            element: 'inv-exp-chart',
-            data: <?php echo $stats; ?>,
-            xkey: 'period',
-            xLabelFormat: function (x) { return months[x.getMonth()]; },
-            ykeys: ['income','expense'],
-            labels: ['<?php echo $lang['dashboard']['text_income'] ?>', '<?php echo $lang['dashboard']['text_expense'] ?> '],
-            pointSize: 0,
-            fillOpacity: 0.8,
-            pointStrokeColors:['#ffc107', '#3483FF'],
-            behaveLikeLine: true,
-            gridLineColor: '#e0e0e0',
-            lineWidth: 0,
-            smooth: false,
-            hideHover: 'auto',
-            lineColors: ['#aaa', '#3483FF'],
-            resize: true,
-            dateFormat: function (d) { d = new Date(d); return (d.getMonth() + 1) + '-' + d.getFullYear(); }
-        });
-        Morris.Donut({
-            element: 'exp-catg-chart',
-            data: <?php echo $expenses; ?>,
-            colors: ['#93e3ff', '#b0dd91', '#ffe699', '#f8cbad', '#a4a4a4'],
-            formatter: function(y) {
-                return y + '%'
+    var obj = <?php echo $calendar; ?>;
+    events = [];
+    $.each(obj, function(key, value) {
+        var temp = [];
+        temp['id'] = value['id'];
+        temp['title'] = value['title'];
+        temp['start'] = value['start_date'] + 'T' + value['start_time'];
+        temp['end'] = value['end_date'] + 'T' + value['end_time'];
+        if (value['allDay'] == "1") {
+            temp['allday'] = true;
+            temp['full'] = 1;
+        } else {
+            temp['allday'] = false;
+            temp['full'] = 0;
+        }
+        temp['description'] = value['description'];
+        events.push(temp);
+    });
+
+    console.log(events);
+    $('#calendar').fullCalendar({
+        header: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'month,agendaWeek,agendaDay,listWeek'
+        },
+        editable: true,
+        eventLimit: true,
+        navLinks: true,
+        events: events,
+        eventClick: function(event, jsEvent, view) {
+            $('.event-title').val(event.title);
+            $('.event-start').val(event.start.format('DD-MM-YYYY hh:mm A'));
+            $('.event-descr').val(event.description);
+            $('.event-id').val(event.id);
+            if (event.full === 1) {
+                $('.event-allday').prop('checked', true);
+                $('.event-end').parents('.form-group').hide();
+            } else if (event.end !== null) {
+                $('.event-end').val(event.end.format('DD-MM-YYYY hh:mm A'));
             }
-        });
-        Morris.Donut({
-            element: 'ticket-chart',
-            data: <?php echo $ticketByStatus; ?>,
-            colors: ['#f4516c', '#716aca'],
-            formatter: function(y) {
-                return y + '%'
+            $('#event-modal').modal('show');
+        },
+        eventDrop: function(event, delta, revertFunc) {
+            if (!confirm("Are you sure about this change?")) {
+                revertFunc();
+            } else {
+                $.ajax({
+                    method: "POST",
+                    url: 'index.php?route=calendar/drop',
+                    data: {
+                        id: event.id,
+                        start: moment(event.start).format('DD-MM-YYYY HH:MM A')
+                    },
+                    error: function() {
+                        alert('Sorry Try Again!');
+                    },
+                    success: function(response) {
+                        alert(response);
+                    }
+                });
             }
-        });
-        Morris.Donut({
-            element: 'inv-status-chart',
-            data: <?php echo $invoiceByStatus; ?>,
-            colors: ['#ccc5a8', '#52bacc', '#dbdb46', '#98aafb', '#5cbae6', '#b6d957', '#fac364', '#8cd3ff', '#d998cb', '#f2d249', '#93b9c6'],
-        });
+        }
+    });
+
+    $('#event-modal').on('hidden.bs.modal', function(e) {
+        $('#event-modal input, #event-modal textarea').val('');
+        $('.event-allday').prop('checked', false);
+        $('.event-end').parents('.form-group').show();
+    });
+
+    $('#event-modal').on('click', '.event-allday', function() {
+        var ele = $(this);
+        $('.event-end').val(moment(Date()).format('DD-MM-YYYY h:mm A'));
+        $('.event-end').val('');
+        if (ele.prop("checked") === true) {
+            $('.event-end').parents('.form-group').hide();
+        } else if (ele.prop("checked") === false) {
+            $('.event-end').parents('.form-group').show();
+        }
     });
 </script>
-
 <!-- Footer -->
-<?php include (DIR.'app/views/common/footer.tpl.php'); ?>
+<?php include(DIR . 'app/views/common/footer.tpl.php'); ?>

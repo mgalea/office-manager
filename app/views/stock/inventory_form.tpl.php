@@ -3,10 +3,11 @@
     $('#setting').show();
     $('#setting-li').addClass('active');
 </script>
-
+<link rel="stylesheet" href="public/css/jquery.fancybox.min.css">
+<script src="public/js/jquery.fancybox.min.js"></script>
 
 <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data">
-    <div class="panel panel-default ">
+    <div class="panel panel-default col-lg-8">
         <div class="panel-head">
             <div class="panel-title">
                 <i class="icon-list panel-head-icon"></i>
@@ -19,8 +20,6 @@
         </div>
         <div class="panel-wrapper p-3">
             <input type="hidden" name="id" value="<?php echo isset($result['id']) ? $result['id'] : '' ?>">
-            <input type="hidden" name="next_id" value="<?php echo isset($record['next_id']) ? $record['next_id'] : '' ?>">
-
             <input type="hidden" name="_token" value="<?php echo $token; ?>">
             <div class="mt-3">
                 <div class="form-group row">
@@ -69,15 +68,16 @@
                     </div>
                 </div>
                 <div class="form-group row">
-
+                    <label class="col-sm-2 col-form-label"><?php echo $lang['inventory']['text_quantity']; ?></label>
                     <div class="col-sm-4">
-                        <input type="hidden" class="form-control" value="<?php echo (empty($result['quantity']) ? '1' :  $result['quantity'])  ?>" min="1" name="quantity" placeholder="<?php echo $lang['inventory']['text_quantity']; ?>">
+                        <input type="number" class="form-control" value="<?php echo (empty($result['quantity']) ? '1' :  $result['quantity'])  ?>" min="1" name="quantity" placeholder="<?php echo $lang['inventory']['text_quantity']; ?>">
                     </div>
                     <div class="col-sm-4">
                         <div class="custom-control custom-checkbox custom-control-inline">
-                            <input type="hidden" id="stock" name="stock" class="custom-control-input" value="1" <?php if (isset($result['is_stock']) && $result['is_stock'] == "1") {
-                                                                                                                    echo "checked";
-                                                                                                                } ?>>
+                            <input type="checkbox" id="stock" name="stock" class="custom-control-input" value="1" <?php if (isset($result['is_stock']) && $result['is_stock'] == "1") {
+                                                                                                                        echo "checked";
+                                                                                                                    } ?>>
+                            <label class="custom-control-label" for="stock"><?php echo $lang['inventory']['text_stock']; ?></label>
                         </div>
                     </div>
                 </div>
@@ -89,7 +89,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="icon-calendar"></i></span>
                         </div>
-                        <input type="text" class="form-control date" name="purchase_date" value="<?php echo (isset($result['purchase_date'])) ? date_format(date_create($result['purchase_date']), 'Y-m-d') : date_format(new DateTime(), 'Y-m-d'); ?>" placeholder="<?php echo date_format(new DateTime(), 'Y-m-d'); ?>">
+                        <input type="text" class="form-control date" name="purchase_date" value="<?php if (isset($result['purchase_date'])) echo date_format(date_create($result['purchase_date']), 'Y-m-d'); ?>" placeholder="<?php date_format(new DateTime(), 'Y-m-d'); ?>">
                     </div>
                 </div>
 
@@ -101,61 +101,58 @@
                 </div>
 
             </div>
-
-            <div class="form-group row">
-                <div class="col-sm-12 col-md-6">
-                    <div class="tab-pane" id="documents">
-
-                        <div class="attach-file col-md-10">
-                            <a data-toggle="modal" class="text-white bg-primary float-left" data-target="#attach-file"><?php echo $lang['inventory']['text_upload_file']; ?></a>
-                        </div>
-
-                        <div class="attached-files">
-                            <?php if (!empty($documents)) {
-                                foreach ($documents as $key => $value) {
-                                    $file_ext = pathinfo($value['file_name'], PATHINFO_EXTENSION);
-                                    if ($file_ext == "pdf") { ?>
-                                        <div class="attached-files-block">
-                                            <a href="public/uploads/<?php echo $value['file_name']; ?>" class="open-pdf"><i class="fa fa-file-pdf"></i></a>
-                                            <input type="hidden" name="inventory[attached][]" value="<?php echo $value['file_name']; ?>">
- 
-                                            <div class="delete-file"><a class="icon-trash"></a></div>
-                                            <div class="font-8"> <?php echo $value['file_name']; ?>'</div>
-                                        </div>
-                            <?php }
-                                }
-                            } ?>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-12 col-md-6">
-                    <div class="tab-pane" id="images">
-
-                        <div class="attach-file col-md-10">
-                            <a data-toggle="modal" class="text-white bg-primary float-right" data-target="#attach-picture"><?php echo $lang['inventory']['text_upload_image']; ?></a>
-                        </div>
-                        <div class="attached-images">
-                            <?php if (!empty($documents)) {
-                                foreach ($documents as $key => $value) {
-                                    $file_ext = pathinfo($value['file_name'], PATHINFO_EXTENSION);
-                                    if ($file_ext == "png" || $file_ext == "jpg") { ?>
-                                        <div class="attached-files-block">
-                                            <a href="public/uploads/<?php echo $value['file_name']; ?>" class="open-image"><i class="fa fa-file-image"></i></a>
-                                            <input type="hidden" name="inventory[attached][]" value="<?php echo $value['file_name']; ?>">
-                                            <div class="delete-file"><a class="icon-trash"></a></div>
-                                            <div class="font-8"> <?php echo $value['file_name']; ?>'</div>
-                                        </div>
-                            <?php }
-                                }
-                            } ?>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="panel-footer text-center">
-                <button type="submit" name="submit" class="btn btn-info"><?php echo $lang['common']['text_save']; ?></button>
-            </div>
 </form>
+<div class="form-group row">
+    <div class="col-sm-12 col-md-6">
+        <div class="tab-pane" id="documents">
+
+            <div class="attach-file col-md-10">
+                <a data-toggle="modal" class="text-white bg-primary float-left" data-target="#attach-file"><?php echo $lang['inventory']['text_upload_file']; ?></a>
+            </div>
+
+            <div class="attached-files">
+                <?php if (!empty($documents)) {
+                    foreach ($documents as $key => $value) {
+                        $file_ext = pathinfo($value['file_name'], PATHINFO_EXTENSION);
+                        if ($file_ext == "pdf") { ?>
+                            <div class="attached-files-block">
+                                <a href="public/uploads/<?php echo $value['file_name']; ?>" class="open-pdf"><i class="fa fa-file-pdf"></i></a>
+                                <input type="hidden" name="inventory[attached][]" value="<?php echo $value['file_name']; ?>">
+                                <div class="delete-file"><a class="icon-trash"></a></div>
+                            </div>
+                <?php }
+                    }
+                } ?>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-6">
+        <div class="tab-pane" id="images">
+
+            <div class="attach-file col-md-10">
+                <a data-toggle="modal" class="text-white bg-primary float-right" data-target="#attach-picture"><?php echo $lang['inventory']['text_upload_image']; ?></a>
+            </div>
+            <div class="attached-images">
+                <?php if (!empty($documents)) {
+                    foreach ($documents as $key => $value) {
+                        $file_ext = pathinfo($value['file_name'], PATHINFO_EXTENSION);
+                        if ($file_ext == "png" || $file_ext == "jpg") { ?>
+                            <div class="attached-files-block">
+                                <a href="public/uploads/<?php echo $value['file_name']; ?>" class="open-image"><i class="fa fa-file-image"></i></a>
+                                <input type="hidden" name="inventory[attached][]" value="<?php echo $value['file_name']; ?>">
+                                <div class="delete-file"><a class="icon-trash"></a></div>
+                            </div>
+                <?php }
+                    }
+                } ?>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="panel-footer text-center">
+    <button type="submit" name="submit" class="btn btn-info"><?php echo $lang['common']['text_save']; ?></button>
+</div>
+</div>
 
 <!-- Attach File Modal -->
 <div id="attach-file" class="modal hide fade" role="dialog">
@@ -177,34 +174,37 @@
 
 
 <div id="attach-picture" class="modal hide fade" class="modal" role="dialog">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div id="webcam" class="mx-auto" style="display:flex; flex-direction: column; align-items:center;justify-content:center">
                 <p><span id="errorMsg"></span></p>
-                <div>
+                <div class="row modal-header">
+                    <div class="select">
+                        <label id="myModalLabel" for="videoSource">Camera: </label>
+                        <select id="videoSource"></select>
+                    </div>
+
                     <div class="mx-auto live-cam">
-                        <video id="video" playsinline autoplay width="320" height="240"></video>
+                        <video id="video" playsinline autoplay controls width="480" height="405"></video>
                     </div>
                 </div>
                 <div class="row">
                     <h4>
-                        <button class="btn btn-primary mx-auto mt-0" id="btnImageCapture">Take Picture</button>
+                        <button class="btn btn-primary mx-auto mt-3" id="btnImageCapture">Take Picture</button>
                     </h4>
                 </div>
             </div>
             <canvas style="display:none"></canvas>
             <div class="modal-footer">
-                <div class="select">
-                    <label id="myModalLabel" for="videoSource">Camera: </label>
-                    <select id="videoSource"></select>
-                </div>
-                <button id="btnClose" type="button" class="btn btn-md btn-default mb-2" data-dismiss="modal"><?php echo $lang['common']['text_close']; ?></button>
+                <button id="btnClose" type="button" class="btn btn-default" data-dismiss="modal"><?php echo $lang['common']['text_close']; ?></button>
             </div>
         </div>
     </div>
 </div>
 
 <script>
+    $(document).ready(function() {
+
         $("a.open-pdf").fancybox({
             'frameWidth': 800,
             'frameHeight': 900,
@@ -221,13 +221,13 @@
             init: function() {
                 this.on("sending", function(file, xhr, formData) {
                         var id = $('input[name=id]').val();
-                        var type = 'inventory';
+                        type = 'inventory';
                         formData.append("id", id);
                         formData.append("type", type);
                     }),
                     this.on("success", function(file, xhr) {
                         var ext = file.xhr.response.substr(file.xhr.response.lastIndexOf('.') + 1);
-                        if (ext === "pdf" || ext === "doc" ) {
+                        if (ext === "pdf") {
                             $('.attached-files').append('<div class="attached-files-block attached-' + file.xhr.response.slice(0, -4) + '">' +
                                 '<a href="public/uploads/' + file.xhr.response + '" class="open-pdf"><i class="fa fa-file-pdf"></i></a>' +
                                 '<input type="hidden" name="expense[attached][]" value="' + file.xhr.response + '">' +
@@ -268,11 +268,7 @@
             }
         });
 
-
-</script>
-<script>
         $('.attached-files-block').on('click', '.delete-file a', function() {
-            alert('Do you really want to continue');
             var ele = $(this),
                 name = ele.parents('.attached-files-block').find('input').val();
             $.ajax({
@@ -292,29 +288,8 @@
             });
             ele.parents('.attached-files-block').remove();
         });
-
+    });
 </script>
-
-<div id="delete-card" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title"><?php echo $lang['common']['text_confirm_delete']; ?></h5>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <p class="delete-card-ttl"><?php echo $lang['common']['text_are_you_sure_you_want_to_delete?']; ?></p>
-            </div>
-            <div class="modal-footer">
-                <form action="<?php echo URL . DIR_ROUTE . 'company/delete'; ?>" class="delete-card-button" method="post">
-                    <input type="hidden" value="" name="id">
-                    <button type="submit" class="btn btn-danger" name="delete"><?php echo $lang['common']['text_delete']; ?></button>
-                </form>
-                <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $lang['common']['text_close']; ?></button>
-            </div>
-        </div>
-    </div>
-</div>
 
 <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
 <script src="public/js/scan.js" async></script>
@@ -322,18 +297,18 @@
 <script>
     function saveImgtoDB(file_type) {
         drawVideoCanvas();
+
         canvas.toBlob(
             function(blob) {
                 var id = $("input[name=id]").val();
-                if (id === "") id = $("input[name=next_id]").val();
                 const d = new Date();
                 let time = d.getTime();
                 var xhr = new XMLHttpRequest();
                 xhr.open("POST", "index.php?route=attachFile", false);
                 xhr.onreadystatechange = function() {
                     console.log(xhr.responseText);
-                    $('#attach-picture').modal('toggle');
-                    $('#attach-picture').modal('hide');
+                    $('#attach-scan').modal('toggle');
+                    $('#attach-scan').modal('hide');
                 };
                 const filename = id + "_" + time + "_img.jpg";
                 const formData = new FormData();

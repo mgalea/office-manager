@@ -21,8 +21,8 @@
   }
 
   .btn {
-	padding: 4px 10px !important;
-	border-radius: 5px;
+    padding: 4px 10px !important;
+    border-radius: 5px;
   }
 }
 
@@ -501,6 +501,23 @@ div.dataTables_wrapper {
       opacity: 0.3;
     }
   }
+}
+
+@media only screen and (max-width: 600px) {
+  div.dataTables_wrapper {
+    font-size: $smallFont;
+  }
+  .page-item {
+    .page-link {
+      height: 20px;
+      min-width: 20px;
+      padding: 0px;
+      font-size: 14px;
+      border-radius: 50%;
+      margin:2px;
+    }
+  }
+
 }
 
 td.details-control {

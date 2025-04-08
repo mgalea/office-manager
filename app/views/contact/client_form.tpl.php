@@ -26,7 +26,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="icon-user"></i></span>
                                 </div>
-                                <input type="text" class="form-control" name="client[name]" value="<?php echo $result['name']; ?>" placeholder="<?php echo $lang['common']['text_name']; ?>" required>
+                                <input type="text" class="form-control" name="client[name]" value="<?php echo isset($result['name']) ? $result['name'] : ''; ?>" placeholder="<?php echo $lang['common']['text_name']; ?>" required>
                             </div>
                         </div>
                         <div class="form-group">

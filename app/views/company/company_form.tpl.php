@@ -45,7 +45,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="icon-user"></i></span>
                                     </div>
-                                    <input type="text" class="form-control" name="company[name]" value="<?php echo $result['name']; ?>" placeholder="<?php echo $lang['company']['text_name']; ?>" required>
+                                    <input type="text" class="form-control" name="company[name]" value="<?php if (isset($result['name'])) echo $result['name']; ?>" placeholder="<?php echo $lang['company']['text_name']; ?>" required>
                                 </div>
                             </div>
                             <div class="col-xs-5 col-md-3">
@@ -54,7 +54,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="icon-user"></i></span>
                                     </div>
-                                    <input type="text" class="form-control" name="company[short_name]" value="<?php echo $result['short_name']; ?>" placeholder="<?php echo $lang['company']['text_name']; ?>" required>
+                                    <input type="text" class="form-control" name="company[short_name]" value="<?php if (isset($result['name']))  echo $result['short_name']; ?>" placeholder="<?php echo $lang['company']['text_name']; ?>" required>
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -66,10 +66,10 @@
                                     </div>
 
                                     <select name="company[type]" class="form-control">
-                                        <option value="0">List All</option>
+                                        <option value="0" disabled>List All</option>
                                         <?php if (!empty($types)) {
                                             foreach ($types as $key => $value) { ?>
-                                                <option value="<?php echo $value['id'] ?>" <?php if ($result['type'] == $value['id']) {
+                                                <option value="<?php echo $value['id'] ?>" <?php if (isset($result['type'])  && $result['type'] == $value['id']) {
                                                                                                 echo "selected";
                                                                                             } ?>><?php echo $value['name'] ?></option>
                                         <?php }
@@ -86,7 +86,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="far fa-building"></i></span>
                                     </div>
-                                    <input type="text" class="form-control" name="company[reg_no]" value="<?php echo $result['reg_no']; ?>" placeholder="<?php echo $lang['company']['text_company_id']; ?>">
+                                    <input type="text" class="form-control" name="company[reg_no]" value="<?php if (isset($result['reg_no']))  echo $result['reg_no']; ?>" placeholder="<?php echo $lang['company']['text_company_id']; ?>">
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -96,7 +96,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="far fa-building"></i></span>
                                     </div>
-                                    <input type="text" class="form-control" name="company[vat_no]" value="<?php echo $result['vat_no']; ?>" placeholder="<?php echo $lang['company']['text_vat_no']; ?>">
+                                    <input type="text" class="form-control" name="company[vat_no]" value="<?php if (isset($result['vat_no']))  echo $result['vat_no']; ?>" placeholder="<?php echo $lang['company']['text_vat_no']; ?>">
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -105,7 +105,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="icon-calendar"></i></span>
                                     </div>
-                                    <input type="text" name="company[formation_date]" class="form-control date" value="<?php if ($result['formation_date']) {
+                                    <input type="text" name="company[formation_date]" class="form-control date" value="<?php if (isset($result['formation_date'])) {
                                                                                                                             echo date_format(date_create($result['formation_date']), 'd-m-Y');
                                                                                                                         } ?>" ?>
                                 </div>
@@ -119,21 +119,21 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="icon-globe"></i></span>
                                     </div>
-                                    <input type="text" class="form-control" name="company[website]" value="<?php echo $result['website']; ?>" placeholder="<?php echo $lang['common']['text_website']; ?>">
+                                    <input type="text" class="form-control" name="company[website]" value="<?php if (isset($result['website']))  echo $result['website']; ?>" placeholder="<?php echo $lang['common']['text_website']; ?>">
                                 </div>
                                 <label class="col-form-label"><?php echo $lang['company']['text_phone']; ?></label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="icon-phone"></i></span>
                                     </div>
-                                    <input type="text" class="form-control" name="company[phone]" value="<?php echo $result['phone']; ?>" placeholder="<?php echo $lang['company']['text_phone']; ?>">
+                                    <input type="text" class="form-control" name="company[phone]" value="<?php if (isset($result['phone']))  echo $result['phone']; ?>" placeholder="<?php echo $lang['company']['text_phone']; ?>">
                                 </div>
                                 <label class="col-form-label"><?php echo $lang['company']['text_email']; ?></label>
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="icon-envelope"></i></span>
                                     </div>
-                                    <input type="text" class="form-control" name="company[email]" value="<?php echo $result['email']; ?>" placeholder="<?php echo $lang['company']['text_email']; ?>">
+                                    <input type="text" class="form-control" name="company[email]" value="<?php if (isset($result['email']))  echo $result['email']; ?>" placeholder="<?php echo $lang['company']['text_email']; ?>">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -142,7 +142,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="icon-speech"></i></span>
                                     </div>
-                                    <textarea name="company[description]" class="form-control" rows="7"><?php echo $result['description']; ?></textarea>
+                                    <textarea name="company[description]" class="form-control" rows="7"><?php if (isset($result['description']))  echo $result['description']; ?></textarea>
                                 </div>
                                 <label class="col-md-5 col-form-label"><?php echo $lang['company']['text_activity']; ?></label>
 
@@ -152,10 +152,10 @@
                                     </div>
 
                                     <select name="company[activity]" class="form-control">
-                                        <option value="0">List All</option>
+                                        <option value="0" disabled>List All</option>
                                         <?php if (!empty($activity)) {
                                             foreach ($activity as $key => $value) { ?>
-                                                <option value="<?php echo $value['id'] ?>" <?php if ($result['activity'] == $value['id']) {
+                                                <option value="<?php echo $value['id'] ?>" <?php if (isset($result['description']) && $result['activity'] == $value['id']) {
                                                                                                 echo "selected";
                                                                                             } ?>><?php echo $value['name'] ?></option>
                                         <?php }
@@ -173,7 +173,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="icon-direction"></i></span>
                                     </div>
-                                    <input type="text" class="form-control" name="company[address][address1]" value="<?php echo $result['address']['address1'] ?>" placeholder="<?php echo $lang['company']['text_address_line_1'] ?>">
+                                    <input type="text" class="form-control" name="company[address][address1]" value="<?php if (isset($result['address'])) echo $result['address']['address1'] ?>" placeholder="<?php echo $lang['company']['text_address_line_1'] ?>">
                                 </div>
                             </div>
                             <div class="col-md-5">
@@ -181,7 +181,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="icon-directions"></i></span>
                                     </div>
-                                    <input type="text" class="form-control" name="company[address][address2]" value="<?php echo $result['address']['address2'] ?>" placeholder="<?php echo $lang['company']['text_address_line_2'] ?>">
+                                    <input type="text" class="form-control" name="company[address][address2]" value="<?php if (isset($result['address']))  echo $result['address']['address2'] ?>" placeholder="<?php echo $lang['company']['text_address_line_2'] ?>">
                                 </div>
                             </div>
                         </div>
@@ -191,7 +191,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="icon-location-pin"></i></span>
                                 </div>
-                                <input type="text" class="form-control" name="company[address][city]" value="<?php echo $result['address']['city'] ?>" placeholder="<?php echo $lang['company']['text_city'] ?>">
+                                <input type="text" class="form-control" name="company[address][city]" value="<?php if (isset($result['address'])) echo $result['address']['city'] ?>" placeholder="<?php echo $lang['company']['text_city'] ?>">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -200,7 +200,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="icon-map"></i></span>
                                 </div>
-                                <input type="text" class="form-control" name="company[address][state]" value="<?php echo $result['address']['state'] ?>" placeholder="<?php echo $lang['company']['text_state'] ?>">
+                                <input type="text" class="form-control" name="company[address][state]" value="<?php if (isset($result['address'])) echo  $result['address']['state'] ?>" placeholder="<?php echo $lang['company']['text_state'] ?>">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -209,7 +209,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="icon-globe"></i></span>
                                 </div>
-                                <input type="text" class="form-control" name="company[address][country]" value="<?php echo $result['address']['country'] ?>" placeholder="<?php echo $lang['company']['text_country'] ?>">
+                                <input type="text" class="form-control" name="company[address][country]" value="<?php if (isset($result['address'])) echo $result['address']['country'] ?>" placeholder="<?php echo $lang['company']['text_country'] ?>">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -218,7 +218,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="icon-flag"></i></span>
                                 </div>
-                                <input type="text" class="form-control" name="company[address][pin]" value="<?php echo $result['address']['pin'] ?>" placeholder="<?php echo $lang['company']['text_pincode'] ?>">
+                                <input type="text" class="form-control" name="company[address][pin]" value="<?php if (isset($result['address'])) echo $result['address']['pin'] ?>" placeholder="<?php echo $lang['company']['text_pincode'] ?>">
                             </div>
                         </div>
                     </div>
@@ -230,7 +230,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="icon-direction"></i></span>
                                     </div>
-                                    <input type="text" class="form-control" name="company[postal_address][address1]" value="<?php echo $result['postal_address']['address1'] ?>" placeholder="<?php echo $lang['company']['text_address_line_1'] ?>">
+                                    <input type="text" class="form-control" name="company[postal_address][address1]" value="<?php if (isset($result['address'])) echo $result['postal_address']['address1'] ?>" placeholder="<?php echo $lang['company']['text_address_line_1'] ?>">
                                 </div>
                             </div>
                             <div class="col-md-5">
@@ -238,7 +238,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="icon-directions"></i></span>
                                     </div>
-                                    <input type="text" class="form-control" name="company[postal_address][address2]" value="<?php echo $result['postal_address']['address2'] ?>" placeholder="<?php echo $lang['company']['text_address_line_2'] ?>">
+                                    <input type="text" class="form-control" name="company[postal_address][address2]" value="<?php if (isset($result['address'])) echo $result['postal_address']['address2'] ?>" placeholder="<?php echo $lang['company']['text_address_line_2'] ?>">
                                 </div>
                             </div>
                         </div>
@@ -248,7 +248,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="icon-location-pin"></i></span>
                                 </div>
-                                <input type="text" class="form-control" name="company[postal_address][city]" value="<?php echo $result['postal_address']['city'] ?>" placeholder="<?php echo $lang['company']['text_city'] ?>">
+                                <input type="text" class="form-control" name="company[postal_address][city]" value="<?php if (isset($result['address'])) echo $result['postal_address']['city'] ?>" placeholder="<?php echo $lang['company']['text_city'] ?>">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -257,7 +257,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="icon-map"></i></span>
                                 </div>
-                                <input type="text" class="form-control" name="company[postal_address][state]" value="<?php echo $result['postal_address']['state'] ?>" placeholder="<?php echo $lang['company']['text_state'] ?>">
+                                <input type="text" class="form-control" name="company[postal_address][state]" value="<?php if (isset($result['address'])) echo $result['postal_address']['state'] ?>" placeholder="<?php echo $lang['company']['text_state'] ?>">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -266,7 +266,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="icon-globe"></i></span>
                                 </div>
-                                <input type="text" class="form-control" name="company[postal_address][country]" value="<?php echo $result['postal_address']['country'] ?>" placeholder="<?php echo $lang['company']['text_country'] ?>">
+                                <input type="text" class="form-control" name="company[postal_address][country]" value="<?php if (isset($result['address'])) echo $result['postal_address']['country'] ?>" placeholder="<?php echo $lang['company']['text_country'] ?>">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -275,7 +275,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="icon-flag"></i></span>
                                 </div>
-                                <input type="text" class="form-control" name="company[postal_address][pin]" value="<?php echo $result['postal_address']['pin'] ?>" placeholder="<?php echo $lang['company']['text_pincode'] ?>">
+                                <input type="text" class="form-control" name="company[postal_address][pin]" value="<?php if (isset($result['address'])) echo $result['postal_address']['pin'] ?>" placeholder="<?php echo $lang['company']['text_pincode'] ?>">
                             </div>
                         </div>
                     </div>
@@ -287,6 +287,7 @@
                                     <div class="form-group row">
                                         <label class="col-form-label col-md-1"><?php echo $lang['company']['text_documents']; ?></label>
                                         <div class="attach-file col-md-10">
+
                                             <a data-toggle="modal" data-target="#attach-file"><?php echo $lang['company']['text_upload_document']; ?></a>
                                         </div>
                                     </div>
@@ -294,7 +295,7 @@
                                         <?php if (!empty($documents)) {
                                             foreach ($documents as $key => $value) {
                                                 $file_ext = pathinfo($value['file_name'], PATHINFO_EXTENSION);
-                                                if ($file_ext == "pdf") { ?>
+                                                if ( strtolower($file_ext) == "pdf" ) { ?>
                                                     <div class="attached-files-block">
                                                         <a href="public/uploads/<?php echo $value['file_name']; ?>" class="open-pdf"><i class="fa fa-file-pdf"></i><span class="filename"><?php echo $value['file_name']; ?></span></a>
                                                         <input type="hidden" name="document[attached][]" value="<?php echo $value['file_name']; ?>">
@@ -315,7 +316,9 @@
                         </div>
                     </div>
                 </div>
-                <input type="hidden" name="id" value="<?php echo $result['id']; ?>">
+                <input type="hidden" name="id" value="<?php if (isset($result['id'])) {
+                                                                    echo $result['id'];
+                                                                } ?>">
             </div>
             <div class="panel-footer">
                 <div class="row">

@@ -16,7 +16,9 @@
             </div>  
         </div>
         <div class="panel-wrapper p-3">
-            <input type="hidden" name="id" value="<?php echo $result['id'] ?>">
+            <input type="hidden" name="id" value="<?php if (isset($result['id'])) {
+                                                                    echo $result['id'];
+                                                                } ?>">
             <input type="hidden" name="_token" value="<?php echo $token; ?>">
             <div class="mt-3 pl-4 pr-4">
                 <div class="row">

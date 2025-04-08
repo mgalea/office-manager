@@ -40,7 +40,7 @@
 								<select class="custom-select" name="user[role]" required>
 									<option value=""><?php echo $lang['users']['text_user_role']; ?></option>
 									<?php if (!empty($role)) { foreach ($role as $key => $value) { ?>
-									<option value="<?php echo $value['id']; ?>" <?php if ($result['user_role'] == $value['id']) { echo "selected"; } ?>><?php echo $value['name']; ?></option>
+									<option value="<?php echo $value['id']; ?>" <?php if (isset($result['user_role']) && $result['user_role'] == $value['id']) { echo "selected"; } ?>><?php echo $value['name']; ?></option>
 									<?php } } ?>
 								</select>
 							</div>
@@ -175,7 +175,9 @@
 					</div>
 				</div>
 			</div>
-			<input type="hidden" name="id" value="<?php echo $result['user_id']; ?>">
+			<input type="hidden" name="id" value="<?php if (isset($result['id'])) {
+                                                                    echo $result['id'];
+                                                                } ?>">
 		</div>
 		<div class="panel-footer text-center">
 			<button type="submit" name="submit" class="btn btn-info"><?php echo $lang['common']['text_save']; ?></button>

@@ -14,7 +14,8 @@ class Dashboard extends Model
 
 	public function getstatistics()
 	{
-		$query = $this->model->query("(SELECT count(*) AS `total` FROM `" . DB_PREFIX . "contacts`) UNION ALL (SELECT count(*) AS `total` FROM `" . DB_PREFIX . "projects`) UNION ALL (SELECT count(*) AS `total` FROM `" . DB_PREFIX . "invoice`) UNION ALL (SELECT count(*) AS `total` FROM `" . DB_PREFIX . "proposal`)");
+		$query = $this->model->query("(SELECT SUM(amount) AS `total`, 'Income' AS `name`, 'icon-people' AS `icon` FROM `kk_invoice` WHERE `inv_date` >= '2021-01-01')
+		 UNION ALL (SELECT SUM(purchase_amount) AS `total`, 'Expenditure' AS `name`,'icon-people' AS `icon` FROM `kk_expenses` WHERE `purchase_date` >= '2021-01-01' AND purchase_by=9);");
 		return $query->rows;
 	}
 
