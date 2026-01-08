@@ -8,15 +8,15 @@
             <div class="panel panel-default">
                 <div class="panel-head">
                     <div class="panel-title">
-                        <i class="icon-rocket panel-head-icon"></i>
+                        <i class="icon-handbag panel-head-icon"></i>
                         <span class="panel-title-text"><?php echo $page_title; ?></span>
                     </div>
                     <div class="panel-action">
                         <button type="submit" class="btn btn-info btn-icon" name="submit" data-toggle="tooltip" title="<?php echo $lang['common']['text_save']; ?>"><i class="far fa-save"></i></button>
-                        <a href="<?php echo URL . DIR_ROUTE . 'expenses'; ?>" class="btn btn-white btn-icon" data-toggle="tooltip" title="<?php echo $lang['common']['text_back_to_list']; ?>"><i class="fa fa-reply"></i></a>
+                        <a href="javascript:window.close();" class="btn btn-white btn-icon" data-toggle="tooltip" title="<?php echo $lang['common']['text_back_to_list']; ?>"><i class="far fa-window-close"></i></a>
                     </div>
                 </div>
-                <div class="panel-wrapper p-3">
+                <div class="panel-wrapper p-2">
                     <input type="hidden" name="_token" value="<?php echo $token; ?>">
                     <div class="mt-3 pl-4 pr-4">
                         <div class="row">
@@ -195,7 +195,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="icon-speech"></i></span>
                                     </div>
-                                    <textarea name="expense[description]" class="form-control" rows="10"><?php if (isset($result['description']))  echo $result['description']; ?></textarea>
+                                    <textarea name="expense[description]" class="form-control" rows="3"><?php if (isset($result['description']))  echo $result['description']; ?></textarea>
                                 </div>
                             </div>
                         </div>

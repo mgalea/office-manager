@@ -11,7 +11,7 @@ class Expense extends Model
 		$query = $this->model->query("SELECT  e.*, et.name, c.abbr, s.name AS supplier, p.name AS payor FROM `" . DB_PREFIX . "expenses` AS e LEFT JOIN `" .
 			DB_PREFIX . "expense_type` AS et ON et.id = e.expense_type LEFT JOIN `" . DB_PREFIX . "currency` AS c ON c.id = e.currency  LEFT JOIN `"
 			. DB_PREFIX . "companies` AS s ON " . "s.id = e.supplier_id  LEFT JOIN `"
-			. DB_PREFIX . "companies` AS p ON " . "p.id = e.purchase_by WHERE e.purchase_date >= '2025-01-01' ORDER BY e.purchase_date DESC");
+			. DB_PREFIX . "companies` AS p ON " . "p.id = e.purchase_by WHERE e.purchase_date >= '2023-01-01' ORDER BY e.purchase_date ASC");
 		return $query->rows;
 	}
 

@@ -144,7 +144,7 @@
                         </li>
                         <li class="menu-title"><?php echo $lang['common']['text_others']; ?></li>
                         <li id="expense-li">
-                            <a href="<?php echo URL . DIR_ROUTE; ?>expenses"><i class="icon-rocket"></i><span><?php echo $lang['common']['text_expenses']; ?></span></a>
+                            <a href="<?php echo URL . DIR_ROUTE; ?>expenses"><i class="icon-handbag"></i><span><?php echo $lang['common']['text_expenses']; ?></span></a>
                         </li>
                         <li id="calendar-li">
                             <a href="<?php echo URL . DIR_ROUTE; ?>calendar"><i class="icon-event"></i><span><?php echo $lang['common']['text_calendar']; ?></span></a>
@@ -481,7 +481,7 @@
                                             </div>
                                             <div class="col-6 p-0 box">
                                                 <a href="<?php echo URL . DIR_ROUTE . 'expense/add'; ?>">
-                                                    <i class="icon-rocket"></i>
+                                                    <i class="icon-handbag"></i>
                                                     <span><?php echo $lang['common']['text_new'] . ' ' . $lang['common']['text_expense']; ?></span>
                                                 </a>
                                             </div>

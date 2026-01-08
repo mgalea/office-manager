@@ -23,7 +23,7 @@
 				<table>
 					<tbody>
 						<tr class="inv-from-container">
-							<td>
+							<td colspan="3">
 								<div class="inv-bill-to">
 									<p class="title"><?php echo $organization; ?><br></p>
 									<p class="body"><?php echo $address['address1']; ?></p>
@@ -49,7 +49,7 @@
 							</td>
 							<td class="text-right">
 								<div class="inv-meta">
-									<p><span># : </span><span>INV-<?php echo str_pad($result['id'], 4, '0', STR_PAD_LEFT); ?></span></p>
+									<p><span>Invoice Number : </span><span>INV-<?php echo str_pad($result['id'], 4, '0', STR_PAD_LEFT); ?></span></p>
 									<p><span><?php echo $lang['invoices']['text_invoice_date']; ?> : </span><span><?php echo date_format(date_create($result['inv_date']), 'd-m-Y'); ?></span></p>
 									<p><span><?php echo $lang['invoices']['text_due_date']; ?> : </span><span><?php echo date_format(date_create($result['duedate']), 'd-m-Y'); ?></span></p>
 									<p><span><?php echo $lang['invoices']['text_payment_method']; ?> : </span><span><?php echo $result['payment']; ?></span></p>

@@ -9,6 +9,7 @@ ini_set("error_log", "error.log"); //send error log to log file specified here.
 define('VERSION', '2.0.0.0');
 
 // Check Version
+
 if (version_compare(phpversion(), '7.4.13', '<') == true) {
 	exit('PHP5.5+ Required');
 }

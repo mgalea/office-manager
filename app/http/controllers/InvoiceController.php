@@ -796,11 +796,11 @@ class InvoiceController extends Controller
 		}
 		.inv-bill-to p {
 			font-size: 10px;
-			color: #777;
+			color: #333;
 		}
 		.inv-bill-to span {
 			font-size: 10px;
-			color: #777;
+			color: #333;
 		}
 		.inv-bill-to .title {
 			font-size: 16px;
@@ -815,6 +815,7 @@ class InvoiceController extends Controller
 		.inv-bill-to .email {
 			color: #333;
 			font-weight: 500;
+			font-size: 7rem;
 			margin: 0;
 		}
 
@@ -878,19 +879,19 @@ class InvoiceController extends Controller
 		<td  class="text-right inv-title" style="vertical-align: middle;">' . $data['lang']['common']['text_invoice'] . '</td>
 		</tr>
 		<tr class="inv-meta-container">
-		<td valign="middle">
+		<td valign="middle" colspan="2">
 		<div class="inv-bill-to">
 			<span class="head">' . $data['lang']['invoices']['text_bill_to'] . '</span><br />
 			<span class="title">' . $result['company'] . '</span><br />
 			<span class="body">' . $caddress['address1'] . ', ' . $caddress['address2'] . '</span><br />
 			<span class="body">' . $caddress['city'] . ', ' . $caddress['state'] . '</span> <br />
 			<span class="body">' . $caddress['country'] . '  ' . $caddress['pin'] . '</span><br />
-			<span class="email">' . $result['customer_email'] . '</span>
+			<span class="email"> ATTN: ' . $result['customer_email'] . '</span>
 		</div>
 		</td>
 		<td colspan="2" valign="middle" class="text-right">
 		<div class="inv-meta">
-		<span><span># : </span><span>INV-' . str_pad($result['id'], 4, '0', STR_PAD_LEFT) . '</span></span>
+		<span><span>Invoice Number : </span><span>INV-' . str_pad($result['id'], 4, '0', STR_PAD_LEFT) . '</span></span>
 		<p><span>' . $data['lang']['common']['text_created_date'] . ' : </span><span class="bold">' . date_format(date_create($result['inv_date']), 'd-m-Y') . '</span></p>
 		<p><span>' . $data['lang']['invoices']['text_due_date'] . ' : </span><span>' . date_format(date_create($result['duedate']), 'd-m-Y') . '</span></p>
 		<p><span>' . $data['lang']['invoices']['text_payment_method'] . ': </span><span>' . $result['payment'] . '</span></p>

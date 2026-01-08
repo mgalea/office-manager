@@ -11,7 +11,7 @@
                 <span class="panel-title-text"><?php echo $page_title; ?></span>
             </div>
             <div class="panel-action">
-                <a href="<?php echo URL . DIR_ROUTE . 'expense/add'; ?>" class="btn btn-success btn-sm"><i class="icon-plus mr-1"></i> <?php echo $lang['expenses']['text_new_expense']; ?></a>
+                <a target="_blank"  href="<?php echo URL . DIR_ROUTE . 'expense/add'; ?>" class="btn btn-success btn-sm"><i class="icon-plus mr-1"></i> <?php echo $lang['expenses']['text_new_expense']; ?></a>
             </div>
         </div>
         <div class="panel-wrapper">
@@ -34,28 +34,28 @@
                             foreach ($result as $key => $value) { ?>
                                 <tr>
                                     <td><?php echo ($key + 1); ?> </td>
-                                    <td  width= "10%" class="table-srno"><?php
-                                                            
-                                    
-                                                            $amount_paid = (int)($value['paid_amount']) / (int)($value['purchase_amount']);
+                                    <td width="10%" class="table-srno">
+                                        <?php
 
-                                                            if ($amount_paid == 0) {
-                                                                echo ' <span class="badge badge-pill badge-pinterest badge-min-size small">unpaid</span>';
-                                                            }
+                                        $amount_paid = (int)($value['paid_amount']) / (int)($value['purchase_amount']);
 
-                                                            if ($amount_paid == 1) {
-                                                                echo ' <span class="badge badge-pill badge-success badge-min-size small">paid</span>';
-                                                            }
+                                        if ($amount_paid == 0) {
+                                            echo ' <span class="badge badge-pill badge-pinterest badge-min-size small">unpaid</span>';
+                                        }
 
-                                                            if ($amount_paid > 0 && $amount_paid < 1) {
-                                                                echo ' <span class="badge badge-pill badge-warning badge-min-size small">partial</span>';
-                                                            }
+                                        if ($amount_paid == 1) {
+                                            echo ' <span class="badge badge-pill badge-success badge-min-size small">paid</span>';
+                                        }
 
-                                                            if ($amount_paid > 0 && $amount_paid > 1) {
-                                                                echo ' <span class="badge badge-pill badge-primary badge-min-size small">overpaid</span>';
-                                                            }
+                                        if ($amount_paid > 0 && $amount_paid < 1) {
+                                            echo ' <span class="badge badge-pill badge-warning badge-min-size small">partial</span>';
+                                        }
 
-                                                            ?>
+                                        if ($amount_paid > 0 && $amount_paid > 1) {
+                                            echo ' <span class="badge badge-pill badge-primary badge-min-size small">overpaid</span>';
+                                        }
+
+                                        ?>
                                     </td>
                                     <td>
                                         <?php echo $value['supplier']; ?>
@@ -64,13 +64,12 @@
                                     <td><?php echo date_format(date_create($value['purchase_date']), 'Y-m-d'); ?></td>
 
 
-
                                     <td class="font-14"><?php echo $value['payor']; ?></td>
 
                                     <td><?php echo $value['abbr'] . ' ' . ltrim($value['purchase_amount'], '0'); ?></td>
 
                                     <td class="table-action">
-                                        <a href="<?php echo URL . DIR_ROUTE . 'expense/edit&id=' . $value['id']; ?>" class="btn btn-success btn-icon" data-toggle="tooltip" title="<?php echo $lang['common']['text_edit']; ?>"><i class="icon-pencil"></i></a>
+                                        <a target="_blank" href="<?php  echo URL . DIR_ROUTE . 'expense/edit&id=' . $value['id']; ?>" class="btn btn-success btn-icon mr-2" data-toggle="tooltip" title="<?php echo $lang['common']['text_edit']; ?>"><i class="icon-pencil"></i></a>
                                         <span class="btn btn-warning btn-icon table-delete text-black" data-toggle="tooltip" data-placement="top" title="<?php echo $lang['common']['text_delete']; ?>"><i class="icon-trash"></i><input type="hidden" value="<?php echo $value['id']; ?>"></span>
                                     </td>
                                 </tr>
