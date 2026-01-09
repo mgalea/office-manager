@@ -79,9 +79,9 @@
 </div>
 
 <!-- include summernote css/js-->
-<link href="public/css/summernote-bs4.css" rel="stylesheet">
-<script type="text/javascript" src="public/js/summernote-bs4.min.js"></script>
-<script type="text/javascript" src="public/js/custom.summernote.js"></script>
+<link href="css/summernote-bs4.css" rel="stylesheet">
+<script type="text/javascript" src="js/summernote-bs4.min.js"></script>
+<script type="text/javascript" src="js/custom.summernote.js"></script>
 <script>
     $('#summernote').summernote({
         placeholder: 'Hello',

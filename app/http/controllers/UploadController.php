@@ -35,7 +35,7 @@ class UploadController extends Controller
 	public function attachFile()
 	{
 		$ds = DIRECTORY_SEPARATOR;  
-		$storeFolder = 'public/uploads/';
+		$storeFolder = 'uploads/';
 		$ext = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
 		$file_name = pathinfo($_FILES['file']['name'], PATHINFO_FILENAME);
 		$name = $_FILES['file']['name'];
@@ -63,7 +63,7 @@ class UploadController extends Controller
 	protected function uploadFile()
 	{
 		$ds = DIRECTORY_SEPARATOR;  
-		$storeFolder = 'public/uploads';
+		$storeFolder = 'uploads';
 		$ext = pathinfo($_FILES['file']['name'], PATHINFO_EXTENSION);
 		$newname = time();
 		$rand = rand(100, 999);
@@ -94,7 +94,7 @@ class UploadController extends Controller
 			exit();
 		}
 		
-		if (!unlink('public/uploads/'.$file))
+		if (!unlink('uploads/'.$file))
 		{
 			echo ("Error deleting $file");
 		} else
@@ -112,8 +112,8 @@ class UploadController extends Controller
 			exit();
 		}
 
-		if (file_exists('public/uploads/'.$file)) {
-			if (!unlink('public/uploads/'.$file))
+		if (file_exists('uploads/'.$file)) {
+			if (!unlink('uploads/'.$file))
 			{
 				echo ("Error deleting $file");
 			}

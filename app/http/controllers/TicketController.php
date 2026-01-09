@@ -206,8 +206,8 @@ class TicketController extends Controller
 		foreach ($data['message'] as $key => $value) {
 			if (!empty($attached = json_decode($value['attached']))) {
 				foreach ($attached as $attached_key => $attached_value) {
-					if (file_exists('public/uploads/ticket/'.$attached_value)) {
-						unlink('public/uploads/ticket/'.$attached_value);
+					if (file_exists('uploads/ticket/'.$attached_value)) {
+						unlink('uploads/ticket/'.$attached_value);
 					}
 				}
 			}
@@ -224,7 +224,7 @@ class TicketController extends Controller
 	private function uplodeFile($data)
 	{
 		$ds = DIRECTORY_SEPARATOR;  
-		$storeFolder = 'public/uploads/ticket';
+		$storeFolder = 'uploads/ticket';
 		$file_name_array = array();
 
 		foreach ($data['name'] as $key => $value) {
@@ -257,7 +257,7 @@ class TicketController extends Controller
 			$this->url->redirect('closetab');
 			exit();
 		} else {
-			$filepath = DIR."public/uploads/ticket/".$file;
+			$filepath = DIR."uploads/ticket/".$file;
 
 			if(file_exists($filepath)) {
 				header('Content-Description: File Transfer');

@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Office Manager | Admin Panel</title>
-    <link rel="icon" type="image/x-icon" href="public/images/favicon.png">
+    <link rel="icon" type="image/x-icon" href="images/favicon.png">
     <!-- Font Faimily -->
     <link href="https://fonts.googleapis.com/css?family=Dosis:500,600" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500" rel="stylesheet">
@@ -21,27 +21,27 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js" integrity="sha512-lbwH47l/tPXJYG9AcFNoJaTMhGvYWhVM9YI43CT+uteTRRaiLCui8snIgyAN8XWgNjNhCqlAUdzZptso6OCoFQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
  
         <!-- Include css files -->
-    <link rel="stylesheet" href="public/css/jquery-ui.min.css" />
-    <link rel="stylesheet" href="public/css/datatables.min.css">
-    <link rel="stylesheet" href="public/css/bootstrap-select.min.css" />
-    <link rel="stylesheet" href="public/css/morris.css" />
-    <link rel="stylesheet" href="public/css/dropzone.min.css">
-    <link rel="stylesheet" href="public/css/perfect-scrollbar.css">
-    <link rel="stylesheet" href="public/css/style.css" />
-    <link rel="stylesheet" href="public/css/chosen.css">
+    <link rel="stylesheet" href="css/jquery-ui.min.css" />
+    <link rel="stylesheet" href="css/datatables.min.css">
+    <link rel="stylesheet" href="css/bootstrap-select.min.css" />
+    <link rel="stylesheet" href="css/morris.css" />
+    <link rel="stylesheet" href="css/dropzone.min.css">
+    <link rel="stylesheet" href="css/perfect-scrollbar.css">
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/chosen.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" integrity="sha512-6S2HWzVFxruDlZxI3sXOZZ4/eJ8AcxkQH1+JjSe/ONCEqR9L4Ysq5JdT5ipqtzU7WHalNwzwBv+iE51gNHJNqQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha512-H9jrZiiopUdsLpg94A333EfumgUBpO9MdbxStdeITo+KEIMaNfHNvwyjjDJb+ERPaRS6DpyRlKbvPUasNItRyw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- Include js files -->
-    <script type="text/javascript" src="public/js/moment.min.js"></script>
+    <script type="text/javascript" src="js/moment.min.js"></script>
 
-    <script type="text/javascript" src="public/js/bootstrap-select.min.js"></script>
-    <script type="text/javascript" src="public/js/daterangepicker.js"></script>
-    <script type="text/javascript" src="public/js/datatables.min.js"></script>
-    <script type="text/javascript" src="public/js/dropzone.min.js"></script>
-    <script type="text/javascript" src="public/js/perfect-scrollbar.min.js"></script>
-    <script type="text/javascript" src="public/js/admin.js"></script>
-    <script type="text/javascript" src="public/js/chosen.jquery.js"></script>
+    <script type="text/javascript" src="js/bootstrap-select.min.js"></script>
+    <script type="text/javascript" src="js/daterangepicker.js"></script>
+    <script type="text/javascript" src="js/datatables.min.js"></script>
+    <script type="text/javascript" src="js/dropzone.min.js"></script>
+    <script type="text/javascript" src="js/perfect-scrollbar.min.js"></script>
+    <script type="text/javascript" src="js/admin.js"></script>
+    <script type="text/javascript" src="js/chosen.jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha512-uURl+ZXMBrF4AwGaWmEetzrd+J5/8NRkWAvJx5sbPSSuOb0bZLqf+tOzniObO00BjHa/dD7gub9oCGMLPQHtQA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 </head>
@@ -69,7 +69,7 @@
                     <div class="media-all">
                         <?php $media_array = [];
                         $allowed =  array('gif', 'png', 'jpg');
-                        $images = scandir(DIR . "public/uploads", 1);
+                        $images = scandir(DIR . "uploads", 1);
                         foreach ($images as $value) {
                             $ext = pathinfo($value, PATHINFO_EXTENSION);
                             if (in_array($ext, $allowed)) {
@@ -79,7 +79,7 @@
                         $media_array = json_encode($media_array); ?>
                         <input type="hidden" name="media_all" value="<?php echo htmlspecialchars($media_array, ENT_QUOTES, 'UTF-8'); ?>">
                         <input type="hidden" name="absolute-path" value="<?php echo URL . DIR_ROUTE; ?>">
-                        <input type="hidden" name="absolute-upload-path" value="<?php echo htmlspecialchars(URL . 'public/uploads/', ENT_QUOTES, 'UTF-8'); ?>">
+                        <input type="hidden" name="absolute-upload-path" value="<?php echo htmlspecialchars(URL . 'uploads/', ENT_QUOTES, 'UTF-8'); ?>">
                         <input type="hidden" name="text_language" value="<?php echo $lang['common']['text_drop_message']; ?>">
                     </div>
                 </div>
@@ -143,8 +143,13 @@
                             </ul>
                         </li>
                         <li class="menu-title"><?php echo $lang['common']['text_others']; ?></li>
-                        <li id="expense-li">
-                            <a href="<?php echo URL . DIR_ROUTE; ?>expenses"><i class="icon-handbag"></i><span><?php echo $lang['common']['text_expenses']; ?></span></a>
+                        <li id="expense-li" class="has-sub">
+                            <a><i class="icon-handbag"></i><span><?php echo $lang['common']['text_expenses']; ?></span><i class="arrow rotate"></i></a>
+                            <ul id="expense" class="sub-menu">
+                                <li><a href="<?php echo URL . DIR_ROUTE; ?>expenses"><span><?php echo $lang['common']['text_all_expenses']; ?></span></a></li>
+                                <li><a href="<?php echo URL . DIR_ROUTE; ?>expenses/local"><span><?php echo $lang['common']['text_local_expenses']; ?></span></a></li>
+                                <li><a href="<?php echo URL . DIR_ROUTE; ?>expenses/foreign"><span><?php echo $lang['common']['text_foreign_expenses']; ?></span></a></li>
+                            </ul>
                         </li>
                         <li id="calendar-li">
                             <a href="<?php echo URL . DIR_ROUTE; ?>calendar"><i class="icon-event"></i><span><?php echo $lang['common']['text_calendar']; ?></span></a>
@@ -287,10 +292,10 @@
                     <div class="col-4 col-md-7 page-hdr-left">
                         <div id="logo">
                             <div class="tbl-cell logo-icon">
-                                <a href="#"><img src="public/images/icon.png" alt=""></a>
+                                <a href="#"><img src="images/icon.png" alt=""></a>
                             </div>
                             <div class="tbl-cell logo">
-                                <a href="<?php echo URL . DIR_ROUTE; ?>dashboard"><img src="public/images/icon.png" alt=""><img src="public/images/logo-color.png"></a>
+                                <a href="<?php echo URL . DIR_ROUTE; ?>dashboard"><img src="images/icon.png" alt=""><img src="images/logo-color.png"></a>
                             </div>
                         </div>
                         <div class="page-menu menu-icon">
@@ -522,7 +527,7 @@
                                 <div class="menu-dropdown-inner">
                                     <div class="menu-dropdown-head pb-3">
                                         <div class="tbl-cell">
-                                            <!-- <img src="public/images/author.jpg" alt=""> -->
+                                            <!-- <img src="images/author.jpg" alt=""> -->
                                             <i class="fa fa-user-circle"></i>
                                         </div>
                                         <div class="tbl-cell pl-2 text-left">

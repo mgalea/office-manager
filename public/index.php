@@ -15,8 +15,8 @@ if (version_compare(phpversion(), '7.4.13', '<') == true) {
 }
 
 // Configuration
-if (is_file('config/config.php')) {
-	require_once('config/config.php');
+if (is_file('../config/config.php')) {
+	require_once('../config/config.php');
 } else {
 	exit('Configuration file does not exist!');
 }
@@ -32,4 +32,4 @@ if ( defined('DB_HOSTNAME') && defined('DB_USERNAME') && defined('DB_PASSWORD') 
     exit();
 }
 
-require_once 'builder/bootstrap.php';
+require_once '../builder/bootstrap.php';

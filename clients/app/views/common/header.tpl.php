@@ -6,26 +6,26 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?php echo $info['name'].' | '.$lang['common']['text_client'].' '.$lang['common']['text_portal']; ?></title>
-    <link rel="icon" type="image/x-icon" href="public/images/favicon.png">
+    <link rel="icon" type="image/x-icon" href="images/favicon.png">
     
     <link href="https://fonts.googleapis.com/css?family=Dosis:500,600" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500" rel="stylesheet">
     <!-- Incclude css files -->
-    <link rel="stylesheet" href="public/font-awesome/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="public/css/simple-line-icons.min.css">
-    <link rel="stylesheet" href="public/css/datatables.min.css">
-    <link rel="stylesheet" href="public/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="public/css/style.css" />
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="css/simple-line-icons.min.css">
+    <link rel="stylesheet" href="css/datatables.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
     <!-- Include js files -->
-    <script type="text/javascript" src="public/js/jquery-2.1.4.min.js"></script>
-    <script type="text/javascript" src="public/js/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="public/js/datatables.min.js"></script>
-    <script type="text/javascript" src="public/js/popper.min.js"></script>
-    <script type="text/javascript" src="public/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="js/datatables.min.js"></script>
+    <script type="text/javascript" src="js/popper.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
 
-    <script type="text/javascript" src="public/js/toastr.js"></script>
-    <script type="text/javascript" src="public/js/daterangepicker.js"></script>
-    <script type="text/javascript" src="public/js/admin.js"></script>
+    <script type="text/javascript" src="js/toastr.js"></script>
+    <script type="text/javascript" src="js/daterangepicker.js"></script>
+    <script type="text/javascript" src="js/admin.js"></script>
 </head>
 <body>
 
@@ -35,7 +35,7 @@
                 <div class="row align-items-center">
                     <div class="col-4">
                         <a href="<?php echo URL_CLIENTS . DIR_ROUTE . 'dashboard'; ?>" class="logo">
-                            <img src="public/images/logo.png" alt="">
+                            <img src="images/logo.png" alt="">
                         </a>
                     </div>
                     <div class="col-8 menu text-right">

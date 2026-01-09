@@ -184,8 +184,8 @@
 </div>
 
 <!-- Full Calendar Plugin -->
-<link rel="stylesheet" href="public/css/fullcalendar.min.css" />
-<script type="text/javascript" src="public/js/fullcalendar.min.js"></script>
+<link rel="stylesheet" href="css/fullcalendar.min.css" />
+<script type="text/javascript" src="js/fullcalendar.min.js"></script>
 
 <!-- Calendar script -->
 <script>

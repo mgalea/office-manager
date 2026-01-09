@@ -116,7 +116,7 @@
                                     $file_ext = pathinfo($value['file_name'], PATHINFO_EXTENSION);
                                     if ($file_ext == "pdf") { ?>
                                         <div class="attached-files-block">
-                                            <a href="public/uploads/<?php echo $value['file_name']; ?>" class="open-pdf"><i class="fa fa-file-pdf"></i></a>
+                                            <a href="uploads/<?php echo $value['file_name']; ?>" class="open-pdf"><i class="fa fa-file-pdf"></i></a>
                                             <input type="hidden" name="inventory[attached][]" value="<?php echo $value['file_name']; ?>">
  
                                             <div class="delete-file"><a class="icon-trash"></a></div>
@@ -140,7 +140,7 @@
                                     $file_ext = pathinfo($value['file_name'], PATHINFO_EXTENSION);
                                     if ($file_ext == "png" || $file_ext == "jpg") { ?>
                                         <div class="attached-files-block">
-                                            <a href="public/uploads/<?php echo $value['file_name']; ?>" class="open-image"><i class="fa fa-file-image"></i></a>
+                                            <a href="uploads/<?php echo $value['file_name']; ?>" class="open-image"><i class="fa fa-file-image"></i></a>
                                             <input type="hidden" name="inventory[attached][]" value="<?php echo $value['file_name']; ?>">
                                             <div class="delete-file"><a class="icon-trash"></a></div>
                                             <div class="font-8"> <?php echo $value['file_name']; ?>'</div>
@@ -229,13 +229,13 @@
                         var ext = file.xhr.response.substr(file.xhr.response.lastIndexOf('.') + 1);
                         if (ext === "pdf" || ext === "doc" ) {
                             $('.attached-files').append('<div class="attached-files-block attached-' + file.xhr.response.slice(0, -4) + '">' +
-                                '<a href="public/uploads/' + file.xhr.response + '" class="open-pdf"><i class="fa fa-file-pdf"></i></a>' +
+                                '<a href="uploads/' + file.xhr.response + '" class="open-pdf"><i class="fa fa-file-pdf"></i></a>' +
                                 '<input type="hidden" name="expense[attached][]" value="' + file.xhr.response + '">' +
                                 '<div class="delete-file"><a class="icon-trash"></a></div>' + '<div class="font-8">' + file.xhr.response + '</div>' +
                                 '</div>');
                         } else {
                             $('.attached-files').append('<div class="attached-files-block attached-' + file.xhr.response.slice(0, -4) + '">' +
-                                '<a href="public/uploads/' + file.xhr.response + '" data-fancybox="gallery"><img src="public/uploads/' + file.xhr.response + '" alt=""></a>' +
+                                '<a href="uploads/' + file.xhr.response + '" data-fancybox="gallery"><img src="uploads/' + file.xhr.response + '" alt=""></a>' +
                                 '<input type="hidden" name="expense[attached][]" value="' + file.xhr.response + '">' +
                                 '<div class="delete-file"><a class="icon-trash"></a></div>' + '<div class="font-8">' + file.xhr.response + '</div>' +
                                 '</div>');
@@ -317,7 +317,7 @@
 </div>
 
 <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
-<script src="public/js/scan.js" async></script>
+<script src="js/scan.js" async></script>
 
 <script>
     function saveImgtoDB(file_type) {

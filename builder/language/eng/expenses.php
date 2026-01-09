@@ -19,4 +19,5 @@ $expenses = array(
 	'text_paid_date' => 'Payment Date',
 	'text_charge_client' => 'Charge to Client',
 	'text_payee' => 'Payee',
+	'text_export_expense' => 'Export Expenses',
 );

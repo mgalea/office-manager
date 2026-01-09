@@ -412,6 +412,6 @@
 <script>
 </script>
 
-<script src="public/js/invoice.js"></script>
+<script src="js/invoice.js"></script>
 <!-- Footer -->
 <?php include(DIR . 'app/views/common/footer.tpl.php'); ?>

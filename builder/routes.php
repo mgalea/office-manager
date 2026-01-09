@@ -52,6 +52,10 @@ $router->get('mail', 'MailController@sendEmail@2');
 $router->post('mail/sendmail', 'MailController@indexMail@2');
 
 $router->get('expenses', 'ExpenseController@index@2');
+$router->get('expenses/local', 'ExpenseController@indexLocal@2');
+$router->get('expenses/foreign', 'ExpenseController@indexForeignList@2');
+$router->post('expense/foreign', 'ExpenseController@indexForeign@2');
+$router->get('expense/export', 'ExpenseController@indexExport@2');
 $router->get('expense/add', 'ExpenseController@indexAdd@2');
 $router->get('expense/edit', 'ExpenseController@indexEdit@2');
 $router->post('expense/action', 'ExpenseController@indexAction@2');

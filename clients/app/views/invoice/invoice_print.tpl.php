@@ -6,8 +6,8 @@
 
 	<link href="https://fonts.googleapis.com/css?family=Dosis:500,600" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500" rel="stylesheet">
-	<link rel="stylesheet" href="public/css/bootstrap.min.css" />
-	<link rel="stylesheet" href="public/css/style.css" />
+	<link rel="stylesheet" href="css/bootstrap.min.css" />
+	<link rel="stylesheet" href="css/style.css" />
 	<style>.badge { border: 0; }</style>
 </head>
 <body>

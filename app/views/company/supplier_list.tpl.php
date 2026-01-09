@@ -102,7 +102,7 @@
                                         if ($file_ext == "pdf") { ?>
 
                                             <div class="attached-files-block">
-                                                <a href="public/uploads/<?php echo $value['file_name']; ?>" data-toggle="tooltip" title="<?php echo $file_name; ?>" class="open-pdf"><i class="fa fa-file-pdf"></i>
+                                                <a href="uploads/<?php echo $value['file_name']; ?>" data-toggle="tooltip" title="<?php echo $file_name; ?>" class="open-pdf"><i class="fa fa-file-pdf"></i>
                                                     <br><span class="filename"><?php echo $show_name; ?></span><br><span class="filename"><?php echo date_format($file_date, "d-M-Y"); ?></span> </a>
                                                 <input type="hidden" name="document[attached][]" value="<?php echo $value['file_name']; ?>">
                                             </div>
@@ -110,7 +110,7 @@
                                         <?php } else { ?>
 
                                             <div class="attached-files-block">
-                                                <a href="public/uploads/<?php echo $value['file_name']; ?>" data-fancybox="gallery"><img src="public/uploads/<?php echo $value['file_name']; ?>" alt=""><span class="filename"><?php echo $value['file_name']; ?></span></a>
+                                                <a href="uploads/<?php echo $value['file_name']; ?>" data-fancybox="gallery"><img src="uploads/<?php echo $value['file_name']; ?>" alt=""><span class="filename"><?php echo $value['file_name']; ?></span></a>
                                                 <input type="hidden" name="document[attached][]" value="<?php echo $value['file_name']; ?>">
                                             </div>
 

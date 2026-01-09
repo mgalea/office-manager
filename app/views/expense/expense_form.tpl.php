@@ -189,6 +189,43 @@
                             </div>
                         </div>
                         <div class="row">
+                            <div class="col-sm-4 col-lg-3 form-group">
+                                <label class="col-form-label">VAT Full</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="far fa-percent"></i></span>
+                                    </div>
+                                    <input type="text" name="expense[VAT_full]" class="form-control" value="<?php if (isset($result['VAT_full'])) echo $result['VAT_full']; ?>" placeholder="VAT Full">
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-lg-3 form-group">
+                                <label class="col-form-label">VAT Exempt</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="T1"></i></span>
+                                    </div>
+                                    <input type="text" name="expense[Vat_exempt]" class="form-control" value="<?php if (isset($result['Vat_exempt'])) echo $result['Vat_exempt']; ?>" placeholder="VAT Exempt">
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-lg-3 form-group">
+                                <label class="col-form-label">VAT Reduced</label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="far fa-percent"></i></span>
+                                    </div>
+                                    <input type="text" name="expense[VAT_reduced]" class="form-control" value="<?php if (isset($result['VAT_reduced'])) echo $result['VAT_reduced']; ?>" placeholder="VAT Reduced">
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-lg-3 form-group">
+                                <label class="col-form-label">Foreign Invoice</label>
+                                <div class="custom-control custom-checkbox mt-2">
+                                    <input type="hidden" name="expense[foreign]" value="0">
+                                    <input type="checkbox" class="custom-control-input" id="expense-foreign" name="expense[foreign]" value="1" <?php if (!empty($result['foreign'])) { echo 'checked'; } ?>>
+                                    <label class="custom-control-label" for="expense-foreign">Mark as foreign</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
                             <div class="col-md-12 form-group">
                                 <label class="col-form-label"><?php echo $lang['common']['text_description']; ?></label>
                                 <div class="input-group">
@@ -215,13 +252,13 @@
                                             $file_ext = pathinfo($value['file_name'], PATHINFO_EXTENSION);
                                             if (strtolower($file_ext) == "pdf") { ?>
                                                 <div class="attached-files-block">
-                                                    <a href="public/uploads/<?php echo $value['file_name']; ?>" class="open-pdf"><i class="fa fa-file-pdf"></i></a>
+                                                    <a href="uploads/<?php echo $value['file_name']; ?>" class="open-pdf"><i class="fa fa-file-pdf"></i></a>
                                                     <input type="hidden" name="document[attached][]" value="<?php echo $value['file_name']; ?>">
                                                     <div class="delete-file"><a class="fa fa-trash"></a></div>
                                                 </div>
                                             <?php } else { ?>
                                                 <div class="attached-files-block">
-                                                    <a href="public/uploads/<?php echo $value['file_name']; ?>" data-fancybox="gallery"><img src="public/uploads/<?php echo $value['file_name']; ?>" alt=""></a>
+                                                    <a href="uploads/<?php echo $value['file_name']; ?>" data-fancybox="gallery"><img src="uploads/<?php echo $value['file_name']; ?>" alt=""></a>
                                                     <input type="hidden" name="document[attached][]" value="<?php echo $value['file_name']; ?>">
                                                     <div class="delete-file"><a class="fa fa-trash"></a></div>
                                                 </div>
@@ -267,8 +304,8 @@
 
 
 
-<link rel="stylesheet" href="public/css/jquery.fancybox.min.css">
-<script src="public/js/jquery.fancybox.min.js"></script>
+<link rel="stylesheet" href="css/jquery.fancybox.min.css">
+<script src="js/jquery.fancybox.min.js"></script>
 <script>
 
         $("a.open-pdf").fancybox({
@@ -295,13 +332,13 @@
                         var ext = file.xhr.response.substr(file.xhr.response.lastIndexOf('.') + 1);
                         if (ext === "pdf") {
                             $('.attached-files').append('<div class="attached-files-block attached-' + file.xhr.response.slice(0, -4) + '">' +
-                                '<a href="public/uploads/' + file.xhr.response + '" class="open-pdf"><i class="fa fa-file-pdf"></i></a>' +
+                                '<a href="uploads/' + file.xhr.response + '" class="open-pdf"><i class="fa fa-file-pdf"></i></a>' +
                                 '<input type="hidden" name="expense[attached][]" value="' + file.xhr.response + '">' +
                                 '<div class="delete-file"><a class="fa fa-trash"></a></div>' +
                                 '</div>');
                         } else {
                             $('.attached-files').append('<div class="attached-files-block attached-' + file.xhr.response.slice(0, -4) + '">' +
-                                '<a href="public/uploads/' + file.xhr.response + '" data-fancybox="gallery"><img src="public/uploads/' + file.xhr.response + '" alt=""></a>' +
+                                '<a href="uploads/' + file.xhr.response + '" data-fancybox="gallery"><img src="uploads/' + file.xhr.response + '" alt=""></a>' +
                                 '<input type="hidden" name="expense[attached][]" value="' + file.xhr.response + '">' +
                                 '<div class="delete-file"><a class="fa fa-trash"></a></div>' +
                                 '</div>');
@@ -388,7 +425,7 @@
 
 
 <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
-<script src="public/js/scan.js" async></script>
+<script src="js/scan.js" async></script>
 
 <script>
 

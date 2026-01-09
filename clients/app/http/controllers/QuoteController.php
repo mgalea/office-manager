@@ -659,7 +659,7 @@ class QuoteController extends Controller
 		</div>';
 
 		$pdf->writeHTML($html, true, false, true, false, '');
-		$pdf->Output(DIR.'public/uploads/pdf/invoice-'.$id.'.pdf', 'F');
+		$pdf->Output(DIR.'uploads/pdf/invoice-'.$id.'.pdf', 'F');
 	}
 
 	/**
@@ -688,7 +688,7 @@ class QuoteController extends Controller
 		$mailer->mail->setFrom($info['email'], $info['name']);
 		$mailer->mail->addAddress($data['email'], $data['company']);
 		$mailer->mail->addBCC($info['email'], $info['name']);
-		$mailer->mail->addAttachment(DIR.'public/uploads/pdf/invoice-'.$id.'.pdf','Invoice.pdf');
+		$mailer->mail->addAttachment(DIR.'uploads/pdf/invoice-'.$id.'.pdf','Invoice.pdf');
 		$mailer->mail->isHTML(true);
 		$mailer->mail->Subject = $template['subject'];
 		$mailer->mail->Body = html_entity_decode($message);

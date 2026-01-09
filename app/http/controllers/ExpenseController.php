@@ -51,6 +51,59 @@ class ExpenseController extends Controller
 
 		/*Render User list view*/
 		$this->view->render('expense/expense_list.tpl', $data);
+
+	}
+
+	public function indexLocal()
+	{
+		if (!$this->commons->hasPermission('expenses')) {
+			Not_foundController::show('403');
+			exit();
+		}
+
+		$data = $this->commons->getUser();
+
+		require DIR_BUILDER . 'language/' . $data['info']['language'] . '/common.php';
+		$data['lang']['common'] = $lang;
+		require DIR_BUILDER . 'language/' . $data['info']['language'] . '/expenses.php';
+		$data['lang']['expenses'] = $expenses;
+
+		$data['result'] = $this->expenseModel->getLocalExpenses();
+		$data['suppliers'] = $this->expenseModel->getSuppliers();
+
+		if (isset($this->session->data['message'])) {
+			$data['message'] = $this->session->data['message'];
+			unset($this->session->data['message']);
+		}
+		$data['page_title'] = 'Local Expenses';
+
+		$this->view->render('expense/expense_list.tpl', $data);
+	}
+
+	public function indexForeignList()
+	{
+		if (!$this->commons->hasPermission('expenses')) {
+			Not_foundController::show('403');
+			exit();
+		}
+
+		$data = $this->commons->getUser();
+
+		require DIR_BUILDER . 'language/' . $data['info']['language'] . '/common.php';
+		$data['lang']['common'] = $lang;
+		require DIR_BUILDER . 'language/' . $data['info']['language'] . '/expenses.php';
+		$data['lang']['expenses'] = $expenses;
+
+		$data['result'] = $this->expenseModel->getForeignExpenses();
+		$data['suppliers'] = $this->expenseModel->getSuppliers();
+
+		if (isset($this->session->data['message'])) {
+			$data['message'] = $this->session->data['message'];
+			unset($this->session->data['message']);
+		}
+		$data['page_title'] = 'Foreign Expenses';
+
+		$this->view->render('expense/expense_list.tpl', $data);
 	}
 	/**
 	 * Expense index ADD method
@@ -172,8 +225,8 @@ class ExpenseController extends Controller
 		if ($validate_field = $this->validateField()) {
 			$this->session->data['message'] = array('alert' => 'error', 'value' => 'Please enter valid ' . implode(", ", $validate_field) . '!');
 			if (!empty($this->url->post('id'))) {
-			$this->url->redirect('expense/edit&id='.$this->url->post('id'));}
-			else{
+				$this->url->redirect('expense/edit&id=' . $this->url->post('id'));
+			} else {
 				$this->url->redirect('expense/edit');
 			}
 		}
@@ -223,6 +276,108 @@ class ExpenseController extends Controller
 		$this->url->redirect('expenses');
 	}
 
+	public function indexForeign()
+	{
+		if (!$this->commons->hasPermission('expense/edit')) {
+			Not_foundController::show('403');
+			exit();
+		}
+
+		$id = (int)$this->url->post('id');
+		if (empty($id)) {
+			header('Content-Type: application/json');
+			echo json_encode(array('status' => 'error'));
+			exit();
+		}
+
+		$updated = $this->expenseModel->updateForeignStatus($id, null);
+		header('Content-Type: application/json');
+		echo json_encode(array('status' => $updated ? 'ok' : 'error'));
+		exit();
+	}
+
+	/**
+	 * Expense export method
+	 * This method will export expenses as CSV
+	 **/
+	public function indexExport()
+	{
+		if (!$this->commons->hasPermission('expenses')) {
+			Not_foundController::show('403');
+			exit();
+		}
+
+		$rows = $this->expenseModel->getExpenses();
+		$filename = 'expenses_' . date('Y-m-d_His') . '.csv';
+
+		header('Content-Type: text/csv; charset=utf-8');
+		header('Content-Disposition: attachment; filename="' . $filename . '"');
+
+		$output = fopen('php://output', 'w');
+		fputcsv($output, array(
+			'Purchase Date',
+			'ID',
+			'Supplier',
+			'Invoice Number',
+			'Purchase By',
+			'Purchase Amount',
+			'Payment Method',
+			'Currency',
+			'Paid Amount',
+			'Paid Date',
+			'VAT Full',
+			'VAT Exempt',
+			'VAT Reduced',
+			'Total VAT',
+			'Foreign Invoice',
+			'Expense Type',
+			'Description'
+		));
+
+		$currency_map = array(
+			'EUR' => "\xE2\x82\xAC",
+			'€' => "\xE2\x82\xAC",
+		);
+
+		if (!empty($rows)) {
+			foreach ($rows as $row) {
+				$purchase_date = !empty($row['purchase_date']) ? date_format(date_create($row['purchase_date']), 'Y-m-d') : '';
+				$paid_date = !empty($row['paid_date']) ? date_format(date_create($row['paid_date']), 'Y-m-d') : '';
+				$currency = $row['abbr'] ?? '';
+				if (isset($currency_map[$currency])) {
+					$currency = $currency_map[$currency];
+				}
+				$vat_full = !empty($row['VAT_full']) ? $row['VAT_full'] : '0.00';
+				$vat_exempt = !empty($row['Vat_exempt']) ? $row['Vat_exempt'] : '0.00';
+				$vat_reduced = !empty($row['VAT_reduced']) ? $row['VAT_reduced'] : '0.00';
+				$foreign = !empty($row['foreign']) ? $row['foreign'] : 'local';
+
+				fputcsv($output, array(
+					$purchase_date,
+					$row['id'] ?? '',
+					$row['supplier'] ?? '',
+					isset($row['inv_number']) ? "'" . $row['inv_number'] . "'" : '',
+					$row['payor'] ?? '',
+					$row['purchase_amount'] ?? '',
+					$row['payment_type_name'] ?? '',
+					$currency,
+					$row['paid_amount'] ?? '',
+					$paid_date,
+					$vat_full,
+					$vat_exempt,
+					$vat_reduced,
+					$row['total_vat'] ?? '0.00',
+					$foreign,
+					$row['expense_type_name'] ?? '',
+					$row['description'] ?? ''
+				));
+			}
+		}
+
+		fclose($output);
+		exit();
+	}
+
 	/**
 	 * Expense Validate method
 	 * Validate input field
@@ -232,13 +387,13 @@ class ExpenseController extends Controller
 		$error = [];
 		$error_flag = false;
 
-		if ($this->commons->validateDate(date_format(date_create($this->url->post('expense')['paiddate']), 'Y-m-d') )) {
+		if ($this->commons->validateDate(date_format(date_create($this->url->post('expense')['paiddate']), 'Y-m-d'))) {
 			$error_flag = true;
-			$error['error1'] = 'paid date '. $this->url->post('expense')['paiddate'];
+			$error['error1'] = 'paid date ' . $this->url->post('expense')['paiddate'];
 		}
 		if ($this->commons->validateDate(date_format(date_create($this->url->post('expense')['purchasedate']), 'Y-m-d'))) {
 			$error_flag = true;
-			$error['error2'] = 'purchase date '. $this->url->post('expense')['purchasedate'];
+			$error['error2'] = 'purchase date ' . $this->url->post('expense')['purchasedate'];
 		}
 
 
@@ -249,3 +404,4 @@ class ExpenseController extends Controller
 		}
 	}
 }
+

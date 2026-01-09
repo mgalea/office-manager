@@ -220,11 +220,11 @@
 							$file_ext = pathinfo($value['file_name'], PATHINFO_EXTENSION);
 							if ($file_ext == "pdf") { ?>
 								<div class="attached-files-block">
-									<a href="../public/uploads/<?php echo $value['file_name']; ?>" class="open-pdf" target="_blank"><i class="fa fa-file-pdf-o"></i></a>
+									<a href="../uploads/<?php echo $value['file_name']; ?>" class="open-pdf" target="_blank"><i class="fa fa-file-pdf-o"></i></a>
 								</div>
 							<?php } else { ?>
 								<div class="attached-files-block">
-									<a href="../public/uploads/<?php echo $value['file_name']; ?>" data-fancybox="gallery" target="_black"><img src="../public/uploads/<?php echo $value['file_name']; ?>" alt=""></a>
+									<a href="../uploads/<?php echo $value['file_name']; ?>" data-fancybox="gallery" target="_black"><img src="../uploads/<?php echo $value['file_name']; ?>" alt=""></a>
 								</div>
 					<?php }
 						}
@@ -237,8 +237,8 @@
 
 
 
-<link rel="stylesheet" href="public/css/jquery.fancybox.min.css">
-<script src="public/js/jquery.fancybox.min.js"></script>
+<link rel="stylesheet" href="css/jquery.fancybox.min.css">
+<script src="js/jquery.fancybox.min.js"></script>
 
 <script>
 	$("a.open-pdf").fancybox({

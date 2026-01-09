@@ -276,7 +276,7 @@
         success: function (file, response) {
             $('.media-all').prepend('<div class="media-all-block"><div>' +
                 '<a class="data-title" data-title="Remove"><i class="fa fa-trash-o"></i></a>' +
-                '<img src="public/uploads/' + response + '" title="' + response + '">' +
+                '<img src="uploads/' + response + '" title="' + response + '">' +
                 '<input type="radio" name="media-select" id="media-' + response + '" value="' + response + '">' +
                 '<label for="media-' + response + '"><span></span> ' + response + '</label>' +
                 '</div></div>');
@@ -285,7 +285,7 @@
     });
 
     $('.media-all').on('click', '.media-all-block div img', function () {
-        $('.image-upload-progress .saved-picture').append('<img src="public/uploads/' + $(this).attr('title') + '" alt="">');
+        $('.image-upload-progress .saved-picture').append('<img src="uploads/' + $(this).attr('title') + '" alt="">');
         $('.image-upload-progress .saved-picture input[type=hidden]').val($(this).attr('title'));
         $('.image-upload-progress .saved-picture').show();
         $('.image-upload-progress .image-upload').hide();

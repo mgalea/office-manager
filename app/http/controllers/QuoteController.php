@@ -355,7 +355,7 @@ class QuoteController extends Controller
 		}
 		$mailer->mail->addAddress($data['email'], $data['company']);
 		$mailer->mail->addBCC($info['email'], $info['name']);
-		$mailer->mail->addAttachment(DIR . 'public/uploads/pdf/quotes-' . $id . '.pdf', 'Quotation.pdf');
+		$mailer->mail->addAttachment(DIR . 'uploads/pdf/quotes-' . $id . '.pdf', 'Quotation.pdf');
 		$mailer->mail->isHTML(true);
 		$mailer->mail->Subject = $template['subject'];
 		$mailer->mail->Body = html_entity_decode($message);
@@ -469,7 +469,7 @@ class QuoteController extends Controller
 		$pdf->AddPage();
 
 		$pdf->writeHTML($html_array['html'], true, false, true, false, '');
-		$pdf->Output(DIR . 'public/uploads/pdf/quotes-' . $id . '.pdf', 'F');
+		$pdf->Output(DIR . 'uploads/pdf/quotes-' . $id . '.pdf', 'F');
 	}
 
 	public function createPDFHTML($id)

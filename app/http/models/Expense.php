@@ -8,10 +8,28 @@ class Expense extends Model
 
 	public function getExpenses()
 	{
-		$query = $this->model->query("SELECT  e.*, et.name, c.abbr, s.name AS supplier, p.name AS payor FROM `" . DB_PREFIX . "expenses` AS e LEFT JOIN `" .
-			DB_PREFIX . "expense_type` AS et ON et.id = e.expense_type LEFT JOIN `" . DB_PREFIX . "currency` AS c ON c.id = e.currency  LEFT JOIN `"
+		$query = $this->model->query("SELECT e.*, et.name AS expense_type_name, pt.name AS payment_type_name, c.abbr AS abbr, s.name AS supplier, p.name AS payor, (COALESCE(e.VAT_full, 0) + COALESCE(e.Vat_exempt, 0) + COALESCE(e.VAT_reduced, 0)) AS total_vat FROM `" . DB_PREFIX . "expenses` AS e LEFT JOIN `" .
+			DB_PREFIX . "expense_type` AS et ON et.id = e.expense_type LEFT JOIN `" . DB_PREFIX . "payment_type` AS pt ON pt.id = e.payment_type LEFT JOIN `" . DB_PREFIX . "currency` AS c ON c.id = e.currency  LEFT JOIN `"
 			. DB_PREFIX . "companies` AS s ON " . "s.id = e.supplier_id  LEFT JOIN `"
-			. DB_PREFIX . "companies` AS p ON " . "p.id = e.purchase_by WHERE e.purchase_date >= '2023-01-01' ORDER BY e.purchase_date ASC");
+			. DB_PREFIX . "companies` AS p ON " . "p.id = e.purchase_by WHERE e.purchase_date >= '2023-01-01' ORDER BY e.purchase_date DESC");
+		return $query->rows;
+	}
+
+	public function getLocalExpenses()
+	{
+		$query = $this->model->query("SELECT e.*, et.name AS expense_type_name, pt.name AS payment_type_name, c.abbr AS abbr, s.name AS supplier, p.name AS payor, (COALESCE(e.VAT_full, 0) + COALESCE(e.Vat_exempt, 0) + COALESCE(e.VAT_reduced, 0)) AS total_vat FROM `" . DB_PREFIX . "expenses` AS e LEFT JOIN `" .
+			DB_PREFIX . "expense_type` AS et ON et.id = e.expense_type LEFT JOIN `" . DB_PREFIX . "payment_type` AS pt ON pt.id = e.payment_type LEFT JOIN `" . DB_PREFIX . "currency` AS c ON c.id = e.currency  LEFT JOIN `"
+			. DB_PREFIX . "companies` AS s ON " . "s.id = e.supplier_id  LEFT JOIN `"
+			. DB_PREFIX . "companies` AS p ON " . "p.id = e.purchase_by WHERE e.purchase_date >= '2023-01-01' AND (e.foreign = 0 OR e.foreign IS NULL) ORDER BY e.purchase_date DESC");
+		return $query->rows;
+	}
+
+	public function getForeignExpenses()
+	{
+		$query = $this->model->query("SELECT e.*, et.name AS expense_type_name, pt.name AS payment_type_name, c.abbr AS abbr, s.name AS supplier, p.name AS payor, (COALESCE(e.VAT_full, 0) + COALESCE(e.Vat_exempt, 0) + COALESCE(e.VAT_reduced, 0)) AS total_vat FROM `" . DB_PREFIX . "expenses` AS e LEFT JOIN `" .
+			DB_PREFIX . "expense_type` AS et ON et.id = e.expense_type LEFT JOIN `" . DB_PREFIX . "payment_type` AS pt ON pt.id = e.payment_type LEFT JOIN `" . DB_PREFIX . "currency` AS c ON c.id = e.currency  LEFT JOIN `"
+			. DB_PREFIX . "companies` AS s ON " . "s.id = e.supplier_id  LEFT JOIN `"
+			. DB_PREFIX . "companies` AS p ON " . "p.id = e.purchase_by WHERE e.purchase_date >= '2023-01-01' AND e.foreign = 1 ORDER BY e.purchase_date DESC");
 		return $query->rows;
 	}
 
@@ -81,7 +99,7 @@ class Expense extends Model
 		$query = $this->model->query(
 			"UPDATE `" . DB_PREFIX . "expenses` SET `purchase_by` = ?, `expense_type` = ?, `currency` = ?, `purchase_amount` = ?, 
 		`payment_type` = ?, `purchase_date` = ?, `description` = ? , `supplier_id` = ?, `inv_number` = ?, 
-		`paid_amount` = ?, `paid_date` = ? , `charge_client_id` = ?   WHERE `id` = ?",
+		`paid_amount` = ?, `paid_date` = ? , `charge_client_id` = ?, `VAT_full` = ?, `Vat_exempt` = ?, `VAT_reduced` = ?, `foreign` = ? WHERE `id` = ?",
 			array(
 				$this->model->escape($data['purchaseby']),
 				(int)$data['expensetype'],
@@ -95,6 +113,10 @@ class Expense extends Model
 				$data['paid_amount'],
 				$data['paiddate'],
 				(int)$data['charge_client_id'],
+				$data['VAT_full'],
+				$data['Vat_exempt'],
+				$data['VAT_reduced'],
+				$data['foreign'],
 				(int)$data['id']
 			)
 		);
@@ -110,7 +132,7 @@ class Expense extends Model
 	{
 		$query = $this->model->query(
 			"INSERT INTO `" . DB_PREFIX . "expenses` (`purchase_by`, `expense_type`, `currency`,
-		 `purchase_amount`, `payment_type`, `purchase_date`, `description`,`inv_number`, `paid_amount`, `supplier_id`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+		 `purchase_amount`, `payment_type`, `purchase_date`, `description`,`inv_number`, `paid_amount`, `supplier_id`, `VAT_full`, `Vat_exempt`, `VAT_reduced`, `foreign`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
 			array(
 				$this->model->escape($data['purchaseby']),
 				(int)$data['expensetype'],
@@ -121,7 +143,11 @@ class Expense extends Model
 				$data['description'],
 				$data['inv_number'],
 				$data['paid_amount'],
-				$data['supplier_id']
+				$data['supplier_id'],
+				$data['VAT_full'],
+				$data['Vat_exempt'],
+				$data['VAT_reduced'],
+				$data['foreign']
 			)
 		);
 
@@ -135,6 +161,28 @@ class Expense extends Model
 	public function deleteExpense($id)
 	{
 		$query = $this->model->query("DELETE FROM `" . DB_PREFIX . "expenses` WHERE `id` = ?", array((int)$id));
+		if ($query->num_rows > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public function updateForeignStatus($id, $foreign)
+	{
+		$current = $this->model->query(
+			"SELECT `foreign` FROM `" . DB_PREFIX . "expenses` WHERE `id` = ? LIMIT 1",
+			array((int)$id)
+		);
+		$value = 0;
+		if (isset($current->row['foreign'])) {
+			$value = (int)$current->row['foreign'];
+		}
+		$next = $value ? 0 : 1;
+		$query = $this->model->query(
+			"UPDATE `" . DB_PREFIX . "expenses` SET `foreign` = ? WHERE `id` = ?",
+			array($next, (int)$id)
+		);
 		if ($query->num_rows > 0) {
 			return true;
 		} else {

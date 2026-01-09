@@ -15,7 +15,7 @@ define('DIR', 'C:/www/RNGportal/');
 define('DIR_CLIENTS', 'C:/www/RNGportal/clients/');
 define('DIR_APP', 'C:/www/RNGportal/clients/app/');
 define('DIR_BUILDER', 'C:/www/RNGportal/clients/builder/');
-define('DIR_UPLOADS', 'C:/www/RNGportal/public/uploads');
+define('DIR_UPLOADS', 'C:/www/RNGportal/uploads');
 /*SMTP Credentials*/
 
 /** SMTP Credentials **/

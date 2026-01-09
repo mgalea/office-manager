@@ -6,12 +6,12 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Payment</title>
 	<meta name="Description" content="">
-	<link rel="icon" type="image/x-icon" href="public/uploads/favicon.png" />
-	<link rel="stylesheet" href="public/font-awesome/css/font-awesome.min.css" />
+	<link rel="icon" type="image/x-icon" href="uploads/favicon.png" />
+	<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" />
     <link href="https://fonts.googleapis.com/css?family=Dosis:500,600" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500" rel="stylesheet">
-	<link rel="stylesheet" href="public/css/bootstrap.min.css">
-	<link rel="stylesheet" href="public/css/style.css">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/style.css">
 	<style> 
 
 		.wrapper {
@@ -152,8 +152,8 @@
 	
 	
 	<!-- Included Scripts -->
-	<script src="public/js/jquery-2.1.4.min.js"></script>
-	<script src="public/js/bootstrap.min.js"></script>
+	<script src="js/jquery-2.1.4.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
 
 	<script type="text/javascript">
 		document.getElementById('formSubmit').submit();

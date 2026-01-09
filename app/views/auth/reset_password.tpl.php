@@ -4,22 +4,22 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title><?php echo $info['name'].' | '.$lang['login']['text_reset_password']; ?></title>
-	<link rel="icon" type="image/x-icon" href="public/images/favicon.png">
+	<link rel="icon" type="image/x-icon" href="images/favicon.png">
 	<link href="https://fonts.googleapis.com/css?family=Dosis:500,600" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500" rel="stylesheet">
-	<link rel="stylesheet" href="public/font-awesome/css/font-awesome.min.css" />
-	<link rel="stylesheet" href="public/css/bootstrap.min.css" />
-	<link rel="stylesheet" href="public/css/style.css" />
-	<script src="public/js/jquery-2.1.4.min.js"></script>
-	<script type="text/javascript" src="public/js/popper.min.js"></script>
-	<script type="text/javascript" src="public/js/bootstrap.min.js"></script>
-	<script src="public/js/custom.js"></script>
+	<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="css/bootstrap.min.css" />
+	<link rel="stylesheet" href="css/style.css" />
+	<script src="js/jquery-2.1.4.min.js"></script>
+	<script type="text/javascript" src="js/popper.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script src="js/custom.js"></script>
 </head>
 <body>
 	<div class="lgn-background">
 		<div class="lgn-wrapper">
 			<div class="lgn-logo text-center">
-				<a><img class="mr-3" src="public/images/icon.png" alt=""><img src="public/images/logo-color.png" alt=""></a>
+				<a><img class="mr-3" src="images/icon.png" alt=""><img src="images/logo-color.png" alt=""></a>
 			</div>
 			<div id="login-form" class="lgn-form ">
 				<form class="form-vertical" action="<?php echo $action ?>" method="post">

@@ -79,12 +79,24 @@ class Database
 					$result = new \stdClass();
 					if ($stmt->num_rows > 0) {
 						$meta = $stmt->result_metadata();
+						if ($meta === false) {
+							$result->row = [];
+							$result->rows = [];
+							$result->num_rows = $stmt->affected_rows;
+							$this->error = $stmt->error;
+							$stmt->free_result();
+							$stmt->close();
+							return $result;
+						}
+						$fields = array();
 						while ($field = $meta->fetch_field()) {
-							$var = $field->name; 
-							$$var = null; 
+							$var = $field->name;
+							$$var = null;
 							$fields[$var] = &$$var;
 						}
-						call_user_func_array(array($stmt,'bind_result'),$fields);
+						if (!empty($fields)) {
+							call_user_func_array(array($stmt,'bind_result'), array_values($fields));
+						}
 						$i = 0;
 						$query_result = array();
 						while ($stmt->fetch()) {

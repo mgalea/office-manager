@@ -34,7 +34,7 @@
 								<a class="ml-4">Upload</a>
 							</div>
 							<div class="saved-picture" <?php if (empty($result['logo'])) { echo " style=\"display: none\" "; } ?> >
-								<?php if (!empty($result['logo'])) { ?><img class="img-thumbnail" src="public/uploads/<?php echo $result['logo']; ?>" alt="">
+								<?php if (!empty($result['logo'])) { ?><img class="img-thumbnail" src="uploads/<?php echo $result['logo']; ?>" alt="">
 								<?php } ?>
 								<input type="hidden" name="info[logo]" value="<?php echo $result['logo']; ?>">
 							</div>
@@ -47,7 +47,7 @@
 								<a class="ml-3">Upload</a>
 							</div>
 							<div class="saved-picture" <?php if (empty($result['favicon'])) { echo " style=\"display: none\" "; } ?> >
-								<?php if (!empty($result['favicon'])) { ?><img class="img-thumbnail" src="public/uploads/<?php echo $result['favicon']; ?>" alt="">
+								<?php if (!empty($result['favicon'])) { ?><img class="img-thumbnail" src="uploads/<?php echo $result['favicon']; ?>" alt="">
 								<?php } ?>
 								<input type="hidden" name="info[favicon]" value="<?php echo $result['favicon']; ?>">
 							</div>

@@ -166,7 +166,7 @@ class TicketController extends Controller
 	private function uplodeFile($data)
 	{
 		$ds = DIRECTORY_SEPARATOR;  
-		$storeFolder = '../public/uploads/ticket';
+		$storeFolder = '../uploads/ticket';
 		$file_name_array = array();
 
 		foreach ($data['name'] as $key => $value) {
@@ -200,7 +200,7 @@ class TicketController extends Controller
 			$this->url->redirect('closetab');
 			exit();
 		} else {
-			$filepath = DIR."public/uploads/ticket/".$file;
+			$filepath = DIR."uploads/ticket/".$file;
 
 			if(file_exists($filepath)) {
 				header('Content-Description: File Transfer');
