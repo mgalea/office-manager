@@ -51,7 +51,7 @@
         if ($.fn.DataTable && !$.fn.DataTable.isDataTable('.datatable-expense')) {
             $('.datatable-expense').DataTable({
                 "aLengthMenu": [[10, 25, 50, 75, -1], [10, 25, 50, 75, "All"]],
-                "iDisplayLength": 10,
+                "iDisplayLength": 25,
                 "order": [],
                 'responsive': true,
                 "pagingType": 'full_numbers',

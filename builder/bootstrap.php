@@ -37,6 +37,10 @@ if ((isset($_SERVER['HTTPS']) && (($_SERVER['HTTPS'] == 'on') || ($_SERVER['HTTP
 	$_SERVER['HTTPS'] = false;
 }
 
+// Ensure PHP sessions persist under IIS
+if (is_dir(DIR_UPLOADS . 'sessions')) {
+	session_save_path(DIR_UPLOADS . 'sessions');
+}
 
 spl_autoload_register(function($class){
 	$builderPath = DIR_BUILDER;

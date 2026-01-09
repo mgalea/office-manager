@@ -238,6 +238,9 @@ class ExpenseController extends Controller
 		if (!empty($this->url->post('id'))) {
 			$data = $this->url->post('expense');
 			$data['id'] = $this->url->post('id');
+			$data['VAT_full'] = isset($data['VAT_full']) ? $data['VAT_full'] : (isset($data['vat_full']) ? $data['vat_full'] : '0.00');
+			$data['VAT_Exempt'] = isset($data['VAT_Exempt']) ? $data['VAT_Exempt'] : (isset($data['vat_exempt']) ? $data['vat_exempt'] : '0.00');
+			$data['VAT_reduced'] = isset($data['VAT_reduced']) ? $data['VAT_reduced'] : (isset($data['vat_reduced']) ? $data['vat_reduced'] : '0.00');
 			if (!empty($data['purchasedate'])) {
 				$data['purchasedate'] = date_format(date_create($data['purchasedate']), 'Y-m-d');
 			} else {
@@ -253,6 +256,9 @@ class ExpenseController extends Controller
 			$this->url->redirect('expense/edit&id=' . $data['id']);
 		} else {
 			$data = $this->url->post('expense');
+			$data['VAT_full'] = isset($data['VAT_full']) ? $data['VAT_full'] : (isset($data['vat_full']) ? $data['vat_full'] : '0.00');
+			$data['VAT_Exempt'] = isset($data['VAT_Exempt']) ? $data['VAT_Exempt'] : (isset($data['vat_exempt']) ? $data['vat_exempt'] : '0.00');
+			$data['VAT_reduced'] = isset($data['VAT_reduced']) ? $data['VAT_reduced'] : (isset($data['vat_reduced']) ? $data['vat_reduced'] : '0.00');
 			$data['purchasedate'] = date_format(date_create($data['purchasedate']), 'Y-m-d');
 			$data['paiddate'] = date_format(date_create($data['paiddate']), 'Y-m-d');
 
@@ -350,7 +356,7 @@ class ExpenseController extends Controller
 				$vat_full = !empty($row['VAT_full']) ? $row['VAT_full'] : '0.00';
 				$vat_exempt = !empty($row['Vat_exempt']) ? $row['Vat_exempt'] : '0.00';
 				$vat_reduced = !empty($row['VAT_reduced']) ? $row['VAT_reduced'] : '0.00';
-				$foreign = !empty($row['foreign']) ? $row['foreign'] : 'local';
+				$foreign = (isset($row['foreign']) && (int)$row['foreign'] === 1) ? 'foreign' : 'local';
 
 				fputcsv($output, array(
 					$purchase_date,

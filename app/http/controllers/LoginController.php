@@ -68,6 +68,7 @@ class LoginController extends Controller
 		$username = $this->url->post('username');
 		$password = $this->url->post('password');
 
+
 		if (!$this->validate($username, $password)) {
 			$this->session->data['error'] = 'Warning: Please enter valid data in input box.';
 			$this->url->redirect('login');
@@ -94,7 +95,7 @@ class LoginController extends Controller
 				
 				$this->url->redirect('login');
 			}
-			else if ($user['status'] === 1) {
+			else if ((int)$user['status'] === 1) {
 	            /** 
 	            * Check if the password in the database matches the password user submitted.
 	            * We are using the password_verify function to avoid timing attacks.
@@ -108,6 +109,7 @@ class LoginController extends Controller
 	            	$this->session->data['user_id'] = preg_replace("/[^0-9]+/", "", $user['user_id']); 
 	            	$this->session->data['role'] = preg_replace("/[^0-9]+/", "", $user['user_role']);
 	            	$this->session->data['login_token'] = hash('sha512', AUTH_KEY . LOGGED_IN_SALT);
+
 	            	$this->url->Redirect('dashboard');
 	            } else {
 	            	/** 

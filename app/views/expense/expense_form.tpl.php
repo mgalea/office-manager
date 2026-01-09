@@ -195,7 +195,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="far fa-percent"></i></span>
                                     </div>
-                                    <input type="text" name="expense[VAT_full]" class="form-control" value="<?php if (isset($result['VAT_full'])) echo $result['VAT_full']; ?>" placeholder="VAT Full">
+                                    <input type="text" name="expense[VAT_full]" class="form-control" value="<?php if (isset($result['VAT_full'])) { echo $result['VAT_Full']; } elseif (isset($result['VAT_Full'])) { echo $result['VAT_Full']; } ?>" placeholder="VAT Full">
                                 </div>
                             </div>
                             <div class="col-sm-4 col-lg-3 form-group">
@@ -204,7 +204,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="T1"></i></span>
                                     </div>
-                                    <input type="text" name="expense[Vat_exempt]" class="form-control" value="<?php if (isset($result['Vat_exempt'])) echo $result['Vat_exempt']; ?>" placeholder="VAT Exempt">
+                                    <input type="text" name="expense[VAT_Exempt]" class="form-control" value="<?php if (isset($result['VAT_Exempt'])) { echo $result['VAT_Exempt']; } elseif (isset($result['VAT_Exempt'])) { echo $result['VAT_Exempt']; } ?>" placeholder="VAT Exempt">
                                 </div>
                             </div>
                             <div class="col-sm-4 col-lg-3 form-group">
@@ -213,7 +213,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="far fa-percent"></i></span>
                                     </div>
-                                    <input type="text" name="expense[VAT_reduced]" class="form-control" value="<?php if (isset($result['VAT_reduced'])) echo $result['VAT_reduced']; ?>" placeholder="VAT Reduced">
+                                    <input type="text" name="expense[VAT_reduced]" class="form-control" value="<?php if (isset($result['VAT_reduced'])) { echo $result['VAT_Reduced']; } elseif (isset($result['VAT_Reduced'])) { echo $result['VAT_Reduced']; } ?>" placeholder="VAT Reduced">
                                 </div>
                             </div>
                             <div class="col-sm-4 col-lg-3 form-group">

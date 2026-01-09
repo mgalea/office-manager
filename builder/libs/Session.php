@@ -24,10 +24,10 @@ class Session extends SessionHandler
 
 	public function start($name = 'om_session_secure') 
 	{
-		if (isset($_COOKIE[$name])) {
+		if (isset($_COOKIE[$name]) && preg_match('/^[a-f0-9]{26}$/', $_COOKIE[$name])) {
 			$this->key = $_COOKIE[$name];
 		} else {
-			$this->key = $this->createSessionId();
+			$this->key = session_id();
 		}
 
 		if (!$this->isValid()) {
@@ -41,7 +41,11 @@ class Session extends SessionHandler
 		}
 
 		$this->data = &$_SESSION[$this->key];
-		setcookie($name, $this->key, ini_get('session.cookie_lifetime'), ini_get('session.cookie_path'), ini_get('session.cookie_domain'), ini_get('session.cookie_secure'), ini_get('session.cookie_httponly'));
+		if (!isset($_COOKIE[$name]) || $_COOKIE[$name] !== $this->key) {
+			$cookie_domain = ini_get('session.cookie_domain');
+			$cookie_secure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off');
+			setcookie($name, $this->key, 0, '/', $cookie_domain, $cookie_secure, true);
+		}
 		return $this->key;
 	}
 
