@@ -195,4 +195,26 @@ class Expense extends Model
 			return false;
 		}
 	}
+
+	public function updateEuZoneStatus($id)
+	{
+		$current = $this->model->query(
+			"SELECT `eu_zone` FROM `" . DB_PREFIX . "expenses` WHERE `id` = ? LIMIT 1",
+			array((int)$id)
+		);
+		$value = 0;
+		if (isset($current->row['eu_zone'])) {
+			$value = (int)$current->row['eu_zone'];
+		}
+		$next = $value ? 0 : 1;
+		$query = $this->model->query(
+			"UPDATE `" . DB_PREFIX . "expenses` SET `eu_zone` = ? WHERE `id` = ?",
+			array($next, (int)$id)
+		);
+		if ($query->num_rows > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

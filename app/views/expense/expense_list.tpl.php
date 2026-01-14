@@ -1,4 +1,8 @@
 <?php include(DIR . 'app/views/common/header.tpl.php'); ?>
+<?php
+$eu_zone_only = !empty($eu_zone_only);
+$invoice_type_heading = $eu_zone_only ? 'EU Zone' : 'Invoice Type';
+?>
 <style>
     .expense-foreign-toggle {
         cursor: pointer;
@@ -9,7 +13,7 @@
 </script>
 <script>
 
-        $(document).on('click', '.expense-foreign-toggle', function(e) {
+    $(document).on('click', '.expense-foreign-toggle', function(e) {
         e.preventDefault();
         var badge = $(this);
         if (badge.data('saving')) {
@@ -44,6 +48,45 @@
             },
             complete: function() {
                 badge.data('saving', false);
+            }
+        });
+    });
+    $(document).on('click', '.expense-eu-zone-toggle', function(e) {
+        e.preventDefault();
+        var button = $(this);
+        if (button.data('saving')) {
+            return;
+        }
+        var current = button.data('eu-zone') ? 1 : 0;
+        var next = current ? 0 : 1;
+        button.data('saving', true);
+        $.ajax({
+            type: 'POST',
+            url: '<?php echo URL . DIR_ROUTE . 'expense/euzone'; ?>',
+            data: {
+                id: button.data('id'),
+                eu_zone: next
+            },
+            dataType: 'json',
+            success: function(resp) {
+                if (resp && resp.status === 'ok') {
+                    var isEuZone = next === 1;
+                    button.data('eu-zone', next);
+                    button.toggleClass('btn-info', isEuZone);
+                    button.toggleClass('btn-secondary', !isEuZone);
+                    button.attr('title', isEuZone ? 'EU Zone: On' : 'EU Zone: Off');
+                    button.find('.expense-eu-zone-label').text(isEuZone ? 'EU' : 'Non-EU');
+                } else if (window.toastr) {
+                    toastr.error('Could not update EU zone status', 'Error');
+                }
+            },
+            error: function() {
+                if (window.toastr) {
+                    toastr.error('Could not update EU zone status', 'Error');
+                }
+            },
+            complete: function() {
+                button.data('saving', false);
             }
         });
     });
@@ -103,7 +146,7 @@
                             <th><?php echo $lang['expenses']['text_purchase_by']; ?></th>
                             <th><?php echo $lang['expenses']['text_purchase_amount']; ?></th>
                             <th>Total VAT</th>
-                            <th>Invoice Type</th>
+                            <th><?php echo $invoice_type_heading; ?></th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -148,13 +191,30 @@
                                     <td><?php echo $value['abbr'] . ' ' . ltrim($value['total_vat'], '0'); ?></td>
                                     <td>
                                         <?php
-                                        $foreign = !empty($value['foreign']) ? 1 : 0;
-                                        $foreign_label = $foreign ? 'Foreign' : 'Local';
-                                        $foreign_class = $foreign ? 'badge-warning' : 'badge-success';
+                                        $eu_zone = !empty($value['eu_zone']) ? 1 : 0;
+                                        $eu_zone_label = $eu_zone ? 'EU Zone' : 'Non-EU';
+                                        $eu_zone_class = $eu_zone ? 'badge-success' : 'badge-warning';
                                         ?>
-                                        <span class="badge badge-pill <?php echo $foreign_class; ?> expense-foreign-toggle" data-id="<?php echo $value['id']; ?>" data-foreign="<?php echo $foreign; ?>"><?php echo $foreign_label; ?></span>
+                                        <?php if ($eu_zone_only) { ?>
+                                            <span class="badge badge-pill <?php echo $eu_zone_class; ?>"><?php echo $eu_zone_label; ?></span>
+                                        <?php } else { ?>
+                                            <?php
+                                            $foreign = !empty($value['foreign']) ? 1 : 0;
+                                            $foreign_label = $foreign ? 'Foreign' : 'Local';
+                                            $foreign_class = $foreign ? 'badge-warning' : 'badge-success';
+                                            ?>
+                                            <span class="badge badge-pill <?php echo $foreign_class; ?> expense-foreign-toggle" data-id="<?php echo $value['id']; ?>" data-foreign="<?php echo $foreign; ?>"><?php echo $foreign_label; ?></span>
+                                        <?php } ?>
                                     </td>
                                     <td class="table-action">
+                                        <?php if (!$eu_zone_only) { ?>
+                                            <?php
+                                            $eu_zone_button_class = $eu_zone ? 'btn-info' : 'btn-secondary';
+                                            $eu_zone_title = $eu_zone ? 'EU Zone: On' : 'EU Zone: Off';
+                                            $eu_zone_text = $eu_zone ? 'EU' : 'Non-EU';
+                                            ?>
+                                            <a href="#" class="btn <?php echo $eu_zone_button_class; ?> btn-icon mr-2 expense-eu-zone-toggle" data-toggle="tooltip" title="<?php echo $eu_zone_title; ?>" data-id="<?php echo $value['id']; ?>" data-eu-zone="<?php echo $eu_zone; ?>"><span class="expense-eu-zone-label"><?php echo $eu_zone_text; ?></span></a>
+                                        <?php } ?>
                                         <a target="_blank" href="<?php  echo URL . DIR_ROUTE . 'expense/edit&id=' . $value['id']; ?>" class="btn btn-success btn-icon mr-2" data-toggle="tooltip" title="<?php echo $lang['common']['text_edit']; ?>"><i class="icon-pencil"></i></a>
                                         <span class="btn btn-warning btn-icon table-delete text-black" data-toggle="tooltip" data-placement="top" title="<?php echo $lang['common']['text_delete']; ?>"><i class="icon-trash"></i><input type="hidden" value="<?php echo $value['id']; ?>"></span>
                                     </td>

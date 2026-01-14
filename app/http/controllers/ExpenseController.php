@@ -96,6 +96,7 @@ class ExpenseController extends Controller
 
 		$data['result'] = $this->expenseModel->getForeignExpenses();
 		$data['suppliers'] = $this->expenseModel->getSuppliers();
+		$data['eu_zone_only'] = true;
 
 		if (isset($this->session->data['message'])) {
 			$data['message'] = $this->session->data['message'];
@@ -311,6 +312,26 @@ class ExpenseController extends Controller
 		}
 
 		$updated = $this->expenseModel->updateForeignStatus($id, null);
+		header('Content-Type: application/json');
+		echo json_encode(array('status' => $updated ? 'ok' : 'error'));
+		exit();
+	}
+
+	public function indexEuZone()
+	{
+		if (!$this->commons->hasPermission('expense/edit')) {
+			Not_foundController::show('403');
+			exit();
+		}
+
+		$id = (int)$this->url->post('id');
+		if (empty($id)) {
+			header('Content-Type: application/json');
+			echo json_encode(array('status' => 'error'));
+			exit();
+		}
+
+		$updated = $this->expenseModel->updateEuZoneStatus($id);
 		header('Content-Type: application/json');
 		echo json_encode(array('status' => $updated ? 'ok' : 'error'));
 		exit();
