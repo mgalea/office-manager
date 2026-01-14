@@ -1,10 +1,14 @@
 <?php include(DIR . 'app/views/common/header.tpl.php'); ?>
 <?php
 $eu_zone_only = !empty($eu_zone_only);
-$invoice_type_heading = $eu_zone_only ? 'EU Zone' : 'Invoice Type';
+$show_eu_zone_column = isset($show_eu_zone_column) ? (bool)$show_eu_zone_column : true;
+$invoice_type_heading = 'Invoice Type';
 ?>
 <style>
     .expense-foreign-toggle {
+        cursor: pointer;
+    }
+    .expense-eu-zone-toggle {
         cursor: pointer;
     }
 </style>
@@ -72,10 +76,16 @@ $invoice_type_heading = $eu_zone_only ? 'EU Zone' : 'Invoice Type';
                 if (resp && resp.status === 'ok') {
                     var isEuZone = next === 1;
                     button.data('eu-zone', next);
-                    button.toggleClass('btn-info', isEuZone);
-                    button.toggleClass('btn-secondary', !isEuZone);
-                    button.attr('title', isEuZone ? 'EU Zone: On' : 'EU Zone: Off');
-                    button.find('.expense-eu-zone-label').text(isEuZone ? 'EU' : 'Non-EU');
+                    if (button.hasClass('btn')) {
+                        button.toggleClass('btn-info', isEuZone);
+                        button.toggleClass('btn-secondary', !isEuZone);
+                        button.attr('title', isEuZone ? 'EU Zone: On' : 'EU Zone: Off');
+                        button.find('.expense-eu-zone-label').text(isEuZone ? 'EU' : 'Non-EU');
+                    } else {
+                        button.toggleClass('badge-success', isEuZone);
+                        button.toggleClass('badge-warning', !isEuZone);
+                        button.text(isEuZone ? 'EU Zone' : 'Non-EU');
+                    }
                 } else if (window.toastr) {
                     toastr.error('Could not update EU zone status', 'Error');
                 }
@@ -147,6 +157,9 @@ $invoice_type_heading = $eu_zone_only ? 'EU Zone' : 'Invoice Type';
                             <th><?php echo $lang['expenses']['text_purchase_amount']; ?></th>
                             <th>Total VAT</th>
                             <th><?php echo $invoice_type_heading; ?></th>
+                            <?php if ($show_eu_zone_column) { ?>
+                                <th>EU Zone</th>
+                            <?php } ?>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -158,7 +171,8 @@ $invoice_type_heading = $eu_zone_only ? 'EU Zone' : 'Invoice Type';
                                     <td width="10%" class="table-srno">
                                         <?php
 
-                                        $amount_paid = (int)($value['paid_amount']) / (int)($value['purchase_amount']);
+                                        $purchase_amount = (int)($value['purchase_amount']);
+                                        $amount_paid = $purchase_amount > 0 ? (int)($value['paid_amount']) / $purchase_amount : 0;
 
                                         if ($amount_paid == 0) {
                                             echo ' <span class="badge badge-pill badge-pinterest badge-min-size small">unpaid</span>';
@@ -191,30 +205,23 @@ $invoice_type_heading = $eu_zone_only ? 'EU Zone' : 'Invoice Type';
                                     <td><?php echo $value['abbr'] . ' ' . ltrim($value['total_vat'], '0'); ?></td>
                                     <td>
                                         <?php
-                                        $eu_zone = !empty($value['eu_zone']) ? 1 : 0;
-                                        $eu_zone_label = $eu_zone ? 'EU Zone' : 'Non-EU';
-                                        $eu_zone_class = $eu_zone ? 'badge-success' : 'badge-warning';
+                                        $foreign = !empty($value['foreign']) ? 1 : 0;
+                                        $foreign_label = $foreign ? 'Foreign' : 'Local';
+                                        $foreign_class = $foreign ? 'badge-warning' : 'badge-success';
                                         ?>
-                                        <?php if ($eu_zone_only) { ?>
-                                            <span class="badge badge-pill <?php echo $eu_zone_class; ?>"><?php echo $eu_zone_label; ?></span>
-                                        <?php } else { ?>
-                                            <?php
-                                            $foreign = !empty($value['foreign']) ? 1 : 0;
-                                            $foreign_label = $foreign ? 'Foreign' : 'Local';
-                                            $foreign_class = $foreign ? 'badge-warning' : 'badge-success';
-                                            ?>
-                                            <span class="badge badge-pill <?php echo $foreign_class; ?> expense-foreign-toggle" data-id="<?php echo $value['id']; ?>" data-foreign="<?php echo $foreign; ?>"><?php echo $foreign_label; ?></span>
-                                        <?php } ?>
+                                        <span class="badge badge-pill <?php echo $foreign_class; ?> expense-foreign-toggle" data-id="<?php echo $value['id']; ?>" data-foreign="<?php echo $foreign; ?>"><?php echo $foreign_label; ?></span>
                                     </td>
-                                    <td class="table-action">
-                                        <?php if (!$eu_zone_only) { ?>
+                                    <?php if ($show_eu_zone_column) { ?>
+                                        <td>
                                             <?php
-                                            $eu_zone_button_class = $eu_zone ? 'btn-info' : 'btn-secondary';
-                                            $eu_zone_title = $eu_zone ? 'EU Zone: On' : 'EU Zone: Off';
-                                            $eu_zone_text = $eu_zone ? 'EU' : 'Non-EU';
+                                            $eu_zone = !empty($value['eu_zone']) ? 1 : 0;
+                                            $eu_zone_label = $eu_zone ? 'EU Zone' : 'Non-EU';
+                                            $eu_zone_class = 'eu-zone-toggle ' . ($eu_zone ? 'badge-success' : 'badge-warning');
                                             ?>
-                                            <a href="#" class="btn <?php echo $eu_zone_button_class; ?> btn-icon mr-2 expense-eu-zone-toggle" data-toggle="tooltip" title="<?php echo $eu_zone_title; ?>" data-id="<?php echo $value['id']; ?>" data-eu-zone="<?php echo $eu_zone; ?>"><span class="expense-eu-zone-label"><?php echo $eu_zone_text; ?></span></a>
-                                        <?php } ?>
+                                            <span class="badge badge-pill <?php echo $eu_zone_class; ?> expense-eu-zone-toggle" data-id="<?php echo $value['id']; ?>" data-eu-zone="<?php echo $eu_zone; ?>"><?php echo $eu_zone_label; ?></span>
+                                        </td>
+                                    <?php } ?>
+                                    <td class="table-action">
                                         <a target="_blank" href="<?php  echo URL . DIR_ROUTE . 'expense/edit&id=' . $value['id']; ?>" class="btn btn-success btn-icon mr-2" data-toggle="tooltip" title="<?php echo $lang['common']['text_edit']; ?>"><i class="icon-pencil"></i></a>
                                         <span class="btn btn-warning btn-icon table-delete text-black" data-toggle="tooltip" data-placement="top" title="<?php echo $lang['common']['text_delete']; ?>"><i class="icon-trash"></i><input type="hidden" value="<?php echo $value['id']; ?>"></span>
                                     </td>

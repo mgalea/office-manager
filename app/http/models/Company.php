@@ -27,6 +27,27 @@ class Company extends Model
         }
     }
 
+    public function getCompanyIdByName($name)
+    {
+        $query = $this->model->query(
+            "SELECT `id` FROM `" . DB_PREFIX . "companies` WHERE `name` = ? LIMIT 1",
+            array($name)
+        );
+        if ($query->num_rows > 0 && isset($query->row['id'])) {
+            return (int)$query->row['id'];
+        }
+        return 0;
+    }
+
+    public function getLastCompanyTypeId()
+    {
+        $query = $this->model->query("SELECT `id` FROM `" . DB_PREFIX . "company_type` ORDER BY `id` DESC LIMIT 1");
+        if ($query->num_rows > 0 && isset($query->row['id'])) {
+            return (int)$query->row['id'];
+        }
+        return 0;
+    }
+
     public function getActivityTypes()
     {
         $query = $this->model->query("SELECT * FROM `" . DB_PREFIX . "primary_activity_type` ORDER BY `name` ASC");

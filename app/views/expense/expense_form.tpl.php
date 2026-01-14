@@ -3,25 +3,45 @@
     $('#expense-li').addClass('active');
 </script>
 <style>
-    .eu-zone-modal-dark .modal-content {
+    .eu-zone-modal-dark .modal-content,
+    .payee-modal-dark .modal-content {
         background-color: #1f1f1f;
         color: #f2f2f2;
         border: 1px solid #333;
     }
     .eu-zone-modal-dark .modal-header,
-    .eu-zone-modal-dark .modal-footer {
+    .eu-zone-modal-dark .modal-footer,
+    .payee-modal-dark .modal-header,
+    .payee-modal-dark .modal-footer {
         border-color: #333;
     }
-    .eu-zone-modal-dark .close {
+    .eu-zone-modal-dark .close,
+    .payee-modal-dark .close {
         color: #f2f2f2;
         text-shadow: none;
         opacity: 0.85;
     }
-    .eu-zone-modal-dark .close:hover {
+    .eu-zone-modal-dark .close:hover,
+    .payee-modal-dark .close:hover {
         opacity: 1;
     }
-    .eu-zone-modal-dark .modal-body li {
+    .eu-zone-modal-dark .modal-body li,
+    .payee-modal-dark .modal-body li {
         color: #e6e6e6;
+    }
+    .payee-modal-dark .form-control {
+        background-color: #f2f2f2;
+        color: #111;
+        border-color: #444;
+    }
+    .payee-modal-dark .form-control:focus {
+        background-color: #f2f2f2;
+        color: #111;
+        border-color: #5a5a5a;
+        box-shadow: none;
+    }
+    .payee-modal-dark .invalid-feedback {
+        color: #f5a3a3;
     }
 </style>
 <div class='row'>
@@ -44,22 +64,27 @@
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label class="col-form-label"><?php echo $lang['expenses']['text_payee']; ?></label>
+                                    <label class="col-form-label">
+                                        <?php echo $lang['expenses']['text_payee']; ?>
+                                        
+                                    </label>
                                     <div class="input-group">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="icon-user"></i></span>
                                         </div>
-                                        <select class="custom-select" name="expense[supplier_id]" required>
+                                        <select class="custom-select" id="expense-supplier" name="expense[supplier_id]" required>
                                             <option value="0"><?php echo $lang['expenses']['text_payee']; ?></option>
                                             <?php if (!empty($suppliers)) {
                                                 foreach ($suppliers as $key => $value) { ?>
-                                                    <option value=" <?php echo $value['id'] ?>" <?php if (isset($result['supplier_id']) && $result['supplier_id'] == $value['id']) {
+                                                    <option value="<?php echo $value['id'] ?>" <?php if (isset($result['supplier_id']) && $result['supplier_id'] == $value['id']) {
                                                                                                     echo "selected";
                                                                                                 } ?>><?php echo $value['name'] ?></option>
                                             <?php }
                                             } ?>
                                         </select>
+                                    <button type="button" class="btn btn-sm btn-info ml-2" data-toggle="modal" data-target="#payee-modal">New</button>
                                     </div>
+                                    
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -69,7 +94,7 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-receipt"></i></span>
                                         </div>
-                                        <input type="text" name="expense[inv_number]" class="form-control" value="<?php if (isset($result['inv_number'])) echo $result['inv_number']; ?>" placeholder="<?php echo $lang['expenses']['text_invoice_number']; ?>">
+                                        <input type="text" name="expense[inv_number]" class="form-control" value="<?php if (isset($result['inv_number'])) echo $result['inv_number']; ?>" placeholder="<?php echo $lang['expenses']['text_invoice_number']; ?>" required>
                                     </div>
                                 </div>
                             </div>
@@ -103,7 +128,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="icon-calendar"></i></span>
                                     </div>
-                                    <input type="text" name="expense[purchasedate]" class="form-control date" value="<?php if (isset($result['purchase_date'])) echo date_format(date_create($result['purchase_date']), 'd-m-Y'); ?>" placeholder="<?php echo $lang['expenses']['text_purchase_date']; ?>">
+                                    <input type="text" name="expense[purchasedate]" class="form-control date" value="<?php if (isset($result['purchase_date'])) echo date_format(date_create($result['purchase_date']), 'd-m-Y'); ?>" placeholder="<?php echo $lang['expenses']['text_purchase_date']; ?>" required>
                                 </div>
                             </div>
                             <div class="col-sm-4 col-lg-2 form-group">
@@ -180,7 +205,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="icon-credit-card"></i></span>
                                     </div>
-                                    <select name="expense[paymenttype]" class="custom-select">
+                                    <select name="expense[paymenttype]" class="custom-select" required>
                                         <option value=""><?php echo $lang['expenses']['text_payment_method']; ?></option>
                                         <?php if (!empty($paymenttype)) {
                                             foreach ($paymenttype as $key => $value) { ?>
@@ -550,9 +575,89 @@
             updateVatVisibility();
             updateVatTotal();
         });
+        $(document).on('submit', '#payee-create-form', function(e) {
+            e.preventDefault();
+            var form = $(this);
+            var nameInput = form.find('input[name="name"]');
+            var typeSelect = form.find('select[name="type"]');
+            var submitBtn = form.find('button[type="submit"]');
+            var name = $.trim(nameInput.val());
+            var typeId = $.trim(typeSelect.val());
+            if (!name) {
+                nameInput.addClass('is-invalid');
+                return;
+            }
+            nameInput.removeClass('is-invalid');
+            submitBtn.prop('disabled', true);
+            $.ajax({
+                type: 'POST',
+                url: '<?php echo URL . DIR_ROUTE . 'expense/payee/create'; ?>',
+                dataType: 'json',
+                data: {
+                    name: name,
+                    type: typeId,
+                    _token: $('input[name="_token"]').val()
+                },
+                success: function(resp) {
+                    if (resp && resp.status === 'ok') {
+                        var option = new Option(resp.name, String(resp.id), true, true);
+                        $('#expense-supplier').append(option).val(String(resp.id)).trigger('change');
+                        $('#payee-modal').modal('hide');
+                        nameInput.val('');
+                    } else if (window.toastr) {
+                        toastr.error(resp && resp.message ? resp.message : 'Could not create payee', 'Error');
+                    }
+                },
+                error: function() {
+                    if (window.toastr) {
+                        toastr.error('Could not create payee', 'Error');
+                    }
+                },
+                complete: function() {
+                    submitBtn.prop('disabled', false);
+                }
+            });
+        });
         updateVatVisibility();
         updateVatTotal();
 </script>
+
+<div id="payee-modal" class="modal fade payee-modal-dark" role="dialog" aria-labelledby="payee-modal-title" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="payee-create-form">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="payee-modal-title">New Payee</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="payee-name">Payee Name</label>
+                        <input type="text" class="form-control" id="payee-name" name="name" required>
+                        <div class="invalid-feedback">Payee name is required.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="payee-type">Payee Type</label>
+                        <select class="form-control" id="payee-type" name="type" required>
+                            <?php if (!empty($company_types)) { ?>
+                                <?php foreach ($company_types as $type) { ?>
+                                    <?php
+                                    $selected = (!empty($default_company_type_id) && (int)$default_company_type_id === (int)$type['id']) ? 'selected' : '';
+                                    ?>
+                                    <option value="<?php echo (int)$type['id']; ?>" <?php echo $selected; ?>><?php echo $type['name']; ?></option>
+                                <?php } ?>
+                            <?php } ?>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $lang['common']['text_close']; ?></button>
+                    <button type="submit" class="btn btn-info">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 <div id="eu-zone-modal" class="modal fade eu-zone-modal-dark" role="dialog" aria-labelledby="eu-zone-title" aria-hidden="true">
     <div class="modal-dialog">

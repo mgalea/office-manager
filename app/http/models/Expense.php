@@ -199,7 +199,7 @@ class Expense extends Model
 	public function updateEuZoneStatus($id)
 	{
 		$current = $this->model->query(
-			"SELECT `eu_zone` FROM `" . DB_PREFIX . "expenses` WHERE `id` = ? LIMIT 1",
+			"SELECT `eu_zone`, `purchase_amount` FROM `" . DB_PREFIX . "expenses` WHERE `id` = ? LIMIT 1",
 			array((int)$id)
 		);
 		$value = 0;
@@ -207,9 +207,11 @@ class Expense extends Model
 			$value = (int)$current->row['eu_zone'];
 		}
 		$next = $value ? 0 : 1;
+		$purchase_amount = $current->row['purchase_amount'] ?? '0.00';
+		$vat_t8 = $next ? $purchase_amount : '0.00';
 		$query = $this->model->query(
-			"UPDATE `" . DB_PREFIX . "expenses` SET `eu_zone` = ? WHERE `id` = ?",
-			array($next, (int)$id)
+			"UPDATE `" . DB_PREFIX . "expenses` SET `eu_zone` = ?, `VAT_T8` = ? WHERE `id` = ?",
+			array($next, $vat_t8, (int)$id)
 		);
 		if ($query->num_rows > 0) {
 			return true;

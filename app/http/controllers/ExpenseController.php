@@ -40,6 +40,7 @@ class ExpenseController extends Controller
 		 **/
 		$data['result'] = $this->expenseModel->getExpenses();
 		$data['suppliers'] = $this->expenseModel->getSuppliers();
+		$data['show_eu_zone_column'] = true;
 
 		/* Set confirmation message if page submitted before */
 		if (isset($this->session->data['message'])) {
@@ -70,6 +71,7 @@ class ExpenseController extends Controller
 
 		$data['result'] = $this->expenseModel->getLocalExpenses();
 		$data['suppliers'] = $this->expenseModel->getSuppliers();
+		$data['show_eu_zone_column'] = false;
 
 		if (isset($this->session->data['message'])) {
 			$data['message'] = $this->session->data['message'];
@@ -96,6 +98,7 @@ class ExpenseController extends Controller
 
 		$data['result'] = $this->expenseModel->getForeignExpenses();
 		$data['suppliers'] = $this->expenseModel->getSuppliers();
+		$data['show_eu_zone_column'] = true;
 		$data['eu_zone_only'] = true;
 
 		if (isset($this->session->data['message'])) {
@@ -141,10 +144,13 @@ class ExpenseController extends Controller
 		$data['suppliers'] = $this->expenseModel->getSuppliers();
 		$data['clients'] = $this->expenseModel->getClients();
 		$data['subsidiaries'] = $this->expenseModel->getSubsidiaries();
+		$companyModel = new Company();
+		$data['company_types'] = $companyModel->getCompanyTypes();
+		$data['default_company_type_id'] = $this->getDefaultSupplierTypeId($companyModel, $data['company_types']);
 
 		/* Set page title */
 		$data['page_title'] = $data['lang']['expenses']['text_add_expense'];
-		$data['action'] = URL . DIR_ROUTE . 'expense/action';
+		$data['action'] = DIR_ROUTE . 'expense/action';
 		$data['token'] = hash('sha512', TOKEN . TOKEN_SALT);
 
 		/*Render User list view*/
@@ -189,6 +195,9 @@ class ExpenseController extends Controller
 		$data['suppliers'] = $this->expenseModel->getSuppliers();
 		$data['clients'] = $this->expenseModel->getClients();
 		$data['subsidiaries'] = $this->expenseModel->getSubsidiaries();
+		$companyModel = new Company();
+		$data['company_types'] = $companyModel->getCompanyTypes();
+		$data['default_company_type_id'] = $this->getDefaultSupplierTypeId($companyModel, $data['company_types']);
 
 		/*Load Language File*/
 		require DIR_BUILDER . 'language/' . $data['info']['language'] . '/common.php';
@@ -198,7 +207,7 @@ class ExpenseController extends Controller
 
 		/* Set page title */
 		$data['page_title'] = $data['lang']['expenses']['text_edit_expense'];
-		$data['action'] = URL . DIR_ROUTE . 'expense/action';
+		$data['action'] = DIR_ROUTE . 'expense/action';
 		$data['token'] = hash('sha512', TOKEN . TOKEN_SALT);
 
 		/*Render User list view*/
@@ -210,13 +219,11 @@ class ExpenseController extends Controller
 	 **/
 	public function indexAction()
 	{
+		
 		/**
 		 * Check if from is submitted or not 
 		 **/
-		if (!isset($_POST['submit'])) {
-			$this->url->redirect('expenses');
-			exit();
-		}
+
 		/**
 		 * Validate form data
 		 * If some data is missing or data does not match pattern
@@ -235,6 +242,7 @@ class ExpenseController extends Controller
 		if ($this->commons->validateToken($this->url->post('_token'))) {
 			$this->url->redirect('expenses');
 		}
+	
 
 		if (!empty($this->url->post('id'))) {
 			$data = $this->url->post('expense');
@@ -249,6 +257,14 @@ class ExpenseController extends Controller
 			if ($data['eu_zone']) {
 				$data['foreign'] = 1;
 			}
+			if (empty($data['purchaseby'])) {
+				$companyModel = new Company();
+				$defaultPayorId = $companyModel->getCompanyIdByName('Random Consulting Limited');
+				if ($defaultPayorId > 0) {
+					$data['purchaseby'] = $defaultPayorId;
+				}
+			}
+			$data['supplier_id'] = isset($data['supplier_id']) ? (int)$data['supplier_id'] : 0;
 			if (!empty($data['purchasedate'])) {
 				$data['purchasedate'] = date_format(date_create($data['purchasedate']), 'Y-m-d');
 			} else {
@@ -274,6 +290,14 @@ class ExpenseController extends Controller
 			if ($data['eu_zone']) {
 				$data['foreign'] = 1;
 			}
+			if (empty($data['purchaseby'])) {
+				$companyModel = new Company();
+				$defaultPayorId = $companyModel->getCompanyIdByName('Random Consulting Limited');
+				if ($defaultPayorId > 0) {
+					$data['purchaseby'] = $defaultPayorId;
+				}
+			}
+			$data['supplier_id'] = isset($data['supplier_id']) ? (int)$data['supplier_id'] : 0;
 			$data['purchasedate'] = date_format(date_create($data['purchasedate']), 'Y-m-d');
 			$data['paiddate'] = date_format(date_create($data['paiddate']), 'Y-m-d');
 
@@ -335,6 +359,71 @@ class ExpenseController extends Controller
 		header('Content-Type: application/json');
 		echo json_encode(array('status' => $updated ? 'ok' : 'error'));
 		exit();
+	}
+
+	public function indexCreatePayee()
+	{
+		if (!$this->commons->hasPermission('company/add')) {
+			Not_foundController::show('403');
+			exit();
+		}
+
+		$name = trim((string)$this->url->post('name'));
+		$type_id = (int)$this->url->post('type');
+		if ($this->commons->validateToken($this->url->post('_token'))) {
+			header('Content-Type: application/json');
+			echo json_encode(array('status' => 'error', 'message' => 'Invalid token.'));
+			exit();
+		}
+		if ($this->commons->validateText($name)) {
+			header('Content-Type: application/json');
+			echo json_encode(array('status' => 'error', 'message' => 'Payee name is required.'));
+			exit();
+		}
+
+		$companyModel = new Company();
+		if ($type_id <= 0) {
+			$company_types = $companyModel->getCompanyTypes();
+			$type_id = $this->getDefaultSupplierTypeId($companyModel, $company_types);
+		}
+		$data = array(
+			'name' => $name,
+			'short_name' => $name,
+			'reg_no' => '',
+			'address' => json_encode(array()),
+			'postal_address' => json_encode(array()),
+			'vat_no' => '',
+			'formation_date' => date('Y-m-d'),
+			'description' => '',
+			'status' => 1,
+			'type' => $type_id,
+			'activity' => '',
+			'phone' => '',
+			'email' => '',
+			'website' => ''
+		);
+
+		$id = $companyModel->createCompany($data);
+		header('Content-Type: application/json');
+		if (!empty($id)) {
+			echo json_encode(array('status' => 'ok', 'id' => $id, 'name' => $name));
+		} else {
+			echo json_encode(array('status' => 'error', 'message' => 'Could not create payee.'));
+		}
+		exit();
+	}
+
+	private function getDefaultSupplierTypeId($companyModel, $companyTypes)
+	{
+		if (is_array($companyTypes)) {
+			foreach ($companyTypes as $type) {
+				if (!empty($type['name']) && stripos($type['name'], 'supplier') !== false) {
+					return (int)$type['id'];
+				}
+			}
+		}
+		$last_id = (int)$companyModel->getLastCompanyTypeId();
+		return $last_id > 0 ? $last_id : 1;
 	}
 
 	/**
@@ -438,15 +527,19 @@ class ExpenseController extends Controller
 		$error_flag = false;
 		$expense = $this->url->post('expense');
 
-		if (empty($expense['supplier_id']) || (int)$expense['supplier_id'] === 0) {
+		if (!isset($expense['supplier_id']) || (int)$expense['supplier_id'] <= 0) {
 			$error_flag = true;
 			$error[] = 'payee';
 		}
-		if (empty($expense['amount'])) {
+		if (empty($expense['inv_number'])) {
+			$error_flag = true;
+			$error[] = 'invoice number';
+		}
+		if (!isset($expense['amount']) || !is_numeric($expense['amount']) || (float)$expense['amount'] <= 0) {
 			$error_flag = true;
 			$error[] = 'purchase amount';
 		}
-		if (empty($expense['paymenttype'])) {
+		if (!isset($expense['paymenttype']) || (int)$expense['paymenttype'] <= 0) {
 			$error_flag = true;
 			$error[] = 'payment method';
 		}
