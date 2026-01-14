@@ -2,6 +2,28 @@
 <script>
     $('#expense-li').addClass('active');
 </script>
+<style>
+    .eu-zone-modal-dark .modal-content {
+        background-color: #1f1f1f;
+        color: #f2f2f2;
+        border: 1px solid #333;
+    }
+    .eu-zone-modal-dark .modal-header,
+    .eu-zone-modal-dark .modal-footer {
+        border-color: #333;
+    }
+    .eu-zone-modal-dark .close {
+        color: #f2f2f2;
+        text-shadow: none;
+        opacity: 0.85;
+    }
+    .eu-zone-modal-dark .close:hover {
+        opacity: 1;
+    }
+    .eu-zone-modal-dark .modal-body li {
+        color: #e6e6e6;
+    }
+</style>
 <div class='row'>
     <div class="col-10 mx-auto">
         <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data">
@@ -190,38 +212,91 @@
                         </div>
                         <div class="row">
                             <div class="col-sm-4 col-lg-3 form-group">
-                                <label class="col-form-label">VAT Full</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="far fa-percent"></i></span>
-                                    </div>
-                                    <input type="text" name="expense[VAT_full]" class="form-control" value="<?php if (isset($result['VAT_full'])) { echo $result['VAT_Full']; } elseif (isset($result['VAT_Full'])) { echo $result['VAT_Full']; } ?>" placeholder="VAT Full">
-                                </div>
-                            </div>
-                            <div class="col-sm-4 col-lg-3 form-group">
-                                <label class="col-form-label">VAT Exempt</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="T1"></i></span>
-                                    </div>
-                                    <input type="text" name="expense[VAT_Exempt]" class="form-control" value="<?php if (isset($result['VAT_Exempt'])) { echo $result['VAT_Exempt']; } elseif (isset($result['VAT_Exempt'])) { echo $result['VAT_Exempt']; } ?>" placeholder="VAT Exempt">
-                                </div>
-                            </div>
-                            <div class="col-sm-4 col-lg-3 form-group">
-                                <label class="col-form-label">VAT Reduced</label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="far fa-percent"></i></span>
-                                    </div>
-                                    <input type="text" name="expense[VAT_reduced]" class="form-control" value="<?php if (isset($result['VAT_reduced'])) { echo $result['VAT_Reduced']; } elseif (isset($result['VAT_Reduced'])) { echo $result['VAT_Reduced']; } ?>" placeholder="VAT Reduced">
-                                </div>
-                            </div>
-                            <div class="col-sm-4 col-lg-3 form-group">
-                                <label class="col-form-label">Foreign Invoice</label>
+                                <label class="col-form-label"><?php echo $lang['expenses']['text_foreign_invoice']; ?></label>
                                 <div class="custom-control custom-checkbox mt-2">
                                     <input type="hidden" name="expense[foreign]" value="0">
                                     <input type="checkbox" class="custom-control-input" id="expense-foreign" name="expense[foreign]" value="1" <?php if (!empty($result['foreign'])) { echo 'checked'; } ?>>
                                     <label class="custom-control-label" for="expense-foreign">Mark as foreign</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-lg-3 form-group">
+                                <label class="col-form-label">
+                                    <?php echo $lang['expenses']['text_eu_zone']; ?>
+                                    <a href="#" class="ml-1 text-muted eu-zone-info" data-toggle="modal" data-target="#eu-zone-modal" aria-label="EU zone countries">
+                                        <i class="fas fa-info-circle"></i>
+                                    </a>
+                                </label>
+                                <div class="custom-control custom-checkbox mt-2">
+                                    <input type="hidden" name="expense[eu_zone]" value="0">
+                                    <input type="checkbox" class="custom-control-input" id="expense-eu-zone" name="expense[eu_zone]" value="1" <?php if (!empty($result['eu_zone'])) { echo 'checked'; } ?>>
+                                    <label class="custom-control-label" for="expense-eu-zone">EU Zone</label>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-lg-3 form-group" id="expense-vat-t8">
+                                <label class="col-form-label"><?php echo $lang['expenses']['text_vat_t8']; ?></label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="far fa-percent"></i></span>
+                                    </div>
+                                    <input type="text" name="expense[VAT_T8]" class="form-control" value="<?php if (isset($result['VAT_T8'])) { echo $result['VAT_T8']; } ?>" placeholder="<?php echo $lang['expenses']['text_vat_t8']; ?>">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="expense-vat-row">
+                            <div class="col-sm-4 col-lg-2 form-group">
+                                <label class="col-form-label"><?php echo $lang['expenses']['text_vat_full']; ?></label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="far fa-percent"></i></span>
+                                    </div>
+                                    <input type="text" name="expense[VAT_full]" class="form-control" value="<?php if (isset($result['VAT_full'])) { echo $result['VAT_Full']; } elseif (isset($result['VAT_Full'])) { echo $result['VAT_Full']; } ?>" placeholder="<?php echo $lang['expenses']['text_vat_full']; ?>">
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-lg-2 form-group">
+                                <label class="col-form-label"><?php echo $lang['expenses']['text_vat_exempt']; ?></label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="T1"></i></span>
+                                    </div>
+                                    <input type="text" name="expense[VAT_Exempt]" class="form-control" value="<?php if (isset($result['VAT_Exempt'])) { echo $result['VAT_Exempt']; } elseif (isset($result['VAT_Exempt'])) { echo $result['VAT_Exempt']; } ?>" placeholder="<?php echo $lang['expenses']['text_vat_exempt']; ?>">
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-lg-2 form-group">
+                                <label class="col-form-label"><?php echo $lang['expenses']['text_vat_non_taxable']; ?></label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="far fa-percent"></i></span>
+                                    </div>
+                                    <input type="text" name="expense[VAT_NT]" class="form-control" value="<?php if (isset($result['VAT_NT'])) { echo $result['VAT_NT']; } ?>" placeholder="<?php echo $lang['expenses']['text_vat_non_taxable']; ?>">
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-lg-2 form-group">
+                                <label class="col-form-label"><?php echo $lang['expenses']['text_vat_reduced']; ?></label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="far fa-percent"></i></span>
+                                    </div>
+                                    <input type="text" name="expense[VAT_reduced]" class="form-control" value="<?php if (isset($result['VAT_reduced'])) { echo $result['VAT_Reduced']; } elseif (isset($result['VAT_Reduced'])) { echo $result['VAT_Reduced']; } ?>" placeholder="<?php echo $lang['expenses']['text_vat_reduced']; ?>">
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-lg-2 form-group">
+                                <label class="col-form-label"><?php echo $lang['expenses']['text_vat_out_of_scope']; ?></label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="far fa-percent"></i></span>
+                                    </div>
+                                    <input type="text" name="expense[VAT_T9]" class="form-control" value="<?php if (isset($result['VAT_T9'])) { echo $result['VAT_T9']; } ?>" placeholder="<?php echo $lang['expenses']['text_vat_out_of_scope']; ?>">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" id="expense-vat-total-row">
+                            <div class="col-sm-4 col-lg-2 form-group" id="expense-vat-total">
+                                <label class="col-form-label"><?php echo $lang['expenses']['text_vat_total']; ?></label>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="far fa-percent"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control vat-total-field" value="0.00" placeholder="<?php echo $lang['expenses']['text_vat_total']; ?>" readonly>
                                 </div>
                             </div>
                         </div>
@@ -391,7 +466,138 @@
             });
             ele.parents('.attached-files-block').remove();
         });
+
+        function parseAmount(value) {
+            if (!value) {
+                return 0;
+            }
+            var cleaned = String(value).replace(/[^0-9.-]/g, '');
+            var parsed = parseFloat(cleaned);
+            return isNaN(parsed) ? 0 : parsed;
+        }
+
+        function updateVatTotal() {
+            var vatFull = parseAmount($('input[name="expense[VAT_full]"]').val());
+            var vatExempt = parseAmount($('input[name="expense[VAT_Exempt]"]').val());
+            var vatNonTaxable = parseAmount($('input[name="expense[VAT_NT]"]').val());
+            var vatReduced = parseAmount($('input[name="expense[VAT_reduced]"]').val());
+            var vatT8 = parseAmount($('input[name="expense[VAT_T8]"]').val());
+            var vatT9 = parseAmount($('input[name="expense[VAT_T9]"]').val());
+            var total = vatFull + vatExempt + vatNonTaxable + vatReduced + vatT8 + vatT9;
+            var totalAmount = parseAmount($('input[name="expense[amount]"]').val());
+            var totalField = $('.vat-total-field');
+            totalField.val(total.toFixed(2));
+            totalField.toggleClass('bg-success text-white', Math.abs(total - totalAmount) < 0.01);
+        }
+
+        var purchaseAmount = $('input[name="expense[amount]"]');
+        var paidAmount = $('input[name="expense[paid_amount]"]');
+        var foreignCheckbox = $('#expense-foreign');
+        var euZoneCheckbox = $('#expense-eu-zone');
+        var vatRow = $('#expense-vat-row');
+        var vatT8Group = $('#expense-vat-t8');
+        var vatInputs = $('input[name="expense[VAT_full]"], input[name="expense[VAT_Exempt]"], input[name="expense[VAT_NT]"], input[name="expense[VAT_reduced]"], input[name="expense[VAT_T9]"]');
+        var vatT8Input = $('input[name="expense[VAT_T8]"]');
+
+        function updateVatVisibility() {
+            var isForeign = foreignCheckbox.prop('checked');
+            var isEuZone = euZoneCheckbox.prop('checked');
+
+            if (isForeign) {
+                vatInputs.val('0');
+                vatRow.hide();
+            } else {
+                vatRow.show();
+            }
+
+            if (isEuZone) {
+                vatT8Group.show();
+                vatT8Input.val(purchaseAmount.val());
+            } else {
+                vatT8Input.val('0');
+                vatT8Group.hide();
+            }
+        }
+        if (euZoneCheckbox.prop('checked')) {
+            foreignCheckbox.prop('checked', true);
+        }
+
+        purchaseAmount.on('input', function() {
+            paidAmount.val($(this).val());
+            if (euZoneCheckbox.prop('checked')) {
+                vatT8Input.val($(this).val());
+            }
+            updateVatTotal();
+        });
+
+        $('input[name="expense[VAT_full]"], input[name="expense[VAT_Exempt]"], input[name="expense[VAT_NT]"], input[name="expense[VAT_reduced]"], input[name="expense[VAT_T8]"], input[name="expense[VAT_T9]"]').on('input', updateVatTotal);
+        $('.eu-zone-info').on('click', function(e) {
+            e.preventDefault();
+            $('#eu-zone-modal').modal('show');
+        });
+
+        euZoneCheckbox.on('change', function() {
+            if (this.checked) {
+                foreignCheckbox.prop('checked', true);
+            }
+            updateVatVisibility();
+            updateVatTotal();
+        });
+        foreignCheckbox.on('change', function() {
+            if (!this.checked) {
+                euZoneCheckbox.prop('checked', false);
+            }
+            updateVatVisibility();
+            updateVatTotal();
+        });
+        updateVatVisibility();
+        updateVatTotal();
 </script>
+
+<div id="eu-zone-modal" class="modal fade eu-zone-modal-dark" role="dialog" aria-labelledby="eu-zone-title" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="eu-zone-title">EU Zone Countries</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <ul class="mb-0">
+                    <li>Austria</li>
+                    <li>Belgium</li>
+                    <li>Bulgaria</li>
+                    <li>Croatia</li>
+                    <li>Republic of Cyprus</li>
+                    <li>Czechia</li>
+                    <li>Denmark</li>
+                    <li>Estonia</li>
+                    <li>Finland</li>
+                    <li>France</li>
+                    <li>Germany</li>
+                    <li>Greece</li>
+                    <li>Hungary</li>
+                    <li>Ireland</li>
+                    <li>Italy</li>
+                    <li>Latvia</li>
+                    <li>Lithuania</li>
+                    <li>Luxembourg</li>
+                    <li>Malta</li>
+                    <li>Netherlands</li>
+                    <li>Poland</li>
+                    <li>Portugal</li>
+                    <li>Romania</li>
+                    <li>Slovakia</li>
+                    <li>Slovenia</li>
+                    <li>Spain</li>
+                    <li>Sweden</li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo $lang['common']['text_close']; ?></button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <div id="attach-scan" class="modal hide fade" class="modal" role="dialog">

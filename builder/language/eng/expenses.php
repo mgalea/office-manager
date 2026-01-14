@@ -20,4 +20,13 @@ $expenses = array(
 	'text_charge_client' => 'Charge to Client',
 	'text_payee' => 'Payee',
 	'text_export_expense' => 'Export Expenses',
+	'text_vat_full' => 'VAT Full',
+	'text_vat_exempt' => 'VAT Exempt',
+	'text_vat_non_taxable' => 'VAT Non Taxable',
+	'text_vat_t8' => 'Standard EC Supply',
+	'text_vat_reduced' => 'VAT Reduced',
+	'text_vat_out_of_scope' => 'VAT Out of Scope',
+	'text_vat_total' => 'VAT Total',
+	'text_foreign_invoice' => 'Foreign Invoice',
+	'text_eu_zone' => 'EU Zone',
 );

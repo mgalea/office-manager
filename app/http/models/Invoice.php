@@ -224,13 +224,13 @@ class Invoice extends Model
 
 	public function getRecurringInvoices()
 	{
-		$query = $this->model->query("SELECT i.*, c.company, cr.abbr AS `abbr` FROM `" . DB_PREFIX . "recurring_invoice` AS i LEFT JOIN `" . DB_PREFIX . "persons` AS c ON c.id = i.customer LEFT JOIN `" . DB_PREFIX . "currency` AS cr ON i.currency = cr.id ORDER BY i.inv_date DESC");
+		$query = $this->model->query("SELECT i.*, c.company, cr.abbr AS `abbr` FROM `" . DB_PREFIX . "recurring_invoices` AS i LEFT JOIN `" . DB_PREFIX . "persons` AS c ON c.id = i.customer_id LEFT JOIN `" . DB_PREFIX . "currency` AS cr ON i.currency_id = cr.id ORDER BY i.inv_date DESC");
 		return $query->rows;
 	}
 
 	public function getRecurringInvoice($id)
 	{
-		$query = $this->model->query("SELECT * FROM `" . DB_PREFIX . "recurring_invoice` WHERE `id` = ? LIMIT 1", array((int)$id));
+		$query = $this->model->query("SELECT * FROM `" . DB_PREFIX . "recurring_invoices` WHERE `id` = ? LIMIT 1", array((int)$id));
 
 		if ($query->num_rows > 0) {
 			return $query->row;
@@ -242,8 +242,8 @@ class Invoice extends Model
 	public function getRecurringInvoiceView($id)
 	{
 		$query = $this->model->query("SELECT i.*, c.name, c.email, c.address, p.name AS payment, cr.name AS currency_name, 
-		cr.abbr AS currency_abbr FROM `" . DB_PREFIX . "recurring_invoice` AS i LEFT JOIN `" . DB_PREFIX . "companies` AS c ON i.customer = c.id 
-		LEFT JOIN `" . DB_PREFIX . "payment_type` AS p ON i.paymenttype = p.id LEFT JOIN `" . DB_PREFIX . "currency` AS cr ON i.currency = cr.id WHERE i.id = ? LIMIT 1", array((int)$id));
+		cr.abbr AS currency_abbr FROM `" . DB_PREFIX . "recurring_invoices` AS i LEFT JOIN `" . DB_PREFIX . "companies` AS c ON i.customer_id = c.id 
+		LEFT JOIN `" . DB_PREFIX . "payment_type` AS p ON i.payment_type_id = p.id LEFT JOIN `" . DB_PREFIX . "currency` AS cr ON i.currency_id = cr.id WHERE i.id = ? LIMIT 1", array((int)$id));
 
 		if ($query->num_rows > 0) {
 			return $query->row;
@@ -277,7 +277,7 @@ class Invoice extends Model
 
 	public function createRecurringInvoice($data)
 	{
-		$query = $this->model->query("INSERT INTO `" . DB_PREFIX . "recurring_invoice` (`customer`, `currency`, `paymenttype`, `items`, `subtotal`, `tax`, `discount`, `discount_type`, `discount_value`, `amount`, `note`, `tc`, `repeat_every`, `inv_status`, `inv_date`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", array((int)$data['customer'], (int)$data['currency'], (int)$data['paymenttype'], $data['item'], $data['subtotal'], $data['tax'], $data['discount'], $data['discounttype'], $data['discount_value'], $data['amount'], $data['note'], $data['tc'], $data['repeat_every'], $data['inv_status'], $data['inv_date']));
+		$query = $this->model->query("INSERT INTO `" . DB_PREFIX . "recurring_invoices` (`customer_id`, `currency_id`, `payment_type_id`, `items`, `subtotal`, `tax`, `discount`, `discount_type`, `discount_value`, `amount`, `note`, `tc`, `repeat_every`, `inv_status`, `inv_date`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", array((int)$data['customer'], (int)$data['currency'], (int)$data['paymenttype'], $data['item'], $data['subtotal'], $data['tax'], $data['discount'], $data['discounttype'], $data['discount_value'], $data['amount'], $data['note'], $data['tc'], $data['repeat_every'], $data['inv_status'], $data['inv_date']));
 
 		if ($query->num_rows > 0) {
 			return $this->model->last_id();
@@ -288,7 +288,7 @@ class Invoice extends Model
 
 	public function updateRecurringInvoice($data)
 	{
-		$query = $this->model->query("UPDATE `" . DB_PREFIX . "recurring_invoice` SET `customer` = ?, `currency` = ?, `paymenttype` = ?, `items` = ?, `subtotal` = ?, `tax` = ?, `discount` = ?, `discount_type` = ?, `discount_value` = ?, `amount` = ?, `note` = ?, `tc` = ?, `repeat_every` = ?, `inv_status` = ?, `inv_date` = ? WHERE `id` = ?", array((int)$data['customer'], (int)$data['currency'], (int)$data['paymenttype'], $data['item'], $data['subtotal'], $data['tax'], $data['discount'], $data['discounttype'], $data['discount_value'], $data['amount'], $data['note'], $data['tc'], $data['repeat_every'], $data['inv_status'], $data['inv_date'], (int)$data['id']));
+		$query = $this->model->query("UPDATE `" . DB_PREFIX . "recurring_invoices` SET `customer_id` = ?, `currency_id` = ?, `payment_type_id` = ?, `items` = ?, `subtotal` = ?, `tax` = ?, `discount` = ?, `discount_type` = ?, `discount_value` = ?, `amount` = ?, `note` = ?, `tc` = ?, `repeat_every` = ?, `inv_status` = ?, `inv_date` = ? WHERE `id` = ?", array((int)$data['customer'], (int)$data['currency'], (int)$data['paymenttype'], $data['item'], $data['subtotal'], $data['tax'], $data['discount'], $data['discounttype'], $data['discount_value'], $data['amount'], $data['note'], $data['tc'], $data['repeat_every'], $data['inv_status'], $data['inv_date'], (int)$data['id']));
 
 		if ($query->num_rows > 0) {
 			return true;
@@ -299,7 +299,7 @@ class Invoice extends Model
 
 	public function deleteRecurringInvoice($id)
 	{
-		$query = $this->model->query("DELETE FROM `" . DB_PREFIX . "recurring_invoice` WHERE `id` = ?", array((int)$id));
+		$query = $this->model->query("DELETE FROM `" . DB_PREFIX . "recurring_invoices` WHERE `id` = ?", array((int)$id));
 		if ($query->num_rows > 0) {
 			return true;
 		} else {

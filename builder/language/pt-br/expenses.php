@@ -11,5 +11,11 @@ $expenses = array(
 	'text_purchase_date' => 'Data de Compra',
 	'text_receipt' => 'Recibo',
 	'text_upload_receipt' => 'Enviar Recibo',
-	'text_description' => 'Descrição'
+	'text_description' => 'Descrição',
+	'text_vat_non_taxable' => 'VAT Non Taxable',
+	'text_vat_t8' => 'Standard EC Supply',
+	'text_eu_zone' => 'EU Zone'
 );
+
+
+

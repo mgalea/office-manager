@@ -75,7 +75,7 @@ class ExpenseController extends Controller
 			$data['message'] = $this->session->data['message'];
 			unset($this->session->data['message']);
 		}
-		$data['page_title'] = 'Local Expenses';
+		$data['page_title'] = 'Local Purchases';
 
 		$this->view->render('expense/expense_list.tpl', $data);
 	}
@@ -101,7 +101,7 @@ class ExpenseController extends Controller
 			$data['message'] = $this->session->data['message'];
 			unset($this->session->data['message']);
 		}
-		$data['page_title'] = 'Foreign Expenses';
+		$data['page_title'] = 'Foreign Purchases';
 
 		$this->view->render('expense/expense_list.tpl', $data);
 	}
@@ -238,9 +238,16 @@ class ExpenseController extends Controller
 		if (!empty($this->url->post('id'))) {
 			$data = $this->url->post('expense');
 			$data['id'] = $this->url->post('id');
-			$data['VAT_full'] = isset($data['VAT_full']) ? $data['VAT_full'] : (isset($data['vat_full']) ? $data['vat_full'] : '0.00');
-			$data['VAT_Exempt'] = isset($data['VAT_Exempt']) ? $data['VAT_Exempt'] : (isset($data['vat_exempt']) ? $data['vat_exempt'] : '0.00');
-			$data['VAT_reduced'] = isset($data['VAT_reduced']) ? $data['VAT_reduced'] : (isset($data['vat_reduced']) ? $data['vat_reduced'] : '0.00');
+			$data['VAT_Full'] = $data['VAT_full'] ?? '0.00';
+			$data['VAT_Exempt'] = $data['VAT_Exempt'] ?? '0.00';
+			$data['VAT_NT'] = $data['VAT_NT'] ?? '0.00';
+			$data['VAT_Reduced'] = $data['VAT_reduced'] ?? '0.00';
+			$data['VAT_T8'] = $data['VAT_T8'] ?? '0.00';
+			$data['VAT_T9'] = $data['VAT_T9'] ?? '0.00';
+			$data['eu_zone'] = !empty($data['eu_zone']) ? 1 : 0;
+			if ($data['eu_zone']) {
+				$data['foreign'] = 1;
+			}
 			if (!empty($data['purchasedate'])) {
 				$data['purchasedate'] = date_format(date_create($data['purchasedate']), 'Y-m-d');
 			} else {
@@ -256,9 +263,16 @@ class ExpenseController extends Controller
 			$this->url->redirect('expense/edit&id=' . $data['id']);
 		} else {
 			$data = $this->url->post('expense');
-			$data['VAT_full'] = isset($data['VAT_full']) ? $data['VAT_full'] : (isset($data['vat_full']) ? $data['vat_full'] : '0.00');
-			$data['VAT_Exempt'] = isset($data['VAT_Exempt']) ? $data['VAT_Exempt'] : (isset($data['vat_exempt']) ? $data['vat_exempt'] : '0.00');
-			$data['VAT_reduced'] = isset($data['VAT_reduced']) ? $data['VAT_reduced'] : (isset($data['vat_reduced']) ? $data['vat_reduced'] : '0.00');
+			$data['VAT_Full'] = $data['VAT_full'] ?? '0.00';
+			$data['VAT_Exempt'] = $data['VAT_Exempt'] ?? '0.00';
+			$data['VAT_NT'] = $data['VAT_NT'] ?? '0.00';
+			$data['VAT_Reduced'] = $data['VAT_reduced'] ?? '0.00';
+			$data['VAT_T8'] = $data['VAT_T8'] ?? '0.00';
+			$data['VAT_T9'] = $data['VAT_T9'] ?? '0.00';
+			$data['eu_zone'] = !empty($data['eu_zone']) ? 1 : 0;
+			if ($data['eu_zone']) {
+				$data['foreign'] = 1;
+			}
 			$data['purchasedate'] = date_format(date_create($data['purchasedate']), 'Y-m-d');
 			$data['paiddate'] = date_format(date_create($data['paiddate']), 'Y-m-d');
 
@@ -333,7 +347,10 @@ class ExpenseController extends Controller
 			'Paid Date',
 			'VAT Full',
 			'VAT Exempt',
+			'VAT Non Taxable',
 			'VAT Reduced',
+			'Standard EC Supply',
+			'VAT Out of Scope',
 			'Total VAT',
 			'Foreign Invoice',
 			'Expense Type',
@@ -353,9 +370,12 @@ class ExpenseController extends Controller
 				if (isset($currency_map[$currency])) {
 					$currency = $currency_map[$currency];
 				}
-				$vat_full = !empty($row['VAT_full']) ? $row['VAT_full'] : '0.00';
-				$vat_exempt = !empty($row['Vat_exempt']) ? $row['Vat_exempt'] : '0.00';
-				$vat_reduced = !empty($row['VAT_reduced']) ? $row['VAT_reduced'] : '0.00';
+				$vat_full = !empty($row['VAT_Full']) ? $row['VAT_Full'] : '0.00';
+				$vat_exempt = !empty($row['VAT_Exempt']) ? $row['VAT_Exempt'] : '0.00';
+				$vat_non_taxable = !empty($row['VAT_NT']) ? $row['VAT_NT'] : '0.00';
+				$vat_reduced = !empty($row['VAT_Reduced']) ? $row['VAT_Reduced'] : '0.00';
+				$vat_t8 = !empty($row['VAT_T8']) ? $row['VAT_T8'] : '0.00';
+				$vat_out_of_scope = !empty($row['VAT_T9']) ? $row['VAT_T9'] : '0.00';
 				$foreign = (isset($row['foreign']) && (int)$row['foreign'] === 1) ? 'foreign' : 'local';
 
 				fputcsv($output, array(
@@ -371,7 +391,10 @@ class ExpenseController extends Controller
 					$paid_date,
 					$vat_full,
 					$vat_exempt,
+					$vat_non_taxable,
 					$vat_reduced,
+					$vat_t8,
+					$vat_out_of_scope,
 					$row['total_vat'] ?? '0.00',
 					$foreign,
 					$row['expense_type_name'] ?? '',
@@ -392,22 +415,42 @@ class ExpenseController extends Controller
 	{
 		$error = [];
 		$error_flag = false;
+		$expense = $this->url->post('expense');
 
-		if ($this->commons->validateDate(date_format(date_create($this->url->post('expense')['paiddate']), 'Y-m-d'))) {
+		if (empty($expense['supplier_id']) || (int)$expense['supplier_id'] === 0) {
 			$error_flag = true;
-			$error['error1'] = 'paid date ' . $this->url->post('expense')['paiddate'];
+			$error[] = 'payee';
 		}
-		if ($this->commons->validateDate(date_format(date_create($this->url->post('expense')['purchasedate']), 'Y-m-d'))) {
+		if (empty($expense['amount'])) {
 			$error_flag = true;
-			$error['error2'] = 'purchase date ' . $this->url->post('expense')['purchasedate'];
+			$error[] = 'purchase amount';
 		}
-
+		if (empty($expense['paymenttype'])) {
+			$error_flag = true;
+			$error[] = 'payment method';
+		}
+		if (empty($expense['purchasedate'])) {
+			$error_flag = true;
+			$error[] = 'purchase date';
+		} else {
+			$purchase_date = date_format(date_create($expense['purchasedate']), 'Y-m-d');
+			if ($this->commons->validateDate($purchase_date)) {
+				$error_flag = true;
+				$error[] = 'purchase date ' . $expense['purchasedate'];
+			}
+		}
+		if (!empty($expense['paiddate'])) {
+			$paid_date = date_format(date_create($expense['paiddate']), 'Y-m-d');
+			if ($this->commons->validateDate($paid_date)) {
+				$error_flag = true;
+				$error[] = 'paid date ' . $expense['paiddate'];
+			}
+		}
 
 		if ($error_flag) {
 			return $error;
-		} else {
-			return false;
 		}
+		return false;
 	}
 }
 
