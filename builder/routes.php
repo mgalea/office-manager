@@ -15,6 +15,12 @@ $router->get('user/edit', 'UserController@indexEdit@2');
 $router->get('user/add', 'UserController@indexAdd@2');
 $router->post('user/action', 'UserController@indexAction@2');
 $router->post('user/delete', 'UserController@indexDelete@2');
+$router->get('employees', 'EmployeeController@index@2');
+$router->get('employee/view', 'EmployeeController@indexView@2');
+$router->get('employee/add', 'EmployeeController@indexAdd@2');
+$router->get('employee/edit', 'EmployeeController@indexEdit@2');
+$router->post('employee/action', 'EmployeeController@indexAction@2');
+$router->post('employee/delete', 'EmployeeController@indexDelete@2');
 
 
 $router->get('role', 'UserController@userRole@2');
@@ -57,6 +63,7 @@ $router->get('expenses/foreign', 'ExpenseController@indexForeignList@2');
 $router->post('expense/foreign', 'ExpenseController@indexForeign@2');
 $router->post('expense/euzone', 'ExpenseController@indexEuZone@2');
 $router->post('expense/payee/create', 'ExpenseController@indexCreatePayee@2');
+$router->post('expense/list', 'ExpenseController@indexListData@2');
 $router->get('expense/export', 'ExpenseController@indexExport@2');
 $router->get('expense/add', 'ExpenseController@indexAdd@2');
 $router->get('expense/edit', 'ExpenseController@indexEdit@2');

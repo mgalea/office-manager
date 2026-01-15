@@ -7,7 +7,7 @@
 	<link rel="icon" type="image/x-icon" href="images/favicon.png">
 	<link href="https://fonts.googleapis.com/css?family=Dosis:500,600" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500" rel="stylesheet">
-	<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="fonts/font-awesome/css/fontawesome-all.min.css" />
 	<link rel="stylesheet" href="css/bootstrap.min.css" />
 	<link rel="stylesheet" href="css/style.css" />
 	<script src="js/jquery-2.1.4.min.js"></script>
@@ -63,10 +63,7 @@
 					</div>
 				</form>
 			</div>
-			<div class="lgn-footer">
-				<p><?php echo $lang['login']['text_are_you_client']; ?></p>
-				<a href="<?php echo URL_CLIENTS.DIR_ROUTE.'login'; ?>"><?php echo $lang['login']['text_client_login']; ?></a>
-			</div>	
+
 		</div>
 	</div>
 

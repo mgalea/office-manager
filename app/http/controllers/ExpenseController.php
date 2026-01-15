@@ -41,6 +41,8 @@ class ExpenseController extends Controller
 		$data['result'] = $this->expenseModel->getExpenses();
 		$data['suppliers'] = $this->expenseModel->getSuppliers();
 		$data['show_eu_zone_column'] = true;
+		$data['list_scope'] = 'all';
+		$data['server_side'] = true;
 
 		/* Set confirmation message if page submitted before */
 		if (isset($this->session->data['message'])) {
@@ -72,6 +74,8 @@ class ExpenseController extends Controller
 		$data['result'] = $this->expenseModel->getLocalExpenses();
 		$data['suppliers'] = $this->expenseModel->getSuppliers();
 		$data['show_eu_zone_column'] = false;
+		$data['list_scope'] = 'local';
+		$data['server_side'] = true;
 
 		if (isset($this->session->data['message'])) {
 			$data['message'] = $this->session->data['message'];
@@ -99,6 +103,8 @@ class ExpenseController extends Controller
 		$data['result'] = $this->expenseModel->getForeignExpenses();
 		$data['suppliers'] = $this->expenseModel->getSuppliers();
 		$data['show_eu_zone_column'] = true;
+		$data['list_scope'] = 'foreign';
+		$data['server_side'] = true;
 		$data['eu_zone_only'] = true;
 
 		if (isset($this->session->data['message'])) {
@@ -358,6 +364,116 @@ class ExpenseController extends Controller
 		$updated = $this->expenseModel->updateEuZoneStatus($id);
 		header('Content-Type: application/json');
 		echo json_encode(array('status' => $updated ? 'ok' : 'error'));
+		exit();
+	}
+
+	public function indexListData()
+	{
+		if (!$this->commons->hasPermission('expenses')) {
+			Not_foundController::show('403');
+			exit();
+		}
+
+		$user = $this->commons->getUser();
+		require DIR_BUILDER . 'language/' . $user['info']['language'] . '/common.php';
+
+		$scope = $this->url->post('scope');
+		if (!$scope) {
+			$scope = 'all';
+		}
+		$show_eu_zone_column = (int)$this->url->post('show_eu_zone_column') === 1;
+
+		$draw = (int)($this->url->post('draw') ?? 0);
+		$start = (int)($this->url->post('start') ?? 0);
+		$length = (int)($this->url->post('length') ?? 25);
+		$search = '';
+		$search_value = $this->url->post('search');
+		if (is_array($search_value) && isset($search_value['value'])) {
+			$search = (string)$search_value['value'];
+		}
+		$order = $this->url->post('order');
+		$order_column = 4;
+		$order_dir = 'desc';
+		if (is_array($order) && isset($order[0]['column'])) {
+			$order_column = (int)$order[0]['column'];
+			$order_dir = isset($order[0]['dir']) && strtolower($order[0]['dir']) === 'asc' ? 'asc' : 'desc';
+		}
+
+		$result = $this->expenseModel->getExpensesDataTable(array(
+			'start' => $start,
+			'length' => $length,
+			'search' => $search,
+			'order_column' => $order_column,
+			'order_dir' => $order_dir,
+			'show_eu_zone_column' => $show_eu_zone_column,
+		), $scope);
+
+		$data = array();
+		if (!empty($result['rows'])) {
+			foreach ($result['rows'] as $index => $row) {
+				$purchase_amount = (int)($row['purchase_amount'] ?? 0);
+				$amount_paid = $purchase_amount > 0 ? (int)($row['paid_amount'] ?? 0) / $purchase_amount : 0;
+				if ($amount_paid == 0) {
+					$status_badge = '<span class="badge badge-pill badge-pinterest badge-min-size small">unpaid</span>';
+				} elseif ($amount_paid == 1) {
+					$status_badge = '<span class="badge badge-pill badge-success badge-min-size small">paid</span>';
+				} elseif ($amount_paid > 0 && $amount_paid < 1) {
+					$status_badge = '<span class="badge badge-pill badge-warning badge-min-size small">partial</span>';
+				} else {
+					$status_badge = '<span class="badge badge-pill badge-primary badge-min-size small">overpaid</span>';
+				}
+
+				$foreign = !empty($row['foreign']) ? 1 : 0;
+				$foreign_label = $foreign ? 'Foreign' : 'Local';
+				$foreign_class = $foreign ? 'badge-warning' : 'badge-success';
+				$foreign_badge = '<span class="badge badge-pill ' . $foreign_class . ' expense-foreign-toggle" data-id="' . (int)$row['id'] . '" data-foreign="' . $foreign . '">' . $foreign_label . '</span>';
+
+				$eu_zone_badge = '';
+				if ($show_eu_zone_column) {
+					$eu_zone = !empty($row['eu_zone']) ? 1 : 0;
+					$eu_zone_label = $eu_zone ? 'EU Zone' : 'Non-EU';
+					$eu_zone_class = $eu_zone ? 'badge-success' : 'badge-warning';
+					$eu_zone_badge = '<span class="badge badge-pill eu-zone-toggle ' . $eu_zone_class . ' expense-eu-zone-toggle" data-id="' . (int)$row['id'] . '" data-eu-zone="' . $eu_zone . '">' . $eu_zone_label . '</span>';
+				}
+
+				$purchase_date = !empty($row['purchase_date']) ? date_format(date_create($row['purchase_date']), 'Y-m-d') : '';
+				$abbr = $row['abbr'] ?? '';
+				$purchase_amount_display = $abbr . ' ' . ltrim((string)($row['purchase_amount'] ?? '0'), '0');
+				$total_vat_display = $abbr . ' ' . ltrim((string)($row['total_vat'] ?? '0'), '0');
+				$invoice_number = $row['inv_number'] ?? '';
+				$supplier = $row['supplier'] ?? '';
+				$payor = $row['payor'] ?? '';
+
+				$actions = '<a target="_blank" href="' . URL . DIR_ROUTE . 'expense/edit&id=' . (int)$row['id'] . '" class="btn btn-success btn-icon mr-2" data-toggle="tooltip" title="' . $lang['text_edit'] . '"><i class="icon-pencil"></i></a>'
+					. '<span class="btn btn-warning btn-icon table-delete text-black" data-toggle="tooltip" data-placement="top" title="' . $lang['text_delete'] . '"><i class="icon-trash"></i><input type="hidden" value="' . (int)$row['id'] . '"></span>';
+
+				$row_data = array(
+					($start + $index + 1),
+					$status_badge,
+					$supplier,
+					$invoice_number,
+					$purchase_date,
+					$payor,
+					$purchase_amount_display,
+					$total_vat_display,
+					$foreign_badge,
+				);
+				if ($show_eu_zone_column) {
+					$row_data[] = $eu_zone_badge;
+				}
+				$row_data[] = $actions;
+
+				$data[] = $row_data;
+			}
+		}
+
+		header('Content-Type: application/json');
+		echo json_encode(array(
+			'draw' => $draw,
+			'recordsTotal' => $result['records_total'] ?? 0,
+			'recordsFiltered' => $result['records_filtered'] ?? 0,
+			'data' => $data,
+		));
 		exit();
 	}
 

@@ -9,6 +9,9 @@
             <li id="supplier-li">
                 <a href="<?php echo URL . DIR_ROUTE; ?>suppliers"><i class="icon-social-dropbox"></i><span><?php echo $lang['common']['text_suppliers']; ?></span></a>
             </li>
+            <li id="employee-li">
+                <a href="<?php echo URL . DIR_ROUTE; ?>employees"><i class="icon-people"></i><span><?php echo $lang['common']['text_employees']; ?></span></a>
+            </li>
             <li id="contact-li" class="has-sub">
                 <a><i class="far fa-address-book"></i><span><?php echo $lang['common']['text_contacts']; ?></span><i class="arrow rotate"></i></a>
                 <ul id="contact" class="sub-menu">

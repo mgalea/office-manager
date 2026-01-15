@@ -20,7 +20,7 @@ class Expense extends Model
 		$query = $this->model->query("SELECT e.*, et.name AS expense_type_name, pt.name AS payment_type_name, c.abbr AS abbr, s.name AS supplier, p.name AS payor, (COALESCE(e.VAT_full, 0) + COALESCE(e.VAT_Exempt, 0) + COALESCE(e.VAT_NT, 0) + COALESCE(e.VAT_T8, 0) + COALESCE(e.VAT_reduced, 0)) AS total_vat FROM `" . DB_PREFIX . "expenses` AS e LEFT JOIN `" .
 			DB_PREFIX . "expense_type` AS et ON et.id = e.expense_type LEFT JOIN `" . DB_PREFIX . "payment_type` AS pt ON pt.id = e.payment_type LEFT JOIN `" . DB_PREFIX . "currency` AS c ON c.id = e.currency  LEFT JOIN `"
 			. DB_PREFIX . "companies` AS s ON " . "s.id = e.supplier_id  LEFT JOIN `"
-			. DB_PREFIX . "companies` AS p ON " . "p.id = e.purchase_by WHERE e.purchase_date >= DATE_SUB(CURDATE(), INTERVAL 3 MONTH) AND (COALESCE(e.VAT_full, 0) + COALESCE(e.VAT_Exempt, 0) + COALESCE(e.VAT_NT, 0) + COALESCE(e.VAT_T8, 0) + COALESCE(e.VAT_reduced, 0)) = 0 AND (e.foreign = 0 OR e.foreign IS NULL) ORDER BY e.purchase_date DESC");
+			. DB_PREFIX . "companies` AS p ON " . "p.id = e.purchase_by WHERE e.purchase_date >= DATE_SUB(CURDATE(), INTERVAL 4 MONTH) AND (e.foreign = 0 OR e.foreign IS NULL) ORDER BY e.purchase_date DESC");
 		return $query->rows;
 	}
 
@@ -29,7 +29,7 @@ class Expense extends Model
 		$query = $this->model->query("SELECT e.*, et.name AS expense_type_name, pt.name AS payment_type_name, c.abbr AS abbr, s.name AS supplier, p.name AS payor, (COALESCE(e.VAT_full, 0) + COALESCE(e.Vat_exempt, 0) + COALESCE(e.VAT_NT, 0) + COALESCE(e.VAT_T8, 0) + COALESCE(e.VAT_reduced, 0)) AS total_vat FROM `" . DB_PREFIX . "expenses` AS e LEFT JOIN `" .
 			DB_PREFIX . "expense_type` AS et ON et.id = e.expense_type LEFT JOIN `" . DB_PREFIX . "payment_type` AS pt ON pt.id = e.payment_type LEFT JOIN `" . DB_PREFIX . "currency` AS c ON c.id = e.currency  LEFT JOIN `"
 			. DB_PREFIX . "companies` AS s ON " . "s.id = e.supplier_id  LEFT JOIN `"
-			. DB_PREFIX . "companies` AS p ON " . "p.id = e.purchase_by WHERE e.purchase_date >= '2023-01-01' AND e.foreign = 1 ORDER BY e.purchase_date DESC");
+			. DB_PREFIX . "companies` AS p ON " . "p.id = e.purchase_by WHERE e.purchase_date >= DATE_SUB(CURDATE(), INTERVAL 4 MONTH) AND e.foreign = 1 ORDER BY e.purchase_date DESC");
 		return $query->rows;
 	}
 
@@ -218,5 +218,98 @@ class Expense extends Model
 		} else {
 			return false;
 		}
+	}
+
+	public function getExpensesDataTable($params, $scope = 'all')
+	{
+		$start = isset($params['start']) ? (int)$params['start'] : 0;
+		$length = isset($params['length']) ? (int)$params['length'] : 25;
+		$search = isset($params['search']) ? trim((string)$params['search']) : '';
+		$order_column = isset($params['order_column']) ? (int)$params['order_column'] : 4;
+		$show_eu = !empty($params['show_eu_zone_column']);
+		$order_dir = isset($params['order_dir']) && strtolower($params['order_dir']) === 'asc' ? 'ASC' : 'DESC';
+
+		if ($show_eu) {
+			$columns = array(
+				0 => null,
+				1 => null,
+				2 => 's.name',
+				3 => 'e.inv_number',
+				4 => 'e.purchase_date',
+				5 => 'p.name',
+				6 => 'e.purchase_amount',
+				7 => 'total_vat',
+				8 => 'e.foreign',
+				9 => 'e.eu_zone',
+				10 => null,
+			);
+		} else {
+			$columns = array(
+				0 => null,
+				1 => null,
+				2 => 's.name',
+				3 => 'e.inv_number',
+				4 => 'e.purchase_date',
+				5 => 'p.name',
+				6 => 'e.purchase_amount',
+				7 => 'total_vat',
+				8 => 'e.foreign',
+				9 => null,
+			);
+		}
+
+		$where = array();
+		$params_list = array();
+
+		if ($scope === 'local') {
+			$where[] = "(e.foreign = 0 OR e.foreign IS NULL)";
+			$where[] = "e.purchase_date >= DATE_SUB(CURDATE(), INTERVAL 4 MONTH)";
+		} elseif ($scope === 'foreign') {
+			$where[] = "e.foreign = 1";
+		}
+
+		if ($search !== '') {
+			$where[] = "(s.name LIKE ? OR e.inv_number LIKE ? OR p.name LIKE ?)";
+			$like = '%' . $search . '%';
+			$params_list[] = $like;
+			$params_list[] = $like;
+			$params_list[] = $like;
+		}
+
+		$join_sql = " LEFT JOIN `" . DB_PREFIX . "expense_type` AS et ON et.id = e.expense_type LEFT JOIN `" . DB_PREFIX . "payment_type` AS pt ON pt.id = e.payment_type LEFT JOIN `" . DB_PREFIX . "currency` AS c ON c.id = e.currency  LEFT JOIN `" . DB_PREFIX . "companies` AS s ON s.id = e.supplier_id  LEFT JOIN `" . DB_PREFIX . "companies` AS p ON p.id = e.purchase_by";
+		$where_sql = '';
+		if (!empty($where)) {
+			$where_sql = ' WHERE ' . implode(' AND ', $where);
+		}
+
+		$total_query_params = !empty($params_list) ? $params_list : null;
+		$total_query = $this->model->query(
+			"SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "expenses` AS e" . $join_sql . $where_sql,
+			$total_query_params
+		);
+		$records_filtered = isset($total_query->row['total']) ? (int)$total_query->row['total'] : 0;
+
+		$total_all_query = $this->model->query(
+			"SELECT COUNT(*) AS total FROM `" . DB_PREFIX . "expenses` AS e" . ($scope === 'local' ? " WHERE (e.foreign = 0 OR e.foreign IS NULL) AND e.purchase_date >= DATE_SUB(CURDATE(), INTERVAL 4 MONTH)" : ($scope === 'foreign' ? " WHERE e.foreign = 1" : "")),
+			null
+		);
+		$records_total = isset($total_all_query->row['total']) ? (int)$total_all_query->row['total'] : 0;
+
+		$order_by = $columns[$order_column] ?? 'e.purchase_date';
+		if ($order_by === null) {
+			$order_by = 'e.purchase_date';
+		}
+
+		$query = $this->model->query(
+			"SELECT e.*, et.name AS expense_type_name, pt.name AS payment_type_name, c.abbr AS abbr, s.name AS supplier, p.name AS payor, (COALESCE(e.VAT_full, 0) + COALESCE(e.VAT_Exempt, 0) + COALESCE(e.VAT_NT, 0) + COALESCE(e.VAT_T8, 0) + COALESCE(e.VAT_reduced, 0)) AS total_vat FROM `" . DB_PREFIX . "expenses` AS e" . $join_sql . $where_sql .
+				" ORDER BY " . $order_by . " " . $order_dir . " LIMIT ?, ?",
+			array_merge($params_list, array($start, $length))
+		);
+
+		return array(
+			'rows' => $query->rows,
+			'records_total' => $records_total,
+			'records_filtered' => $records_filtered,
+		);
 	}
 }

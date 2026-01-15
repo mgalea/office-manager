@@ -14,8 +14,8 @@ class Dashboard extends Model
 
 	public function getstatistics()
 	{
-		$query = $this->model->query("(SELECT SUM(amount) AS `total`, 'Income' AS `name`, 'icon-people' AS `icon` FROM `kk_invoice` WHERE `inv_date` >= '2021-01-01')
-		 UNION ALL (SELECT SUM(purchase_amount) AS `total`, 'Expenditure' AS `name`,'icon-people' AS `icon` FROM `kk_expenses` WHERE `purchase_date` >= '2021-01-01' AND purchase_by=9);");
+		$query = $this->model->query("(SELECT SUM(amount) AS `total`, 'Income' AS `name`, 'icon-people' AS `icon` FROM `kk_invoice` WHERE `inv_date` >= DATE_FORMAT(CURDATE(), '%Y-01-01'))
+		 UNION ALL (SELECT SUM(purchase_amount) AS `total`, 'Expenditure' AS `name`,'icon-people' AS `icon` FROM `kk_expenses` WHERE `purchase_date` >= DATE_FORMAT(CURDATE(), '%Y-01-01') AND purchase_by=9);");
 		return $query->rows;
 	}
 
@@ -84,6 +84,21 @@ class Dashboard extends Model
 	public function getExpensesValue()
 	{
 		$query = $this->model->query("SELECT COUNT(e.id) AS value, et.name AS `label`, MONTH(e.date_of_joining) AS month FROM `" . DB_PREFIX . "expenses` AS e LEFT JOIN `" . DB_PREFIX . "expense_type` AS et ON et.id = e.expense_type GROUP BY et.name, MONTH(e.date_of_joining) ORDER BY e.date_of_joining");
+		return $query->rows;
+	}
+
+	public function getIncomeBySubsidiaryThisYear($limit)
+	{
+		$query = $this->model->query(
+			"SELECT s.name AS subsidiary, SUM(i.amount) AS total
+			FROM `" . DB_PREFIX . "invoice` AS i
+			LEFT JOIN `" . DB_PREFIX . "companies` AS s ON s.id = i.billing_id
+			WHERE i.inv_date >= DATE_FORMAT(CURDATE(), '%Y-01-01')
+			GROUP BY i.billing_id
+			ORDER BY total DESC
+			LIMIT ?",
+			array((int)$limit)
+		);
 		return $query->rows;
 	}
 

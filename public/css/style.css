@@ -12200,7 +12200,10 @@ select.form-transparent {
 .lgn-background {
   position: relative;
   width: 100%;
-  min-height: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 30px 0 20px 0;
   background-attachment: fixed;
   background-position: center;
@@ -12221,7 +12224,7 @@ select.form-transparent {
     background: rgba(0, 0, 0, 0.1); }
 
 .lgn-wrapper {
-  max-width: 460px;
+  max-width: 560px;
   margin: 0 auto;
   position: relative;
   padding-bottom: 10px;
@@ -12300,8 +12303,60 @@ select.form-transparent {
     letter-spacing: 0.5px;
     font-family: "Dosis", "Poppins", sans-serif;
     color: #FFF; }
-    .lgn-footer a:hover {
+  .lgn-footer a:hover {
       color: #132584; }
+
+/**************************************************
+[ LOGIN RESPONSIVE ] *******************************
+//*************************************************/
+@media (max-width: 768px) {
+  .lgn-background {
+    padding: 20px 10px;
+  }
+  .lgn-wrapper {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 16px;
+  }
+  .lgn-logo {
+    padding: 16px 0;
+  }
+  .lgn-logo img {
+    max-height: 32px;
+  }
+  .lgn-input {
+    padding: 8px 10px 0 10px;
+    margin-bottom: 12px;
+  }
+  .lgn-forgot {
+    padding: 0 15px;
+    font-size: 16px;
+  }
+  .lgn-submit {
+    padding: 16px 0;
+  }
+  .lgn-submit button {
+    width: 100%;
+  }
+  .lgn-footer {
+    margin: 0 10px 10px 10px;
+  }
+  .lgn-footer a {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .lgn-logo img {
+    max-height: 28px;
+  }
+  .lgn-type {
+    font-size: 11px;
+  }
+  .lgn-input label {
+    font-size: 13px;
+  }
+}
 
 /**************************************************
 [ NOT FOUND CSS START] ****************************
@@ -12407,7 +12462,7 @@ select.form-transparent {
     position: absolute;
     left: 32px;
     top: 50%;
-    width: 45%;
+    width: 65%;
     transform: translateY(-50%); }
     .dashboard-stat .content h4 {
       font-size: 42px;
@@ -13265,6 +13320,15 @@ Card CLASS **************************************
 
   .page-hdr-right, .page-hdr-left {
     position: static; }
+
+  .page-hdr-right {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center; }
+
+  .page-hdr-right .open-left-menu {
+    order: 99;
+    margin-left: auto; }
 
   .page-hdr-desktop, .page-search {
     position: absolute;

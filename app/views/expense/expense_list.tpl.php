@@ -2,6 +2,8 @@
 <?php
 $eu_zone_only = !empty($eu_zone_only);
 $show_eu_zone_column = isset($show_eu_zone_column) ? (bool)$show_eu_zone_column : true;
+$server_side = !empty($server_side);
+$list_scope = isset($list_scope) ? $list_scope : 'all';
 $invoice_type_heading = 'Invoice Type';
 ?>
 <style>
@@ -102,7 +104,11 @@ $invoice_type_heading = 'Invoice Type';
     });
     $(function() {
         if ($.fn.DataTable && !$.fn.DataTable.isDataTable('.datatable-expense')) {
-            $('.datatable-expense').DataTable({
+            var table = $('.datatable-expense');
+            var serverSide = table.data('server-side') === 1;
+            var scope = table.data('scope') || 'all';
+            var showEu = table.data('show-eu') === 1;
+            var options = {
                 "aLengthMenu": [[10, 25, 50, 75, -1], [10, 25, 50, 75, "All"]],
                 "iDisplayLength": 25,
                 "order": [],
@@ -122,7 +128,22 @@ $invoice_type_heading = 'Invoice Type';
                         "last": '<i class="fa fa-angle-double-right"></i>'
                     }
                 }
-            });
+            };
+            if (serverSide) {
+                options.processing = true;
+                options.serverSide = true;
+                options.ajax = {
+                    url: '<?php echo URL . DIR_ROUTE . 'expense/list'; ?>',
+                    type: 'POST',
+                    data: function(d) {
+                        d.scope = scope;
+                        d.show_eu_zone_column = showEu ? 1 : 0;
+                    }
+                };
+                options.order = [[4, 'desc']];
+                options.columnDefs = [{ targets: '_all', orderable: true }];
+            }
+            table.DataTable(options);
         }
     });
 
@@ -145,7 +166,7 @@ $invoice_type_heading = 'Invoice Type';
         </div>
         <div class="panel-wrapper">
             <div class="table-container">
-                <table class="table table-dark table-striped datatable-expense" width="100%">
+                <table class="table table-dark table-striped datatable-expense" width="100%" data-server-side="<?php echo $server_side ? 1 : 0; ?>" data-scope="<?php echo $list_scope; ?>" data-show-eu="<?php echo $show_eu_zone_column ? 1 : 0; ?>">
                     <thead>
                         <tr class="table-heading">
                             <th class="table-srno">#</th>
@@ -164,7 +185,7 @@ $invoice_type_heading = 'Invoice Type';
                         </tr>
                     </thead>
                     <tbody>
-                        <?php if (!empty($result)) {
+                        <?php if (!$server_side && !empty($result)) {
                             foreach ($result as $key => $value) { ?>
                                 <tr>
                                     <td><?php echo ($key + 1); ?> </td>

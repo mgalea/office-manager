@@ -49,7 +49,19 @@ class DashboardController extends Controller
 			$data['notes'] = $this->dashboardModel->getUserNotes($this->session->data['user_id']);
 		}
 
-		$data['statistics']=$this->dashboardModel->getStatistics();
+		$data['statistics'] = $this->dashboardModel->getStatistics();
+		$data['total_income_year'] = '';
+		$data['total_expense_year'] = '';
+		if (!empty($data['statistics'])) {
+			foreach ($data['statistics'] as $stat) {
+				if (isset($stat['name']) && $stat['name'] === 'Income') {
+					$data['total_income_year'] = '€'.$stat['total'];
+				} elseif (isset($stat['name']) && $stat['name'] === 'Expenditure') {
+					$data['total_expense_year'] = '€'.$stat['total'];
+				}
+			}
+		}
+		$data['top_subsidiary_income'] = $this->dashboardModel->getIncomeBySubsidiaryThisYear(2);
 		$data['contacts'] = $this->dashboardModel->getLatestContact();
 		/*Get latest invoices*/
 

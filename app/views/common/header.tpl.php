@@ -40,6 +40,9 @@
     <script type="text/javascript" src="js/daterangepicker.js"></script>
     <script type="text/javascript" src="js/datatables.min.js"></script>
     <script type="text/javascript" src="js/dropzone.min.js"></script>
+    <script type="text/javascript">
+        Dropzone.autoDiscover = false;
+    </script>
     <script type="text/javascript" src="js/perfect-scrollbar.min.js"></script>
     <script type="text/javascript" src="js/admin.js"></script>
     <script type="text/javascript" src="js/chosen.jquery.js"></script>
