@@ -21,6 +21,12 @@ $router->get('employee/add', 'EmployeeController@indexAdd@2');
 $router->get('employee/edit', 'EmployeeController@indexEdit@2');
 $router->post('employee/action', 'EmployeeController@indexAction@2');
 $router->post('employee/delete', 'EmployeeController@indexDelete@2');
+$router->get('salaries', 'SalaryController@index@2');
+$router->get('salary/view', 'SalaryController@indexView@2');
+$router->get('salary/add', 'SalaryController@indexAdd@2');
+$router->get('salary/edit', 'SalaryController@indexEdit@2');
+$router->post('salary/action', 'SalaryController@indexAction@2');
+$router->post('salary/delete', 'SalaryController@indexDelete@2');
 
 
 $router->get('role', 'UserController@userRole@2');

@@ -12,6 +12,9 @@
             <li id="employee-li">
                 <a href="<?php echo URL . DIR_ROUTE; ?>employees"><i class="icon-people"></i><span><?php echo $lang['common']['text_employees']; ?></span></a>
             </li>
+            <li id="salary-li">
+                <a href="<?php echo URL . DIR_ROUTE; ?>salaries"><i class="icon-wallet"></i><span>Salaries</span></a>
+            </li>
             <li id="contact-li" class="has-sub">
                 <a><i class="far fa-address-book"></i><span><?php echo $lang['common']['text_contacts']; ?></span><i class="arrow rotate"></i></a>
                 <ul id="contact" class="sub-menu">
