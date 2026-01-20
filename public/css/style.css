@@ -6796,7 +6796,7 @@ blockquote {
 [ CALENDAR CSS START ] ************************
 *************************************************/
 .fc {
-  background-color: rgba(255, 130, 41, 0.8);
+  background-color: rgba(40, 42, 60, 0.8);
   padding: 10px; }
   .fc th, .fc .fc-axis, .fc .fc-list-heading {
     background: #716aca !important;
@@ -6806,7 +6806,7 @@ blockquote {
     background: rgba(255, 255, 200, 0.5) !important;
     border-color: crimson !important; }
     .fc td .fc-sun, .fc td .fc-sat {
-      background: #f0d0a0 !important;
+      background: #fff0a080 !important;
       color: #333 !important; }
   .fc .fc-day-number {
     color: #ff2424;
@@ -12447,17 +12447,18 @@ select.form-transparent {
   overflow: hidden;
   border-radius: 15px;
   background-color: #333;
+  background-image: linear-gradient(to left, rgba(255, 255, 255, 0.2) 25%, rgba(255, 255, 255, 0));
   box-shadow: 10px 8px 44px -15px rgba(0, 0, 0, 0.33); }
   .dashboard-stat.color-success {
-    background-color: #0bc36e; }
+    background-color: #282A3C; }
   .dashboard-stat.color-primary {
-    background-color: #3F51B5; }
+    background-color: #282A3C; }
   .dashboard-stat.color-danger {
-    background-color: #ff2424; }
+    background-color: #282A3C; }
   .dashboard-stat.color-warning {
-    background-color: #fec107; }
+    background-color: #282A3C; }
   .dashboard-stat.color-warning {
-    background-color: #fec107; }
+    background-color: #282A3C; }
   .dashboard-stat .content {
     position: absolute;
     left: 32px;

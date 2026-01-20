@@ -4,3 +4,28 @@
 [21-Jul-2022 17:48:57 Asia/Kuwait] SELECT acc.name as account_name, acc.number as account_number, acc.sort_code as sort_code,acc.iban,  acc.swift as swift_code, curr.name as currency, curr.abbr as abbr, bank.name as bank_name,acc.bank_branch as bank_branch, acc.remittance as remittance FROM kk_companies as sub, kk_bank_accounts as acc INNER JOIN kk_currency as curr ON acc.currency=curr.id INNER JOIN kk_companies as bank ON acc.bank=bank.id WHERE sub.id=(SELECT billing_id FROM kk_proposal where id=5)
 [21-Jul-2022 17:50:01 Asia/Kuwait] SELECT acc.name as account_name, acc.number as account_number, acc.sort_code as sort_code,acc.iban,  acc.swift as swift_code, curr.name as currency, curr.abbr as abbr, bank.name as bank_name,acc.bank_branch as bank_branch, acc.remittance as remittance FROM kk_companies as sub, kk_bank_accounts as acc INNER JOIN kk_currency as curr ON acc.currency=curr.id INNER JOIN kk_companies as bank ON acc.bank=bank.id WHERE sub.id=9
 [21-Jul-2022 17:52:43 Asia/Kuwait] SELECT acc.name as account_name, acc.number as account_number, acc.sort_code as sort_code,acc.iban,  acc.swift as swift_code, curr.name as currency, curr.abbr as abbr, bank.name as bank_name,acc.bank_branch as bank_branch, acc.remittance as remittance FROM kk_companies as sub, kk_bank_accounts as acc INNER JOIN kk_currency as curr ON acc.currency=curr.id INNER JOIN kk_companies as bank ON acc.bank=bank.id WHERE sub.id=(SELECT billing_id FROM kk_proposal where id=?)
+[2026-01-20 11:48:14] Test email requested to mario.s.galea@gmail.com. SMTP enabled: yes.
+[2026-01-20 11:48:14] SMTP settings: {"host":"sandbox.smtp.mailtrap.io","port":"2525","encryption":"tls","authentication":"1"}
+[2026-01-20 11:48:16] Test email failed. Test email could not be sent. <strong>SMTP Error: Could not authenticate.</strong><br />
+
+[2026-01-20 11:49:03] Test email requested to mario.s.galea@gmail.com. SMTP enabled: yes.
+[2026-01-20 11:49:03] SMTP settings: {"host":"sandbox.smtp.mailtrap.io","port":"2525","encryption":"tls","authentication":"0"}
+[2026-01-20 11:49:05] Test email failed. Test email could not be sent. <strong>The following From address failed: tech@random-group.com : MAIL FROM command failed,Authentication required
+,530,5.7.1SMTP server error: MAIL FROM command failed Detail: Authentication required
+ SMTP code: 530 Additional SMTP info: 5.7.1</strong><br />
+
+[2026-01-20 11:49:51] Test email requested to mario.s.galea@gmail.com. SMTP enabled: yes.
+[2026-01-20 11:49:51] SMTP settings: {"host":"sandbox.smtp.mailtrap.io","port":"2525","encryption":"ssl","authentication":"1"}
+[2026-01-20 11:49:52] Test email failed. Test email could not be sent. <strong>SMTP connect() failed. https://github.com/PHPMailer/PHPMailer/wiki/Troubleshooting</strong><br />
+
+[2026-01-20 11:50:20] Test email requested to mario.s.galea@gmail.com. SMTP enabled: yes.
+[2026-01-20 11:50:20] SMTP settings: {"host":"sandbox.smtp.mailtrap.io","port":"2525","encryption":"none","authentication":"1"}
+[2026-01-20 11:50:22] Test email failed. Test email could not be sent. <strong>SMTP Error: Could not authenticate.</strong><br />
+
+[2026-01-20 11:50:46] Test email requested to mario.s.galea@gmail.com. SMTP enabled: yes.
+[2026-01-20 11:50:46] SMTP settings: {"host":"sandbox.smtp.mailtrap.io","port":"2525","encryption":"tls","authentication":"1"}
+[2026-01-20 11:50:48] Test email failed. Test email could not be sent. <strong>SMTP Error: Could not authenticate.</strong><br />
+
+[2026-01-20 11:51:45] Test email requested to mario.s.galea@gmail.com. SMTP enabled: yes.
+[2026-01-20 11:51:45] SMTP settings: {"host":"sandbox.smtp.mailtrap.io","port":"2525","encryption":"tls","authentication":"1"}
+[2026-01-20 11:51:47] Test email sent successfully.

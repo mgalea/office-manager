@@ -52,6 +52,16 @@ class User extends Model
 		}
 	}
 
+	public function updatePassword($id, $password)
+	{
+		$this->model->query("UPDATE `" . DB_PREFIX . "users` SET `password` = ? WHERE `user_id` = ? ", array($password, (int)$id));
+		if ($this->model->error()) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
 	public function createUser($data)
 	{	
 		$query = $this->model->query("INSERT INTO `" . DB_PREFIX . "users` (`user_role`, `user_name`, `firstname`, `lastname`, `email`, `mobile`, `meta`, `password`, `temp_hash`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)", array($this->model->escape((int)$data['role']), $this->model->escape($data['username']), $this->model->escape($data['firstname']), $this->model->escape($data['lastname']), $this->model->escape($data['email']), $this->model->escape($data['mobile']), $data['meta'], $data['password'], $data['hash']));

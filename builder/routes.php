@@ -14,6 +14,7 @@ $router->get('user', 'UserController@index@2');
 $router->get('user/edit', 'UserController@indexEdit@2');
 $router->get('user/add', 'UserController@indexAdd@2');
 $router->post('user/action', 'UserController@indexAction@2');
+$router->post('user/reset-password', 'UserController@indexResetPassword@2');
 $router->post('user/delete', 'UserController@indexDelete@2');
 $router->get('employees', 'EmployeeController@index@2');
 $router->get('employee/view', 'EmployeeController@indexView@2');
@@ -259,5 +260,6 @@ $router->get('cronlog', 'UtilitiesController@cronLog@2');
 
 $router->get('setting', 'SettingController@index@2');
 $router->post('setting/action', 'SettingController@indexAction@2');
+$router->post('setting/test-email', 'SettingController@indexTestEmail@2');
 
 $router->get('dbback', 'SettingController@databaseBackup@2');

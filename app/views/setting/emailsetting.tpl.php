@@ -14,6 +14,7 @@ $('#setting-li').addClass('active');</script>
 			</div>
 			<div class="panel-action">
 				<button type="submit" class="btn btn-info btn-icon" name="submit" data-toggle="tooltip" title="Save Page"><i class="far fa-save"></i></button>
+				<button type="button" class="btn btn-warning btn-icon" id="test-email-button" data-toggle="tooltip" title="<?php echo $lang['settings']['text_test_email']; ?>"><i class="icon-paper-plane"></i></button>
 				<a href="<?php echo URL.DIR_ROUTE . 'subscriber'; ?>" class="btn btn-white btn-icon" data-toggle="tooltip" title="Back to List"><i class="fa fa-reply"></i></a>
 			</div>  
 		</div>
@@ -157,6 +158,11 @@ $('#setting-li').addClass('active');</script>
 		</div>
 	</div>
 </form>
+<form action="<?php echo $test_action; ?>" method="post" id="test-email-form">
+	<input type="hidden" name="_token" value="<?php echo $token; ?>">
+	<input type="hidden" name="test_email" id="test-email-input" value="">
+	<input type="hidden" name="test-email" value="1">
+</form>
 <script>
 	$('body').on('change', 'select[name="status"]', function () {
 		var ele = $(this);
@@ -165,7 +171,14 @@ $('#setting-li').addClass('active');</script>
 		} else {
 			$('#smtp-mail').hide();
 		}
-	})
+	});
+	$('#test-email-button').on('click', function () {
+		var email = prompt('<?php echo $lang['settings']['text_test_email_prompt']; ?>');
+		if (email && email.trim().length > 0) {
+			$('#test-email-input').val(email.trim());
+			$('#test-email-form').submit();
+		}
+	});
 </script>
 <!-- Footer -->
 <?php include (DIR.'app/views/common/footer.tpl.php'); ?>

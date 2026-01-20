@@ -48,6 +48,14 @@ class UserController extends Controller
 		/* Set page title */
 		$data['page_title'] = $data['lang']['common']['text_users'];
 		$data['role'] = $this->session->data['role'];
+		$data['token'] = hash('sha512', TOKEN . TOKEN_SALT);
+		$data['password_reset_action'] = URL . DIR_ROUTE . 'user/reset-password';
+		if (isset($this->session->data['password_reset'])) {
+			$data['password_reset'] = $this->session->data['password_reset'];
+			$data['password_reset_user'] = $this->session->data['password_reset_user'];
+			unset($this->session->data['password_reset']);
+			unset($this->session->data['password_reset_user']);
+		}
 		/*Render User list view*/
 		$this->view->render('user/user_list.tpl', $data);
 	}
@@ -141,7 +149,6 @@ class UserController extends Controller
 			$data['message'] = $this->session->data['message'];
 			unset($this->session->data['message']);
 		}
-
 		$data['token'] = hash('sha512', TOKEN . TOKEN_SALT);
 		$data['action'] = URL . DIR_ROUTE . 'user/action';
 
@@ -206,10 +213,84 @@ class UserController extends Controller
 			$this->url->redirect('user');
 			exit();
 		}
+		if ((int)$this->url->post('id') === 1) {
+			$this->session->data['message'] = array('alert' => 'warning', 'value' => 'Admin user cannot be deleted.');
+			$this->url->redirect('user');
+		}
 		/**
 		 * Call delete method
 		 **/
 		$this->delete();
+	}
+	/**
+	 * User password reset method
+	 * This method will be called on User edit reset password action
+	 **/
+	public function indexResetPassword()
+	{
+		if (!$this->commons->hasPermission('user/edit')) {
+			Not_foundController::show('403');
+			exit();
+		}
+		if (!isset($_POST['reset']) || empty($this->url->post('id'))) {
+			$this->url->redirect('user');
+			exit();
+		}
+		if ($this->commons->validateToken($this->url->post('_token'))) {
+			$this->url->redirect('user/edit&id=' . $this->url->post('id'));
+		}
+
+		$id = (int)$this->url->post('id');
+		$user = $this->userModel->getUser($id);
+		if (!$user) {
+			$this->session->data['message'] = array('alert' => 'warning', 'value' => 'User does not exist in database!');
+			$this->url->redirect('user');
+		}
+		$role = $this->session->data['role'];
+		if ($role != "1" && $user['user_role'] == "1") {
+			$this->session->data['message'] = array('alert' => 'warning', 'value' => 'Access Denied.');
+			$this->url->redirect('user');
+		}
+
+		$password_text = $this->generatePassword(12);
+		$password_hash = password_hash($password_text, PASSWORD_DEFAULT);
+
+		if ($this->userModel->updatePassword($id, $password_hash)) {
+			$this->session->data['message'] = array('alert' => 'success', 'value' => 'Password reset successfully.');
+			$this->session->data['password_reset'] = $password_text;
+			$this->session->data['password_reset_user'] = $id;
+			$this->sendResetPasswordMail($user, $password_text);
+		} else {
+			$this->session->data['message'] = array('alert' => 'error', 'value' => 'Account password does not updated (Server Error).');
+		}
+
+		$this->url->redirect('user');
+	}
+
+	private function sendResetPasswordMail($user, $password_text)
+	{
+		if (empty($user['email'])) {
+			return;
+		}
+		$commonsModel = new Commons();
+		$info = $commonsModel->getOrganization();
+
+		$message = 'Hello ' . $user['firstname'] . ' ' . $user['lastname'] . ',<br><br>'
+			. 'Your password has been reset by an administrator.<br>'
+			. 'New Password: <strong>' . $password_text . '</strong><br><br>'
+			. 'Login: <a href="' . URL . '">' . URL . '</a>';
+
+		$mailer = new Mailer();
+		$useornot = $mailer->getData();
+		if (!$useornot) {
+			$mailer->mail->setFrom($info['email'], $info['name']);
+		}
+		$mailer->mail->addAddress($user['email'], $user['firstname']);
+		$mailer->mail->isHTML(true);
+		$mailer->mail->Subject = 'Your password has been reset';
+		$mailer->mail->Body = html_entity_decode($message);
+		$mailer->mail->AltBody = 'Your password has been reset. New Password: ' . $password_text;
+		$mailer->sendMail();
 	}
 
 	protected function update()
@@ -232,6 +313,17 @@ class UserController extends Controller
 
 		$this->session->data['message'] = array('alert' => 'success', 'value' => 'Account updated successfully.');
 		$this->url->redirect('user/edit&id=' . $data['id']);
+	}
+
+	private function generatePassword($length = 12)
+	{
+		$chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#';
+		$max_index = strlen($chars) - 1;
+		$password = '';
+		for ($i = 0; $i < $length; $i++) {
+			$password .= $chars[random_int(0, $max_index)];
+		}
+		return $password;
 	}
 
 	protected function create()

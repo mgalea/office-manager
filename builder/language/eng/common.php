@@ -81,6 +81,7 @@ $lang = array(
 	'text_new' => 'New',
 	'text_close' => 'Close',
 	'text_save' => 'Save',
+	'text_copy' => 'Copy',
 	'text_view' => 'View',
 	'text_person' => 'Person',
 	'text_by' => 'By',

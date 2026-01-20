@@ -46,6 +46,7 @@ class SettingController extends Controller
 
 		/* Set Page title and action */
 		$data['action'] = URL.DIR_ROUTE.'setting/action';
+		$data['test_action'] = URL.DIR_ROUTE.'setting/test-email';
 		
 		/*Load Language File*/
 		require DIR_BUILDER.'language/'.$data['info']['language'].'/common.php';
@@ -56,6 +57,75 @@ class SettingController extends Controller
 		$data['token'] = hash('sha512', TOKEN . TOKEN_SALT);
 		/*Render Calendar list view*/
 		$this->view->render('setting/'.$name.'.tpl', $data);
+	}
+
+	public function indexTestEmail()
+	{
+		$this->commons->isAdmin();
+
+		if (!isset($_POST['test-email'])) {
+			Not_foundController::show('404');
+			exit();
+		}
+
+		if ($this->commons->validateToken($this->url->post('_token'))) {
+			$this->url->redirect('setting&page=emailsetting');
+		}
+
+		$to = $this->url->post('test_email');
+		if ($this->commons->validateEmail($to)) {
+			$this->session->data['message'] = array('alert' => 'error', 'value' => 'Please enter valid Email Address!');
+			$this->url->redirect('setting&page=emailsetting');
+		}
+
+		$info = $this->commons->getInfo();
+		$mailer = new Mailer();
+		$useornot = $mailer->getData('emailsetting');
+
+		$this->logEmailTest('Test email requested to ' . $to . '. SMTP enabled: ' . ($useornot ? 'yes' : 'no') . '.');
+		$setting = $this->settingModel->getSettings('emailsetting');
+		if (!empty($setting)) {
+			$smtp = json_decode($setting['data'], true);
+			$details = array(
+				'host' => isset($smtp['host']) ? $smtp['host'] : '',
+				'port' => isset($smtp['port']) ? $smtp['port'] : '',
+				'encryption' => isset($smtp['encryption']) ? $smtp['encryption'] : '',
+				'authentication' => isset($smtp['authentication']) ? $smtp['authentication'] : ''
+			);
+			$this->logEmailTest('SMTP settings: ' . json_encode($details));
+		}
+		if (!$useornot) {
+			$mailer->mail->setFrom($info['email'], $info['name']);
+		}
+		$mailer->mail->addAddress($to, $to);
+		$mailer->mail->isHTML(true);
+		$mailer->mail->Subject = 'Test Email';
+		$mailer->mail->Body = 'This is a test email from ' . $info['name'] . '.';
+
+		if ($mailer->sendMail()) {
+			$this->session->data['message'] = array('alert' => 'success', 'value' => 'Test email sent successfully.');
+			$this->logEmailTest('Test email sent successfully.');
+		} else {
+			$error = $mailer->lastError;
+			if (empty($error) && !empty($mailer->mail->ErrorInfo)) {
+				$error = $mailer->mail->ErrorInfo;
+			}
+			$message = 'Test email could not be sent.';
+			if (!empty($error)) {
+				$message .= ' ' . $error;
+			}
+			$this->logEmailTest('Test email failed. ' . $message);
+			$this->session->data['message'] = array('alert' => 'error', 'value' => $message);
+		}
+
+		$this->url->redirect('setting&page=emailsetting');
+	}
+
+	private function logEmailTest($message)
+	{
+		$logFile = DIR . 'error.log';
+		$line = '[' . date('Y-m-d H:i:s') . '] ' . $message . PHP_EOL;
+		file_put_contents($logFile, $line, FILE_APPEND);
 	}
 
 	public function indexAction()
@@ -134,7 +204,7 @@ class SettingController extends Controller
 			$error['message'] = 'SMTP Port';
 		}
 
-		if ($this->commons->validateEmail($data['username'])) {
+		if ($this->commons->validateText($data['username'])) {
 			$error_flag = true;
 			$error['message'] = 'SMTP Username';
 		}

@@ -15,6 +15,7 @@ require DIR_BUILDER . 'libs/vendor/phpmailer/phpmailer/src/SMTP.php';
 class Mailer
 {
 	public $mail;
+	public $lastError = '';
 	public function __construct()
 	{
 		$this->mail = new PHPMailer(TRUE);
@@ -33,15 +34,17 @@ class Mailer
 
 	public function sendMail()
 	{
+		$result = false;
+		$this->lastError = '';
 		try {
 			/* Finally send the mail. */
-			$result=$this->mail->send();
+			$result = $this->mail->send();
 		} catch (Exception $e) {
 			/* PHPMailer exception. */
-			//echo $e->errorMessage();
+			$this->lastError = $e->errorMessage();
 		} catch (\Exception $e) {
 			/* PHP exception (note the backslash to select the global namespace Exception class). */
-			//echo $e->getMessage();
+			$this->lastError = $e->getMessage();
 		}
 		return $result;
 	}
@@ -57,9 +60,15 @@ class Mailer
 
 		if ($result['status'] == "1") {
 			$this->mail->Host = $smtp_crd['host'];
-			$this->mail->SMTPAuth = $smtp_crd['authentication'];
-			$this->mail->SMTPSecure = $smtp_crd['encryption'];
+			$this->mail->SMTPAuth = !empty($smtp_crd['authentication']) && $smtp_crd['authentication'] !== "0";
+			$this->mail->SMTPSecure = $smtp_crd['encryption'] === 'none' ? '' : $smtp_crd['encryption'];
 			$this->mail->Port = $smtp_crd['port'];
+			if (!empty($smtp_crd['username'])) {
+				$this->mail->Username = $smtp_crd['username'];
+			}
+			if (!empty($smtp_crd['password'])) {
+				$this->mail->Password = $smtp_crd['password'];
+			}
 
 			$this->mail->setFrom($smtp_crd['fromemail'], $smtp_crd['fromname']);
 			if (!empty($smtp_crd)) {
