@@ -26,7 +26,7 @@ class Mailer
 				$this->mail->SMTPAuth = TRUE;
 				$this->mail->SMTPSecure = 'tls';
 				$this->mail->Port = SMTP_PORT;
-				$this->mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
+				$this->mail->SMTPDebug = SMTP::DEBUG_OFF;
 				// Send using SMTP
 			}
 		}
