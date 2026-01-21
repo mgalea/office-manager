@@ -269,8 +269,31 @@ class Expense extends Model
 		}
 
 		if ($search !== '') {
-			$where[] = "(s.name LIKE ? OR e.inv_number LIKE ? OR p.name LIKE ?)";
+			$total_vat_expr = "(COALESCE(e.VAT_full, 0) + COALESCE(e.VAT_Exempt, 0) + COALESCE(e.VAT_NT, 0) + COALESCE(e.VAT_T8, 0) + COALESCE(e.VAT_reduced, 0))";
+			$status_expr = "CASE
+				WHEN COALESCE(e.paid_amount, 0) = 0 THEN 'unpaid'
+				WHEN COALESCE(e.purchase_amount, 0) > 0 AND (COALESCE(e.paid_amount, 0) / COALESCE(e.purchase_amount, 0)) = 1 THEN 'paid'
+				WHEN COALESCE(e.purchase_amount, 0) > 0 AND (COALESCE(e.paid_amount, 0) / COALESCE(e.purchase_amount, 0)) > 0 AND (COALESCE(e.paid_amount, 0) / COALESCE(e.purchase_amount, 0)) < 1 THEN 'partial'
+				WHEN COALESCE(e.purchase_amount, 0) > 0 AND (COALESCE(e.paid_amount, 0) / COALESCE(e.purchase_amount, 0)) > 1 THEN 'overpaid'
+				ELSE '' END";
+			$foreign_expr = "CASE WHEN COALESCE(e.foreign, 0) = 1 THEN 'foreign' ELSE 'local' END";
+			$eu_expr = "CASE WHEN COALESCE(e.eu_zone, 0) = 1 THEN 'eu zone' ELSE 'non-eu' END";
+			$where[] = "(s.name LIKE ?
+				OR e.inv_number LIKE ?
+				OR DATE_FORMAT(e.purchase_date, '%Y-%m-%d') LIKE ?
+				OR p.name LIKE ?
+				OR CAST(e.purchase_amount AS CHAR) LIKE ?
+				OR CAST(" . $total_vat_expr . " AS CHAR) LIKE ?
+				OR " . $status_expr . " LIKE ?
+				OR " . $foreign_expr . " LIKE ?
+				OR " . $eu_expr . " LIKE ?)";
 			$like = '%' . $search . '%';
+			$params_list[] = $like;
+			$params_list[] = $like;
+			$params_list[] = $like;
+			$params_list[] = $like;
+			$params_list[] = $like;
+			$params_list[] = $like;
 			$params_list[] = $like;
 			$params_list[] = $like;
 			$params_list[] = $like;
