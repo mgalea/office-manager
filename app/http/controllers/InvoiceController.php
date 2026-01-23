@@ -673,10 +673,10 @@ class InvoiceController extends Controller
 			}
 			$item .= '<tr>
 			<td class="item" style="width:40%">' . $value['name'] . '<br /><span style="color: #555;" class="inv-meta-sm">' . $value['descr'] . '</span></td>
-			<td style="width:10%">' . $value['quantity'] . '</td>
-			<td style="width:15%">' . $value['cost'] . '</td>
-			<td style="width:20%">' . $tax . '</td>
-			<td style="width:15%">' . $value['price'] . '</td>
+			<td style="width:10%; text-align:center;">' . $value['quantity'] . '</td>
+			<td style="width:15%; text-align:right;">' . $value['cost'] . '</td>
+			<td style="width:20%; text-align:right;">' . $tax . '</td>
+			<td style="width:15%; text-align:right;">' . $value['price'] . '</td>
 			</tr>';
 		}
 
@@ -896,10 +896,10 @@ class InvoiceController extends Controller
 		<thead>
 		<tr style="background-color: #eee;" border="1">
 		<th style="width:40%">' . $data['lang']['invoices']['text_item_and_description'] . '</th>
-		<th style="width:10%">' . $data['lang']['invoices']['text_quantity'] . '</th>
-		<th style="width:15%">' . $data['lang']['invoices']['text_unit_cost'] . '(' . $result['currency_abbr'] . ')</th>
-		<th style="width:20%">' . $data['lang']['invoices']['text_vat'] . ' (' . $result['currency_abbr'] . ')</th>
-		<th style="width:15%">' . $data['lang']['invoices']['text_price'] . ' (' . $result['currency_abbr'] . ')</th>
+		<th style="width:10%; text-align:center;">' . $data['lang']['invoices']['text_quantity'] . '</th>
+		<th style="width:15%; text-align:right;">' . $data['lang']['invoices']['text_unit_cost'] . '(' . $result['currency_abbr'] . ')</th>
+		<th style="width:20%; text-align:right;">' . $data['lang']['invoices']['text_vat'] . ' (' . $result['currency_abbr'] . ')</th>
+		<th style="width:15%; text-align:right;">' . $data['lang']['invoices']['text_price'] . ' (' . $result['currency_abbr'] . ')</th>
 		</tr>
 		</thead>
 		<tbody>
@@ -926,8 +926,8 @@ class InvoiceController extends Controller
 		<td  colspan="2">' . $result['currency_abbr'] . ' ' . $result['paid'] . '</td>
 		</tr>
 		<tr class="total" style="background-color: #f8f8f8;">
-		<td  colspan="1" align="right">' . $data['lang']['invoices']['text_due'] . '</td>
-		<td  colspan="2">' . $result['currency_abbr'] . ' ' . $result['due'] . '</td>
+		<td  colspan="1" align="right"><strong>' . $data['lang']['invoices']['text_due'] . '</strong></td>
+		<td  colspan="2"><strong>' . $result['currency_abbr'] . ' ' . $result['due'] . '</strong></td>
 		</tr>
 		<tr>
 		<td colspan="4">
