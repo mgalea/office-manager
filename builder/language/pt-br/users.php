@@ -78,3 +78,4 @@ $users = array(
 	'text_subscriber_edit' => 'Editar',
 	'text_subscriber_delete' => 'Excluir'
 );
+

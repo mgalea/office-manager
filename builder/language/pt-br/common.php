@@ -42,6 +42,9 @@ $lang = array(
 	'text_email_template' => 'Modelos de E-mails',
 	'text_email_settings' => 'ConfiguraÃ§Ãµes de E-mail',
 	'text_items' => 'Produtos',
+\t'text_inventory' => 'Registro de Ativos Fixos',
+\t'text_inventory_types' => 'Tipos de Ativos Fixos',
+\t'text_stock' => 'Stock',
 	'text_departments' => 'Departamentos',
 	'text_expense_types' => 'Tipos de Despesas',
 	'text_support' => 'Suporte',
@@ -107,3 +110,5 @@ $lang = array(
 	'text_drop_message' => 'Solte os arquivos aqui',
 	'text_allowed_file' => 'Apenas imagem ou PDF'
 );
+
+

@@ -1,4 +1,4 @@
-<?php include (DIR.'app/views/common/header.tpl.php'); ?>
+﻿<?php include (DIR.'app/views/common/header.tpl.php'); ?>
 <script>$('#project-li').addClass('active');</script>
 <!-- Project list page start -->
 <div class="content">
@@ -14,7 +14,7 @@
         </div>
         <div class="panel-wrapper">
             <div class="table-container">
-                <table class="table table-bordered table-striped datatable-table" width="100%">
+                <table class="table table-dark table-striped datatable-table" width="100%">
                     <thead>
                         <tr class="table-heading">
                             <th class="table-srno">#</th>

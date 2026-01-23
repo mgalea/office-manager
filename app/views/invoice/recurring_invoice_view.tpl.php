@@ -16,7 +16,7 @@
 						<div class="ribbon"><?php if ($result['inv_status'] == "0") { echo $lang['invoices']['text_draft']; } else { echo $lang['invoices']['text_published']; } ?></div>
 					</div>
 					<div class="col-sm-10 text-right">
-						<a href="<?php echo URL.DIR_ROUTE .'recurring/pdf&id='.$result['id']; ?>" class="btn btn-danger btn-sm" target="_blank"><i class="far fa-file-pdf mr-2"></i> <?php echo $lang['invoices']['text_pdf']; ?></a>
+						<a href="<?php echo URL.DIR_ROUTE .'recurring/pdf?id='.$result['id']; ?>" class="btn btn-danger btn-sm" target="_blank"><i class="far fa-file-pdf mr-2"></i> <?php echo $lang['invoices']['text_pdf']; ?></a>
 						<a href="<?php echo URL.DIR_ROUTE .'recurring/print&id='.$result['id']; ?>" class="btn btn-success btn-sm" target="_blank"><i class="icon-printer mr-2"></i><?php echo $lang['invoices']['text_print']; ?></a>
 						<a href="<?php echo URL.DIR_ROUTE .'recurring/edit&id='.$result['id']; ?>" class="btn btn-info btn-sm"><i class="icon-pencil mr-2"></i> <?php echo $lang['common']['text_edit']; ?></a>
 					</div>

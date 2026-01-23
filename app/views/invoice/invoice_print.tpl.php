@@ -7,8 +7,8 @@
 
 	<link href="https://fonts.googleapis.com/css?family=Dosis:500,600" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500" rel="stylesheet">
-	<link rel="stylesheet" href="css/bootstrap.min.css" />
-	<link rel="stylesheet" href="css/style.css" />
+	<link rel="stylesheet" href="<?php echo URL . DIR_ROUTE . 'css/bootstrap.min.css'; ?>" />
+	<link rel="stylesheet" href="<?php echo URL . DIR_ROUTE . 'css/style.css'; ?>" />
 	<style>
 		.badge {
 			border: 0;
@@ -19,11 +19,11 @@
 <body>
 	<div class="div-center mt-3 mb-3">
 		<div class="inv-template">
-			<div class="inv-template-bdy table-responsive">
-				<table>
+			<div class="inv-template-bdy ">
+				<table class="w-100">
 					<tbody>
 						<tr class="inv-from-container">
-							<td colspan="3">
+							<td colspan="1">
 								<div class="inv-bill-to">
 									<p class="title"><?php echo $organization; ?><br></p>
 									<p class="body"><?php echo $address['address1']; ?></p>
@@ -31,8 +31,8 @@
 									<p class="body"><?php echo $address['country'] . '  ' . $address['pincode']; ?></p>
 								</div>
 							</td>
-							<td class="font-24 text-right">
-								<div class="inv-title"><?php echo $lang['common']['text_invoice']; ?></div>
+							<td class="text-right">
+								<div class="display-3 "><?php echo $lang['common']['text_invoice']; ?></div>
 							</td>
 						</tr>
 						<tr class="inv-meta-container">
@@ -59,7 +59,7 @@
 					</tbody>
 				</table>
 				<div class="inv-template-item">
-					<table>
+					<table class="w-100">
 						<thead>
 							<tr>
 								<th><?php echo $lang['invoices']['text_item_and_description']; ?></th>
@@ -112,28 +112,28 @@
 								<td rowspan="6" colspan="2">
 									<p><?php echo $result['note']; ?></p>
 								</td>
-								<td colspan="2"><span><?php echo $lang['invoices']['text_sub_total']; ?></span></td>
-								<td colspan="2"><span><?php echo $result['currency_abbr'] . ' ' . $result['subtotal']; ?></span></td>
+								<td colspan="1"><span><?php echo $lang['invoices']['text_sub_total']; ?></span></td>
+								<td colspan="2" style="text-align: right; display=inline-block;"><span><?php echo $result['currency_abbr'] .$result['subtotal']; ?></span></td>
 							</tr>
 							<tr class="total">
-								<td colspan="2"><span><?php echo $lang['invoices']['text_tax']; ?></span></td>
-								<td colspan="2"><span><?php echo $result['currency_abbr'] . ' ' . $result['tax']; ?></span></td>
+								<td colspan="1"><span><?php echo $lang['invoices']['text_tax']; ?></span></td>
+								<td colspan="2" style="text-align: right; display=inline-block;"><span><?php echo $result['currency_abbr'] .  $result['tax']; ?></span></td>
 							</tr>
 							<tr class="total">
-								<td colspan="2"><span><?php echo $lang['invoices']['text_discount']; ?></span></td>
-								<td colspan="3"><span><?php echo $result['currency_abbr'] . ' ' . $result['discount_value']; ?></span></td>
+								<td colspan="1"><span><?php echo $lang['invoices']['text_discount']; ?></span></td>
+								<td colspan="2" style="text-align: right; display=inline-block;"><span><?php echo $result['currency_abbr'] .  $result['discount_value']; ?></span></td>
 							</tr>
 							<tr class="total">
-								<td colspan="2"><span><?php echo $lang['invoices']['text_total']; ?></span></td>
-								<td colspan="2"><span><?php echo $result['currency_abbr'] . ' ' . $result['amount']; ?></span></td>
+								<td colspan="1"><span><?php echo $lang['invoices']['text_total']; ?></span></td>
+								<td colspan="2" style="text-align: right; display=inline-block;"><span><?php echo $result['currency_abbr'] .  $result['amount']; ?></span></td>
 							</tr>
 							<tr class="total">
-								<td colspan="2"><span><?php echo $lang['invoices']['text_paid']; ?></span></td>
-								<td colspan="2"><span><?php echo $result['currency_abbr'] . ' ' . $result['paid']; ?></span></td>
+								<td colspan="1"><span><?php echo $lang['invoices']['text_paid']; ?></span></td>
+								<td colspan="2" style="text-align: right; display=inline-block;"><span><?php echo $result['currency_abbr'] .  $result['paid']; ?></span></td>
 							</tr>
 							<tr class="total balance-due">
-								<td colspan="2"><span><?php echo $lang['invoices']['text_due']; ?></span></td>
-								<td colspan="2"><span><?php echo $result['currency_abbr'] . ' ' . $result['due']; ?></span></td>
+								<td colspan="1"><span><?php echo $lang['invoices']['text_due']; ?></span></td>
+								<td colspan="2" style="text-align: right; display=inline-block;"><span><?php echo $result['currency_abbr'] .  $result['due']; ?></span></td>
 							</tr>
 							<tr>
 								<td colspan="6">
@@ -149,7 +149,9 @@
 	</div>
 
 	<script>
+	window.onload = function() {
 		window.print();
+	}
 	</script>
 </body>
 

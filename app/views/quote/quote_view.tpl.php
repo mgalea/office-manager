@@ -23,7 +23,7 @@
 						<?php } else { ?>
 						<a href="<?php echo URL.DIR_ROUTE .'invoice/view&id='.$result['invoice_id']; ?>" class="btn btn-primary btn-sm"><i class="icon-printer mr-2"></i><?php echo $lang['quotes']['text_quotation_invoiced']; ?></a>
 						<?php } ?>
-						<a href="<?php echo URL.DIR_ROUTE .'quote/pdf&id='.$result['id']; ?>" class="btn btn-danger btn-sm" target="_blank"><i class="far fa-file-pdf mr-2"></i> <?php echo $lang['quotes']['text_pdf']; ?></a>
+						<a href="<?php echo URL.DIR_ROUTE .'quote/pdf?id='.$result['id']; ?>" class="btn btn-danger btn-sm" target="_blank"><i class="far fa-file-pdf mr-2"></i> <?php echo $lang['quotes']['text_pdf']; ?></a>
 						<a href="<?php echo URL.DIR_ROUTE .'quote/print&id='.$result['id']; ?>" class="btn btn-success btn-sm" target="_blank"><i class="icon-printer mr-2"></i><?php echo $lang['quotes']['text_print']; ?></a>
 						<a href="<?php echo URL.DIR_ROUTE .'quote/edit&id='.$result['id']; ?>" class="btn btn-info btn-sm"><i class="icon-pencil mr-2"></i> <?php echo $lang['common']['text_edit']; ?></a>
 					</div>

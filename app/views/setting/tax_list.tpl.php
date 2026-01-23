@@ -19,13 +19,13 @@
                 </div>
                 <div class="panel-wrapper">
                     <div class="table-container">
-                        <table class="table table-bordered table-striped datatable-table" width="100%">
+                        <table class="table table-dark table-striped datatable-table" width="100%">
                             <thead>
                                 <tr class="table-heading">
                                     <th class="table-srno">#</th>
                                     <th><?php echo $lang['settings']['text_tax_name']; ?></th>
                                     <th><?php echo $lang['settings']['text_rate']; ?>(%)</th>
-                                    <th></th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -35,10 +35,10 @@
                                     <td><?php echo $value['name']; ?></td>
                                     <td><?php echo $value['rate']; ?></td>
                                     <td class="table-action">
-                                        <a class="btn btn-info btn-circle btn-outline btn-outline-1x edit-tax" data-toggle="tooltip" title="<?php echo $lang['common']['text_edit']; ?>" data-name="<?php echo $value['name'] ?>" data-rate="<?php echo $value['rate'] ?>" data-id="<?php echo $value['id'] ?>">
+                                        <a class="btn btn-success btn-icon mr-2 edit-tax" data-toggle="tooltip" title="<?php echo $lang['common']['text_edit']; ?>" data-name="<?php echo $value['name'] ?>" data-rate="<?php echo $value['rate'] ?>" data-id="<?php echo $value['id'] ?>">
                                             <i class="icon-pencil"></i>
                                         </a>
-                                        <p class="btn btn-danger btn-circle btn-outline btn-outline-1x table-delete" data-toggle="tooltip" data-placement="top" title="<?php echo $lang['common']['text_delete']; ?>"><i class="icon-trash"></i><input type="hidden" value="<?php echo $value['id']; ?>"></p>
+                                        <span class="btn btn-warning btn-icon table-delete text-black" data-toggle="tooltip" data-placement="top" title="<?php echo $lang['common']['text_delete']; ?>"><i class="icon-trash"></i><input type="hidden" value="<?php echo $value['id']; ?>"></span>
                                     </td>
                                 </tr>
                                 <?php } } ?>
@@ -57,7 +57,7 @@
 <!-- Delete Modal -->
 <div id="delete-card" class="modal fade" role="dialog">
     <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content bg-dark text-white">
             <div class="modal-header">
                 <h4 class="modal-title"><?php echo $lang['common']['text_confirm_delete']; ?></h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -78,7 +78,7 @@
 <!-- ADD EDIT MODAL -->
 <div class="modal fade" id="addTaxModel" role="dialog">
     <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content bg-dark text-white">
             <div class="modal-header">
                 <h5 class="modal-title"><?php echo $lang['settings']['text_new_tax']; ?></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">

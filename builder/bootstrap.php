@@ -28,6 +28,15 @@ if (!isset($_SERVER['HTTP_HOST'])) {
 	$_SERVER['HTTP_HOST'] = getenv('HTTP_HOST');
 }
 
+// Composer autoload (project root preferred, fallback to DIR)
+$autoload = dirname(__DIR__) . '/vendor/autoload.php';
+if (!file_exists($autoload)) {
+	$autoload = DIR . 'vendor/autoload.php';
+}
+if (file_exists($autoload)) {
+	require_once $autoload;
+}
+
 // Check if SSL
 if ((isset($_SERVER['HTTPS']) && (($_SERVER['HTTPS'] == 'on') || ($_SERVER['HTTPS'] == '1'))) ||( isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443) ) {
 	$_SERVER['HTTPS'] = true;

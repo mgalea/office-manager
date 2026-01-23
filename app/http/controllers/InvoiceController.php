@@ -471,81 +471,40 @@ class InvoiceController extends Controller
 			$this->url->redirect('invoices');
 		}
 
-		require DIR_BUILDER . 'libs/tcpdf/tcpdf.php';
-
 		$html_array = $this->createPDFHTML($id);
 
-		// create new PDF document
-		$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+		$options = new \Dompdf\Options();
+		$options->set('isRemoteEnabled', true);
+		$options->set('defaultFont', 'DejaVu Sans');
 
-		$pdf->SetCreator(PDF_CREATOR);
-		$pdf->SetAuthor($html_array['info']['name']);
-		$pdf->SetTitle('Invoice | PDF');
-		$pdf->SetSubject($html_array['info']['name'] . ' | Invoice');
-		$pdf->SetKeywords('Invoice PDF');
-
-		$pdf->setPrintHeader(false);
-		$pdf->setPrintFooter(false);
-
-		$pdf->SetMargins(5, 0, 5);
-		$pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-		$pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-
-		$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
-		$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
-
-		if (@file_exists(dirname(__FILE__) . '/lang/eng.php')) {
-			require_once(dirname(__FILE__) . '/lang/eng.php');
-			$pdf->setLanguageArray($l);
-		}
-
-		$pdf->SetFont('dejavusans', '', 10);
-
-		$pdf->AddPage();
-
-		$pdf->writeHTML($html_array['html'], true, false, true, false, '');
-		$pdf->Output('Invoice_'. str_pad($id, 4, '0', STR_PAD_LEFT) .'.pdf', 'I');
+		$dompdf = new \Dompdf\Dompdf($options);
+		$dompdf->loadHtml($html_array['html']);
+		$dompdf->setBasePath(DIR . 'public/');
+		$paper = defined('PDF_PAGE_FORMAT') ? PDF_PAGE_FORMAT : 'A4';
+		$orientation = (defined('PDF_PAGE_ORIENTATION') && strtoupper(PDF_PAGE_ORIENTATION) === 'L') ? 'landscape' : 'portrait';
+		$dompdf->setPaper($paper, $orientation);
+		$dompdf->render();
+		$dompdf->stream('Invoice_' . str_pad($id, 4, '0', STR_PAD_LEFT) . '.pdf', ['Attachment' => false]);
 	}
 
 	public function createPDF($id)
 	{
 
-		require DIR_BUILDER . 'libs/tcpdf/tcpdf.php';
-
 		$html_array = $this->createPDFHTML($id);
 
-		// create new PDF document
-		$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+		$options = new \Dompdf\Options();
+		$options->set('isRemoteEnabled', true);
+		$options->set('defaultFont', 'DejaVu Sans');
 
-
-		$pdf->SetCreator(PDF_CREATOR);
-		$pdf->SetAuthor($html_array['info']['name']);
-		$pdf->SetTitle('Invoice ');
-		//$pdf->SetSubject($html_array['info']['name'] . ' | Invoice');
-		$pdf->SetKeywords('Invoice ');
-
-		$pdf->setPrintHeader(false);
-		$pdf->setPrintFooter(false);
-
-		$pdf->SetMargins(15, 10, 15);
-		$pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-		$pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-
-		$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
-		$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
-
-		if (@file_exists(dirname(__FILE__) . '/lang/eng.php')) {
-			require_once(dirname(__FILE__) . '/lang/eng.php');
-			$pdf->setLanguageArray($l);
-		}
-
-		$pdf->SetFont('dejavusans', '', 10);
-
-		// add a page
-		$pdf->AddPage();
-
-		$pdf->writeHTML($html_array['html'], true, false, true, false, '');
-		$pdf->Output(DIR . 'uploads/pdf/invoice-' . $id . '.pdf', 'F');
+		$dompdf = new \Dompdf\Dompdf($options);
+		$dompdf->loadHtml($html_array['html']);
+		$dompdf->setBasePath(DIR . 'public/');
+		$paper = defined('PDF_PAGE_FORMAT') ? PDF_PAGE_FORMAT : 'A4';
+		$orientation = (defined('PDF_PAGE_ORIENTATION') && strtoupper(PDF_PAGE_ORIENTATION) === 'L') ? 'landscape' : 'portrait';
+		$dompdf->setPaper($paper, $orientation);
+		$dompdf->render();
+		$pdfData = $dompdf->output();
+		file_put_contents(DIR . 'uploads/pdf/invoice-' . $id . '.pdf', $pdfData);
 	}
 
 
@@ -713,27 +672,26 @@ class InvoiceController extends Controller
 				}
 			}
 			$item .= '<tr>
-			<td class="item" width="280">' . $value['name'] . '<br /><span style="color: #555;" class="inv-meta-sm">' . $value['descr'] . '</span></td>
-			<td width="50">' . $value['quantity'] . '</td>
-			<td width="100">' . $value['cost'] . '</td>
-			<td width="160">' . $tax . '</td>
-			<td width="120">' . $value['price'] . '</td>
+			<td class="item" style="width:40%">' . $value['name'] . '<br /><span style="color: #555;" class="inv-meta-sm">' . $value['descr'] . '</span></td>
+			<td style="width:10%">' . $value['quantity'] . '</td>
+			<td style="width:15%">' . $value['cost'] . '</td>
+			<td style="width:20%">' . $tax . '</td>
+			<td style="width:15%">' . $value['price'] . '</td>
 			</tr>';
 		}
 
-		$bank_details = '<span class="remit_title">' . $data['lang']['invoices']['text_remittance']."</span><br><br><table>";
+		$bank_details = '<span class="remit_title">' . $data['lang']['invoices']['text_remittance']."</span><br><br>";
 
 		$account = $this->invoiceModel->getInvoiceBankAccountDetails($id);
 
 		if (!empty($account)) {
 			foreach ($account as $key => $value) {
-				$bank_details = $bank_details . '<br><tr><td width="30%" ><span class="remit">' . $data['lang']['bank']['text_bank'] . '</span>:</td><td width="70%" ><span class="remit">' . $account[$key]['bank_name'] . '</span></td></tr>';
-				$bank_details = $bank_details . '<tr><td width="30%"><span class="remit">' . $data['lang']['bank']['text_branch'] . '</span>:</td width="70%"><td><span class="remit">' . $account[$key]['bank_branch'] . '</span></td></tr>';
-				$bank_details = $bank_details . '<tr><td width="30%"><span class="remit">' . $data['lang']['bank']['text_account'] . '</span>:</td width="70%"><td><span class="remit">' . $account[$key]['account_name'] . '</span></td></tr>';
-				$bank_details = $bank_details . '<tr><td width="30%"><span class="remit">' . $data['lang']['bank']['text_number'] . '</span>: </td width="70%"><td><span class="remit">' . $account[$key]['account_number'] . '</span></td></tr>';
-				$bank_details = $bank_details . '<tr><td width="30%"><span class="remit">' . $data['lang']['bank']['text_currency'] . '</span>: </td width="70%"><td><span class="remit">' . $account[$key]['currency'] . '</span></td></tr>';
-				$bank_details = $bank_details . '<tr><td width="30%"><span class="remit">' . $data['lang']['bank']['text_iban'] . '</span>: </td><td width="70%"><span class="remit">' . $account[$key]['iban'] . '</span></td></tr>';
-				$bank_details = $bank_details . '</table><br><br>';
+				$bank_details = $bank_details . '<span class="remit"><strong>' . $data['lang']['bank']['text_bank'] . ':</strong></span> <span class="remit">' . $account[$key]['bank_name'] . '</span><br>';
+				$bank_details = $bank_details . '<span class="remit"><strong>' . $data['lang']['bank']['text_branch'] . ':</strong></span> <span class="remit">' . $account[$key]['bank_branch'] . '</span><br>';
+				$bank_details = $bank_details . '<span class="remit"><strong>' . $data['lang']['bank']['text_account'] . ':</strong></span> <span class="remit">' . $account[$key]['account_name'] . '</span><br>';
+				$bank_details = $bank_details . '<span class="remit"><strong>' . $data['lang']['bank']['text_number'] . ':</strong></span> <span class="remit">' . $account[$key]['account_number'] . '</span><br>';
+				$bank_details = $bank_details . '<span class="remit"><strong>' . $data['lang']['bank']['text_currency'] . ':</strong></span> <span class="remit">' . $account[$key]['currency'] . '</span><br>';
+				$bank_details = $bank_details . '<span class="remit"><strong>' . $data['lang']['bank']['text_iban'] . ':</strong></span> <span class="remit">' . $account[$key]['iban'] . '</span><br><br>';
 			}
 		}
 
@@ -815,7 +773,7 @@ class InvoiceController extends Controller
 		.inv-bill-to .email {
 			color: #333;
 			font-weight: 500;
-			font-size: 7rem;
+			font-size: 0.7rem;
 			margin: 0;
 		}
 
@@ -829,7 +787,11 @@ class InvoiceController extends Controller
 
 		.inv-template-item {
 			font-size: 10px;
-			padding: 0 20px 0 20px;
+			padding: 10px 20px 0 20px;
+		}
+		.inv-template-item table {
+			width: 100%;
+			table-layout: fixed;
 		}
 		.inv-template-item td {
 			border: 1px solid #EEE; 
@@ -839,6 +801,16 @@ class InvoiceController extends Controller
 		}
 		.total td {
 			vertical-align: middle;
+			text-align: right;
+		}
+		.total .total-note {
+			text-align: left;
+			width: 65%;
+			max-width: 65%;
+			vertical-align: top;
+		}
+		.total .total-note * {
+			text-align: left;
 		}
 		.inv-template-bdy .inv-meta p span {
 			display: inline-block;
@@ -851,6 +823,17 @@ class InvoiceController extends Controller
 
 		.bank_detail{
 			color:#888;
+		}
+		.bank_detail_table{
+			width: 100%;
+			max-width: 100%;
+			table-layout: fixed;
+			text-align: left;
+			border-collapse: collapse;
+		}
+		.bank_detail_table td{
+			word-break: normal;
+			white-space: normal;
 		}
 
 		</style>
@@ -882,7 +865,7 @@ class InvoiceController extends Controller
 		<td valign="middle" colspan="2">
 		<div class="inv-bill-to">
 			<span class="head">' . $data['lang']['invoices']['text_bill_to'] . '</span><br />
-			<span class="title">' . $result['company'] . '</span><br />
+			<span class="body">' . $result['company'] . '</span><br />
 			<span class="body">' . $caddress['address1'] . ', ' . $caddress['address2'] . '</span><br />
 			<span class="body">' . $caddress['city'] . ', ' . $caddress['state'] . '</span> <br />
 			<span class="body">' . $caddress['country'] . '  ' . $caddress['pin'] . '</span><br />
@@ -902,45 +885,52 @@ class InvoiceController extends Controller
 		</tbody>
 		</table>
 		<div class="inv-template-item">
-		<table cellpadding="8">
+		<table cellpadding="2">
+		<colgroup>
+			<col style="width:40%">
+			<col style="width:10%">
+			<col style="width:15%">
+			<col style="width:20%">
+			<col style="width:15%">
+		</colgroup>
 		<thead>
 		<tr style="background-color: #eee;" border="1">
-		<th width="280">' . $data['lang']['invoices']['text_item_and_description'] . '</th>
-		<th width="50">' . $data['lang']['invoices']['text_quantity'] . '</th>
-		<th width="100">' . $data['lang']['invoices']['text_unit_cost'] . '(' . $result['currency_abbr'] . ')</th>
-		<th width="160">' . $data['lang']['invoices']['text_vat'] . ' (' . $result['currency_abbr'] . ')</th>
-		<th width="120">' . $data['lang']['invoices']['text_price'] . ' (' . $result['currency_abbr'] . ')</th>
+		<th style="width:40%">' . $data['lang']['invoices']['text_item_and_description'] . '</th>
+		<th style="width:10%">' . $data['lang']['invoices']['text_quantity'] . '</th>
+		<th style="width:15%">' . $data['lang']['invoices']['text_unit_cost'] . '(' . $result['currency_abbr'] . ')</th>
+		<th style="width:20%">' . $data['lang']['invoices']['text_vat'] . ' (' . $result['currency_abbr'] . ')</th>
+		<th style="width:15%">' . $data['lang']['invoices']['text_price'] . ' (' . $result['currency_abbr'] . ')</th>
 		</tr>
 		</thead>
 		<tbody>
 		' . $item . '
 		<tr class="total">
-		<td width="330" rowspan="6" colspan="3">' . $result['note'] . '<br><br>'.$bank_details.'</td>
-		<td width="180" colspan="2" align="right">' . $data['lang']['invoices']['text_sub_total'] . '</td>
-		<td width="200" colspan="2">' . $result['currency_abbr'] . ' ' . $result['subtotal'] . '</td>
+		<td class="total-note" rowspan="6" colspan="3" style="text-align: left;">' . $result['note'] . '<br><br>'.$bank_details.'</td>
+		<td  colspan="1" align="right">' . $data['lang']['invoices']['text_sub_total'] . '</td>
+		<td  colspan="2">' . $result['currency_abbr'] . ' ' . $result['subtotal'] . '</td>
 		</tr>
 		<tr class="total">
-		<td width="180" colspan="2" align="right">' . $data['lang']['invoices']['text_vat'] . '</td>
-		<td width="200" colspan="2">' . $result['currency_abbr'] . ' ' . $result['tax'] . '</td>
+		<td  colspan="1" align="right">' . $data['lang']['invoices']['text_vat'] . '</td>
+		<td  colspan="2">' . $result['currency_abbr'] . ' ' . $result['tax'] . '</td>
 		</tr>
 		<tr class="total">
-		<td width="180" colspan="2" align="right">' . $data['lang']['invoices']['text_discount'] . '</td>
-		<td width="200" colspan="2">' . $result['currency_abbr'] . ' ' . $result['discount_value'] . '</td>
+		<td  colspan="1" align="right">' . $data['lang']['invoices']['text_discount'] . '</td>
+		<td  colspan="2">' . $result['currency_abbr'] . ' ' . $result['discount_value'] . '</td>
 		</tr>
 		<tr class="total">
-		<td width="180" colspan="2" align="right">' . $data['lang']['invoices']['text_total'] . '</td>
-		<td width="200" colspan="2">' . $result['currency_abbr'] . ' ' . $result['amount'] . '</td>
+		<td colspan="1" align="right">' . $data['lang']['invoices']['text_total'] . '</td>
+		<td  colspan="2">' . $result['currency_abbr'] . ' ' . $result['amount'] . '</td>
 		</tr>
 		<tr class="total">
-		<td width="180" colspan="2" align="right">' . $data['lang']['invoices']['text_paid'] . '</td>
-		<td width="200" colspan="2">' . $result['currency_abbr'] . ' ' . $result['paid'] . '</td>
+		<td  colspan="1" align="right">' . $data['lang']['invoices']['text_paid'] . '</td>
+		<td  colspan="2">' . $result['currency_abbr'] . ' ' . $result['paid'] . '</td>
 		</tr>
 		<tr class="total" style="background-color: #f8f8f8;">
-		<td width="180" colspan="2" align="right">' . $data['lang']['invoices']['text_due'] . '</td>
-		<td width="200" colspan="2">' . $result['currency_abbr'] . ' ' . $result['due'] . '</td>
+		<td  colspan="1" align="right">' . $data['lang']['invoices']['text_due'] . '</td>
+		<td  colspan="2">' . $result['currency_abbr'] . ' ' . $result['due'] . '</td>
 		</tr>
 		<tr>
-		<td colspan="8">
+		<td colspan="4">
 		<p class="font-12">' . $data['lang']['invoices']['text_terms_Conditions'] . '</p>
 		<p class="font-16">' . $result['tc'] . '</p>
 		</td>

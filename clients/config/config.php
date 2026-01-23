@@ -10,7 +10,7 @@ define('SITEEMAIL', 'info@rnggaming.com');
 define('ADDRESS', 'Random Group F26, MOSTA TECHNOPARK MOSTA, MST3000, MALTA');
 
 /*Application Address*/
-define('DIR_ROUTE', 'index.php?route=');
+define('DIR_ROUTE', '/clients');
 define('DIR', 'C:/www/RNGportal/');
 define('DIR_CLIENTS', 'C:/www/RNGportal/clients/');
 define('DIR_APP', 'C:/www/RNGportal/clients/app/');

@@ -81,3 +81,4 @@ $settings = array(
 	'text_no' => 'NÃ£o',
 	'text_yes' => 'Sim'
 );
+

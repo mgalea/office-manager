@@ -73,6 +73,9 @@
             <li id="project-li">
                 <a href="<?php echo URL . DIR_ROUTE; ?>inventory"><i class="icon-layers"></i><span><?php echo $lang['common']['text_inventory']; ?></span></a>
             </li>
+            <li id="stock-li">
+                <a href="<?php echo URL . DIR_ROUTE; ?>stock"><i class="icon-drawer"></i><span><?php echo $lang['common']['text_stock']; ?></span></a>
+            </li>
             <li class="menu-title"><?php echo $lang['common']['text_sales']; ?></li>
             <li id="quotes-li">
                 <a href="<?php echo URL . DIR_ROUTE; ?>quotes"><i class="icon-calculator"></i><span><?php echo $lang['common']['text_quotes'] . '/' . $lang['common']['text_estimates']; ?></span></a>

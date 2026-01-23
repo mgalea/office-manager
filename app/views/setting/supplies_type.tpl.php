@@ -1,4 +1,4 @@
-<?php include (DIR.'app/views/common/header.tpl.php'); ?>
+﻿<?php include (DIR.'app/views/common/header.tpl.php'); ?>
 <script>
     $('#setting').show();
     $('#setting-li').addClass('active');</script>
@@ -17,7 +17,7 @@
         </div>
         <div class="panel-wrapper">
             <div class="table-container">
-                <table class="table table-bordered table-striped datatable-table" width="100%">
+                <table class="table table-dark table-striped datatable-table" width="100%">
                     <thead>
                         <tr class="table-heading">
                             <th class="table-srno">#</th>

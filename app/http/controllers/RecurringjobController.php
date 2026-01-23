@@ -66,7 +66,6 @@ class RecurringjobController extends Controller
 
 	public function createPDF($id)
 	{
-		require DIR_BUILDER.'libs/tcpdf/tcpdf.php';
 		/**
 		* Get all User data from DB using Invoice model 
 		**/
@@ -102,34 +101,6 @@ class RecurringjobController extends Controller
 		require DIR_BUILDER.'language/'.$info['language'].'/invoices.php';
 		$data['lang']['invoices'] = $invoices;
 
-		// create new PDF document
-		$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-
-		$pdf->SetCreator(PDF_CREATOR);
-		$pdf->SetAuthor($organization);
-		$pdf->SetTitle('Invoice | PDF');
-		$pdf->SetSubject($info['name'].' | Invoice');
-		$pdf->SetKeywords('Invoice PDF');
-		
-		$pdf->setPrintHeader(false);
-		$pdf->setPrintFooter(false);
-
-		$pdf->SetMargins(5, 0, 5);
-		$pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-		$pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-
-		$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
-		$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
-
-		if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
-			require_once(dirname(__FILE__).'/lang/eng.php');
-			$pdf->setLanguageArray($l);
-		}
-
-		$pdf->SetFont('dejavusans', '', 10);
-
-		// add a page
-		$pdf->AddPage();
 		$html = '<style>
 		.text-center {
 			text-align: center;
@@ -298,8 +269,19 @@ class RecurringjobController extends Controller
 		</div>
 		</div>';
 
-		$pdf->writeHTML($html, true, false, true, false, '');
-		$pdf->Output(DIR.'uploads/pdf/invoice-'.$id.'.pdf', 'F');
+		$options = new \Dompdf\Options();
+		$options->set('isRemoteEnabled', true);
+		$options->set('defaultFont', 'DejaVu Sans');
+
+		$dompdf = new \Dompdf\Dompdf($options);
+		$dompdf->loadHtml($html);
+		$dompdf->setBasePath(DIR . 'public/');
+		$paper = defined('PDF_PAGE_FORMAT') ? PDF_PAGE_FORMAT : 'A4';
+		$orientation = (defined('PDF_PAGE_ORIENTATION') && strtoupper(PDF_PAGE_ORIENTATION) === 'L') ? 'landscape' : 'portrait';
+		$dompdf->setPaper($paper, $orientation);
+		$dompdf->render();
+		$pdfData = $dompdf->output();
+		file_put_contents(DIR.'uploads/pdf/invoice-'.$id.'.pdf', $pdfData);
 	}
 	/**
 	* Invoice invoice mail method

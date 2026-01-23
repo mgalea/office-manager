@@ -12,7 +12,7 @@
                 <span class="panel-title-text"><?php echo $page_title; ?></span>
             </div>
             <div class="panel-action">
-                <a href="<?php echo URL.DIR_ROUTE.'inventory/add'; ?>" class="btn btn-success btn-sm"><i class="icon-plus mr-1"></i> <?php echo $lang['settings']['text_new_inventory_item']; ?></a>
+                <a href="<?php echo URL.DIR_ROUTE.'stock/add'; ?>" class="btn btn-success btn-sm"><i class="icon-plus mr-1"></i> <?php echo $lang['settings']['text_new_inventory_item']; ?></a>
             </div>
         </div>
         <div class="panel-wrapper">
@@ -35,8 +35,8 @@
                             <td><?php echo $value['location']; ?></td>
                             <td><?php echo $value['type']; ?></td>
                             <td class="table-action">
-                                <a href="<?php echo URL.DIR_ROUTE . 'inventory/edit&id=' .$value['id']; ?>" class="btn btn-info btn-circle btn-outline btn-outline-1x" data-toggle="tooltip" data-placement="top" title="<?php echo $lang['common']['text_edit']; ?>"><i class="icon-pencil"></i></a>
-                                <p class="btn btn-danger btn-circle btn-outline btn-outline-1x table-delete" data-toggle="tooltip" title="<?php echo $lang['common']['text_delete']; ?>"><i class="icon-trash"></i><input type="hidden" value="<?php echo $value['id'] ?>"></p>
+                                <a href="<?php echo URL.DIR_ROUTE . 'stock/edit&id=' .$value['id']; ?>" class="btn btn-success btn-icon mr-2" data-toggle="tooltip" data-placement="top" title="<?php echo $lang['common']['text_edit']; ?>"><i class="icon-pencil"></i></a>
+                                <span class="btn btn-warning btn-icon table-delete text-black" data-toggle="tooltip" title="<?php echo $lang['common']['text_delete']; ?>"><i class="icon-trash"></i><input type="hidden" value="<?php echo $value['id'] ?>"></span>
                             </td>
                         </tr>
                         <?php } } ?>
@@ -59,7 +59,7 @@
                 <p class="delete-card-ttl"><?php echo $lang['common']['text_are_you_sure_you_want_to_delete?']; ?></p>
             </div>
             <div class="modal-footer">
-                <form action="index.php?route=inventory/delete" class="delete-card-button" method="post">
+                <form action="index.php?route=stock/delete" class="delete-card-button" method="post">
                     <input type="hidden" value="" name="id">
                     <button type="submit" class="btn btn-danger" name="delete"><?php echo $lang['common']['text_delete']; ?></button>
                 </form>

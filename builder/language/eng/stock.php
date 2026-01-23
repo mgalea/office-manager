@@ -1,6 +1,6 @@
 <?php
 
-$inventory= array(
+$stock = array(
     'text_inventory_name' => 'Item',
 	'text_inventory_number' => 'Inv.No.',
 	'text_quantity' => 'Quantity',

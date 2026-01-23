@@ -15,7 +15,7 @@
             </div>
             <div class="panel-action">
 
-                <a href="<?php echo URL . DIR_ROUTE . 'bank/add'; ?>" class="btn btn-success btn-sm"><i class="icon-plus mr-1"></i> <?php echo $lang['bank']['text_new_account']; ?></a>
+                <a href="<?php echo URL . DIR_ROUTE . 'bank_account/add'; ?>" class="btn btn-success btn-sm"><i class="icon-plus mr-1"></i> <?php echo $lang['bank']['text_new_account']; ?></a>
             </div>
         </div>
         <div class="panel-wrapper">

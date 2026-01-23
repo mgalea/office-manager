@@ -13,7 +13,7 @@
             </div>
             <div class="panel-action">
                 <button type="submit" class="btn btn-info btn-icon" name="submit" data-toggle="tooltip" title="<?php echo $lang['common']['text_save']; ?>"><i class="far fa-save"></i></button>
-                <a href="<?php echo URL . DIR_ROUTE . 'clients'; ?>" class="btn btn-white btn-icon" data-toggle="tooltip" title="<?php echo $lang['common']['text_back_to_list']; ?>"><i class="fa fa-reply"></i></a>
+                <a href="<?php echo URL . DIR_ROUTE . 'bank_accounts'; ?>" class="btn btn-white btn-icon" data-toggle="tooltip" title="<?php echo $lang['common']['text_back_to_list']; ?>"><i class="fa fa-reply"></i></a>
             </div>
         </div>
         <div class="panel-wrapper p-3">

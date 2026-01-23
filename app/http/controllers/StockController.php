@@ -35,6 +35,7 @@ class StockController extends Controller
         $data['lang']['settings'] = $settings;
         require DIR_BUILDER . 'language/' . $data['info']['language'] . '/stock.php';
         $data['lang']['stock'] = $stock;
+        $data['lang']['inventory'] = $stock;
 
         /**
          * Get all User data from DB using User model 
@@ -74,6 +75,7 @@ class StockController extends Controller
         $data['lang']['settings'] = $settings;
         require DIR_BUILDER . 'language/' . $data['info']['language'] . '/stock.php';
         $data['lang']['stock'] = $stock;
+        $data['lang']['inventory'] = $stock;
 
         /**
          * Get all Stock data from DB using Stock model 
@@ -95,7 +97,7 @@ class StockController extends Controller
         $data['token'] = hash('sha512', TOKEN . TOKEN_SALT);
 
         /*Render User list view*/
-        $this->view->render('stock/stock_form.tpl', $data);
+        $this->view->render('stock/inventory_form.tpl', $data);
     }
     /**
      * Item index Edit method
@@ -124,6 +126,7 @@ class StockController extends Controller
         $data['lang']['settings'] = $settings;
         require DIR_BUILDER . 'language/' . $data['info']['language'] . '/stock.php';
         $data['lang']['stock'] = $stock;
+        $data['lang']['inventory'] = $stock;
 
         /**
          * Get all Stock data from DB using Stock model 
@@ -157,7 +160,7 @@ class StockController extends Controller
         $data['token'] = hash('sha512', TOKEN . TOKEN_SALT);
 
         /*Render User list view*/
-        $this->view->render('stock/stock_form.tpl', $data);
+        $this->view->render('stock/inventory_form.tpl', $data);
     }
 
     /**

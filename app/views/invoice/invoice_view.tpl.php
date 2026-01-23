@@ -42,7 +42,7 @@
 					<div class="col-md-10 text-right">
 						<div class="">
 							<a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#invoiceMail"><i class="icon-envelope mr-2"></i><?php echo $lang['invoices']['text_send_email']; ?></a>
-							<a href="<?php echo URL . DIR_ROUTE . 'invoice/pdf&id=' . $result['id']; ?>" class="btn btn-danger btn-sm" target="_blank"><i class="far fa-file-pdf mr-2"></i> <?php echo $lang['invoices']['text_pdf']; ?></a>
+							<a href="<?php echo URL . DIR_ROUTE . 'invoice/pdf?id=' . $result['id']; ?>" class="btn btn-danger btn-sm" target="_blank"><i class="far fa-file-pdf mr-2"></i> <?php echo $lang['invoices']['text_pdf']; ?></a>
 							<a href="<?php echo URL . DIR_ROUTE . 'invoice/print&id=' . $result['id']; ?>" class="btn btn-success btn-sm" target="_blank"><i class="icon-printer mr-2"></i><?php echo $lang['invoices']['text_print']; ?></a>
 							<a href="<?php echo URL . DIR_ROUTE . 'invoice/edit&id=' . $result['id']; ?>" class="btn btn-info btn-sm"><i class="icon-pencil mr-2"></i> <?php echo $lang['common']['text_edit']; ?></a>
 							<a class="btn btn-warning btn-sm" data-toggle="modal" data-target="#addPayment"><i class="icon-credit-card mr-2"></i> <?php echo $lang['invoices']['text_add_payment']; ?></a>

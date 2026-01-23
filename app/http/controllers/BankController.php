@@ -103,7 +103,7 @@ class BankController extends Controller
 	 **/
 	public function indexAdd()
 	{
-		if (!$this->commons->hasPermission('company/add')) {
+		if (!$this->commons->hasPermission('bank_account/add')) {
 			Not_foundController::show('403');
 			exit();
 		}
@@ -112,15 +112,30 @@ class BankController extends Controller
 		/**
 		 * Get all User data from DB using User model 
 		 **/
-		$data['result'] = NULL;
-		$data['types'] = $this->companyModel->getCompanyTypes();
-		$data['activity'] = $this->companyModel->getActivityTypes();
+		$data['result'] = array(
+			'name' => '',
+			'number' => '',
+			'currency' => '',
+			'type' => '',
+			'bank' => '',
+			'bank_branch' => '',
+			'sort_code' => '',
+			'iban' => '',
+			'swift' => '',
+			'last_updated' => date('Y-m-d'),
+			'remittance' => '1',
+			'status' => '1',
+			'id' => ''
+		);
+		$data['banks'] = $this->bankAccountModel->getBanks();
+		$data['types'] = $this->bankAccountModel->getAccountTypes();
+		$data['currencies'] = $this->bankAccountModel->getCurrencies();
 
 		/*Load Language File*/
 		require DIR_BUILDER . 'language/' . $data['info']['language'] . '/common.php';
 		$data['lang']['common'] = $lang;
-		require DIR_BUILDER . 'language/' . $data['info']['language'] . '/company.php';
-		$data['lang']['company'] = $company;
+		require DIR_BUILDER . 'language/' . $data['info']['language'] . '/bank.php';
+		$data['lang']['bank'] = $bank;
 
 		/* Set confirmation message if page submitted before */
 		if (isset($this->session->data['message'])) {
@@ -128,12 +143,12 @@ class BankController extends Controller
 			unset($this->session->data['message']);
 		}
 		/* Set page title */
-		$data['page_title'] = $data['lang']['common']['text_add'] . ' ' . $data['lang']['company']['text_company'];
-		$data['action'] = URL . DIR_ROUTE . 'company/action';
+		$data['page_title'] = $data['lang']['common']['text_add'] . ' ' . $data['lang']['bank']['text_account'];
+		$data['action'] = URL . DIR_ROUTE . 'bank_account/action';
 		$data['token'] = hash('sha512', TOKEN . TOKEN_SALT);
 
 		/*Render User list view*/
-		$this->view->render('company/company_form.tpl', $data);
+		$this->view->render('bank/bank_account_form.tpl', $data);
 	}
 	/**
 	 * Company index Edit method
